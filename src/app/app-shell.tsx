@@ -9,7 +9,7 @@ import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { CommandPalette } from '@/components/CommandPalette';
 import { CaseStudyGuide } from '@/components/CaseStudyGuide';
-import { CopilotProvider } from '@/lib/copilot/copilot-context';
+import { CopilotProvider, useCopilot } from '@/lib/copilot/copilot-context';
 import { CopilotDrawer } from '@/components/CopilotDrawer/CopilotDrawer';
 import styles from './layout.module.css';
 
@@ -18,6 +18,22 @@ function AppContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const { isOpen: copilotOpen, close: closeCopilot } = useCopilot();
+  const [caseStudyOpen, setCaseStudyOpen] = useState(true);
+
+  // When copilot opens (from any source), close case study
+  useEffect(() => {
+    if (copilotOpen) setCaseStudyOpen(false);
+  }, [copilotOpen]);
+
+  // Toggle case study; if opening, close copilot first
+  const handleCaseStudyToggle = useCallback(() => {
+    setCaseStudyOpen(prev => {
+      const next = !prev;
+      if (next) closeCopilot();
+      return next;
+    });
+  }, [closeCopilot]);
 
   const isLoginPage = pathname === '/login';
 
@@ -89,7 +105,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
         onClose={() => setCommandPaletteOpen(false)}
       />
       <CopilotDrawer />
-      <CaseStudyGuide />
+      <CaseStudyGuide isOpen={caseStudyOpen} onToggle={handleCaseStudyToggle} />
     </div>
   );
 }

@@ -6,7 +6,7 @@
 .tab {
   position: fixed;
   right: 0;
-  top: 40%;
+  top: 35%;
   transform: translateY(-50%);
   z-index: 89;
   writing-mode: vertical-rl;

@@ -182,22 +182,26 @@ const BADGE_CLASSES: Record<string, string> = {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function CaseStudyGuide() {
+interface CaseStudyGuideProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+export function CaseStudyGuide({ isOpen, onToggle }: CaseStudyGuideProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(true);
   const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
   // Keyboard shortcut: Cmd+Shift+G / Ctrl+Shift+G
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'g') {
         e.preventDefault();
-        setIsOpen(prev => !prev);
+        onToggle();
       }
     }
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [onToggle]);
 
   const toggleQuestion = useCallback((index: number) => {
     setExpandedQuestion(prev => (prev === index ? null : index));
@@ -258,7 +262,7 @@ export function CaseStudyGuide() {
     <>
       {/* Collapsed tab on right edge */}
       {!isOpen && (
-        <button className={styles.tab} onClick={() => setIsOpen(true)}>
+        <button className={styles.tab} onClick={onToggle}>
           <span className={styles.tabPulse} />
           Case Study Guide
         </button>
@@ -270,7 +274,7 @@ export function CaseStudyGuide() {
         <div className={styles.header}>
           <div className={styles.headerTop}>
             <span className={styles.title}>Case Study Guide</span>
-            <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
+            <button className={styles.closeButton} onClick={onToggle}>
               ✕
             </button>
           </div>
