@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Résumez les dépenses mensuelles par catégorie",
     "riskAlerts": "Y a-t-il des alertes de risque dont je devrais être informé ?",
     "thinking": "Réflexion en cours...",
-    "clearChat": "Effacer la conversation"
+    "clearChat": "Effacer la conversation",
+    "noMessages": "Demandez-moi n'importe quoi",
+    "contextLabel": "Contexte"
   },
   "agentStudio": {
     "title": "Agent Studio",

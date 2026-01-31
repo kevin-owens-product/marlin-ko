@@ -751,7 +751,9 @@
     "monthlySpendSummary": "Summarize monthly spend by category",
     "riskAlerts": "Are there any risk alerts I should know about?",
     "thinking": "Thinking...",
-    "clearChat": "Clear Chat"
+    "clearChat": "Clear Chat",
+    "noMessages": "Ask me anything",
+    "contextLabel": "Context"
   },
   "agentStudio": {
     "title": "Agent Studio",

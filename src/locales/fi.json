@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Yhteenveto kuukausikuluista kategorioittain",
     "riskAlerts": "Onko riskihälytyksiä, joista minun tulisi tietää?",
     "thinking": "Analysoidaan...",
-    "clearChat": "Tyhjennä keskustelu"
+    "clearChat": "Tyhjennä keskustelu",
+    "noMessages": "Kysy mitä tahansa",
+    "contextLabel": "Konteksti"
   },
   "agentStudio": {
     "title": "Agent Studio",

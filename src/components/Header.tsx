@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import { useLocale, useT } from '@/lib/i18n/locale-context';
+import { useCopilot } from '@/lib/copilot/copilot-context';
 import { SUPPORTED_LOCALES } from '@/lib/i18n/types';
 import type { Locale } from '@/lib/i18n/types';
 import styles from './Header.module.css';
@@ -58,6 +59,7 @@ export function Header({ onOpenCommandPalette }: HeaderProps) {
   const pathname = usePathname();
   const { user, logout, getUserInitials, getRoleColor } = useAuth();
   const { locale, setLocale } = useLocale();
+  const { toggle: toggleCopilot } = useCopilot();
   const t = useT();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
@@ -159,6 +161,10 @@ export function Header({ onOpenCommandPalette }: HeaderProps) {
           {notificationCount > 0 && (
             <span className={styles.notifBadge}>{notificationCount}</span>
           )}
+        </button>
+
+        <button className={styles.iconBtn} title={t('copilot.title')} onClick={toggleCopilot}>
+          {'\u2728'}
         </button>
 
         <div className={styles.avatarWrapper} ref={dropdownRef}>

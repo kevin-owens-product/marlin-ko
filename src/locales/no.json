@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Oppsummer manedlig forbruk per kategori",
     "riskAlerts": "Er det noen risikovarsler jeg bor kjenne til?",
     "thinking": "Tenker...",
-    "clearChat": "Tom samtale"
+    "clearChat": "Tom samtale",
+    "noMessages": "Spør meg om hva som helst",
+    "contextLabel": "Kontekst"
   },
   "agentStudio": {
     "title": "Agent Studio",

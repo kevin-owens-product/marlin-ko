@@ -9,6 +9,8 @@ import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { CommandPalette } from '@/components/CommandPalette';
 import { CaseStudyGuide } from '@/components/CaseStudyGuide';
+import { CopilotProvider } from '@/lib/copilot/copilot-context';
+import { CopilotDrawer } from '@/components/CopilotDrawer/CopilotDrawer';
 import styles from './layout.module.css';
 
 function AppContent({ children }: { children: React.ReactNode }) {
@@ -86,6 +88,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
       />
+      <CopilotDrawer />
       <CaseStudyGuide />
     </div>
   );
@@ -96,7 +99,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <LocaleProvider>
       <AuthProvider>
         <ToastProvider>
-          <AppContent>{children}</AppContent>
+          <CopilotProvider>
+            <AppContent>{children}</AppContent>
+          </CopilotProvider>
         </ToastProvider>
       </AuthProvider>
     </LocaleProvider>

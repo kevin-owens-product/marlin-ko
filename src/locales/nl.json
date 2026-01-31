@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Geef een samenvatting van maandelijkse uitgaven per categorie",
     "riskAlerts": "Zijn er risicowaarschuwingen waar ik van op de hoogte moet zijn?",
     "thinking": "Bezig met nadenken...",
-    "clearChat": "Chat wissen"
+    "clearChat": "Chat wissen",
+    "noMessages": "Vraag me alles",
+    "contextLabel": "Context"
   },
   "agentStudio": {
     "title": "Agent Studio",

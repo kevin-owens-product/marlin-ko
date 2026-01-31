@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Opsummer månedligt forbrug efter kategori",
     "riskAlerts": "Er der risikoadvarsler, jeg bør kende til?",
     "thinking": "Tænker...",
-    "clearChat": "Ryd chat"
+    "clearChat": "Ryd chat",
+    "noMessages": "Spørg mig om hvad som helst",
+    "contextLabel": "Kontekst"
   },
   "agentStudio": {
     "title": "Agent Studio",

@@ -738,7 +738,9 @@
     "monthlySpendSummary": "Sammanfatta månadens utgifter per kategori",
     "riskAlerts": "Finns det några riskvarningar jag bör känna till?",
     "thinking": "Analyserar...",
-    "clearChat": "Rensa chatt"
+    "clearChat": "Rensa chatt",
+    "noMessages": "Fråga mig vad som helst",
+    "contextLabel": "Kontext"
   },
   "agentStudio": {
     "title": "Agent Studio",
