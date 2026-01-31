@@ -1,0 +1,1242 @@
+/* ═══════════════════════════════════════════════════════════════
+   Agent Studio - AI Agent Management
+   IMP-001 FR1.3 Agent Transparency | ADR-001
+   ═══════════════════════════════════════════════════════════════ */
+
+.page {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #4E5969;
+  font-size: 0.875rem;
+}
+
+.headerBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(22, 93, 255, 0.06));
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.headerBadgeIcon {
+  font-size: 1.5rem;
+}
+
+.headerBadgeContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerBadgeLabel {
+  font-size: 0.65rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.headerBadgeValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8E51DA;
+}
+
+/* ── Tabs ──────────────────────────────────────────────────── */
+
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4E5969;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: #1D2129;
+  background: rgba(229, 230, 235, 0.3);
+}
+
+.tabActive {
+  color: #165DFF;
+  border-bottom-color: #165DFF;
+}
+
+/* ── Stats Row ─────────────────────────────────────────────── */
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin-bottom: 0.4rem;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.statChange {
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+}
+
+.statChangeUp {
+  color: #23C343;
+}
+
+.statChangeDown {
+  color: #F76560;
+}
+
+/* ── Section / Card ────────────────────────────────────────── */
+
+.section {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionTitleBadge {
+  font-size: 0.7rem;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+/* ── Pipeline Visualization ────────────────────────────────── */
+
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.pipelineStage {
+  flex: 1;
+  min-width: 150px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #E5E6EB;
+  padding: 1rem;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.pipelineStage:first-child {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.pipelineStage:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.pipelineStage:hover {
+  border-color: #165DFF;
+}
+
+.pipelineArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E5E6EB;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.pipelineStageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.pipelineStageName {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.pipelineStatusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pipelineStatusActive {
+  background: #23C343;
+  box-shadow: 0 0 6px rgba(35, 195, 67, 0.6);
+  animation: pulse 2s infinite;
+}
+
+.pipelineStatusIdle {
+  background: #FF9A2E;
+  box-shadow: 0 0 6px rgba(255, 154, 46, 0.4);
+}
+
+.pipelineStatusError {
+  background: #F76560;
+  box-shadow: 0 0 6px rgba(247, 101, 96, 0.6);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pipelineMetric {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+}
+
+.pipelineMetricLabel {
+  font-size: 0.65rem;
+  color: #86909C;
+}
+
+.pipelineMetricValue {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+}
+
+/* ── Agent Health Grid ─────────────────────────────────────── */
+
+.agentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.agentCard {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.agentCard:hover {
+  border-color: #165DFF;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.agentCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.agentCardNameRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.agentCardIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.agentCardNameBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.agentCardName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.agentCardAutonomy {
+  font-size: 0.65rem;
+  color: #4E5969;
+}
+
+.agentCardStatusBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.agentCardStatusActive {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.agentCardStatusIdle {
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.agentCardStatusError {
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.agentStatusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.agentDotActive {
+  background: #23C343;
+  box-shadow: 0 0 4px rgba(35, 195, 67, 0.6);
+  animation: pulse 2s infinite;
+}
+
+.agentDotIdle {
+  background: #FF9A2E;
+  box-shadow: 0 0 4px rgba(255, 154, 46, 0.4);
+}
+
+.agentDotError {
+  background: #F76560;
+  box-shadow: 0 0 4px rgba(247, 101, 96, 0.6);
+  animation: pulse 1.5s infinite;
+}
+
+.agentCardMetrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.agentMetric {
+  display: flex;
+  flex-direction: column;
+}
+
+.agentMetricLabel {
+  font-size: 0.6rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.agentMetricValue {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.agentMetricValueGreen {
+  color: #23C343;
+}
+
+/* ── Mini Sparkline ────────────────────────────────────────── */
+
+.sparklineRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+}
+
+.sparklineBar {
+  width: 4px;
+  border-radius: 1px;
+  background: #165DFF;
+  transition: height 0.3s;
+}
+
+/* ── Agent Card Footer ─────────────────────────────────────── */
+
+.agentCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #E5E6EB;
+}
+
+.agentError {
+  font-size: 0.7rem;
+  color: #F76560;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agentNoError {
+  font-size: 0.7rem;
+  color: #86909C;
+}
+
+/* ── Toggle Switch ─────────────────────────────────────────── */
+
+.toggleSwitch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggleInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: #E5E6EB;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.toggleSlider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: #4E5969;
+  border-radius: 50%;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.toggleInput:checked + .toggleSlider {
+  background: rgba(35, 195, 67, 0.4);
+}
+
+.toggleInput:checked + .toggleSlider::before {
+  transform: translateX(16px);
+  background: #23C343;
+}
+
+/* ── Decisions Tab ─────────────────────────────────────────── */
+
+.filtersRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.filterLabel {
+  font-size: 0.65rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.filterSelect {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  color: #1D2129;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #165DFF;
+}
+
+.decisionTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.decisionTable th {
+  font-size: 0.7rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #E5E6EB;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.decisionTable td {
+  font-size: 0.8rem;
+  color: #1D2129;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.4);
+  vertical-align: top;
+}
+
+.decisionTable tr:last-child td {
+  border-bottom: none;
+}
+
+.decisionRow {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.decisionRow:hover {
+  background: rgba(229, 230, 235, 0.3);
+}
+
+.decisionRowExpanded {
+  background: rgba(22, 93, 255, 0.03);
+}
+
+.confidenceBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.confidenceBarTrack {
+  width: 50px;
+  height: 4px;
+  background: #E5E6EB;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.confidenceBarFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.confidenceValue {
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 35px;
+}
+
+.reasoningText {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #4E5969;
+  font-size: 0.75rem;
+}
+
+.outcomeBadge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.outcomeExecuted {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.outcomeQueued {
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.outcomeBlocked {
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.overrideYes {
+  color: #FF9A2E;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.overrideNo {
+  color: #86909C;
+  font-size: 0.8rem;
+}
+
+/* ── Decision Detail Panel ─────────────────────────────────── */
+
+.detailPanel {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.detailPanelCell {
+  padding: 0 !important;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.4) !important;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detailSectionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #165DFF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.detailReasoning {
+  font-size: 0.8rem;
+  color: #4E5969;
+  line-height: 1.5;
+}
+
+.factorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.factorName {
+  font-size: 0.75rem;
+  color: #1D2129;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.factorBarOuter {
+  flex: 1;
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.factorBarInner {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.factorWeight {
+  font-size: 0.65rem;
+  color: #86909C;
+  width: 30px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.factorScore {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #1D2129;
+  width: 35px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.alternativesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.alternativeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.6rem;
+  background: rgba(229, 230, 235, 0.3);
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+}
+
+.alternativeAction {
+  color: #4E5969;
+}
+
+.alternativeConf {
+  color: #86909C;
+  font-weight: 500;
+}
+
+.pastDecisionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pastDecisionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(229, 230, 235, 0.3);
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+}
+
+.pastDecisionId {
+  color: #165DFF;
+  font-weight: 500;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.pastDecisionAction {
+  color: #4E5969;
+  flex: 1;
+}
+
+.pastDecisionOutcome {
+  font-weight: 500;
+}
+
+.overrideButton {
+  margin-top: 1rem;
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+  border: 1px solid rgba(247, 101, 96, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.overrideButton:hover {
+  background: rgba(247, 101, 96, 0.25);
+}
+
+/* ── Configuration Tab ─────────────────────────────────────── */
+
+.configGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.configCard {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.configCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.configCardIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.configCardName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.configRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.configRow:last-child {
+  margin-bottom: 0;
+}
+
+.configLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.configSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #E5E6EB;
+  outline: none;
+  cursor: pointer;
+}
+
+.configSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #165DFF;
+  cursor: pointer;
+  border: 2px solid #F7F8FA;
+}
+
+.configSlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #165DFF;
+  cursor: pointer;
+  border: 2px solid #F7F8FA;
+}
+
+.configSliderValue {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #165DFF;
+  text-align: right;
+}
+
+.configToggleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.configSelect {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  color: #1D2129;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.configSelect:focus {
+  outline: none;
+  border-color: #165DFF;
+}
+
+.configInput {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  color: #1D2129;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.configInput:focus {
+  outline: none;
+  border-color: #165DFF;
+}
+
+/* ── Global Settings ───────────────────────────────────────── */
+
+.globalSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.globalSettingCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #E5E6EB;
+  border-radius: 0.5rem;
+}
+
+.globalSettingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.globalSettingLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1D2129;
+}
+
+.globalSettingDescription {
+  font-size: 0.7rem;
+  color: #86909C;
+}
+
+.globalSettingControl {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.globalSettingValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #165DFF;
+}
+
+/* ── Audit Tab ─────────────────────────────────────────────── */
+
+.auditSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.auditSummaryCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.auditSummaryValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.auditSummaryLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+}
+
+.auditTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.auditTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.auditTable th {
+  font-size: 0.7rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #E5E6EB;
+  font-weight: 600;
+}
+
+.auditTable td {
+  font-size: 0.8rem;
+  color: #1D2129;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.4);
+}
+
+.auditTable tr:last-child td {
+  border-bottom: none;
+}
+
+.accuracyHigh {
+  color: #23C343;
+  font-weight: 600;
+}
+
+.accuracyMedium {
+  color: #FF9A2E;
+  font-weight: 600;
+}
+
+.errorLogList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.errorLogItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: rgba(247, 101, 96, 0.05);
+  border-left: 3px solid #F76560;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.errorLogTime {
+  font-size: 0.65rem;
+  color: #86909C;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 75px;
+}
+
+.errorLogAgent {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #FF9A2E;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
+.errorLogMessage {
+  font-size: 0.75rem;
+  color: #1D2129;
+  line-height: 1.3;
+}
+
+/* ── Compliance Report ─────────────────────────────────────── */
+
+.complianceReport {
+  background: linear-gradient(135deg, rgba(35, 195, 67, 0.06), rgba(35, 195, 67, 0.02));
+  border: 1px solid rgba(35, 195, 67, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.complianceReportHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.complianceReportIcon {
+  font-size: 1.25rem;
+}
+
+.complianceReportTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #23C343;
+}
+
+.complianceReportText {
+  font-size: 0.85rem;
+  color: #4E5969;
+  line-height: 1.6;
+}
+
+.complianceReportChecks {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.complianceCheck {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #23C343;
+}
+
+.complianceCheckIcon {
+  font-size: 0.9rem;
+}
+
+/* ── Export Buttons ─────────────────────────────────────────── */
+
+.exportRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.exportButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  border: 1px solid #E5E6EB;
+  background: #F7F8FA;
+  color: #1D2129;
+}
+
+.exportButton:hover {
+  background: #E5E6EB;
+  border-color: #165DFF;
+}
+
+.exportButtonIcon {
+  font-size: 1rem;
+}
+
+/* ── Scrollbar Styling ─────────────────────────────────────── */
+
+.errorLogList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.errorLogList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.errorLogList::-webkit-scrollbar-thumb {
+  background: #E5E6EB;
+  border-radius: 2px;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 1200px) {
+  .agentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .configGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .agentGrid {
+    grid-template-columns: 1fr;
+  }
+  .configGrid {
+    grid-template-columns: 1fr;
+  }
+  .auditTwoCol {
+    grid-template-columns: 1fr;
+  }
+  .globalSettingsGrid {
+    grid-template-columns: 1fr;
+  }
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+  .auditSummaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,75 @@
+.appShell {
+  display: flex;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #1D2129;
+}
+
+.mainArea {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.2s ease;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #F7F8FA;
+  animation: contentFadeIn 0.35s ease-out;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loadingScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.loadingSpinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinnerIcon {
+  width: 40px;
+  height: 40px;
+  background: #165DFF;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.spinnerIcon span {
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.spinnerText {
+  font-size: 0.875rem;
+  color: #4E5969;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}

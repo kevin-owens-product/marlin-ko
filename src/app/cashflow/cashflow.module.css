@@ -1,0 +1,52 @@
+.container { padding: 2rem; max-width: 1400px; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.header p { font-size: 0.875rem; color: #4E5969; margin-bottom: 2rem; }
+.kpiGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.kpiCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.kpiLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.kpiValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
+.kpiSub { font-size: 0.75rem; margin-top: 0.25rem; }
+.kpiUp { color: #23C343; }
+.kpiDown { color: #F76560; }
+.kpiNeutral { color: #4E5969; }
+.section { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.chartArea { display: flex; align-items: flex-end; gap: 6px; height: 220px; padding: 1rem 0; }
+.weekCol { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; height: 100%; justify-content: flex-end; }
+.barGroup { display: flex; gap: 3px; align-items: flex-end; width: 100%; justify-content: center; }
+.barInflow { width: 14px; background: #23C343; border-radius: 2px 2px 0 0; }
+.barOutflow { width: 14px; background: #F76560; border-radius: 2px 2px 0 0; }
+.weekLabel { font-size: 0.625rem; color: #4E5969; margin-top: 6px; white-space: nowrap; }
+.legend { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E5E6EB; }
+.legendItem { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #4E5969; }
+.legendDot { width: 10px; height: 10px; border-radius: 2px; }
+.dotInflow { background: #23C343; }
+.dotOutflow { background: #F76560; }
+.dotNet { background: #165DFF; }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 0.75rem 1rem; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #4E5969; border-bottom: 1px solid #E5E6EB; font-weight: 600; }
+.table td { padding: 0.75rem 1rem; font-size: 0.8125rem; color: #1D2129; border-bottom: 1px solid rgba(229, 230, 235, 0.5); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
+.badge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; }
+.badgeDue { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.badgeOverdue { background: rgba(247, 101, 96, 0.15); color: #F76560; }
+.badgeUpcoming { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.badgePaid { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.aiCard { background: rgba(22, 93, 255, 0.04); border: 1px solid rgba(22, 93, 255, 0.1); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.aiHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.aiIcon { width: 28px; height: 28px; background: rgba(22, 93, 255, 0.1); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; }
+.aiTitle { font-size: 0.9375rem; font-weight: 600; color: #1D2129; }
+.aiInsight { background: rgba(255, 255, 255, 0.5); border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 1rem; margin-bottom: 0.75rem; }
+.aiInsight:last-child { margin-bottom: 0; }
+.aiInsightTitle { font-size: 0.8125rem; font-weight: 600; color: #1D2129; margin-bottom: 0.375rem; }
+.aiInsightDesc { font-size: 0.75rem; color: #4E5969; line-height: 1.5; }
+.highlight { color: #165DFF; font-weight: 600; }
+.wcMetrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.wcCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 1rem; text-align: center; }
+.wcValue { font-size: 1.25rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.wcLabel { font-size: 0.75rem; color: #4E5969; }
+.wcGood { color: #23C343; }
+.wcWarn { color: #FF9A2E; }

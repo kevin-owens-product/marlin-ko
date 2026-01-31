@@ -1,0 +1,923 @@
+.container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background: #165DFF;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoIcon span {
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.logoTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin: 0;
+}
+
+/* Progress Bar */
+.progressSection {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 2rem;
+}
+
+.stepsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.stepDot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #F7F8FA;
+  border: 2px solid #E5E6EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4E5969;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.stepDotActive {
+  background-color: #165DFF;
+  border-color: #165DFF;
+  color: white;
+}
+
+.stepDotCompleted {
+  background-color: #23C343;
+  border-color: #23C343;
+  color: white;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 4px;
+  background-color: #F7F8FA;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #165DFF, #23C343);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.stepLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.stepLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-align: center;
+  width: 80px;
+}
+
+.stepLabelActive {
+  color: #165DFF;
+  font-weight: 600;
+}
+
+.stepLabelCompleted {
+  color: #23C343;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 900px;
+  background-color: #F7F8FA;
+  border-radius: 12px;
+  padding: 2.5rem;
+  border: 1px solid #E5E6EB;
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin: 0 0 0.5rem 0;
+}
+
+.stepDescription {
+  font-size: 0.9375rem;
+  color: #4E5969;
+  margin: 0 0 2rem 0;
+  line-height: 1.5;
+}
+
+/* Form Elements */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGridFull {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4E5969;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 8px;
+  color: #1D2129;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #165DFF;
+}
+
+.input::placeholder {
+  color: #86909C;
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 8px;
+  color: #1D2129;
+  font-size: 0.875rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  box-sizing: border-box;
+}
+
+.select:focus {
+  border-color: #165DFF;
+}
+
+/* Step 2: Try It Now */
+.tryItSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.uploadZone {
+  border: 2px dashed #E5E6EB;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #ffffff;
+}
+
+.uploadZone:hover {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.uploadZoneActive {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.uploadIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.uploadTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 0.25rem 0;
+}
+
+.uploadSubtitle {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin: 0;
+}
+
+.uploadFormats {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin: 0.75rem 0 0 0;
+}
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #E5E6EB;
+}
+
+.orText {
+  font-size: 0.75rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.emailForward {
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emailIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.emailInfo {
+  flex: 1;
+}
+
+.emailLabel {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin: 0 0 0.25rem 0;
+}
+
+.emailAddress {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #165DFF;
+  margin: 0;
+  font-family: monospace;
+}
+
+.copyBtn {
+  padding: 0.5rem 1rem;
+  background-color: #E5E6EB;
+  color: #1D2129;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copyBtn:hover {
+  background-color: #86909C;
+}
+
+/* Extraction Preview */
+.extractionPreview {
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.previewTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 0.25rem 0;
+}
+
+.previewSubtitle {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin: 0 0 1.25rem 0;
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.previewField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.previewFieldLabel {
+  font-size: 0.75rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.previewFieldValue {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.confidenceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background-color: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+  margin-top: 0.75rem;
+}
+
+/* Step 3: Connect ERP */
+.erpGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.erpCard {
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.erpCard:hover {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.erpCardConnected {
+  border-color: #23C343;
+  background-color: rgba(35, 195, 67, 0.08);
+}
+
+.erpLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+}
+
+.erpName {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0;
+}
+
+.erpDesc {
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.connectBtn {
+  padding: 0.5rem 1.25rem;
+  background-color: #165DFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: auto;
+}
+
+.connectBtn:hover {
+  background-color: #0E42D2;
+}
+
+.connectedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 1rem;
+  background-color: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+/* Step 4: Import Vendors */
+.vendorSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.vendorUpload {
+  border: 2px dashed #E5E6EB;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #ffffff;
+}
+
+.vendorUpload:hover {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.vendorManualForm {
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.manualFormTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 1rem 0;
+}
+
+.manualFormRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.addBtn {
+  padding: 0.75rem 1.25rem;
+  background-color: #165DFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.addBtn:hover {
+  background-color: #0E42D2;
+}
+
+.vendorTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vendorTable th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.vendorTable td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #1D2129;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.dedupBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background-color: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.dedupBadgeWarning {
+  background-color: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+/* Step 5: Workflows */
+.workflowGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.workflowCard {
+  background-color: #ffffff;
+  border: 2px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.workflowCard:hover {
+  border-color: #86909C;
+}
+
+.workflowCardSelected {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.workflowHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.workflowIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+}
+
+.workflowName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0;
+}
+
+.workflowDesc {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.workflowWhen {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid #E5E6EB;
+}
+
+.workflowWhen strong {
+  color: #4E5969;
+}
+
+.selectedIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: #165DFF;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Step 6: Success */
+.successSection {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.successAnimation {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.successTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin: 0 0 0.5rem 0;
+}
+
+.successSubtitle {
+  font-size: 1rem;
+  color: #4E5969;
+  margin: 0 0 2rem 0;
+}
+
+.roiCard {
+  background: linear-gradient(135deg, rgba(22, 93, 255, 0.06), rgba(35, 195, 67, 0.06));
+  border: 1px solid rgba(22, 93, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.roiTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 1rem 0;
+}
+
+.roiMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.roiMetric {
+  text-align: center;
+}
+
+.roiMetricValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #23C343;
+  margin: 0;
+}
+
+.roiMetricLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin: 0.25rem 0 0 0;
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.quickAction {
+  background-color: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quickAction:hover {
+  border-color: #165DFF;
+  background-color: #F2F3F5;
+}
+
+.quickActionIcon {
+  font-size: 1.5rem;
+}
+
+.quickActionLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0;
+}
+
+.quickActionDesc {
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin: 0;
+}
+
+/* Navigation */
+.navigation {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.backBtn {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid #E5E6EB;
+  color: #4E5969;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backBtn:hover {
+  border-color: #86909C;
+  color: #1D2129;
+}
+
+.backBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skipBtn {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: none;
+  color: #86909C;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.skipBtn:hover {
+  color: #4E5969;
+}
+
+.nextBtn {
+  padding: 0.75rem 2rem;
+  background-color: #165DFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nextBtn:hover {
+  background-color: #0E42D2;
+}
+
+.finishBtn {
+  padding: 0.75rem 2rem;
+  background: #165DFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.finishBtn:hover {
+  opacity: 0.9;
+}
+
+/* Connecting Modal Overlay */
+.connectingOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.connectingModal {
+  background-color: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #E5E6EB;
+  border-top-color: #165DFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.connectingText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 0.5rem 0;
+}
+
+.connectingSubtext {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin: 0;
+}
+
+/* Headline badge */
+.headlineBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background-color: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}

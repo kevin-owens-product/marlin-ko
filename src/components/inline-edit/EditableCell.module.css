@@ -1,0 +1,40 @@
+.cellInput {
+  width: 100%;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid #C9CDD4;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  color: #1D2129;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.cellInput:focus {
+  border-color: #165DFF;
+  box-shadow: 0 0 0 2px rgba(22, 93, 255, 0.15);
+}
+
+.cellSelect {
+  width: 100%;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid #C9CDD4;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  color: #1D2129;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.cellSelect:focus {
+  border-color: #165DFF;
+  box-shadow: 0 0 0 2px rgba(22, 93, 255, 0.15);
+}
+
+.displayText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+}

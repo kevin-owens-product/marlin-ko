@@ -1,0 +1,502 @@
+.page {
+  padding: 2rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4E5969;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #1D2129;
+}
+
+.invoiceHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+}
+
+.invoiceHeaderLeft h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.5rem;
+}
+
+.invoiceHeaderMeta {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.875rem;
+  color: #4E5969;
+}
+
+.invoiceHeaderMeta span {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.invoiceHeaderRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.invoiceAmount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.invoiceAmountCurrency {
+  font-size: 1rem;
+  color: #4E5969;
+  margin-left: 0.25rem;
+}
+
+.badgeApproved {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.twoColumn {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 1.5rem;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.cardHeader {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #E5E6EB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.cardBody {
+  padding: 1.25rem;
+}
+
+.docPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  border: 2px dashed #E5E6EB;
+  color: #86909C;
+  font-size: 0.875rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.docPreviewIcon {
+  font-size: 2.5rem;
+  color: #86909C;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fieldValue {
+  font-size: 0.875rem;
+  color: #1D2129;
+  font-weight: 500;
+}
+
+.lineItemsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lineItemsTable th {
+  padding: 0.625rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+  background: #ffffff;
+}
+
+.lineItemsTable td {
+  padding: 0.625rem 1rem;
+  font-size: 0.8125rem;
+  color: #1D2129;
+  border-bottom: 1px solid #F7F8FA;
+}
+
+.lineItemsTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lineItemsTable tfoot td {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  border-top: 1px solid #E5E6EB;
+}
+
+.glCode {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.375rem;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  border-radius: 0.25rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 0;
+  width: 2px;
+  background: #E5E6EB;
+}
+
+.timelineItem:last-child .timelineLine {
+  display: none;
+}
+
+.timelineDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.timelineDotComplete {
+  background: rgba(35, 195, 67, 0.2);
+  color: #23C343;
+  border: 2px solid #23C343;
+}
+
+.timelineDotActive {
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+  border: 2px solid #165DFF;
+}
+
+.timelineDotPending {
+  background: #F7F8FA;
+  color: #86909C;
+  border: 2px solid #E5E6EB;
+}
+
+.timelineContent {
+  flex: 1;
+}
+
+.timelineTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.125rem;
+}
+
+.timelineTime {
+  font-size: 0.75rem;
+  color: #86909C;
+}
+
+.timelineConfidence {
+  font-size: 0.75rem;
+  color: #23C343;
+  margin-top: 0.125rem;
+}
+
+.decisionLog {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.decisionItem {
+  padding: 0.75rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  border-left: 3px solid #165DFF;
+}
+
+.decisionAgent {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #165DFF;
+  margin-bottom: 0.25rem;
+}
+
+.decisionText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+  line-height: 1.4;
+}
+
+.decisionTime {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.25rem;
+}
+
+.approvalStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.approver {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid #F7F8FA;
+}
+
+.approver:last-child {
+  border-bottom: none;
+}
+
+.approverInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.approverName {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #1D2129;
+}
+
+.approverRole {
+  font-size: 0.75rem;
+  color: #86909C;
+}
+
+.approverBadge {
+  font-size: 0.75rem;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.approverApproved {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.approverPending {
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btnApprove {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  background: #23C343;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnApprove:hover {
+  background: #00B42A;
+}
+
+.btnReject {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  background: transparent;
+  color: #F76560;
+  border: 1px solid #F76560;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnReject:hover {
+  background: rgba(247, 101, 96, 0.1);
+}
+
+.btnEscalate {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  background: transparent;
+  color: #FF9A2E;
+  border: 1px solid #FF9A2E;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnEscalate:hover {
+  background: rgba(255, 154, 46, 0.1);
+}
+
+.notesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.noteItem {
+  padding: 0.75rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+}
+
+.noteAuthor {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+  margin-bottom: 0.25rem;
+}
+
+.noteText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+  line-height: 1.4;
+}
+
+.noteTime {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.375rem;
+}
+
+.noteInput {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.noteTextarea {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.5rem;
+  color: #1D2129;
+  font-size: 0.8125rem;
+  resize: none;
+  outline: none;
+  min-height: 2.5rem;
+}
+
+.noteTextarea:focus {
+  border-color: #165DFF;
+}
+
+.noteSubmitBtn {
+  padding: 0.5rem 1rem;
+  background: #165DFF;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.noteSubmitBtn:hover {
+  background: #0E42D2;
+}

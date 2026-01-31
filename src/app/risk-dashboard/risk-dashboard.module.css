@@ -1,0 +1,973 @@
+/* ============================================================
+   Fire Station Risk Dashboard — PRD-007 Fraud & Risk Detection
+   CSS Modules  |  Light Theme  |  No Tailwind
+   ============================================================ */
+
+/* ---------- layout ---------- */
+.page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #1D2129;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 32px 40px 64px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fireIcon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #4E5969;
+  margin-top: 2px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #23C343;
+  font-weight: 500;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #23C343;
+  border-radius: 50%;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(35, 195, 67, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(35, 195, 67, 0); }
+}
+
+.refreshBtn {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  color: #1D2129;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.refreshBtn:hover {
+  background: #E5E6EB;
+}
+
+/* ---------- sections ---------- */
+.section {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionCritical {
+  composes: section;
+  border-color: #F76560;
+  box-shadow: 0 0 20px rgba(247, 101, 96, 0.06);
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionIcon {
+  font-size: 18px;
+}
+
+.sectionBadge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+.badgeRed {
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.badgeAmber {
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.badgeGreen {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.badgeBlue {
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.badgePurple {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8E51DA;
+}
+
+/* ---------- top row: score + KPIs ---------- */
+.topRow {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* risk score ring */
+.scoreCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreRing {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.scoreRingSvg {
+  width: 180px;
+  height: 180px;
+  transform: rotate(-90deg);
+}
+
+.scoreTrack {
+  fill: none;
+  stroke: #E5E6EB;
+  stroke-width: 12;
+}
+
+.scoreArc {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.scoreCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreValue {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.scoreMax {
+  font-size: 14px;
+  color: #4E5969;
+  margin-top: 2px;
+}
+
+.scoreLabel {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scoreTrend {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #4E5969;
+}
+
+.trendUp {
+  color: #23C343;
+}
+
+/* KPIs */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.kpiCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kpiLabel {
+  font-size: 12px;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.kpiValue {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.kpiSub {
+  font-size: 12px;
+  color: #4E5969;
+}
+
+.kpiTrend {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ---------- active threats ---------- */
+.threatList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.threatCard {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 90px 1fr 80px 150px;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.15s;
+}
+
+.threatCard:hover {
+  border-color: #86909C;
+}
+
+.severityBadge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.severityCritical {
+  composes: severityBadge;
+  background: rgba(247, 101, 96, 0.2);
+  color: #F76560;
+  animation: criticalPulse 2s ease-in-out infinite;
+}
+
+@keyframes criticalPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(247, 101, 96, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(247, 101, 96, 0); }
+}
+
+.severityHigh {
+  composes: severityBadge;
+  background: rgba(255, 154, 46, 0.2);
+  color: #FF9A2E;
+}
+
+.threatInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.threatType {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.threatRef {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.threatDesc {
+  font-size: 13px;
+  color: #4E5969;
+}
+
+.threatScore {
+  text-align: center;
+}
+
+.threatScoreVal {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.threatScoreLabel {
+  font-size: 10px;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.threatActions {
+  display: flex;
+  gap: 6px;
+}
+
+.btnInvestigate,
+.btnApprove,
+.btnBlock {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.btnInvestigate {
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.btnApprove {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.btnBlock {
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.btnInvestigate:hover,
+.btnApprove:hover,
+.btnBlock:hover {
+  opacity: 0.8;
+}
+
+/* ---------- duplicate detection ---------- */
+.dupList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dupCard {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.dupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.dupConfidence {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dupMatchedFields {
+  display: flex;
+  gap: 6px;
+}
+
+.dupField {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+.dupComparison {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-bottom: 12px;
+}
+
+.dupInvoice {
+  background: #F7F8FA;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dupInvoiceLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #4E5969;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.dupInvoiceId {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dupInvoiceDetail {
+  font-size: 12px;
+  color: #4E5969;
+  line-height: 1.6;
+}
+
+.dupVs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #86909C;
+  font-weight: 700;
+}
+
+.dupActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btnConfirmDup,
+.btnNotDup {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btnConfirmDup {
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.btnNotDup {
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.btnConfirmDup:hover,
+.btnNotDup:hover {
+  opacity: 0.8;
+}
+
+/* ---------- bank verification ---------- */
+.bankSubSection {
+  margin-bottom: 24px;
+}
+
+.bankSubSection:last-child {
+  margin-bottom: 0;
+}
+
+.subTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #4E5969;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #86909C;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.table td {
+  font-size: 13px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(229, 230, 235, 0.25);
+}
+
+.statusBadge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.statusVerified {
+  composes: statusBadge;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.statusPending {
+  composes: statusBadge;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.statusFailed {
+  composes: statusBadge;
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.statusCleared {
+  composes: statusBadge;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.statusInvestigating {
+  composes: statusBadge;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+/* ---------- anomaly detection ---------- */
+.anomalyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.anomalySubSection {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.anomalySubFull {
+  composes: anomalySubSection;
+  grid-column: 1 / -1;
+}
+
+.anomalySubTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4E5969;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.anomalyItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.4);
+  font-size: 13px;
+}
+
+.anomalyItem:last-child {
+  border-bottom: none;
+}
+
+.anomalyDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.anomalyInfo {
+  flex: 1;
+}
+
+.anomalyVendor {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.anomalyDetail {
+  font-size: 12px;
+  color: #4E5969;
+  margin-top: 2px;
+}
+
+.anomalyDeviation {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.benfordFlag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ---------- risk heatmap ---------- */
+.heatmapGrid {
+  display: grid;
+  grid-template-columns: 180px repeat(4, 1fr);
+  gap: 4px;
+}
+
+.heatmapHeader {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 8px;
+  color: #4E5969;
+}
+
+.heatmapRowLabel {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.heatmapCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 48px;
+  transition: transform 0.15s;
+}
+
+.heatmapCell:hover {
+  transform: scale(1.05);
+}
+
+.heatCritical {
+  composes: heatmapCell;
+  background: rgba(247, 101, 96, 0.2);
+  color: #F76560;
+}
+
+.heatHigh {
+  composes: heatmapCell;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.heatMedium {
+  composes: heatmapCell;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.heatLow {
+  composes: heatmapCell;
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+}
+
+.heatEmpty {
+  composes: heatmapCell;
+  background: rgba(229, 230, 235, 0.2);
+  color: #86909C;
+}
+
+/* ---------- investigation queue ---------- */
+.investigationTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.investigationTable th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #86909C;
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.investigationTable td {
+  font-size: 13px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.investigationTable tr:last-child td {
+  border-bottom: none;
+}
+
+.investigationTable tr:hover td {
+  background: rgba(229, 230, 235, 0.25);
+}
+
+.priorityCritical {
+  color: #F76560;
+  font-weight: 600;
+}
+
+.priorityHigh {
+  color: #FF9A2E;
+  font-weight: 600;
+}
+
+.priorityMedium {
+  color: #165DFF;
+  font-weight: 600;
+}
+
+.priorityLow {
+  color: #23C343;
+  font-weight: 600;
+}
+
+.statusOpen {
+  composes: statusBadge;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.statusInProgress {
+  composes: statusBadge;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.statusEscalated {
+  composes: statusBadge;
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.btnViewCase {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  transition: opacity 0.15s;
+}
+
+.btnViewCase:hover {
+  opacity: 0.8;
+}
+
+/* ---------- monthly trends bar chart ---------- */
+.trendsGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.trendMonth {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trendLabel {
+  font-size: 12px;
+  color: #4E5969;
+  text-align: center;
+  font-weight: 500;
+}
+
+.trendBars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trendBarWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trendBarTrack {
+  flex: 1;
+  height: 14px;
+  background: rgba(229, 230, 235, 0.4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.trendBar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.trendBarValue {
+  font-size: 10px;
+  color: #4E5969;
+  min-width: 32px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.trendsLegend {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4E5969;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .topRow {
+    grid-template-columns: 1fr;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .anomalyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .threatCard {
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+  }
+
+  .threatScore,
+  .threatActions {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 20px 16px 48px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dupComparison {
+    grid-template-columns: 1fr;
+  }
+
+  .dupVs {
+    padding: 4px;
+  }
+
+  .heatmapGrid {
+    grid-template-columns: 120px repeat(4, 1fr);
+    font-size: 12px;
+  }
+
+  .trendsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

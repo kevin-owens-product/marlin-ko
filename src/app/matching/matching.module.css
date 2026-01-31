@@ -1,0 +1,349 @@
+.page {
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  font-size: 0.875rem;
+  color: #4E5969;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.statChange {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.statUp { color: #23C343; }
+.statDown { color: #F76560; }
+.statNeutral { color: #4E5969; }
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.25rem;
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.filterTab {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  color: #4E5969;
+  background: transparent;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.filterTab:hover {
+  color: #1D2129;
+  background: #E5E6EB;
+}
+
+.filterTabActive {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #165DFF;
+  color: #fff;
+}
+
+.card {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.cardHeader {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #E5E6EB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead { background: #ffffff; }
+
+.table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  color: #1D2129;
+  border-bottom: 1px solid #F7F8FA;
+}
+
+.table tbody tr { transition: background 0.15s; }
+.table tbody tr:hover { background: #E5E6EB; }
+.table tbody tr:last-child td { border-bottom: none; }
+
+.invoiceLink {
+  color: #165DFF;
+  font-weight: 500;
+}
+
+.poNumber {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: #1D2129;
+}
+
+.matchType2Way {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.matchType3Way {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.matchTypeContract {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.matchTypeNone {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(148, 163, 184, 0.15);
+  color: #4E5969;
+}
+
+.variancePositive {
+  color: #23C343;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.varianceNegative {
+  color: #F76560;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.varianceZero {
+  color: #4E5969;
+  font-variant-numeric: tabular-nums;
+}
+
+.varianceWarning {
+  color: #FF9A2E;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.badgeMatched {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.badgeException {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(247, 101, 96, 0.15);
+  color: #F76560;
+}
+
+.badgeManualReview {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.badgeTolerance {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.badgePending {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.actionBtn {
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.375rem;
+  color: #4E5969;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.actionBtn:hover { background: #E5E6EB; color: #1D2129; }
+
+.actionsCell { display: flex; gap: 0.5rem; }
+
+.btnApproveSmall {
+  padding: 0.25rem 0.5rem;
+  background: rgba(35, 195, 67, 0.15);
+  border: 1px solid #23C343;
+  border-radius: 0.375rem;
+  color: #23C343;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnApproveSmall:hover {
+  background: rgba(35, 195, 67, 0.25);
+}
+
+.btnRejectSmall {
+  padding: 0.25rem 0.5rem;
+  background: rgba(247, 101, 96, 0.15);
+  border: 1px solid #F76560;
+  border-radius: 0.375rem;
+  color: #F76560;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnRejectSmall:hover {
+  background: rgba(247, 101, 96, 0.25);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-top: 1px solid #E5E6EB;
+}
+
+.paginationInfo {
+  font-size: 0.8125rem;
+  color: #4E5969;
+}
+
+.exceptionDetails {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+}

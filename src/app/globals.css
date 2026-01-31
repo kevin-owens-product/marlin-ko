@@ -1,0 +1,200 @@
+/* ==========================================================================
+   Medius Finance Platform - Global Stylesheet
+   ==========================================================================
+   Import order:
+   1. Design tokens (custom properties)
+   2. Utility classes
+   3. Global base styles & legacy variable aliases
+   ========================================================================== */
+
+@import '../styles/tokens.css';
+@import '../styles/utilities.css';
+
+/* ==========================================================================
+   LEGACY VARIABLE ALIASES
+   ==========================================================================
+   Map the original variable names to the new token system so that every
+   existing component continues to work without modification.
+   ========================================================================== */
+
+:root {
+  /* Original variables now derive from tokens */
+  --background: var(--color-bg-primary);
+  --foreground: var(--gray-10);
+  --sidebar-bg: var(--color-bg-secondary);
+  --sidebar-fg: var(--color-text-secondary);
+  --sidebar-hover: var(--color-bg-elevated);
+  --accent: var(--color-accent);
+  --card-bg: var(--color-bg-secondary);
+  --border: var(--color-border);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --error: var(--color-error);
+}
+
+/* ==========================================================================
+   BASE / RESET
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--text-base-leading);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ensure smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   GLOBAL ELEMENT DEFAULTS
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: var(--text-3xl); line-height: var(--text-3xl-leading); }
+h2 { font-size: var(--text-2xl); line-height: var(--text-2xl-leading); }
+h3 { font-size: var(--text-xl);  line-height: var(--text-xl-leading);  }
+h4 { font-size: var(--text-lg);  line-height: var(--text-lg-leading);  }
+h5 { font-size: var(--text-base); line-height: var(--text-base-leading); }
+h6 { font-size: var(--text-sm);  line-height: var(--text-sm-leading);  }
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--text-base-leading);
+}
+
+small {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs-leading);
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+code {
+  font-size: var(--text-sm);
+  background-color: var(--color-bg-elevated);
+  padding: var(--space-0-5) var(--space-1);
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  background-color: var(--color-bg-elevated);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* --- Form element base styles --- */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-accent-muted);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: var(--opacity-placeholder);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* --- Selection colour --- */
+::selection {
+  background-color: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
+
+/* --- Global scrollbar --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   SIDEBAR COMPONENT (kept from original globals)
+   ========================================================================== */
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  color: var(--sidebar-fg);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-leading);
+  font-weight: var(--font-medium);
+  gap: var(--space-3);
+}
+
+.sidebar-link:hover {
+  background-color: var(--sidebar-hover);
+  color: var(--foreground);
+}
+
+.sidebar-link.active {
+  background-color: var(--accent);
+  color: var(--color-text-on-accent);
+}

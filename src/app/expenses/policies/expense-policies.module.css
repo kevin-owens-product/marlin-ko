@@ -1,0 +1,48 @@
+.container { padding: 2rem; max-width: 1400px; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.headerLeft p { font-size: 0.875rem; color: #4E5969; }
+.createBtn { background: #165DFF; color: #fff; border: none; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+.createBtn:hover { background: #0E42D2; }
+.policyGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.policyCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; }
+.policyCardHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.policyName { font-size: 1rem; font-weight: 600; color: #1D2129; }
+.policyBadge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; }
+.badgeActive { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.badgeDraft { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.policyDesc { font-size: 0.8125rem; color: #4E5969; line-height: 1.5; margin-bottom: 1rem; }
+.rulesList { list-style: none; padding: 0; }
+.ruleItem { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem; color: #1D2129; }
+.ruleBullet { color: #165DFF; flex-shrink: 0; margin-top: 0.125rem; }
+.policyMeta { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E5E6EB; }
+.metaItem { font-size: 0.6875rem; color: #4E5969; }
+.metaValue { color: #1D2129; font-weight: 500; }
+.section { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.formCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.formGroup { display: flex; flex-direction: column; gap: 0.375rem; }
+.formGroupFull { display: flex; flex-direction: column; gap: 0.375rem; grid-column: 1 / -1; }
+.label { font-size: 0.75rem; color: #4E5969; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.input { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.375rem; padding: 0.625rem 0.75rem; color: #1D2129; font-size: 0.875rem; outline: none; }
+.input:focus { border-color: #165DFF; }
+.select { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.375rem; padding: 0.625rem 0.75rem; color: #1D2129; font-size: 0.875rem; outline: none; }
+.select:focus { border-color: #165DFF; }
+.textarea { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.375rem; padding: 0.625rem 0.75rem; color: #1D2129; font-size: 0.875rem; outline: none; min-height: 80px; resize: vertical; font-family: inherit; }
+.textarea:focus { border-color: #165DFF; }
+.formActions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem; }
+.saveBtn { background: #165DFF; color: #fff; border: none; padding: 0.625rem 1.5rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+.saveBtn:hover { background: #0E42D2; }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 0.75rem 1rem; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #4E5969; border-bottom: 1px solid #E5E6EB; font-weight: 600; }
+.table td { padding: 0.75rem 1rem; font-size: 0.8125rem; color: #1D2129; border-bottom: 1px solid rgba(229, 230, 235, 0.5); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
+.badge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; }
+.badgeHigh { background: rgba(247, 101, 96, 0.15); color: #F76560; }
+.badgeMedium { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.badgeLow { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.badgeResolved { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.badgeOpen { background: rgba(247, 101, 96, 0.15); color: #F76560; }

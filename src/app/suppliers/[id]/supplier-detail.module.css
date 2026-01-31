@@ -1,0 +1,72 @@
+.container { padding: 2rem; }
+.backLink { display: inline-flex; align-items: center; gap: 0.5rem; color: #4E5969; font-size: 0.875rem; margin-bottom: 1.5rem; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+.backLink:hover { color: #165DFF; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+.headerInfo { display: flex; align-items: center; gap: 1.5rem; }
+.avatar { width: 64px; height: 64px; border-radius: 0.75rem; background: #E5E6EB; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #165DFF; }
+.headerText h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerMeta { display: flex; align-items: center; gap: 1rem; }
+.headerMeta span { font-size: 0.8125rem; color: #4E5969; }
+.statusBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.statusActive { background: rgba(16,185,129,0.15); color: #23C343; }
+.statusOnHold { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.statusBlocked { background: rgba(239,68,68,0.15); color: #F76560; }
+.statusNew { background: rgba(22,93,255,0.08); color: #165DFF; }
+.riskBadge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.riskLow { background: rgba(16,185,129,0.15); color: #23C343; }
+.riskMedium { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.riskHigh { background: rgba(239,68,68,0.15); color: #F76560; }
+.actions { display: flex; gap: 0.75rem; }
+.actionBtn { padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1px solid #E5E6EB; background: #F7F8FA; color: #1D2129; }
+.actionBtn:hover { border-color: #165DFF; color: #165DFF; }
+.actionBtnPrimary { padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; background: #165DFF; color: #fff; }
+.actionBtnPrimary:hover { background: #0E42D2; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.card { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; }
+.cardTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+.infoGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.infoItem { display: flex; flex-direction: column; gap: 0.25rem; }
+.infoLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; }
+.infoValue { font-size: 0.875rem; color: #1D2129; font-weight: 500; }
+.certList { display: flex; flex-direction: column; gap: 0.5rem; }
+.certItem { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #E5E6EB; }
+.certItem:last-child { border-bottom: none; }
+.certName { font-size: 0.8125rem; color: #1D2129; }
+.certStatus { font-size: 0.75rem; padding: 0.125rem 0.5rem; border-radius: 9999px; }
+.certValid { background: rgba(16,185,129,0.15); color: #23C343; }
+.certExpiring { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.certExpired { background: rgba(239,68,68,0.15); color: #F76560; }
+.metricsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.metricItem { text-align: center; padding: 0.75rem; background: #ffffff; border-radius: 0.5rem; }
+.metricValue { font-size: 1.25rem; font-weight: 700; color: #F7F8FA; }
+.metricLabel { font-size: 0.6875rem; color: #4E5969; margin-top: 0.25rem; }
+.aiInsight { background: rgba(22,93,255,0.04); border: 1px solid rgba(22,93,255,0.1); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+.aiLabel { font-size: 0.6875rem; color: #165DFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; font-weight: 600; }
+.aiText { font-size: 0.8125rem; color: #1D2129; line-height: 1.5; }
+.spendChart { display: flex; align-items: flex-end; gap: 0.375rem; height: 120px; padding-top: 0.5rem; }
+.spendBar { flex: 1; background: #165DFF; border-radius: 0.25rem 0.25rem 0 0; transition: height 0.3s; min-width: 0; position: relative; }
+.spendBar:hover { background: #F76560; }
+.spendBarLabel { position: absolute; bottom: -1.25rem; left: 50%; transform: translateX(-50%); font-size: 0.625rem; color: #86909C; white-space: nowrap; }
+.spendBarValue { position: absolute; top: -1.25rem; left: 50%; transform: translateX(-50%); font-size: 0.625rem; color: #4E5969; white-space: nowrap; }
+.invoiceList { display: flex; flex-direction: column; gap: 0.5rem; }
+.invoiceItem { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 1px solid #E5E6EB; }
+.invoiceItem:last-child { border-bottom: none; }
+.invoiceId { font-size: 0.8125rem; color: #165DFF; font-family: monospace; }
+.invoiceAmount { font-size: 0.8125rem; color: #1D2129; font-weight: 500; font-family: monospace; }
+.invoiceStatus { font-size: 0.6875rem; padding: 0.125rem 0.5rem; border-radius: 9999px; }
+.invoicePaid { background: rgba(16,185,129,0.15); color: #23C343; }
+.invoicePending { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.invoiceOverdue { background: rgba(239,68,68,0.15); color: #F76560; }
+.contractList { display: flex; flex-direction: column; gap: 0.5rem; }
+.contractItem { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 1px solid #E5E6EB; }
+.contractItem:last-child { border-bottom: none; }
+.contractName { font-size: 0.8125rem; color: #1D2129; }
+.contractValue { font-size: 0.8125rem; color: #4E5969; font-family: monospace; }
+.conversationList { display: flex; flex-direction: column; gap: 0.5rem; }
+.conversationItem { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 1px solid #E5E6EB; font-size: 0.8125rem; }
+.conversationItem:last-child { border-bottom: none; }
+.conversationSubject { color: #1D2129; }
+.conversationDate { color: #86909C; font-size: 0.75rem; }
+.conversationStatus { font-size: 0.6875rem; padding: 0.125rem 0.5rem; border-radius: 9999px; }
+.convOpen { background: rgba(22,93,255,0.08); color: #165DFF; }
+.convResolved { background: rgba(16,185,129,0.15); color: #23C343; }

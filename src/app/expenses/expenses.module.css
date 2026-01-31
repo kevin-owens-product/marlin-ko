@@ -1,0 +1,50 @@
+.container { padding: 2rem; max-width: 1400px; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.headerLeft p { font-size: 0.875rem; color: #4E5969; }
+.submitBtn { background: #165DFF; color: #fff; border: none; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+.submitBtn:hover { background: #0E42D2; }
+.kpiGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.kpiCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.kpiLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.kpiValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
+.kpiSub { font-size: 0.75rem; margin-top: 0.25rem; }
+.kpiUp { color: #23C343; }
+.kpiWarn { color: #FF9A2E; }
+.kpiError { color: #F76560; }
+.kpiNeutral { color: #4E5969; }
+.tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid #E5E6EB; }
+.tab { padding: 0.625rem 1rem; font-size: 0.8125rem; color: #4E5969; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-weight: 500; }
+.tab:hover { color: #1D2129; }
+.tabActive { color: #165DFF; border-bottom-color: #165DFF; }
+.section { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 0.75rem 1rem; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #4E5969; border-bottom: 1px solid #E5E6EB; font-weight: 600; }
+.table td { padding: 0.75rem 1rem; font-size: 0.8125rem; color: #1D2129; border-bottom: 1px solid rgba(229, 230, 235, 0.5); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
+.badge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; }
+.badgePending { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.badgeApproved { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.badgeRejected { background: rgba(247, 101, 96, 0.15); color: #F76560; }
+.badgeReimbursed { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.badgeViolation { background: rgba(247, 101, 96, 0.15); color: #F76560; }
+.badgePass { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.badgeWarn { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.catBreakdown { margin-top: 1rem; }
+.catRow { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+.catLabel { width: 120px; font-size: 0.8125rem; color: #4E5969; flex-shrink: 0; }
+.catBarWrap { flex: 1; background: #ffffff; border-radius: 0.25rem; height: 20px; overflow: hidden; }
+.catBar { height: 100%; border-radius: 0.25rem; }
+.catTravel { background: #165DFF; }
+.catMeals { background: #23C343; }
+.catSupplies { background: #FF9A2E; }
+.catSoftware { background: #8E51DA; }
+.catTransport { background: #ec4899; }
+.catOther { background: #6b7280; }
+.catAmt { width: 70px; font-size: 0.8125rem; color: #1D2129; text-align: right; flex-shrink: 0; }
+.receiptIcon { color: #23C343; cursor: pointer; }
+.receiptNone { color: #86909C; }
+.twoCol { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }

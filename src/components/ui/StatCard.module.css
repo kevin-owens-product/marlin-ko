@@ -1,0 +1,100 @@
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s;
+}
+
+.card:hover {
+  border-color: var(--sidebar-fg);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+}
+
+.iconDefault {
+  background-color: rgba(22, 93, 255, 0.08);
+  color: var(--accent);
+}
+
+.iconSuccess {
+  background-color: rgba(35, 195, 67, 0.15);
+  color: var(--success);
+}
+
+.iconWarning {
+  background-color: rgba(255, 154, 46, 0.15);
+  color: var(--warning);
+}
+
+.iconDanger {
+  background-color: rgba(247, 101, 96, 0.15);
+  color: var(--error);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--sidebar-fg);
+  margin-bottom: 0.25rem;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  line-height: 1.2;
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.trendUp {
+  color: var(--success);
+}
+
+.trendDown {
+  color: var(--error);
+}
+
+.trendNeutral {
+  color: var(--sidebar-fg);
+}
+
+.trendArrow {
+  font-size: 0.625rem;
+}
+
+.description {
+  font-size: 0.75rem;
+  color: var(--sidebar-fg);
+  margin-top: 0.25rem;
+}

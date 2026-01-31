@@ -1,0 +1,232 @@
+.page {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Hero Header --- */
+
+.hero {
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.heroTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.heroSubtitle {
+  color: #4E5969;
+  font-size: 0.9rem;
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+/* --- Strategic Timeline Strip --- */
+
+.timelineStrip {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease-out 100ms both;
+}
+
+.timelinePhase {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  position: relative;
+  border-right: 1px solid #E5E6EB;
+}
+
+.timelinePhase:last-child {
+  border-right: none;
+}
+
+.timelineDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+}
+
+.dotComplete {
+  background: #23C343;
+}
+
+.dotActive {
+  background: #165DFF;
+  box-shadow: 0 0 8px rgba(22, 93, 255, 0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.dotUpcoming {
+  background: #C9CDD4;
+}
+
+.timelinePhaseLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.15rem;
+}
+
+.timelinePhaseStatus {
+  font-size: 0.65rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- KPI Summary Cards --- */
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.kpiCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kpiCard:nth-child(1) { animation-delay: 150ms; }
+.kpiCard:nth-child(2) { animation-delay: 200ms; }
+.kpiCard:nth-child(3) { animation-delay: 250ms; }
+.kpiCard:nth-child(4) { animation-delay: 300ms; }
+
+.kpiCard:hover {
+  border-color: #165DFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.kpiValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.kpiSuffix {
+  font-size: 0.85rem;
+  color: #86909C;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+/* --- Navigation Cards --- */
+
+.navGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.navCard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  border-left: 4px solid transparent;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.navCard:nth-child(1) { animation-delay: 350ms; }
+.navCard:nth-child(2) { animation-delay: 400ms; }
+.navCard:nth-child(3) { animation-delay: 450ms; }
+.navCard:nth-child(4) { animation-delay: 500ms; }
+
+.navCard:hover {
+  border-color: #E5E6EB;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.navCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.questionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.navCardTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.navCardDesc {
+  font-size: 0.8rem;
+  color: #4E5969;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.navCardMetric {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.75rem;
+}
+
+.navCardBullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bullet {
+  font-size: 0.7rem;
+  color: #4E5969;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

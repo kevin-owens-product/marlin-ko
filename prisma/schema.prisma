@@ -1,0 +1,516 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Multi-tenancy ────────────────────────────────────────────
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  plan      String   @default("PROFESSIONAL") // FREE, STARTER, PROFESSIONAL, ENTERPRISE
+  settings  String?  // JSON
+  createdAt DateTime @default(now())
+
+  users               User[]
+  invoices            Invoice[]
+  approvalWorkflows   ApprovalWorkflow[]
+  purchaseOrders      PurchaseOrder[]
+  expenses            Expense[]
+  expensePolicies     ExpensePolicy[]
+  contracts           Contract[]
+  auditLogs           AuditLog[]
+  erpConnections      ERPConnection[]
+  reports             Report[]
+  paymentBatches      PaymentBatch[]
+  supplierConversations SupplierConversation[]
+  riskAlerts          RiskAlert[]
+  cashFlowForecasts   CashFlowForecast[]
+  virtualCards        VirtualCard[]
+  scfPrograms         SCFProgram[]
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String
+  role        String   @default("VIEWER") // ADMIN, APPROVER, AP_CLERK, VIEWER
+  tenantId    String
+  avatarUrl   String?
+  preferences String?  // JSON
+  isActive    Boolean  @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant        Tenant          @relation(fields: [tenantId], references: [id])
+  approvalSteps ApprovalStep[]
+  expenses      Expense[]
+  auditLogs     AuditLog[]
+  notifications Notification[]
+}
+
+// ─── Core AP ──────────────────────────────────────────────────
+model Invoice {
+  id              String   @id @default(uuid())
+  tenantId        String   @default("default_tenant")
+  sourceType      String   // email, upload, api, network
+  rawFileRef      String?
+  status          String   // ingested, extracted, compliance_checked, classified, matched, approved, paid, rejected, flagged_for_review
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  invoiceNumber        String?
+  invoiceDate          DateTime?
+  dueDate              DateTime?
+  vendorName           String?
+  totalAmount          Float?
+  subtotalAmount       Float?
+  taxAmount            Float?
+  currency             String?  @default("USD")
+  poNumber             String?
+  costCenter           String?
+  glCode               String?
+  description          String?
+
+  paymentScheduledDate DateTime?
+  discountApplied      Float?   @default(0.0)
+  paymentMethod        String?  // ACH, WIRE, VIRTUAL_CARD, CHECK, SEPA, BACS
+
+  aiConfidence         Float?   @default(0.0)
+  processingTimeMs     Int?
+
+  decisions        AgentDecision[]
+  complianceLogs   ComplianceLog[]
+  monetizationLogs MonetizationLog[]
+  approvalSteps    ApprovalStep[]
+  matchResults     POMatchResult[]
+  paymentTxns      PaymentTransaction[]
+  riskAlerts       RiskAlert[]
+
+  partnerId String?
+  partner   TradingPartner? @relation(fields: [partnerId], references: [id])
+  tenant    Tenant          @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([vendorName])
+}
+
+model TradingPartner {
+  id            String  @id @default(uuid())
+  name          String
+  taxId         String?
+  email         String?
+  category      String? // IT_SERVICES, OFFICE_SUPPLIES, PROFESSIONAL_SERVICES, MANUFACTURING, LOGISTICS
+  riskScore     Int     @default(0)
+  discountTerms String? // e.g., "2/10 net 30"
+  paymentTerms  String? @default("NET_30")
+  address       String?
+  phone         String?
+  complianceStatus String @default("compliant") // compliant, non_compliant, pending
+  isActive      Boolean @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  invoices      Invoice[]
+  purchaseOrders PurchaseOrder[]
+  contracts     Contract[]
+  conversations SupplierConversation[]
+  virtualCards  VirtualCard[]
+}
+
+model AgentDecision {
+  id              String   @id @default(uuid())
+  agentId         String
+  documentId      String
+  action          String
+  reasoning       String
+  confidenceScore Float
+  outcome         String   // executed, queued_for_review, blocked
+  metadata        String?  // JSON - additional structured data
+  timestamp       DateTime @default(now())
+
+  invoice Invoice @relation(fields: [documentId], references: [id])
+
+  @@index([agentId])
+  @@index([documentId])
+}
+
+model ComplianceLog {
+  id         String   @id @default(uuid())
+  documentId String
+  checkName  String   // e.g., "UBL Schema Validation"
+  status     String   // PASS, FAIL, WARNING
+  details    String?
+  schema     String?  // e.g., "Peppol BIS 3.0", "KSeF FA(2)"
+  country    String?
+  timestamp  DateTime @default(now())
+
+  invoice Invoice @relation(fields: [documentId], references: [id])
+
+  @@index([documentId])
+}
+
+model MonetizationLog {
+  id         String   @id @default(uuid())
+  documentId String
+  type       String   // DISCOUNT_CAPTURED, REBATE_EARNED, EARLY_PAYMENT
+  amount     Float
+  details    String?
+  timestamp  DateTime @default(now())
+
+  invoice Invoice @relation(fields: [documentId], references: [id])
+}
+
+// ─── Approvals ────────────────────────────────────────────────
+model ApprovalWorkflow {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  tenantId    String
+  rules       String?  // JSON: conditions, thresholds
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id])
+  steps  ApprovalStep[]
+}
+
+model ApprovalStep {
+  id         String    @id @default(uuid())
+  workflowId String
+  invoiceId  String
+  stepOrder  Int
+  approverId String?
+  status     String    @default("PENDING") // PENDING, APPROVED, REJECTED, ESCALATED, SKIPPED
+  comments   String?
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  workflow ApprovalWorkflow @relation(fields: [workflowId], references: [id])
+  invoice  Invoice          @relation(fields: [invoiceId], references: [id])
+  approver User?            @relation(fields: [approverId], references: [id])
+
+  @@index([workflowId])
+  @@index([invoiceId])
+}
+
+// ─── Procurement ──────────────────────────────────────────────
+model PurchaseOrder {
+  id          String   @id @default(uuid())
+  poNumber    String   @unique
+  supplierId  String
+  tenantId    String
+  totalAmount Float
+  currency    String   @default("USD")
+  status      String   @default("DRAFT") // DRAFT, APPROVED, PARTIALLY_RECEIVED, RECEIVED, CLOSED
+  lineItems   String?  // JSON
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  supplier     TradingPartner @relation(fields: [supplierId], references: [id])
+  tenant       Tenant         @relation(fields: [tenantId], references: [id])
+  matchResults POMatchResult[]
+
+  @@index([tenantId])
+  @@index([supplierId])
+}
+
+model POMatchResult {
+  id              String   @id @default(uuid())
+  invoiceId       String
+  purchaseOrderId String
+  matchType       String   // TWO_WAY, THREE_WAY
+  status          String   // MATCHED, PARTIAL, EXCEPTION
+  tolerance       Float    @default(0.05)
+  varianceAmount  Float    @default(0.0)
+  variancePercent Float    @default(0.0)
+  details         String?  // JSON
+  matchedAt       DateTime @default(now())
+
+  invoice       Invoice       @relation(fields: [invoiceId], references: [id])
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id])
+
+  @@index([invoiceId])
+  @@index([purchaseOrderId])
+}
+
+// ─── Expenses ─────────────────────────────────────────────────
+model Expense {
+  id          String    @id @default(uuid())
+  userId      String
+  tenantId    String
+  category    String    // TRAVEL, MEALS, SOFTWARE, OFFICE, EQUIPMENT, OTHER
+  amount      Float
+  currency    String    @default("USD")
+  receiptUrl  String?
+  status      String    @default("DRAFT") // DRAFT, SUBMITTED, APPROVED, REJECTED, REIMBURSED
+  description String?
+  merchant    String?
+  project     String?
+  costCenter  String?
+  expenseDate DateTime
+  submittedAt DateTime?
+  approvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([userId])
+  @@index([tenantId])
+}
+
+model ExpensePolicy {
+  id       String  @id @default(uuid())
+  tenantId String
+  name     String
+  rules    String? // JSON
+  isActive Boolean @default(true)
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+// ─── Contracts ────────────────────────────────────────────────
+model Contract {
+  id          String    @id @default(uuid())
+  tenantId    String
+  supplierId  String
+  title       String
+  value       Float
+  currency    String    @default("USD")
+  startDate   DateTime
+  endDate     DateTime
+  status      String    @default("DRAFT") // DRAFT, ACTIVE, EXPIRING, EXPIRED, TERMINATED
+  autoRenew   Boolean   @default(false)
+  terms       String?   // JSON
+  documentUrl String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tenant   Tenant         @relation(fields: [tenantId], references: [id])
+  supplier TradingPartner @relation(fields: [supplierId], references: [id])
+
+  @@index([tenantId])
+  @@index([supplierId])
+}
+
+// ─── Payments ─────────────────────────────────────────────────
+model PaymentBatch {
+  id           String    @id @default(uuid())
+  tenantId     String
+  totalAmount  Float
+  currency     String    @default("USD")
+  paymentCount Int
+  status       String    @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  method       String    // ACH, WIRE, VIRTUAL_CARD, SEPA, BACS, CHECK
+  processedAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  tenant       Tenant               @relation(fields: [tenantId], references: [id])
+  transactions PaymentTransaction[]
+}
+
+model PaymentTransaction {
+  id          String    @id @default(uuid())
+  batchId     String
+  invoiceId   String
+  amount      Float
+  currency    String    @default("USD")
+  status      String    @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED, REVERSED
+  reference   String?
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  batch   PaymentBatch @relation(fields: [batchId], references: [id])
+  invoice Invoice      @relation(fields: [invoiceId], references: [id])
+
+  @@index([batchId])
+  @@index([invoiceId])
+}
+
+// ─── Supplier Comms ───────────────────────────────────────────
+model SupplierConversation {
+  id         String    @id @default(uuid())
+  supplierId String
+  tenantId   String
+  subject    String
+  status     String    @default("OPEN") // OPEN, PENDING_RESPONSE, RESOLVED, CLOSED
+  priority   String    @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  supplier TradingPartner       @relation(fields: [supplierId], references: [id])
+  tenant   Tenant               @relation(fields: [tenantId], references: [id])
+  messages ConversationMessage[]
+}
+
+model ConversationMessage {
+  id             String   @id @default(uuid())
+  conversationId String
+  senderId       String
+  senderType     String   // AGENT, USER, SUPPLIER
+  content        String
+  attachments    String?  // JSON
+  sentAt         DateTime @default(now())
+
+  conversation SupplierConversation @relation(fields: [conversationId], references: [id])
+
+  @@index([conversationId])
+}
+
+// ─── Risk ─────────────────────────────────────────────────────
+model RiskAlert {
+  id          String    @id @default(uuid())
+  tenantId    String
+  invoiceId   String?
+  riskType    String    // DUPLICATE, FRAUD, ANOMALY, COMPLIANCE
+  severity    String    // LOW, MEDIUM, HIGH, CRITICAL
+  description String
+  status      String    @default("OPEN") // OPEN, INVESTIGATING, RESOLVED, DISMISSED
+  details     String?   // JSON
+  detectedAt  DateTime  @default(now())
+  resolvedAt  DateTime?
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id])
+  invoice Invoice? @relation(fields: [invoiceId], references: [id])
+
+  @@index([tenantId])
+  @@index([severity])
+}
+
+// ─── Treasury ─────────────────────────────────────────────────
+model CashFlowForecast {
+  id              String   @id @default(uuid())
+  tenantId        String
+  forecastDate    DateTime
+  expectedInflow  Float
+  expectedOutflow Float
+  netPosition     Float
+  confidence      Float
+  generatedAt     DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+}
+
+// ─── Platform ─────────────────────────────────────────────────
+model AuditLog {
+  id         String   @id @default(uuid())
+  tenantId   String
+  userId     String?
+  action     String   // CREATED, UPDATED, DELETED, APPROVED, REJECTED, LOGIN, EXPORT, CONFIGURED
+  entityType String   // Invoice, Payment, Approval, Supplier, User, Setting, Report
+  entityId   String
+  details    String?  // JSON
+  ipAddress  String?
+  timestamp  DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([entityType])
+  @@index([timestamp])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String   // APPROVAL_REQUIRED, PAYMENT_PROCESSED, RISK_ALERT, SYSTEM, INFO
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  actionUrl String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([isRead])
+}
+
+model ERPConnection {
+  id         String    @id @default(uuid())
+  tenantId   String
+  erpType    String    // SAP, ORACLE, DYNAMICS365, NETSUITE, SAGE, QUICKBOOKS, CUSTOM
+  name       String?
+  status     String    @default("INACTIVE") // ACTIVE, INACTIVE, ERROR
+  config     String?   // JSON (encrypted)
+  lastSyncAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id])
+  syncLogs SyncLog[]
+}
+
+model SyncLog {
+  id              String    @id @default(uuid())
+  erpConnectionId String
+  direction       String    // INBOUND, OUTBOUND
+  entityType      String
+  recordCount     Int       @default(0)
+  status          String    // SUCCESS, PARTIAL, FAILED
+  errors          String?   // JSON
+  startedAt       DateTime  @default(now())
+  completedAt     DateTime?
+
+  erpConnection ERPConnection @relation(fields: [erpConnectionId], references: [id])
+}
+
+model Report {
+  id        String    @id @default(uuid())
+  tenantId  String
+  name      String
+  type      String    // SPEND_ANALYSIS, AGING, CASH_FLOW, COMPLIANCE, FRAUD, PROCESSING, CUSTOM
+  config    String?   // JSON
+  schedule  String?   // JSON: { cron, enabled, recipients }
+  lastRunAt DateTime?
+  createdAt DateTime  @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+// ─── Virtual Cards ───────────────────────────────────────────
+model VirtualCard {
+  id         String    @id @default(uuid())
+  tenantId   String
+  supplierId String
+  cardNumber String
+  amount     Float
+  currency   String    @default("USD")
+  status     String    @default("ACTIVE") // ACTIVE, USED, CANCELLED, EXPIRED
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime
+
+  tenant   Tenant         @relation(fields: [tenantId], references: [id])
+  supplier TradingPartner @relation(fields: [supplierId], references: [id])
+
+  @@index([tenantId])
+  @@index([supplierId])
+}
+
+// ─── Supply Chain Finance ────────────────────────────────────
+model SCFProgram {
+  id           String   @id @default(uuid())
+  tenantId     String
+  funder       String
+  programSize  Float
+  utilization  Float    @default(0)
+  rateRangeMin Float
+  rateRangeMax Float
+  suppliers    Int      @default(0)
+  status       String   @default("ACTIVE") // ACTIVE, PAUSED, CLOSED
+  createdAt    DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+}

@@ -1,0 +1,63 @@
+.actions {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid #E5E6EB;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #4E5969;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #F7F8FA;
+  border-color: #C9CDD4;
+}
+
+.btnPrimary {
+  background: #165DFF;
+  color: #fff;
+  border-color: #165DFF;
+}
+
+.btnPrimary:hover {
+  background: #1252d9;
+}
+
+.btnDanger {
+  color: #F76560;
+  border-color: #FDCDC5;
+}
+
+.btnDanger:hover {
+  background: #FFF1F0;
+}
+
+.btnDangerConfirm {
+  background: #F76560;
+  color: #fff;
+  border-color: #F76560;
+}
+
+.btnDangerConfirm:hover {
+  background: #d9534f;
+}
+
+.confirmText {
+  font-size: 0.75rem;
+  color: #F76560;
+  font-weight: 500;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

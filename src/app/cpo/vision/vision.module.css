@@ -1,0 +1,493 @@
+.page {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Breadcrumb & Header --- */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+.breadcrumbLink {
+  color: #165DFF;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbSep {
+  color: #86909C;
+}
+
+.breadcrumbCurrent {
+  color: #4E5969;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: #165DFF;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+/* --- Section Shared --- */
+
+.section {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.section:hover {
+  border-color: #C9CDD4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionBadge {
+  font-size: 0.7rem;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+/* --- Research Journey Timeline --- */
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #E5E6EB;
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -2rem;
+  top: 0.2rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #165DFF;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #165DFF;
+  z-index: 1;
+}
+
+.timelineDate {
+  font-size: 0.7rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.timelineTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.35rem;
+}
+
+.timelineDesc {
+  font-size: 0.8rem;
+  color: #4E5969;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.timelineActivities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.activityTag {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  font-weight: 500;
+}
+
+.timelineOutput {
+  font-size: 0.75rem;
+  color: #4E5969;
+  font-style: italic;
+}
+
+/* --- Market Analysis --- */
+
+.marketGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.marketCard {
+  background: #fff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.marketLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.marketValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.marketGrowth {
+  font-size: 0.75rem;
+  color: #23C343;
+  font-weight: 600;
+}
+
+.concentricCircles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 0;
+}
+
+.circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleTam {
+  width: 140px;
+  height: 140px;
+  background: rgba(22, 93, 255, 0.08);
+  border: 2px solid rgba(22, 93, 255, 0.2);
+}
+
+.circleSam {
+  width: 100px;
+  height: 100px;
+  background: rgba(22, 93, 255, 0.15);
+  border: 2px solid rgba(22, 93, 255, 0.3);
+}
+
+.circleSom {
+  width: 60px;
+  height: 60px;
+  background: rgba(22, 93, 255, 0.25);
+  border: 2px solid #165DFF;
+}
+
+.circleLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #165DFF;
+}
+
+/* --- Competitive Landscape Grid --- */
+
+.compTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compTable th {
+  padding: 0.75rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+  text-align: left;
+}
+
+.compTable td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: #1D2129;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.compTable tbody tr:hover {
+  background: rgba(242, 243, 245, 0.6);
+}
+
+.compName {
+  font-weight: 600;
+}
+
+.compHighlight {
+  font-weight: 600;
+  color: #165DFF;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tagGreen {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+  font-weight: 500;
+}
+
+.tagRed {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(247, 101, 96, 0.1);
+  color: #F76560;
+  font-weight: 500;
+}
+
+.tierBadge {
+  display: inline-flex;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.tier1 {
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+}
+
+.tier2 {
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+}
+
+.tier3 {
+  background: rgba(134, 144, 156, 0.15);
+  color: #4E5969;
+}
+
+/* --- Customer Insights --- */
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.insightCard {
+  background: #fff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.insightPersona {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.insightCount {
+  font-size: 0.7rem;
+  color: #86909C;
+  margin-bottom: 0.75rem;
+}
+
+.insightQuote {
+  font-size: 0.8rem;
+  color: #4E5969;
+  line-height: 1.5;
+  border-left: 3px solid #165DFF;
+  padding-left: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.insightThemes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.themeTag {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(22, 93, 255, 0.06);
+  color: #4E5969;
+  font-weight: 500;
+}
+
+/* --- Decision Framework (ICE) --- */
+
+.iceTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.iceTable th {
+  padding: 0.75rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+  text-align: left;
+}
+
+.iceTable td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: #1D2129;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+  vertical-align: middle;
+}
+
+.iceTable tbody tr:hover {
+  background: rgba(242, 243, 245, 0.6);
+}
+
+.iceBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iceBarTrack {
+  flex: 1;
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+  max-width: 60px;
+}
+
+.iceBarFill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.iceScore {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.iceTotal {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #165DFF;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: #165DFF;
+}
+
+.rankBadge2 {
+  background: #8E51DA;
+}
+
+.rankBadge3 {
+  background: #14C9C9;
+}
+
+.rationale {
+  font-size: 0.75rem;
+  color: #4E5969;
+  max-width: 200px;
+}

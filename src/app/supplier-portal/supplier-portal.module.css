@@ -1,0 +1,192 @@
+/* Supplier Portal - Self-Service Portal */
+.container { padding: 2rem; min-height: 100vh; }
+
+/* Header */
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.headerLeft { display: flex; align-items: center; gap: 1rem; }
+.logoPlaceholder { width: 48px; height: 48px; border-radius: 0.75rem; background: #165DFF; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+.headerInfo h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerInfo p { font-size: 0.875rem; color: #4E5969; }
+.headerRight { display: flex; align-items: center; gap: 0.75rem; }
+.notificationButton { position: relative; width: 40px; height: 40px; border-radius: 0.5rem; background: #F7F8FA; border: 1px solid #E5E6EB; color: #4E5969; cursor: pointer; font-size: 1.125rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.notificationButton:hover { border-color: #165DFF; color: #1D2129; }
+.notifDot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; border-radius: 50%; background: #F76560; border: 2px solid #F7F8FA; }
+.settingsButton { padding: 0.625rem 1.25rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #4E5969; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+.settingsButton:hover { border-color: #165DFF; color: #1D2129; }
+
+/* Section Titles */
+.sectionTitle { font-size: 1.125rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.sectionIcon { font-size: 1rem; }
+
+/* Quick Stats */
+.statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; }
+.statChange { font-size: 0.75rem; margin-top: 0.25rem; }
+.statUp { color: #23C343; }
+.statDown { color: #F76560; }
+.statNeutral { color: #4E5969; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0.25rem; margin-bottom: 2rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 0.25rem; overflow-x: auto; }
+.tab { padding: 0.625rem 1.25rem; border-radius: 0.5rem; background: transparent; border: none; color: #4E5969; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: #1D2129; background: #E5E6EB; }
+.tabActive { background: #165DFF; color: #fff; }
+.tabActive:hover { background: #0E42D2; color: #fff; }
+
+/* Multi-Buyer View */
+.buyerGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.buyerCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; transition: all 0.2s; cursor: pointer; }
+.buyerCard:hover { border-color: #165DFF; background: #F7F8FA; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.buyerCardHeader { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+.buyerName { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 0.25rem; }
+.buyerRelationship { font-size: 0.75rem; color: #4E5969; }
+.buyerStatusBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.buyerActive { background: rgba(16,185,129,0.15); color: #23C343; }
+.buyerPending { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.buyerDetails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.buyerDetailItem { }
+.buyerDetailLabel { font-size: 0.6875rem; color: #86909C; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+.buyerDetailValue { font-size: 0.875rem; font-weight: 600; color: #1D2129; }
+
+/* Table styles */
+.tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; margin-bottom: 2rem; }
+.tableHeader { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid #E5E6EB; }
+.tableTitle { font-size: 0.9375rem; font-weight: 600; color: #F7F8FA; }
+.tableActions { display: flex; gap: 0.5rem; }
+.tableActionButton { padding: 0.375rem 0.75rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.8125rem; cursor: pointer; transition: all 0.2s; }
+.tableActionButton:hover { border-color: #165DFF; color: #1D2129; }
+.table { width: 100%; border-collapse: collapse; }
+.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #86909C; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+.table tbody tr { border-bottom: 1px solid rgba(226,232,240,0.5); transition: background 0.15s; }
+.table tbody tr:last-child { border-bottom: none; }
+.table tbody tr:hover { background: rgba(226,232,240,0.3); }
+.table td { padding: 0.625rem 1rem; font-size: 0.8125rem; color: #1D2129; }
+.invoiceId { font-family: monospace; font-size: 0.75rem; color: #4E5969; }
+.amount { font-family: monospace; font-weight: 600; color: #F7F8FA; }
+.remittanceLink { color: #165DFF; font-size: 0.8125rem; text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.remittanceLink:hover { color: #F76560; text-decoration: underline; }
+
+/* Status Badges */
+.statusBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; }
+.statusReceived { background: rgba(148,163,184,0.15); color: #86909C; }
+.statusProcessing { background: rgba(22,93,255,0.08); color: #165DFF; }
+.statusApproved { background: rgba(139,92,246,0.15); color: #8E51DA; }
+.statusScheduled { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.statusPaid { background: rgba(16,185,129,0.15); color: #23C343; }
+.statusCompleted { background: rgba(16,185,129,0.15); color: #23C343; }
+.statusFailed { background: rgba(239,68,68,0.15); color: #F76560; }
+
+/* Submit Invoice Section */
+.submitSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
+.submitGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.uploadArea { border: 2px dashed #E5E6EB; border-radius: 0.75rem; padding: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.2s; min-height: 180px; }
+.uploadArea:hover { border-color: #165DFF; background: rgba(22,93,255,0.03); }
+.uploadIcon { font-size: 2rem; margin-bottom: 0.75rem; color: #165DFF; }
+.uploadTitle { font-size: 0.9375rem; font-weight: 600; color: #1D2129; margin-bottom: 0.25rem; }
+.uploadSubtitle { font-size: 0.75rem; color: #86909C; }
+.uploadFormats { font-size: 0.6875rem; color: #86909C; margin-top: 0.5rem; }
+.formFields { display: flex; flex-direction: column; gap: 1rem; }
+.formGroup { display: flex; flex-direction: column; gap: 0.375rem; }
+.formLabel { font-size: 0.75rem; font-weight: 500; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; }
+.formInput { padding: 0.625rem 0.75rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #1D2129; font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
+.formInput:focus { border-color: #165DFF; }
+.formSelect { padding: 0.625rem 0.75rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #1D2129; font-size: 0.875rem; outline: none; transition: border-color 0.2s; appearance: auto; }
+.formSelect:focus { border-color: #165DFF; }
+.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.submitButton { padding: 0.75rem 1.5rem; background: #165DFF; color: #fff; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.submitButton:hover { background: #0E42D2; }
+
+/* Profile Management */
+.profileGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.profileCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.profileCardHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.profileCardTitle { font-size: 0.9375rem; font-weight: 600; color: #F7F8FA; }
+.profileEditButton { padding: 0.25rem 0.625rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
+.profileEditButton:hover { border-color: #165DFF; color: #165DFF; }
+.profileItem { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(226,232,240,0.5); }
+.profileItem:last-child { border-bottom: none; }
+.profileItemLabel { font-size: 0.8125rem; color: #4E5969; }
+.profileItemValue { font-size: 0.8125rem; color: #1D2129; font-weight: 500; }
+.profileMasked { font-family: monospace; letter-spacing: 0.1em; color: #86909C; }
+.profileStatus { display: inline-flex; align-items: center; gap: 0.375rem; }
+.profileStatusDot { width: 6px; height: 6px; border-radius: 50%; }
+.profileStatusDotGreen { background: #23C343; }
+.profileStatusDotAmber { background: #FF9A2E; }
+.profileStatusDotBlue { background: #165DFF; }
+.certBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; margin-right: 0.375rem; margin-bottom: 0.375rem; background: rgba(22,93,255,0.08); color: #165DFF; }
+
+/* Dynamic Discounting */
+.discountGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.discountCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; transition: all 0.2s; }
+.discountCard:hover { border-color: #23C343; }
+.discountBuyer { font-size: 0.9375rem; font-weight: 600; color: #F7F8FA; margin-bottom: 0.75rem; }
+.discountDetails { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.discountRow { display: flex; justify-content: space-between; align-items: center; }
+.discountLabel { font-size: 0.8125rem; color: #4E5969; }
+.discountValue { font-size: 0.8125rem; font-weight: 600; color: #1D2129; }
+.discountHighlight { color: #23C343; }
+.discountSavings { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.625rem; text-align: center; margin-bottom: 1rem; }
+.discountSavingsLabel { font-size: 0.6875rem; color: #23C343; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.125rem; }
+.discountSavingsValue { font-size: 1.125rem; font-weight: 700; color: #23C343; }
+.discountAcceptButton { width: 100%; padding: 0.625rem; background: #23C343; color: #fff; border: none; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.discountAcceptButton:hover { background: #00B42A; }
+
+/* Network Value Banner */
+.networkBanner { background: linear-gradient(135deg, #F7F8FA, #eef2ff); border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+.networkBannerContent { flex: 1; }
+.networkBannerTitle { font-size: 1.25rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.5rem; }
+.networkBannerText { font-size: 0.9375rem; color: #4E5969; line-height: 1.5; max-width: 600px; }
+.networkBannerStats { display: flex; gap: 2rem; margin-top: 1rem; }
+.networkBannerStat { text-align: center; }
+.networkBannerStatValue { font-size: 1.5rem; font-weight: 700; color: #165DFF; }
+.networkBannerStatLabel { font-size: 0.6875rem; color: #86909C; text-transform: uppercase; letter-spacing: 0.05em; }
+.networkBannerCTA { flex-shrink: 0; }
+.networkCTAButton { padding: 0.75rem 1.5rem; background: #165DFF; color: #fff; border: none; border-radius: 0.5rem; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.networkCTAButton:hover { background: #0E42D2; }
+
+/* Communication Center */
+.messagesCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; margin-bottom: 2rem; }
+.messageItem { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(226,232,240,0.5); cursor: pointer; transition: background 0.15s; }
+.messageItem:last-child { border-bottom: none; }
+.messageItem:hover { background: rgba(226,232,240,0.3); }
+.messageUnread { background: rgba(22,93,255,0.03); }
+.messageUnreadDot { width: 8px; height: 8px; border-radius: 50%; background: #165DFF; flex-shrink: 0; margin-top: 0.5rem; }
+.messageReadDot { width: 8px; height: 8px; border-radius: 50%; background: transparent; flex-shrink: 0; margin-top: 0.5rem; }
+.messageContent { flex: 1; min-width: 0; }
+.messageHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+.messageSender { font-size: 0.8125rem; font-weight: 600; color: #F7F8FA; }
+.messageDate { font-size: 0.6875rem; color: #86909C; }
+.messageSubject { font-size: 0.8125rem; color: #1D2129; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.messagePreview { font-size: 0.75rem; color: #86909C; margin-top: 0.125rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Payment History */
+.methodBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; background: #E5E6EB; color: #4E5969; }
+
+/* Pagination */
+.pagination { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-top: 1px solid #E5E6EB; }
+.paginationInfo { font-size: 0.8125rem; color: #4E5969; }
+.paginationButtons { display: flex; gap: 0.5rem; }
+.pageButton { padding: 0.375rem 0.75rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.8125rem; cursor: pointer; transition: all 0.15s; }
+.pageButton:hover { background: #E5E6EB; color: #1D2129; }
+.pageButtonActive { background: #165DFF; border-color: #165DFF; color: #fff; }
+
+/* Two column layout */
+.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .buyerGrid { grid-template-columns: 1fr; }
+  .discountGrid { grid-template-columns: 1fr 1fr; }
+  .twoCol { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .submitGrid { grid-template-columns: 1fr; }
+  .profileGrid { grid-template-columns: 1fr; }
+  .discountGrid { grid-template-columns: 1fr; }
+  .networkBanner { flex-direction: column; text-align: center; }
+  .networkBannerStats { justify-content: center; }
+  .tabs { flex-wrap: wrap; }
+}

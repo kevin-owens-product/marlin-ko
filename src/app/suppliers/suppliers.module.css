@@ -1,0 +1,61 @@
+.container { padding: 2rem; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerLeft p { font-size: 0.875rem; color: #4E5969; }
+.addButton { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; background: #165DFF; color: #fff; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.addButton:hover { background: #0E42D2; }
+.statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; }
+.statChange { font-size: 0.75rem; margin-top: 0.25rem; }
+.statUp { color: #23C343; }
+.statDown { color: #F76560; }
+.controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.searchBox { flex: 1; position: relative; }
+.searchIcon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #4E5969; font-size: 0.875rem; }
+.searchInput { width: 100%; padding: 0.625rem 0.75rem 0.625rem 2.25rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #1D2129; font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
+.searchInput::placeholder { color: #86909C; }
+.searchInput:focus { border-color: #165DFF; }
+.filterButton { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #4E5969; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+.filterButton:hover { border-color: #165DFF; color: #1D2129; }
+.tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
+.table { width: 100%; border-collapse: collapse; }
+.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+.table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
+.table tbody tr:last-child { border-bottom: none; }
+.table tbody tr:hover { background: #E5E6EB; }
+.table td { padding: 0.75rem 1rem; font-size: 0.875rem; color: #1D2129; }
+.supplierName { font-weight: 500; color: #F7F8FA; cursor: pointer; transition: color 0.2s; }
+.supplierName:hover { color: #165DFF; }
+.supplierId { font-size: 0.75rem; color: #86909C; font-family: monospace; }
+.categoryBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: #E5E6EB; color: #4E5969; }
+.riskScore { display: inline-flex; align-items: center; gap: 0.375rem; font-weight: 600; font-size: 0.875rem; }
+.riskDot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.riskLow { color: #23C343; }
+.riskMedium { color: #FF9A2E; }
+.riskHigh { color: #F76560; }
+.complianceBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.complianceCompliant { background: rgba(16,185,129,0.15); color: #23C343; }
+.compliancePartial { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.complianceNonCompliant { background: rgba(239,68,68,0.15); color: #F76560; }
+.compliancePending { background: rgba(148,163,184,0.15); color: #4E5969; }
+.statusBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.statusActive { background: rgba(16,185,129,0.15); color: #23C343; }
+.statusInactive { background: rgba(148,163,184,0.15); color: #4E5969; }
+.statusOnHold { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.statusBlocked { background: rgba(239,68,68,0.15); color: #F76560; }
+.statusNew { background: rgba(22,93,255,0.08); color: #165DFF; }
+.actionsCell { position: relative; }
+.actionsButton { padding: 0.375rem 0.5rem; background: transparent; border: 1px solid transparent; border-radius: 0.375rem; color: #4E5969; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+.actionsButton:hover { background: #E5E6EB; border-color: #86909C; color: #1D2129; }
+.actionsMenu { position: absolute; right: 0; top: 100%; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 0.25rem; min-width: 160px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.actionsMenuItem { display: block; width: 100%; padding: 0.5rem 0.75rem; background: transparent; border: none; border-radius: 0.375rem; color: #1D2129; font-size: 0.8125rem; text-align: left; cursor: pointer; transition: background 0.15s; }
+.actionsMenuItem:hover { background: #E5E6EB; }
+.pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #E5E6EB; }
+.paginationInfo { font-size: 0.8125rem; color: #4E5969; }
+.paginationButtons { display: flex; gap: 0.5rem; }
+.pageButton { padding: 0.375rem 0.75rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.8125rem; cursor: pointer; transition: all 0.15s; }
+.pageButton:hover { background: #E5E6EB; color: #1D2129; }
+.pageButtonActive { background: #165DFF; border-color: #165DFF; color: #fff; }
+.spend { font-family: monospace; font-weight: 500; }

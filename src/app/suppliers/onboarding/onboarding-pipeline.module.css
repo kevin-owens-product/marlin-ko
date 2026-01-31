@@ -1,0 +1,87 @@
+.container { padding: 2rem; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerLeft p { font-size: 0.875rem; color: #4E5969; }
+.inviteBtn { padding: 0.625rem 1.25rem; background: #165DFF; border: none; border-radius: 0.5rem; color: #fff; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+.inviteBtn:hover { background: #4080FF; }
+
+/* Pipeline Stage Cards */
+.pipelineRow { display: flex; align-items: center; gap: 0; margin-bottom: 2rem; }
+.stageCard { flex: 1; padding: 1.25rem; border-radius: 0.75rem; text-align: center; position: relative; border: 1px solid #E5E6EB; }
+.stageLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.stageValue { font-size: 1.75rem; font-weight: 700; }
+.stageRate { font-size: 0.75rem; margin-top: 0.25rem; }
+.stageGray { background: #F7F8FA; }
+.stageGray .stageValue { color: #4E5969; }
+.stageBlue { background: rgba(22,93,255,0.06); }
+.stageBlue .stageValue { color: #165DFF; }
+.stagePurple { background: rgba(168,85,247,0.06); }
+.stagePurple .stageValue { color: #a855f7; }
+.stageOrange { background: rgba(255,154,46,0.06); }
+.stageOrange .stageValue { color: #FF9A2E; }
+.stageGreen { background: rgba(35,195,67,0.06); }
+.stageGreen .stageValue { color: #23C343; }
+.stageArrow { display: flex; align-items: center; justify-content: center; width: 32px; flex-shrink: 0; color: #C9CDD4; font-size: 1.25rem; }
+
+/* Funnel Visualization */
+.funnelSection { margin-bottom: 2rem; }
+.funnelTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; }
+.funnel { display: flex; flex-direction: column; gap: 0.25rem; align-items: center; }
+.funnelBar { height: 36px; border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #fff; transition: width 0.4s ease; }
+.funnelBarGray { background: #86909C; }
+.funnelBarBlue { background: #165DFF; }
+.funnelBarPurple { background: #a855f7; }
+.funnelBarOrange { background: #FF9A2E; }
+.funnelBarGreen { background: #23C343; }
+
+/* Metrics Row */
+.metricsRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.metricCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; text-align: center; }
+.metricLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.metricValue { font-size: 1.75rem; font-weight: 700; color: #1D2129; }
+.metricSub { font-size: 0.75rem; color: #23C343; margin-top: 0.25rem; }
+.metricSubWarn { font-size: 0.75rem; color: #FF9A2E; margin-top: 0.25rem; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 1px solid #E5E6EB; }
+.tab { padding: 0.75rem 1.25rem; font-size: 0.875rem; color: #4E5969; border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.tab:hover { color: #1D2129; }
+.tabActive { color: #165DFF; border-bottom-color: #165DFF; font-weight: 600; }
+
+/* Table */
+.tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
+.table { width: 100%; border-collapse: collapse; }
+.table thead th { padding: 0.625rem 1rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+.table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
+.table tbody tr:last-child { border-bottom: none; }
+.table tbody tr:hover { background: #E5E6EB; }
+.table td { padding: 0.625rem 1rem; font-size: 0.8125rem; color: #1D2129; }
+
+/* Stage Badges */
+.stageBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; }
+.badgeInvited { background: rgba(134,144,156,0.15); color: #86909C; }
+.badgeDocuments { background: rgba(22,93,255,0.1); color: #165DFF; }
+.badgeVerification { background: rgba(168,85,247,0.1); color: #a855f7; }
+.badgeCompliance { background: rgba(255,154,46,0.1); color: #FF9A2E; }
+.badgeActive { background: rgba(35,195,67,0.1); color: #23C343; }
+
+/* Day warnings */
+.daysNormal { color: #1D2129; }
+.daysWarning { color: #FF9A2E; font-weight: 600; }
+.daysCritical { color: #F76560; font-weight: 600; }
+
+/* Blocker */
+.blockerBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.6875rem; background: rgba(247,101,96,0.1); color: #F76560; }
+.noBlocker { color: #C9CDD4; font-size: 0.75rem; }
+
+/* AI Insight */
+.aiInsight { background: rgba(22,93,255,0.04); border: 1px solid rgba(22,93,255,0.1); border-radius: 0.5rem; padding: 1rem; margin-top: 1.5rem; }
+.aiLabel { font-size: 0.6875rem; color: #165DFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; font-weight: 600; }
+.aiText { font-size: 0.8125rem; color: #1D2129; line-height: 1.5; }
+.aiBullets { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
+.aiBullets li { font-size: 0.8125rem; color: #1D2129; line-height: 1.5; padding: 0.25rem 0; padding-left: 1rem; position: relative; }
+.aiBullets li::before { content: '\2022'; position: absolute; left: 0; color: #165DFF; font-weight: 700; }
+
+/* Completed badge */
+.completedBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; background: rgba(35,195,67,0.1); color: #23C343; }
+.completedDays { font-size: 0.75rem; color: #4E5969; }

@@ -1,0 +1,272 @@
+/* ==========================================================================
+   Medius Finance Platform - Design Tokens (Arco Design System)
+   ==========================================================================
+   Single source of truth for all design decisions.
+   Based on ByteDance Arco Design System tokens.
+   All values are defined as CSS custom properties on :root.
+   ========================================================================== */
+
+:root {
+  /* ========================================================================
+     ARCO COLOR PALETTE — Raw Scales
+     ======================================================================== */
+
+  /* --- ArcoBlue (Primary) --- */
+  --arcoblue-1: #E8F3FF;
+  --arcoblue-2: #BEDAFF;
+  --arcoblue-3: #94BFFF;
+  --arcoblue-4: #6AA1FF;
+  --arcoblue-5: #4080FF;
+  --arcoblue-6: #165DFF;
+  --arcoblue-7: #0E42D2;
+  --arcoblue-8: #072CA8;
+  --arcoblue-9: #031A78;
+  --arcoblue-10: #000D4D;
+
+  /* --- Neutral Gray --- */
+  --gray-1: #F7F8FA;
+  --gray-2: #F2F3F5;
+  --gray-3: #E5E6EB;
+  --gray-4: #C9CDD4;
+  --gray-5: #A9AEB8;
+  --gray-6: #86909C;
+  --gray-7: #6B7785;
+  --gray-8: #4E5969;
+  --gray-9: #272E3B;
+  --gray-10: #1D2129;
+
+  /* --- Green (Success) --- */
+  --green-1: #E8FFEA;
+  --green-3: #7BE188;
+  --green-5: #23C343;
+  --green-6: #00B42A;
+  --green-7: #009A29;
+
+  /* --- Orange (Warning) --- */
+  --orange-1: #FFF7E8;
+  --orange-3: #FFCF8B;
+  --orange-5: #FF9A2E;
+  --orange-6: #FF7D00;
+  --orange-7: #D25F00;
+
+  /* --- Red (Danger) --- */
+  --red-1: #FFECE8;
+  --red-3: #FBACA3;
+  --red-5: #F76560;
+  --red-6: #F53F3F;
+  --red-7: #CB272D;
+
+  /* --- Purple --- */
+  --purple-1: #F5E8FF;
+  --purple-5: #8E51DA;
+  --purple-6: #722ED1;
+  --purple-7: #551DB0;
+  --purple-8: #3C108F;
+
+  /* --- Cyan --- */
+  --cyan-5: #33D1C9;
+  --cyan-6: #14C9C9;
+  --cyan-7: #0DA5AA;
+
+  /* ========================================================================
+     COLOR TOKENS — Semantic
+     ======================================================================== */
+
+  /* --- Backgrounds --- */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--gray-1);
+  --color-bg-elevated: var(--gray-2);
+  --color-bg-overlay: rgba(29, 33, 41, 0.6);
+  --color-bg-input: #ffffff;
+
+  /* --- Text --- */
+  --color-text-primary: var(--gray-10);
+  --color-text-secondary: var(--gray-8);
+  --color-text-muted: var(--gray-6);
+  --color-text-inverse: #ffffff;
+  --color-text-link: var(--arcoblue-6);
+  --color-text-on-accent: #ffffff;
+
+  /* --- Accent / Brand --- */
+  --color-accent: var(--arcoblue-6);
+  --color-accent-hover: var(--arcoblue-7);
+  --color-accent-active: var(--arcoblue-8);
+  --color-accent-muted: rgba(22, 93, 255, 0.08);
+  --color-accent-light: var(--arcoblue-1);
+
+  /* --- Semantic --- */
+  --color-success: var(--green-6);
+  --color-success-hover: var(--green-7);
+  --color-success-muted: rgba(0, 180, 42, 0.08);
+
+  --color-warning: var(--orange-6);
+  --color-warning-hover: var(--orange-7);
+  --color-warning-muted: rgba(255, 125, 0, 0.08);
+
+  --color-error: var(--red-6);
+  --color-error-hover: var(--red-7);
+  --color-error-muted: rgba(245, 63, 63, 0.08);
+
+  --color-purple: var(--purple-6);
+  --color-purple-hover: var(--purple-7);
+  --color-purple-muted: rgba(114, 46, 209, 0.08);
+
+  /* --- Borders --- */
+  --color-border: var(--gray-3);
+  --color-border-light: var(--gray-2);
+  --color-border-focus: var(--arcoblue-6);
+
+  /* ========================================================================
+     SPACING SCALE
+     Base unit: 4px (Arco size system)
+     ======================================================================== */
+
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ========================================================================
+     TYPOGRAPHY SCALE
+     Arco base: 14px body
+     ======================================================================== */
+
+  /* --- Font Family --- */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas,
+    'Courier New', monospace;
+
+  /* --- Font Sizes & Line Heights --- */
+  --text-xs: 12px;
+  --text-xs-leading: 20px;
+
+  --text-sm: 13px;
+  --text-sm-leading: 20px;
+
+  --text-base: 14px;
+  --text-base-leading: 22px;
+
+  --text-lg: 16px;
+  --text-lg-leading: 24px;
+
+  --text-xl: 20px;
+  --text-xl-leading: 28px;
+
+  --text-2xl: 24px;
+  --text-2xl-leading: 32px;
+
+  --text-3xl: 36px;
+  --text-3xl-leading: 44px;
+
+  --text-4xl: 48px;
+  --text-4xl-leading: 56px;
+
+  --text-display: 56px;
+  --text-display-leading: 64px;
+
+  /* --- Font Weights --- */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* --- Letter Spacing --- */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ========================================================================
+     BORDER RADIUS (Arco: 2 / 4 / 8)
+     ======================================================================== */
+
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-full: 9999px;
+
+  /* ========================================================================
+     SHADOWS (Arco 3-level system)
+     ======================================================================== */
+
+  --shadow-sm: 0 0 5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 0 10px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 0 20px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 4px 30px rgba(0, 0, 0, 0.12);
+  --shadow-special: 0 0 1px rgba(0, 0, 0, 0.3);
+  --shadow-glow-accent: 0 0 20px rgba(22, 93, 255, 0.15);
+  --shadow-glow-success: 0 0 20px rgba(0, 180, 42, 0.15);
+  --shadow-glow-error: 0 0 20px rgba(245, 63, 63, 0.15);
+
+  /* ========================================================================
+     TRANSITIONS
+     ======================================================================== */
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ========================================================================
+     Z-INDEX SCALE
+     ======================================================================== */
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-header: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+  --z-max: 9999;
+
+  /* ========================================================================
+     CONTAINER / LAYOUT WIDTHS
+     ======================================================================== */
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  --sidebar-width: 16rem;       /* 256px */
+  --sidebar-collapsed: 4.5rem;  /*  72px */
+  --header-height: 4rem;        /*  64px */
+
+  /* ========================================================================
+     OPACITY
+     ======================================================================== */
+
+  --opacity-disabled: 0.5;
+  --opacity-placeholder: 0.6;
+  --opacity-hover: 0.8;
+}

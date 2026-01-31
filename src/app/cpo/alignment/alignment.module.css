@@ -1,0 +1,516 @@
+.page {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Breadcrumb & Header --- */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+.breadcrumbLink {
+  color: #14C9C9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbSep {
+  color: #86909C;
+}
+
+.breadcrumbCurrent {
+  color: #4E5969;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: #14C9C9;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+/* --- Section Shared --- */
+
+.section {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.section:hover {
+  border-color: #C9CDD4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionBadge {
+  font-size: 0.7rem;
+  background: rgba(20, 201, 201, 0.1);
+  color: #14C9C9;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+/* --- Alignment KPIs --- */
+
+.alignKpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.alignKpi {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.alignKpi:hover {
+  border-color: #14C9C9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.alignKpi:nth-child(1) { animation-delay: 100ms; }
+.alignKpi:nth-child(2) { animation-delay: 150ms; }
+.alignKpi:nth-child(3) { animation-delay: 200ms; }
+.alignKpi:nth-child(4) { animation-delay: 250ms; }
+
+.alignKpiValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.alignKpiSuffix {
+  font-size: 0.85rem;
+  color: #86909C;
+  font-weight: 500;
+}
+
+.alignKpiLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+/* --- Stakeholder Map --- */
+
+.stakeholderGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.stakeholderCard {
+  background: #fff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+
+.stakeholderCard:hover {
+  border-color: #14C9C9;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.stakeholderInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.stakeholderName {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.stakeholderRole {
+  font-size: 0.7rem;
+  color: #4E5969;
+}
+
+.stakeholderDept {
+  font-size: 0.65rem;
+  color: #86909C;
+  margin-bottom: 0.35rem;
+}
+
+.stakeholderMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ragDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ragGreen { background: #23C343; }
+.ragAmber { background: #FF9A2E; }
+.ragRed { background: #F76560; }
+
+.statusBadge {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.statusChampion {
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+}
+
+.statusSupportive {
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+}
+
+.statusCautious {
+  background: rgba(255, 154, 46, 0.1);
+  color: #FF9A2E;
+}
+
+.statusSkeptical {
+  background: rgba(247, 101, 96, 0.1);
+  color: #F76560;
+}
+
+.influenceTag {
+  font-size: 0.6rem;
+  color: #86909C;
+}
+
+/* --- Buy-in Tracker --- */
+
+.buyinGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.buyinRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.buyinTeam {
+  width: 120px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #1D2129;
+  flex-shrink: 0;
+}
+
+.buyinBarContainer {
+  flex: 1;
+  height: 20px;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.buyinSegGreen {
+  background: #23C343;
+  height: 100%;
+}
+
+.buyinSegAmber {
+  background: #FF9A2E;
+  height: 100%;
+}
+
+.buyinSegRed {
+  background: #F76560;
+  height: 100%;
+}
+
+.buyinScore {
+  width: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1D2129;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* --- Alignment Timeline --- */
+
+.alignTimeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.alignTimelineLine {
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #E5E6EB;
+}
+
+.alignTimelineItem {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.alignTimelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.alignTimelineDot {
+  position: absolute;
+  left: -2rem;
+  top: 0.2rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #14C9C9;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #14C9C9;
+  z-index: 1;
+}
+
+.alignTimelineDate {
+  font-size: 0.7rem;
+  color: #86909C;
+  margin-bottom: 0.15rem;
+}
+
+.alignTimelineTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.alignTimelineMeta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.typeBadge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 600;
+  background: rgba(20, 201, 201, 0.1);
+  color: #14C9C9;
+}
+
+.participantCount {
+  font-size: 0.7rem;
+  color: #86909C;
+}
+
+.alignTimelineOutcome {
+  font-size: 0.75rem;
+  color: #4E5969;
+  font-style: italic;
+}
+
+/* --- Communication Plan --- */
+
+.commTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.commTable th {
+  padding: 0.75rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+  text-align: left;
+}
+
+.commTable td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: #1D2129;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.commTable tbody tr:hover {
+  background: rgba(242, 243, 245, 0.6);
+}
+
+.freqBadge {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 500;
+  background: rgba(20, 201, 201, 0.08);
+  color: #14C9C9;
+}
+
+/* --- Decision Log --- */
+
+.decisionTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.decisionTable th {
+  padding: 0.75rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E6EB;
+  text-align: left;
+}
+
+.decisionTable td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: #1D2129;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+  vertical-align: middle;
+}
+
+.decisionTable tbody tr:hover {
+  background: rgba(242, 243, 245, 0.6);
+}
+
+.decisionId {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #86909C;
+}
+
+.participantAvatars {
+  display: flex;
+  gap: -4px;
+}
+
+.miniAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid #fff;
+  margin-left: -4px;
+}
+
+.miniAvatar:first-child {
+  margin-left: 0;
+}
+
+.outcomeBadge {
+  display: inline-flex;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.outcomeApproved {
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+}
+
+.outcomeDeferred {
+  background: rgba(255, 154, 46, 0.1);
+  color: #FF9A2E;
+}
+
+.outcomeRejected {
+  background: rgba(247, 101, 96, 0.1);
+  color: #F76560;
+}
+
+.decisionRationale {
+  font-size: 0.75rem;
+  color: #4E5969;
+  max-width: 220px;
+}

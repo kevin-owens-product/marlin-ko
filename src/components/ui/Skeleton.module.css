@@ -1,0 +1,28 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--sidebar-hover) 25%,
+    var(--border) 50%,
+    var(--sidebar-hover) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.text {
+  border-radius: 0.25rem;
+  height: 0.875rem;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.rect {
+  border-radius: 0.5rem;
+}

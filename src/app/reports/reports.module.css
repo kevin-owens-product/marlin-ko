@@ -1,0 +1,35 @@
+.page { padding: 2rem; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.title { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
+.subtitle { color: #4E5969; font-size: 0.875rem; margin-top: 0.25rem; }
+.createBtn { padding: 0.625rem 1.25rem; background: #165DFF; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; font-size: 0.875rem; }
+.createBtn:hover { background: #0E42D2; }
+.tabs { display: flex; gap: 0.25rem; background: #F7F8FA; border-radius: 0.5rem; padding: 0.25rem; margin-bottom: 1.5rem; width: fit-content; }
+.tab { padding: 0.5rem 1rem; border-radius: 0.375rem; color: #4E5969; cursor: pointer; font-size: 0.8125rem; border: none; background: none; transition: all 0.2s; }
+.tab:hover { color: #1D2129; }
+.tabActive { background: #E5E6EB; color: #1D2129; }
+.tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; margin-bottom: 2rem; }
+.table { width: 100%; border-collapse: collapse; }
+.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+.table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
+.table tbody tr:last-child { border-bottom: none; }
+.table tbody tr:hover { background: #E5E6EB; }
+.table td { padding: 0.75rem 1rem; font-size: 0.875rem; color: #1D2129; }
+.reportName { font-weight: 600; color: #1D2129; }
+.typeBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.typeSpend { background: rgba(22,93,255,0.08); color: #165DFF; }
+.typeAging { background: rgba(245,158,11,0.15); color: #FF9A2E; }
+.typeCashFlow { background: rgba(16,185,129,0.15); color: #23C343; }
+.typeCompliance { background: rgba(139,92,246,0.15); color: #8B5CF6; }
+.typeFraud { background: rgba(239,68,68,0.15); color: #F76560; }
+.typeProcessing { background: rgba(148,163,184,0.15); color: #86909C; }
+.typeCustom { background: rgba(236,72,153,0.15); color: #EC4899; }
+.badge { padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; }
+.badgeGreen { background: rgba(16,185,129,0.15); color: #23C343; }
+.badgeBlue { background: rgba(22,93,255,0.08); color: #165DFF; }
+.pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #E5E6EB; }
+.paginationInfo { font-size: 0.8125rem; color: #4E5969; }
+.paginationButtons { display: flex; gap: 0.5rem; }
+.pageButton { padding: 0.375rem 0.75rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.8125rem; cursor: pointer; transition: all 0.15s; }
+.pageButton:hover { background: #E5E6EB; color: #1D2129; }
+.pageButtonActive { background: #165DFF; border-color: #165DFF; color: #fff; }

@@ -1,0 +1,115 @@
+.container { padding: 2rem; max-width: 1200px; }
+.backLink { display: inline-flex; align-items: center; gap: 0.5rem; color: #165DFF; font-size: 0.875rem; margin-bottom: 1.5rem; cursor: pointer; text-decoration: none; }
+.backLink:hover { text-decoration: underline; }
+.backArrow { font-size: 1rem; }
+
+.summaryHeader { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+.summaryLeft { display: flex; flex-direction: column; gap: 0.5rem; }
+.invoiceTitle { font-size: 1.25rem; font-weight: 700; color: #F7F8FA; }
+.supplierName { font-size: 0.95rem; color: #1D2129; }
+.summaryMeta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.metaItem { font-size: 0.8rem; color: #4E5969; }
+.metaLabel { color: #86909C; }
+.summaryRight { text-align: right; }
+.totalAmount { font-size: 1.75rem; font-weight: 700; color: #F7F8FA; }
+.statusBadge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; }
+.statusPending { background: rgba(245,158,11,0.15); color: #FF9A2E; border: 1px solid rgba(245,158,11,0.3); }
+.statusApproved { background: rgba(16,185,129,0.15); color: #23C343; border: 1px solid rgba(16,185,129,0.3); }
+
+.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.fullWidth { grid-column: 1 / -1; }
+
+.section { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+
+/* Workflow Steps */
+.workflowSteps { display: flex; gap: 0; align-items: flex-start; position: relative; }
+.step { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
+.stepIndicator { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+.stepComplete { background: #23C343; color: #fff; }
+.stepCurrent { background: #165DFF; color: #fff; box-shadow: 0 0 0 4px rgba(22,93,255,0.15); }
+.stepPending { background: #E5E6EB; color: #86909C; }
+.stepConnector { position: absolute; top: 20px; left: calc(50% + 20px); right: calc(-50% + 20px); height: 2px; z-index: 0; }
+.connectorComplete { background: #23C343; }
+.connectorPending { background: #E5E6EB; }
+.stepInfo { display: flex; flex-direction: column; gap: 0.25rem; }
+.stepName { font-size: 0.8rem; font-weight: 600; color: #1D2129; }
+.stepRole { font-size: 0.7rem; color: #4E5969; }
+.stepStatus { font-size: 0.7rem; font-weight: 500; }
+.stepStatusApproved { color: #23C343; }
+.stepStatusPending { color: #FF9A2E; }
+.stepStatusWaiting { color: #86909C; }
+.stepTimestamp { font-size: 0.65rem; color: #86909C; }
+
+/* Line Items Table */
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 0.75rem; font-size: 0.75rem; color: #86909C; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E5E6EB; }
+.table td { padding: 0.75rem; font-size: 0.85rem; color: #1D2129; border-bottom: 1px solid rgba(226,232,240,0.5); }
+.table tr:last-child td { border-bottom: none; }
+.tableTotal { font-weight: 700; color: #F7F8FA; }
+.glCode { font-family: monospace; font-size: 0.8rem; color: #4E5969; }
+
+/* Detail Grid */
+.detailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.detailItem { display: flex; flex-direction: column; gap: 0.25rem; }
+.detailLabel { font-size: 0.75rem; color: #86909C; text-transform: uppercase; letter-spacing: 0.03em; }
+.detailValue { font-size: 0.9rem; color: #1D2129; }
+
+/* AI Analysis */
+.aiSection { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.aiHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(167,139,250,0.15); }
+.aiTitle { font-size: 1rem; font-weight: 600; color: #a78bfa; }
+.aiGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.aiCard { background: rgba(255,255,255,0.5); border-radius: 0.5rem; padding: 1rem; }
+.aiCardTitle { font-size: 0.8rem; font-weight: 600; color: #1D2129; margin-bottom: 0.75rem; }
+.riskMeter { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.riskBar { flex: 1; height: 6px; background: #E5E6EB; border-radius: 3px; overflow: hidden; }
+.riskFill { height: 100%; border-radius: 3px; }
+.riskLow { background: #23C343; }
+.riskMedium { background: #FF9A2E; }
+.riskHigh { background: #F76560; }
+.riskLabel { font-size: 0.75rem; font-weight: 600; min-width: 40px; }
+.riskLowText { color: #23C343; }
+.riskMedText { color: #FF9A2E; }
+.riskHighText { color: #F76560; }
+.aiListItem { font-size: 0.8rem; color: #4E5969; padding: 0.35rem 0; border-bottom: 1px solid rgba(226,232,240,0.3); }
+.aiListItem:last-child { border-bottom: none; }
+.aiRecommendation { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; margin-top: 1rem; }
+.aiRecLabel { font-size: 0.8rem; color: #4E5969; }
+.aiRecValue { font-size: 0.9rem; font-weight: 600; color: #23C343; }
+.aiRecConfidence { font-size: 0.75rem; color: #86909C; margin-left: auto; }
+
+/* Approval History */
+.historyList { display: flex; flex-direction: column; gap: 0.75rem; }
+.historyItem { display: flex; gap: 1rem; padding: 0.75rem; background: rgba(255,255,255,0.3); border-radius: 0.5rem; }
+.historyDot { width: 10px; height: 10px; border-radius: 50%; margin-top: 0.3rem; flex-shrink: 0; }
+.historyDotApproved { background: #23C343; }
+.historyDotPending { background: #FF9A2E; }
+.historyDotSubmitted { background: #165DFF; }
+.historyDotSystem { background: #4E5969; }
+.historyContent { flex: 1; }
+.historyAction { font-size: 0.85rem; font-weight: 500; color: #1D2129; }
+.historyMeta { font-size: 0.75rem; color: #86909C; margin-top: 0.25rem; }
+
+/* Actions */
+.actions { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.actionsTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; }
+.actionButtons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btnApprove { padding: 0.625rem 1.5rem; font-size: 0.875rem; font-weight: 600; background: #23C343; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; transition: background 0.15s; }
+.btnApprove:hover { background: #00B42A; }
+.btnReject { padding: 0.625rem 1.5rem; font-size: 0.875rem; font-weight: 600; background: #F76560; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; transition: background 0.15s; }
+.btnReject:hover { background: #F53F3F; }
+.btnSecondary { padding: 0.625rem 1.5rem; font-size: 0.875rem; font-weight: 500; background: transparent; color: #4E5969; border: 1px solid #E5E6EB; border-radius: 0.375rem; cursor: pointer; transition: all 0.15s; }
+.btnSecondary:hover { border-color: #165DFF; color: #1D2129; }
+
+/* Comments */
+.commentInput { display: flex; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E5E6EB; }
+.commentField { flex: 1; padding: 0.625rem 0.875rem; font-size: 0.85rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #1D2129; outline: none; resize: vertical; min-height: 40px; font-family: inherit; }
+.commentField:focus { border-color: #165DFF; }
+.commentBtn { padding: 0.625rem 1rem; font-size: 0.8rem; font-weight: 500; background: #165DFF; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; align-self: flex-end; }
+.commentBtn:hover { background: #0E42D2; }
+.commentThread { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+.comment { padding: 0.75rem; background: rgba(255,255,255,0.3); border-radius: 0.5rem; }
+.commentAuthor { font-size: 0.8rem; font-weight: 600; color: #1D2129; }
+.commentTime { font-size: 0.7rem; color: #86909C; margin-left: 0.5rem; }
+.commentText { font-size: 0.85rem; color: #4E5969; margin-top: 0.35rem; }

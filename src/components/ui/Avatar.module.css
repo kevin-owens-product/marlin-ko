@@ -1,0 +1,102 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: visible;
+  background-color: var(--sidebar-hover);
+  color: var(--foreground);
+  font-weight: 600;
+  user-select: none;
+}
+
+.xs {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.5rem;
+}
+
+.sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.6875rem;
+}
+
+.md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.8125rem;
+}
+
+.lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.xl {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.25rem;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border-radius: 50%;
+}
+
+.statusIndicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+}
+
+.statusXs,
+.statusSm {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.statusMd {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.statusLg,
+.statusXl {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.statusOnline {
+  background-color: var(--success);
+}
+
+.statusOffline {
+  background-color: var(--sidebar-fg);
+}
+
+.statusBusy {
+  background-color: var(--error);
+}
+
+.statusAway {
+  background-color: var(--warning);
+}

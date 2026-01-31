@@ -1,0 +1,229 @@
+/* Treasury Command Center */
+.container { padding: 2rem; max-width: 1440px; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.header p { font-size: 0.875rem; color: #4E5969; margin-bottom: 1.5rem; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 1px solid #E5E6EB; }
+.tab { padding: 0.75rem 1.5rem; font-size: 0.8125rem; font-weight: 500; color: #4E5969; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s ease; }
+.tab:hover { color: #1D2129; background: rgba(229, 230, 235, 0.3); }
+.tabActive { color: #165DFF; border-bottom-color: #165DFF; }
+
+/* KPI Grid */
+.kpiGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.kpiCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.kpiLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.kpiValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
+.kpiSub { font-size: 0.75rem; margin-top: 0.25rem; }
+.kpiUp { color: #23C343; }
+.kpiDown { color: #F76560; }
+.kpiNeutral { color: #4E5969; }
+
+/* Section */
+.section { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.sectionSubtitle { font-size: 0.8125rem; color: #4E5969; margin-bottom: 1rem; }
+.sectionHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+
+/* Two / Three Column Layouts */
+.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.threeCol { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+/* Bank Accounts Grid */
+.bankGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.bankCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; transition: border-color 0.15s ease; }
+.bankCard:hover { border-color: #86909C; }
+.bankHeader { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.bankName { font-size: 0.875rem; font-weight: 600; color: #1D2129; }
+.bankType { font-size: 0.6875rem; color: #4E5969; margin-top: 0.125rem; }
+.bankBalance { font-size: 1.25rem; font-weight: 700; color: #1D2129; margin-bottom: 0.5rem; }
+.bankCurrency { font-size: 0.75rem; color: #4E5969; }
+.bankFooter { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(229, 230, 235, 0.5); }
+.bankUpdated { font-size: 0.6875rem; color: #86909C; }
+.statusDot { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; font-weight: 500; }
+.statusDot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+.statusConnected { color: #23C343; }
+.statusConnected::before { background: #23C343; }
+.statusSyncing { color: #FF9A2E; }
+.statusSyncing::before { background: #FF9A2E; }
+.statusError { color: #F76560; }
+.statusError::before { background: #F76560; }
+
+/* Cash Position Consolidated */
+.cashPosition { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.totalCash { background: linear-gradient(135deg, rgba(22, 93, 255, 0.06), rgba(35, 195, 67, 0.04)); border: 1px solid rgba(22, 93, 255, 0.15); border-radius: 0.75rem; padding: 2rem; text-align: center; }
+.totalLabel { font-size: 0.8125rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.totalValue { font-size: 2.5rem; font-weight: 800; color: #1D2129; margin-bottom: 0.5rem; }
+.totalSub { font-size: 0.8125rem; color: #23C343; font-weight: 500; }
+
+/* Currency Breakdown Pie */
+.pieSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; }
+.pieContainer { display: flex; align-items: center; gap: 2rem; }
+.pieChart { position: relative; width: 160px; height: 160px; border-radius: 50%; flex-shrink: 0; }
+.pieCenter { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: #F7F8FA; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.pieCenterValue { font-size: 0.875rem; font-weight: 700; color: #1D2129; }
+.pieCenterLabel { font-size: 0.625rem; color: #4E5969; }
+.pieLegend { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.pieLegendItem { display: flex; align-items: center; justify-content: space-between; font-size: 0.8125rem; }
+.pieLegendLeft { display: flex; align-items: center; gap: 0.5rem; }
+.pieLegendDot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.pieLegendName { color: #4E5969; }
+.pieLegendValue { color: #1D2129; font-weight: 600; }
+
+/* Forecast Chart */
+.forecastChart { display: flex; align-items: center; gap: 4px; height: 260px; padding: 1rem 0; position: relative; }
+.forecastWeek { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; position: relative; }
+.forecastBars { display: flex; flex-direction: column; align-items: center; flex: 1; width: 100%; justify-content: center; gap: 2px; }
+.barInflow { width: 20px; border-radius: 2px 2px 0 0; transition: opacity 0.15s; }
+.barOutflow { width: 20px; border-radius: 0 0 2px 2px; transition: opacity 0.15s; }
+.forecastLabel { font-size: 0.5625rem; color: #86909C; margin-top: 4px; white-space: nowrap; }
+.forecastAccuracy { display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(35, 195, 67, 0.1); border: 1px solid rgba(35, 195, 67, 0.25); border-radius: 9999px; padding: 0.375rem 0.875rem; font-size: 0.75rem; color: #23C343; font-weight: 600; margin-top: 0.75rem; }
+.forecastAccuracyDot { width: 6px; height: 6px; background: #23C343; border-radius: 50%; }
+.legend { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E5E6EB; }
+.legendItem { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #4E5969; }
+.legendDot { width: 10px; height: 10px; border-radius: 2px; }
+.dotInflow { background: #23C343; }
+.dotOutflow { background: #F76560; }
+.dotNet { background: #165DFF; }
+.dotConfidence { background: rgba(22, 93, 255, 0.15); }
+
+/* Net position line indicator */
+.netLine { width: 100%; height: 2px; background: #165DFF; position: absolute; left: 0; }
+.netDot { width: 6px; height: 6px; background: #165DFF; border-radius: 50%; position: absolute; left: 50%; transform: translateX(-50%); }
+
+/* Working Capital Metrics */
+.wcGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.wcCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; text-align: center; }
+.wcValue { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+.wcLabel { font-size: 0.75rem; color: #4E5969; margin-bottom: 0.25rem; }
+.wcDelta { font-size: 0.6875rem; font-weight: 500; }
+.wcGood { color: #23C343; }
+.wcWarn { color: #FF9A2E; }
+.wcNeutral { color: #1D2129; }
+
+/* Payment Calendar */
+.calendarGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+.calendarDay { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 0.75rem; min-height: 110px; }
+.calendarDayHeader { font-size: 0.6875rem; color: #86909C; margin-bottom: 0.25rem; }
+.calendarDayDate { font-size: 0.875rem; font-weight: 600; color: #1D2129; margin-bottom: 0.5rem; }
+.calendarItem { background: rgba(229, 230, 235, 0.4); border-radius: 0.25rem; padding: 0.375rem 0.5rem; margin-bottom: 0.25rem; font-size: 0.625rem; }
+.calendarItem:last-child { margin-bottom: 0; }
+.calendarItemName { color: #1D2129; font-weight: 500; }
+.calendarItemAmount { color: #4E5969; }
+.calendarItemImpact { font-size: 0.5625rem; }
+.impactNeg { color: #F76560; }
+.impactPos { color: #23C343; }
+
+/* Cash Buffer */
+.bufferSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.bufferGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; }
+.bufferMetric { text-align: center; }
+.bufferMetricValue { font-size: 1.125rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.bufferMetricLabel { font-size: 0.6875rem; color: #4E5969; }
+.bufferBar { height: 8px; background: #ffffff; border-radius: 9999px; overflow: hidden; }
+.bufferFill { height: 100%; border-radius: 9999px; transition: width 0.3s ease; }
+.bufferHealthy { background: linear-gradient(90deg, #23C343, #34d399); }
+.bufferWarning { background: linear-gradient(90deg, #FF9A2E, #fbbf24); }
+.bufferCritical { background: linear-gradient(90deg, #F76560, #f87171); }
+
+/* AI Insights */
+.aiCard { background: linear-gradient(135deg, rgba(22, 93, 255, 0.04), rgba(139, 92, 246, 0.03)); border: 1px solid rgba(22, 93, 255, 0.1); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.aiHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.aiIcon { width: 28px; height: 28px; background: rgba(22, 93, 255, 0.1); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #165DFF; }
+.aiTitle { font-size: 0.9375rem; font-weight: 600; color: #1D2129; }
+.insightsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.insightCard { background: rgba(255, 255, 255, 0.5); border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 1rem; }
+.insightIconRow { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.insightEmoji { width: 24px; height: 24px; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+.insightAmber { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.insightGreen { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.insightPurple { background: rgba(139, 92, 246, 0.15); color: #8E51DA; }
+.insightBlue { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.insightLabel { font-size: 0.8125rem; font-weight: 600; color: #1D2129; }
+.insightDesc { font-size: 0.75rem; color: #4E5969; line-height: 1.55; }
+
+/* Table */
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 0.75rem 0.75rem; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #4E5969; border-bottom: 1px solid #E5E6EB; font-weight: 600; white-space: nowrap; }
+.table td { padding: 0.625rem 0.75rem; font-size: 0.8125rem; color: #1D2129; border-bottom: 1px solid rgba(229, 230, 235, 0.5); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
+
+/* Badges */
+.badge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; white-space: nowrap; }
+.badgeGreen { background: rgba(35, 195, 67, 0.15); color: #23C343; }
+.badgeAmber { background: rgba(255, 154, 46, 0.15); color: #FF9A2E; }
+.badgeRed { background: rgba(247, 101, 96, 0.15); color: #F76560; }
+.badgeBlue { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.badgePurple { background: rgba(139, 92, 246, 0.15); color: #8E51DA; }
+
+/* Payment Optimization Tab */
+.scenarioGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.scenarioCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; position: relative; }
+.scenarioCard:hover { border-color: #86909C; }
+.scenarioRecommended { border-color: rgba(35, 195, 67, 0.4); }
+.scenarioRecommendedTag { position: absolute; top: -0.5rem; right: 1rem; background: #23C343; color: #ffffff; font-size: 0.625rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.scenarioName { font-size: 0.9375rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.scenarioMetrics { display: flex; flex-direction: column; gap: 0.75rem; }
+.scenarioMetric { display: flex; justify-content: space-between; align-items: center; }
+.scenarioMetricLabel { font-size: 0.75rem; color: #4E5969; }
+.scenarioMetricValue { font-size: 0.8125rem; font-weight: 600; color: #1D2129; }
+
+/* Supplier Priority Matrix */
+.matrixGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.matrixColumn { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 1rem; }
+.matrixColumnTitle { font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+.matrixCritical { color: #F76560; }
+.matrixFlexible { color: #23C343; }
+.matrixItem { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.5rem 0; border-bottom: 1px solid rgba(229, 230, 235, 0.4); }
+.matrixItem:last-child { border-bottom: none; }
+.matrixSupplier { font-size: 0.8125rem; font-weight: 500; color: #1D2129; }
+.matrixReason { font-size: 0.6875rem; color: #4E5969; margin-top: 0.125rem; }
+.matrixAmount { font-size: 0.8125rem; font-weight: 600; color: #1D2129; text-align: right; white-space: nowrap; }
+
+/* Batch Builder */
+.batchSummary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #E5E6EB; }
+.batchMetric { text-align: center; }
+.batchMetricValue { font-size: 1.125rem; font-weight: 700; color: #1D2129; margin-bottom: 0.125rem; }
+.batchMetricLabel { font-size: 0.6875rem; color: #4E5969; }
+.batchItem { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(229, 230, 235, 0.4); }
+.batchItem:last-child { border-bottom: none; }
+.batchItemLeft { display: flex; align-items: center; gap: 0.75rem; }
+.batchCheckbox { width: 16px; height: 16px; accent-color: #165DFF; cursor: pointer; }
+.batchItemName { font-size: 0.8125rem; font-weight: 500; color: #1D2129; }
+.batchItemDue { font-size: 0.6875rem; color: #4E5969; }
+.batchItemAmount { font-size: 0.8125rem; font-weight: 600; color: #1D2129; }
+.batchItemStatus { font-size: 0.6875rem; }
+
+/* Strategy badge colors for optimization table */
+.strategyEarly { color: #23C343; }
+.strategyOnTime { color: #165DFF; }
+.strategyDefer { color: #FF9A2E; }
+
+/* Confidence bar */
+.confidenceBar { width: 48px; height: 6px; background: #ffffff; border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 0.375rem; }
+.confidenceFill { height: 100%; border-radius: 3px; }
+.confidenceHigh { background: #23C343; }
+.confidenceMed { background: #FF9A2E; }
+.confidenceLow { background: #F76560; }
+
+/* Working Capital tab extras */
+.wcDetailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.wcTrend { display: flex; align-items: flex-end; gap: 3px; height: 60px; margin-top: 0.75rem; }
+.wcTrendBar { flex: 1; background: #165DFF; border-radius: 2px 2px 0 0; min-width: 6px; opacity: 0.7; }
+.wcTrendBar:last-child { opacity: 1; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .bankGrid { grid-template-columns: repeat(2, 1fr); }
+  .kpiGrid { grid-template-columns: repeat(2, 1fr); }
+  .twoCol { grid-template-columns: 1fr; }
+  .threeCol { grid-template-columns: 1fr; }
+  .scenarioGrid { grid-template-columns: 1fr; }
+  .cashPosition { grid-template-columns: 1fr; }
+  .insightsGrid { grid-template-columns: 1fr; }
+  .calendarGrid { grid-template-columns: repeat(3, 1fr); }
+  .wcGrid { grid-template-columns: repeat(2, 1fr); }
+}
