@@ -9,7 +9,7 @@
 .statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
 .statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
 .statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.statValue { font-size: 1.75rem; font-weight: 700; color: #1D2129; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .statChange { font-size: 0.75rem; color: #23C343; margin-top: 0.25rem; }
 
 /* Two Column */

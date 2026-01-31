@@ -12,7 +12,7 @@
 .dashMedium::before { background: #165DFF; }
 .dashLow::before { background: #23C343; }
 .dashLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.dashValue { font-size: 1.75rem; font-weight: 700; }
+.dashValue { font-size: 1.5rem; font-weight: 700; }
 .dashCritical .dashValue { color: #F76560; }
 .dashHigh .dashValue { color: #FF9A2E; }
 .dashMedium .dashValue { color: #165DFF; }
@@ -26,7 +26,7 @@
 .alertTable thead th { padding: 0.625rem 1rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
 .alertTable tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
 .alertTable tbody tr:last-child { border-bottom: none; }
-.alertTable tbody tr:hover { background: #E5E6EB; }
+.alertTable tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
 .alertTable td { padding: 0.625rem 1rem; font-size: 0.8125rem; color: #1D2129; }
 .typeBadge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.6875rem; font-weight: 500; }
 .typeFinancial { background: rgba(239,68,68,0.15); color: #F76560; }

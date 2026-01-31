@@ -134,10 +134,17 @@ export async function POST(request: NextRequest) {
 
         const contract = await prisma.contract.create({
             data: {
-                ...body,
+                title: body.title,
+                supplierId: body.supplierId,
                 value: parseFloat(body.value),
+                currency: body.currency || "USD",
                 startDate: new Date(body.startDate),
                 endDate: new Date(body.endDate),
+                status: body.status || "DRAFT",
+                autoRenew: body.autoRenew ?? false,
+                terms: body.terms || null,
+                documentUrl: body.documentUrl || null,
+                tenantId: body.tenantId,
             },
         });
 

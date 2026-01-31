@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useT } from "@/lib/i18n/locale-context";
 import { useCRUD } from "@/lib/hooks/use-crud";
 import { useInlineEdit } from "@/lib/hooks/use-inline-edit";
+import { useColumnResize } from "@/lib/hooks/use-column-resize";
 import { useToast } from "@/components/ui/Toast";
 import { EditableCell } from "@/components/inline-edit/EditableCell";
 import { RowActions } from "@/components/inline-edit/RowActions";
@@ -30,6 +31,17 @@ const STATUS_OPTIONS = [
   { label: "Received", value: "Received" },
   { label: "Closed", value: "Closed" },
   { label: "Cancelled", value: "Cancelled" },
+];
+
+const COLUMNS = [
+  { key: "poNumber", minWidth: 100, initialWidth: 160 },
+  { key: "supplier", minWidth: 100, initialWidth: 150 },
+  { key: "description", minWidth: 120, initialWidth: 200 },
+  { key: "amount", minWidth: 80, initialWidth: 120 },
+  { key: "status", minWidth: 90, initialWidth: 140 },
+  { key: "orderDate", minWidth: 80, initialWidth: 110 },
+  { key: "received", minWidth: 80, initialWidth: 110 },
+  { key: "actions", minWidth: 90, initialWidth: 100 },
 ];
 
 function getStatusClass(status: string) {
@@ -66,29 +78,27 @@ function receivedPercent(status: string): number {
 export default function PurchaseOrdersPage() {
   const t = useT();
   const [activeTab, setActiveTab] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [saving, setSaving] = useState(false);
 
   const tabs = ["All", "Draft", "Approved", "Partially Received", "Received", "Closed"];
 
-  const statusParam = activeTab === "All" ? undefined : activeTab;
-
   const crud = useCRUD<PurchaseOrder>({
     endpoint: "/api/purchase-orders",
-    defaultParams: statusParam ? { status: statusParam } : {},
+    autoFetch: false,
   });
 
   const inline = useInlineEdit<PurchaseOrder>();
   const { addToast } = useToast();
+  const { widths, onMouseDown } = useColumnResize(COLUMNS);
 
-  // Re-fetch when tab changes
-  const handleTabChange = useCallback(
-    (tab: string) => {
-      setActiveTab(tab);
-      const params: Record<string, string> = tab === "All" ? {} : { status: tab };
-      crud.fetchAll(params);
-    },
-    [crud],
-  );
+  // Re-fetch when tab or search changes
+  useEffect(() => {
+    const params: Record<string, string> = {};
+    if (activeTab !== "All") params.status = activeTab;
+    if (searchQuery) params.search = searchQuery;
+    crud.fetchAll(params);
+  }, [activeTab, searchQuery, crud.fetchAll]);
 
   // --- Create ---
   const handleStartCreate = useCallback(() => {
@@ -163,6 +173,11 @@ export default function PurchaseOrdersPage() {
   const partialPOs = crud.data.filter((po) => po.status === "Partially Received").length;
   const closedPOs = crud.data.filter((po) => po.status === "Closed" || po.status === "Received").length;
   const totalValue = crud.data.reduce((sum, po) => sum + (po.totalAmount ?? 0), 0);
+  const statusParam = activeTab === "All" ? undefined : activeTab;
+
+  function thStyle(key: string) {
+    return widths[key] ? { width: widths[key], position: "relative" as const } : { position: "relative" as const };
+  }
 
   return (
     <div className={styles.container}>
@@ -180,7 +195,7 @@ export default function PurchaseOrdersPage() {
         <div className={styles.statCard}>
           <div className={styles.statLabel}>{t("purchaseOrders.totalPOs")}</div>
           <div className={styles.statValue}>{totalPOs}</div>
-          <div className={`${styles.statSub}`}>${totalValue.toLocaleString()} total value</div>
+          <div className={styles.statSub}>${totalValue.toLocaleString()} total value</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statLabel}>{t("purchaseOrders.openPOs")}</div>
@@ -205,16 +220,29 @@ export default function PurchaseOrdersPage() {
         </div>
       </div>
 
-      <div className={styles.tabs}>
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            className={activeTab === tab ? styles.tabActive : styles.tab}
-            onClick={() => handleTabChange(tab)}
-          >
-            {tab}
-          </button>
-        ))}
+      {/* Controls: Tabs + Search */}
+      <div className={styles.controls}>
+        <div className={styles.tabs}>
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              className={activeTab === tab ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <div className={styles.searchBar}>
+          <span className={styles.searchIcon}>&#128269;</span>
+          <input
+            type="text"
+            className={styles.searchInput}
+            placeholder="Search PO number, supplier..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className={styles.tableWrapper}>
@@ -226,14 +254,37 @@ export default function PurchaseOrdersPage() {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>{t("purchaseOrders.poNumber")}</th>
-                <th>{t("purchaseOrders.supplier")}</th>
-                <th>{t("common.description")}</th>
-                <th>{t("purchaseOrders.amount")}</th>
-                <th>{t("purchaseOrders.status")}</th>
-                <th>{t("purchaseOrders.orderDate")}</th>
-                <th>Received</th>
-                <th>{t("purchaseOrders.actions")}</th>
+                <th style={thStyle("poNumber")}>
+                  {t("purchaseOrders.poNumber")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("poNumber", 100, e)} />
+                </th>
+                <th style={thStyle("supplier")}>
+                  {t("purchaseOrders.supplier")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("supplier", 100, e)} />
+                </th>
+                <th style={thStyle("description")}>
+                  {t("common.description")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("description", 120, e)} />
+                </th>
+                <th style={thStyle("amount")}>
+                  {t("purchaseOrders.amount")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("amount", 80, e)} />
+                </th>
+                <th style={thStyle("status")}>
+                  {t("purchaseOrders.status")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("status", 90, e)} />
+                </th>
+                <th style={thStyle("orderDate")}>
+                  {t("purchaseOrders.orderDate")}
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("orderDate", 80, e)} />
+                </th>
+                <th style={thStyle("received")}>
+                  Received
+                  <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("received", 80, e)} />
+                </th>
+                <th style={thStyle("actions")}>
+                  {t("purchaseOrders.actions")}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -303,7 +354,6 @@ export default function PurchaseOrdersPage() {
 
                 return (
                   <tr key={po.id}>
-                    {/* PO Number */}
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -312,8 +362,6 @@ export default function PurchaseOrdersPage() {
                         displayRender={(val) => <span className={styles.poNumber}>{val}</span>}
                       />
                     </td>
-
-                    {/* Supplier */}
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -322,8 +370,6 @@ export default function PurchaseOrdersPage() {
                         displayRender={(val) => <span className={styles.supplierName}>{val}</span>}
                       />
                     </td>
-
-                    {/* Description */}
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -331,8 +377,6 @@ export default function PurchaseOrdersPage() {
                         onChange={(v) => inline.updateEditField("description", v)}
                       />
                     </td>
-
-                    {/* Amount */}
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -340,14 +384,10 @@ export default function PurchaseOrdersPage() {
                         value={isEditing ? inline.editDraft.totalAmount : po.totalAmount}
                         onChange={(v) => inline.updateEditField("totalAmount", v)}
                         displayRender={(val) => (
-                          <span className={styles.amount}>
-                            ${(val ?? 0).toLocaleString()}
-                          </span>
+                          <span className={styles.amount}>${(val ?? 0).toLocaleString()}</span>
                         )}
                       />
                     </td>
-
-                    {/* Status */}
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -356,35 +396,24 @@ export default function PurchaseOrdersPage() {
                         onChange={(v) => inline.updateEditField("status", v)}
                         options={STATUS_OPTIONS}
                         displayRender={(val) => (
-                          <span className={`${styles.statusBadge} ${getStatusClass(val)}`}>
-                            {val}
-                          </span>
+                          <span className={`${styles.statusBadge} ${getStatusClass(val)}`}>{val}</span>
                         )}
                       />
                     </td>
-
-                    {/* Order Date */}
                     <td style={{ fontSize: "0.8125rem", color: "#86909C" }}>
                       {po.createdAt ? new Date(po.createdAt).toLocaleDateString() : "--"}
                     </td>
-
-                    {/* Received progress */}
                     <td>
                       <div className={styles.receivedBar}>
                         <div className={styles.barTrack}>
                           <div
                             className={styles.barFill}
-                            style={{
-                              width: `${pct}%`,
-                              background: getBarColor(pct),
-                            }}
+                            style={{ width: `${pct}%`, background: getBarColor(pct) }}
                           />
                         </div>
                         <span className={styles.barLabel}>{pct}%</span>
                       </div>
                     </td>
-
-                    {/* Actions */}
                     <td>
                       <RowActions
                         mode={isDeleting ? "deleting" : isEditing ? "editing" : "read"}
@@ -400,6 +429,15 @@ export default function PurchaseOrdersPage() {
                   </tr>
                 );
               })}
+
+              {/* Empty state */}
+              {!crud.loading && crud.data.length === 0 && !inline.isCreating && (
+                <tr>
+                  <td colSpan={8} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
+                    No purchase orders found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         )}
@@ -416,6 +454,7 @@ export default function PurchaseOrdersPage() {
                 crud.fetchAll({
                   page: String(crud.pagination.page - 1),
                   ...(statusParam ? { status: statusParam } : {}),
+                  ...(searchQuery ? { search: searchQuery } : {}),
                 })
               }
             >
@@ -431,6 +470,7 @@ export default function PurchaseOrdersPage() {
                 crud.fetchAll({
                   page: String(crud.pagination.page + 1),
                   ...(statusParam ? { status: statusParam } : {}),
+                  ...(searchQuery ? { search: searchQuery } : {}),
                 })
               }
             >

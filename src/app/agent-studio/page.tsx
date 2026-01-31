@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import styles from './agent-studio.module.css';
 
@@ -196,7 +196,7 @@ const decisions: Decision[] = [
       { name: 'Amount Match', weight: 0.35, score: 99.2, color: '#23C343' },
       { name: 'PO Alignment', weight: 0.25, score: 98.5, color: '#165DFF' },
       { name: 'GR Confirmation', weight: 0.20, score: 100.0, color: '#8E51DA' },
-      { name: 'Supplier Trust', weight: 0.15, score: 96.3, color: '#FF9A2E' },
+      { name: 'Supplier Trust', weight: 0.15, score: 96.3, color: '#D97706' },
       { name: 'Historical', weight: 0.05, score: 97.8, color: '#14C9C9' },
     ],
     alternatives: [{ action: 'Escalate for manual review', confidence: 72.3 }, { action: 'Partial match (80%)', confidence: 45.1 }],
@@ -208,8 +208,8 @@ const decisions: Decision[] = [
     reasoning: 'Invoice INV-9846 shares 94% similarity with INV-9801 processed 3 days ago. Same supplier, matching amount, overlapping line items. Duplicate probability model returned 87.3% confidence. Escalated for human review per policy.',
     outcome: 'Blocked', humanOverride: false,
     factors: [
-      { name: 'Content Similarity', weight: 0.40, score: 94.0, color: '#F76560' },
-      { name: 'Amount Match', weight: 0.25, score: 100.0, color: '#FF9A2E' },
+      { name: 'Content Similarity', weight: 0.40, score: 94.0, color: '#DC2626' },
+      { name: 'Amount Match', weight: 0.25, score: 100.0, color: '#D97706' },
       { name: 'Temporal Proximity', weight: 0.20, score: 78.5, color: '#8E51DA' },
       { name: 'Supplier Pattern', weight: 0.15, score: 65.2, color: '#165DFF' },
     ],
@@ -225,7 +225,7 @@ const decisions: Decision[] = [
       { name: 'NLP Classification', weight: 0.40, score: 96.8, color: '#8E51DA' },
       { name: 'Supplier Category', weight: 0.25, score: 98.2, color: '#165DFF' },
       { name: 'Line Item Analysis', weight: 0.20, score: 93.5, color: '#23C343' },
-      { name: 'Historical Pattern', weight: 0.15, score: 95.0, color: '#FF9A2E' },
+      { name: 'Historical Pattern', weight: 0.15, score: 95.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'GL 6002 (IT Consulting)', confidence: 23.8 }, { action: 'Escalate for review', confidence: 15.2 }],
     pastDecisions: [{ id: 'DEC-799', action: 'Coded GL 6001', outcome: 'Correct' }, { id: 'DEC-650', action: 'Coded GL 6001', outcome: 'Correct' }, { id: 'DEC-501', action: 'Coded GL 6002', outcome: 'Corrected to 6001' }],
@@ -239,7 +239,7 @@ const decisions: Decision[] = [
       { name: 'Schema Valid', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Business Rules', weight: 0.30, score: 100.0, color: '#165DFF' },
       { name: 'Tax ID Check', weight: 0.20, score: 100.0, color: '#8E51DA' },
-      { name: 'Format Compliance', weight: 0.20, score: 99.5, color: '#FF9A2E' },
+      { name: 'Format Compliance', weight: 0.20, score: 99.5, color: '#D97706' },
     ],
     alternatives: [{ action: 'Flag for manual review', confidence: 5.1 }],
     pastDecisions: [{ id: 'DEC-793', action: 'Validated UBL (Belgium)', outcome: 'Passed' }, { id: 'DEC-678', action: 'Validated UBL (Belgium)', outcome: 'Passed' }, { id: 'DEC-512', action: 'Rejected invalid schema', outcome: 'Correct rejection' }],
@@ -253,7 +253,7 @@ const decisions: Decision[] = [
       { name: 'OCR Confidence', weight: 0.35, score: 99.7, color: '#165DFF' },
       { name: 'Field Extraction', weight: 0.30, score: 99.2, color: '#23C343' },
       { name: 'Cross-validation', weight: 0.20, score: 99.4, color: '#8E51DA' },
-      { name: 'Format Quality', weight: 0.15, score: 98.8, color: '#FF9A2E' },
+      { name: 'Format Quality', weight: 0.15, score: 98.8, color: '#D97706' },
     ],
     alternatives: [{ action: 'Flag low-confidence fields', confidence: 12.3 }],
     pastDecisions: [{ id: 'DEC-791', action: 'OCR extracted 19 fields', outcome: 'All correct' }, { id: 'DEC-684', action: 'OCR extracted 21 fields', outcome: 'All correct' }, { id: 'DEC-545', action: 'OCR flagged 2 fields', outcome: 'Manual correction applied' }],
@@ -264,10 +264,10 @@ const decisions: Decision[] = [
     reasoning: 'Invoice amount EUR 25,800 exceeds L1 threshold (EUR 10,000). Department: Engineering. Budget check passed (78% utilized YTD). Routed to Maria Chen based on delegation matrix and current workload balancing. Expected approval SLA: 4 hours.',
     outcome: 'Queued', humanOverride: false,
     factors: [
-      { name: 'Amount Threshold', weight: 0.30, score: 100.0, color: '#F76560' },
+      { name: 'Amount Threshold', weight: 0.30, score: 100.0, color: '#DC2626' },
       { name: 'Budget Available', weight: 0.25, score: 88.5, color: '#23C343' },
       { name: 'Approver Match', weight: 0.25, score: 92.3, color: '#165DFF' },
-      { name: 'Workload Balance', weight: 0.20, score: 82.7, color: '#FF9A2E' },
+      { name: 'Workload Balance', weight: 0.20, score: 82.7, color: '#D97706' },
     ],
     alternatives: [{ action: 'Route to L3 (VP Finance)', confidence: 35.2 }, { action: 'Auto-approve (policy exception)', confidence: 18.7 }],
     pastDecisions: [{ id: 'DEC-788', action: 'Routed to L2 (M. Chen)', outcome: 'Approved in 2.1h' }, { id: 'DEC-672', action: 'Routed to L2 (J. Park)', outcome: 'Approved in 3.5h' }, { id: 'DEC-498', action: 'Routed to L3 (VP)', outcome: 'Approved in 6h' }],
@@ -280,7 +280,7 @@ const decisions: Decision[] = [
     factors: [
       { name: 'Terms Compliance', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Cash Flow Check', weight: 0.30, score: 99.5, color: '#165DFF' },
-      { name: 'Discount Optimization', weight: 0.20, score: 100.0, color: '#FF9A2E' },
+      { name: 'Discount Optimization', weight: 0.20, score: 100.0, color: '#D97706' },
       { name: 'Supplier Priority', weight: 0.20, score: 99.2, color: '#8E51DA' },
     ],
     alternatives: [{ action: 'Pay immediately (capture 2% discount)', confidence: 88.4 }, { action: 'Defer to Net-45', confidence: 22.1 }],
@@ -295,7 +295,7 @@ const decisions: Decision[] = [
       { name: 'Payment Confirmed', weight: 0.35, score: 100.0, color: '#23C343' },
       { name: 'Contact Valid', weight: 0.25, score: 99.8, color: '#165DFF' },
       { name: 'Template Match', weight: 0.20, score: 98.5, color: '#8E51DA' },
-      { name: 'Channel Preference', weight: 0.20, score: 100.0, color: '#FF9A2E' },
+      { name: 'Channel Preference', weight: 0.20, score: 100.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Send via portal notification', confidence: 65.3 }],
     pastDecisions: [{ id: 'DEC-782', action: 'Sent payment confirmation', outcome: 'Acknowledged' }, { id: 'DEC-664', action: 'Sent payment reminder', outcome: 'Acknowledged' }, { id: 'DEC-488', action: 'Sent payment confirmation', outcome: 'Acknowledged' }],
@@ -309,7 +309,7 @@ const decisions: Decision[] = [
       { name: 'Fraud Score', weight: 0.35, score: 96.0, color: '#23C343' },
       { name: 'Bank Verification', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'Sanctions Check', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Pattern Analysis', weight: 0.15, score: 82.5, color: '#FF9A2E' },
+      { name: 'Pattern Analysis', weight: 0.15, score: 82.5, color: '#D97706' },
     ],
     alternatives: [{ action: 'Enhanced due diligence', confidence: 24.2 }],
     pastDecisions: [{ id: 'DEC-778', action: 'Cleared invoice', outcome: 'No issues' }, { id: 'DEC-660', action: 'Cleared invoice', outcome: 'No issues' }, { id: 'DEC-485', action: 'Flagged for review', outcome: 'False positive' }],
@@ -320,9 +320,9 @@ const decisions: Decision[] = [
     reasoning: 'Two-way match only: invoice matches PO-2235 but goods receipt pending. Amount discrepancy of 3.2% (EUR 340) on line item 3. Supplier has 12% historical discrepancy rate. Escalated for buyer review per threshold policy.',
     outcome: 'Queued', humanOverride: false,
     factors: [
-      { name: 'Amount Match', weight: 0.35, score: 68.0, color: '#FF9A2E' },
+      { name: 'Amount Match', weight: 0.35, score: 68.0, color: '#D97706' },
       { name: 'PO Alignment', weight: 0.25, score: 85.2, color: '#165DFF' },
-      { name: 'GR Status', weight: 0.20, score: 0.0, color: '#F76560' },
+      { name: 'GR Status', weight: 0.20, score: 0.0, color: '#DC2626' },
       { name: 'Supplier History', weight: 0.15, score: 72.0, color: '#8E51DA' },
       { name: 'Tolerance Check', weight: 0.05, score: 60.0, color: '#14C9C9' },
     ],
@@ -338,7 +338,7 @@ const decisions: Decision[] = [
       { name: 'NLP Classification', weight: 0.40, score: 94.2, color: '#8E51DA' },
       { name: 'Supplier Category', weight: 0.25, score: 99.0, color: '#165DFF' },
       { name: 'Line Item Analysis', weight: 0.20, score: 88.5, color: '#23C343' },
-      { name: 'Historical Pattern', weight: 0.15, score: 91.0, color: '#FF9A2E' },
+      { name: 'Historical Pattern', weight: 0.15, score: 91.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'GL 5210 (IT Software)', confidence: 18.4 }, { action: 'Escalate for review', confidence: 12.1 }],
     pastDecisions: [{ id: 'DEC-770', action: 'Coded GL 5200', outcome: 'Correct' }, { id: 'DEC-652', action: 'Coded GL 5200', outcome: 'Correct' }, { id: 'DEC-498', action: 'Coded GL 5210', outcome: 'Corrected to 5200' }],
@@ -352,7 +352,7 @@ const decisions: Decision[] = [
       { name: 'Amount Threshold', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Budget Available', weight: 0.25, score: 95.0, color: '#165DFF' },
       { name: 'Supplier Status', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Policy Check', weight: 0.20, score: 92.5, color: '#FF9A2E' },
+      { name: 'Policy Check', weight: 0.20, score: 92.5, color: '#D97706' },
     ],
     alternatives: [{ action: 'Route to L1 approver', confidence: 22.8 }],
     pastDecisions: [{ id: 'DEC-768', action: 'Auto-approved', outcome: 'No issues' }, { id: 'DEC-645', action: 'Auto-approved', outcome: 'No issues' }, { id: 'DEC-490', action: 'Auto-approved', outcome: 'No issues' }],
@@ -363,10 +363,10 @@ const decisions: Decision[] = [
     reasoning: 'Scanned PDF with moderate image quality. 18 of 20 fields extracted with high confidence. Two fields (line item descriptions on page 2) flagged for human verification due to image blur. Overall extraction rate acceptable.',
     outcome: 'Queued', humanOverride: false,
     factors: [
-      { name: 'OCR Confidence', weight: 0.35, score: 92.5, color: '#FF9A2E' },
+      { name: 'OCR Confidence', weight: 0.35, score: 92.5, color: '#D97706' },
       { name: 'Field Extraction', weight: 0.30, score: 90.0, color: '#165DFF' },
       { name: 'Cross-validation', weight: 0.20, score: 98.0, color: '#8E51DA' },
-      { name: 'Format Quality', weight: 0.15, score: 78.5, color: '#F76560' },
+      { name: 'Format Quality', weight: 0.15, score: 78.5, color: '#DC2626' },
     ],
     alternatives: [{ action: 'Full manual entry', confidence: 8.2 }, { action: 'Re-scan request', confidence: 45.0 }],
     pastDecisions: [{ id: 'DEC-762', action: 'OCR with flag', outcome: 'Manual correction applied' }, { id: 'DEC-640', action: 'OCR full confidence', outcome: 'All correct' }, { id: 'DEC-487', action: 'OCR with flag', outcome: 'Fields confirmed correct' }],
@@ -379,8 +379,8 @@ const decisions: Decision[] = [
     factors: [
       { name: 'Schema Valid', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Business Rules', weight: 0.30, score: 100.0, color: '#165DFF' },
-      { name: 'Tax ID Check', weight: 0.20, score: 0.0, color: '#F76560' },
-      { name: 'Format Compliance', weight: 0.20, score: 96.0, color: '#FF9A2E' },
+      { name: 'Tax ID Check', weight: 0.20, score: 0.0, color: '#DC2626' },
+      { name: 'Format Compliance', weight: 0.20, score: 96.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Allow with manual tax ID correction', confidence: 45.3 }],
     pastDecisions: [{ id: 'DEC-758', action: 'Validated KSeF', outcome: 'Passed' }, { id: 'DEC-636', action: 'Rejected invalid tax ID', outcome: 'Correct rejection' }, { id: 'DEC-484', action: 'Validated KSeF', outcome: 'Passed' }],
@@ -394,7 +394,7 @@ const decisions: Decision[] = [
       { name: 'Discount Value', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Cash Flow', weight: 0.30, score: 96.2, color: '#165DFF' },
       { name: 'NPV Analysis', weight: 0.25, score: 98.5, color: '#8E51DA' },
-      { name: 'Supplier Priority', weight: 0.15, score: 95.0, color: '#FF9A2E' },
+      { name: 'Supplier Priority', weight: 0.15, score: 95.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Standard Net-30 payment', confidence: 55.2 }, { action: 'Negotiate extended terms', confidence: 12.8 }],
     pastDecisions: [{ id: 'DEC-755', action: 'Early payment (discount)', outcome: 'Discount captured' }, { id: 'DEC-632', action: 'Standard payment', outcome: 'Paid on time' }, { id: 'DEC-480', action: 'Early payment (discount)', outcome: 'Discount captured' }],
@@ -405,9 +405,9 @@ const decisions: Decision[] = [
     reasoning: 'Supplier GlobalTech submitted invoice with new bank account details. Account change detected vs. master data. Flagged for treasury verification per fraud prevention policy. Previous account used for 23 months without change.',
     outcome: 'Blocked', humanOverride: false,
     factors: [
-      { name: 'Account Change', weight: 0.40, score: 100.0, color: '#F76560' },
-      { name: 'Supplier History', weight: 0.25, score: 92.0, color: '#FF9A2E' },
-      { name: 'Verification Status', weight: 0.20, score: 0.0, color: '#F76560' },
+      { name: 'Account Change', weight: 0.40, score: 100.0, color: '#DC2626' },
+      { name: 'Supplier History', weight: 0.25, score: 92.0, color: '#D97706' },
+      { name: 'Verification Status', weight: 0.20, score: 0.0, color: '#DC2626' },
       { name: 'Risk Score', weight: 0.15, score: 75.0, color: '#8E51DA' },
     ],
     alternatives: [{ action: 'Allow with callback verification', confidence: 55.3 }, { action: 'Process to old account', confidence: 40.1 }],
@@ -419,7 +419,7 @@ const decisions: Decision[] = [
     reasoning: 'Invoice INV-9831 disputed by buyer: quantity mismatch on line 4. Automated dispute notification generated with supporting documentation (PO and GR comparison). Sent to disputes@acmewidgets.com. Response deadline set: 5 business days.',
     outcome: 'Executed', humanOverride: false,
     factors: [
-      { name: 'Dispute Valid', weight: 0.30, score: 98.0, color: '#FF9A2E' },
+      { name: 'Dispute Valid', weight: 0.30, score: 98.0, color: '#D97706' },
       { name: 'Contact Valid', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'Documentation', weight: 0.25, score: 96.5, color: '#23C343' },
       { name: 'Priority Level', weight: 0.20, score: 95.0, color: '#8E51DA' },
@@ -436,7 +436,7 @@ const decisions: Decision[] = [
       { name: 'Amount Match', weight: 0.35, score: 96.0, color: '#23C343' },
       { name: 'Multi-PO Logic', weight: 0.25, score: 94.2, color: '#165DFF' },
       { name: 'GR Confirmation', weight: 0.20, score: 100.0, color: '#8E51DA' },
-      { name: 'Project Link', weight: 0.15, score: 88.0, color: '#FF9A2E' },
+      { name: 'Project Link', weight: 0.15, score: 88.0, color: '#D97706' },
       { name: 'Historical', weight: 0.05, score: 85.0, color: '#14C9C9' },
     ],
     alternatives: [{ action: 'Match to PO-2233 only', confidence: 62.1 }, { action: 'Escalate for buyer review', confidence: 48.5 }],
@@ -451,7 +451,7 @@ const decisions: Decision[] = [
       { name: 'NLP Classification', weight: 0.40, score: 92.0, color: '#8E51DA' },
       { name: 'Supplier Category', weight: 0.25, score: 97.5, color: '#165DFF' },
       { name: 'Line Item Analysis', weight: 0.20, score: 88.0, color: '#23C343' },
-      { name: 'Historical Pattern', weight: 0.15, score: 87.5, color: '#FF9A2E' },
+      { name: 'Historical Pattern', weight: 0.15, score: 87.5, color: '#D97706' },
     ],
     alternatives: [{ action: 'GL 4110 (Components)', confidence: 28.3 }, { action: 'Escalate for review', confidence: 10.5 }],
     pastDecisions: [{ id: 'DEC-738', action: 'Coded GL 4100', outcome: 'Correct' }, { id: 'DEC-612', action: 'Coded GL 4100', outcome: 'Correct' }, { id: 'DEC-460', action: 'Coded GL 4100', outcome: 'Correct' }],
@@ -465,7 +465,7 @@ const decisions: Decision[] = [
       { name: 'Contract Match', weight: 0.35, score: 100.0, color: '#23C343' },
       { name: 'Amount Variance', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'Recurrence Pattern', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Budget Check', weight: 0.15, score: 95.0, color: '#FF9A2E' },
+      { name: 'Budget Check', weight: 0.15, score: 95.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Route for review', confidence: 8.5 }],
     pastDecisions: [{ id: 'DEC-735', action: 'Auto-approved recurring', outcome: 'No issues' }, { id: 'DEC-608', action: 'Auto-approved recurring', outcome: 'No issues' }, { id: 'DEC-455', action: 'Auto-approved recurring', outcome: 'No issues' }],
@@ -479,7 +479,7 @@ const decisions: Decision[] = [
       { name: 'XML Extraction', weight: 0.40, score: 100.0, color: '#23C343' },
       { name: 'PDF/A Compliance', weight: 0.25, score: 99.5, color: '#165DFF' },
       { name: 'Data Consistency', weight: 0.20, score: 100.0, color: '#8E51DA' },
-      { name: 'Field Completeness', weight: 0.15, score: 99.5, color: '#FF9A2E' },
+      { name: 'Field Completeness', weight: 0.15, score: 99.5, color: '#D97706' },
     ],
     alternatives: [{ action: 'OCR fallback extraction', confidence: 15.2 }],
     pastDecisions: [{ id: 'DEC-730', action: 'Parsed Factur-X', outcome: 'All correct' }, { id: 'DEC-602', action: 'Parsed Factur-X', outcome: 'All correct' }, { id: 'DEC-450', action: 'Parsed UBL XML', outcome: 'All correct' }],
@@ -493,7 +493,7 @@ const decisions: Decision[] = [
       { name: 'Fraud Score', weight: 0.35, score: 98.0, color: '#23C343' },
       { name: 'Supplier Trust', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'Sanctions Clear', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Pattern Match', weight: 0.15, score: 88.0, color: '#FF9A2E' },
+      { name: 'Pattern Match', weight: 0.15, score: 88.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Enhanced screening', confidence: 12.7 }],
     pastDecisions: [{ id: 'DEC-725', action: 'Cleared invoice', outcome: 'No issues' }, { id: 'DEC-598', action: 'Cleared invoice', outcome: 'No issues' }, { id: 'DEC-445', action: 'Cleared invoice', outcome: 'No issues' }],
@@ -507,7 +507,7 @@ const decisions: Decision[] = [
       { name: 'All Approved', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Bank Verified', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'SEPA Compliant', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Dual Auth', weight: 0.20, score: 98.0, color: '#FF9A2E' },
+      { name: 'Dual Auth', weight: 0.20, score: 98.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Split into smaller batches', confidence: 22.1 }],
     pastDecisions: [{ id: 'DEC-722', action: 'Batch payment (10)', outcome: 'All settled' }, { id: 'DEC-595', action: 'Batch payment (15)', outcome: 'All settled' }, { id: 'DEC-442', action: 'Batch payment (8)', outcome: 'All settled' }],
@@ -521,7 +521,7 @@ const decisions: Decision[] = [
       { name: 'XML Structure', weight: 0.30, score: 100.0, color: '#23C343' },
       { name: 'Tax Calculation', weight: 0.30, score: 99.0, color: '#165DFF' },
       { name: 'SDI Requirements', weight: 0.25, score: 100.0, color: '#8E51DA' },
-      { name: 'Progressive #', weight: 0.15, score: 99.0, color: '#FF9A2E' },
+      { name: 'Progressive #', weight: 0.15, score: 99.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Manual tax review', confidence: 8.5 }],
     pastDecisions: [{ id: 'DEC-718', action: 'Validated FatturaPA', outcome: 'SDI accepted' }, { id: 'DEC-590', action: 'Validated FatturaPA', outcome: 'SDI accepted' }, { id: 'DEC-438', action: 'Rejected FatturaPA', outcome: 'Correct rejection' }],
@@ -535,7 +535,7 @@ const decisions: Decision[] = [
       { name: 'Category Match', weight: 0.35, score: 92.0, color: '#23C343' },
       { name: 'Amount Tolerance', weight: 0.25, score: 88.0, color: '#165DFF' },
       { name: 'Supplier Category', weight: 0.25, score: 95.0, color: '#8E51DA' },
-      { name: 'Historical', weight: 0.15, score: 75.0, color: '#FF9A2E' },
+      { name: 'Historical', weight: 0.15, score: 75.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Require retroactive PO', confidence: 45.2 }, { action: 'Reject - PO required', confidence: 30.8 }],
     pastDecisions: [{ id: 'DEC-715', action: 'Non-PO approved', outcome: 'Processed' }, { id: 'DEC-588', action: 'Non-PO escalated', outcome: 'Approved' }, { id: 'DEC-435', action: 'Non-PO approved', outcome: 'Processed' }],
@@ -549,7 +549,7 @@ const decisions: Decision[] = [
       { name: 'NLP Classification', weight: 0.40, score: 90.5, color: '#8E51DA' },
       { name: 'Policy Compliance', weight: 0.25, score: 92.0, color: '#165DFF' },
       { name: 'Travel Request', weight: 0.20, score: 85.0, color: '#23C343' },
-      { name: 'Historical Pattern', weight: 0.15, score: 88.0, color: '#FF9A2E' },
+      { name: 'Historical Pattern', weight: 0.15, score: 88.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'GL 7110 (Conference Costs)', confidence: 38.5 }, { action: 'Escalate for policy review', confidence: 15.2 }],
     pastDecisions: [{ id: 'DEC-710', action: 'Coded GL 7100', outcome: 'Correct' }, { id: 'DEC-582', action: 'Coded GL 7100', outcome: 'Correct' }, { id: 'DEC-430', action: 'Coded GL 7110', outcome: 'Corrected to 7100' }],
@@ -560,8 +560,8 @@ const decisions: Decision[] = [
     reasoning: 'Invoice amount EUR 125,000 exceeds L2 threshold (EUR 50,000). Capital expenditure category. Budget committee pre-approval reference found. Routed to VP Finance per delegation of authority matrix. High priority flag set.',
     outcome: 'Queued', humanOverride: false,
     factors: [
-      { name: 'Amount Threshold', weight: 0.30, score: 100.0, color: '#F76560' },
-      { name: 'CAPEX Category', weight: 0.25, score: 90.0, color: '#FF9A2E' },
+      { name: 'Amount Threshold', weight: 0.30, score: 100.0, color: '#DC2626' },
+      { name: 'CAPEX Category', weight: 0.25, score: 90.0, color: '#D97706' },
       { name: 'Budget Pre-approval', weight: 0.25, score: 88.0, color: '#165DFF' },
       { name: 'Delegation Matrix', weight: 0.20, score: 60.0, color: '#8E51DA' },
     ],
@@ -577,7 +577,7 @@ const decisions: Decision[] = [
       { name: 'Data Accuracy', weight: 0.30, score: 99.0, color: '#23C343' },
       { name: 'Contact Valid', weight: 0.25, score: 100.0, color: '#165DFF' },
       { name: 'Template Match', weight: 0.25, score: 96.0, color: '#8E51DA' },
-      { name: 'Timing', weight: 0.20, score: 97.0, color: '#FF9A2E' },
+      { name: 'Timing', weight: 0.20, score: 97.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Portal notification only', confidence: 55.0 }],
     pastDecisions: [{ id: 'DEC-700', action: 'Sent monthly statement', outcome: 'Acknowledged' }, { id: 'DEC-572', action: 'Sent monthly statement', outcome: 'Acknowledged' }, { id: 'DEC-420', action: 'Sent monthly statement', outcome: 'Acknowledged' }],
@@ -591,7 +591,7 @@ const decisions: Decision[] = [
       { name: 'Email Parsing', weight: 0.30, score: 98.0, color: '#165DFF' },
       { name: 'Doc Classification', weight: 0.30, score: 95.5, color: '#8E51DA' },
       { name: 'Attachment Valid', weight: 0.25, score: 100.0, color: '#23C343' },
-      { name: 'Sender Verified', weight: 0.15, score: 90.0, color: '#FF9A2E' },
+      { name: 'Sender Verified', weight: 0.15, score: 90.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Flag for manual review', confidence: 18.5 }, { action: 'Reject - unverified sender', confidence: 8.2 }],
     pastDecisions: [{ id: 'DEC-695', action: 'Email extraction', outcome: 'Correct doc' }, { id: 'DEC-568', action: 'Email extraction', outcome: 'Correct doc' }, { id: 'DEC-415', action: 'Email rejected', outcome: 'Was a quote, not invoice' }],
@@ -605,7 +605,7 @@ const decisions: Decision[] = [
       { name: 'Discount Analysis', weight: 0.35, score: 85.0, color: '#23C343' },
       { name: 'Cash Flow Impact', weight: 0.30, score: 72.0, color: '#165DFF' },
       { name: 'ROI Calculation', weight: 0.20, score: 80.0, color: '#8E51DA' },
-      { name: 'Risk Assessment', weight: 0.15, score: 75.0, color: '#FF9A2E' },
+      { name: 'Risk Assessment', weight: 0.15, score: 75.0, color: '#D97706' },
     ],
     alternatives: [{ action: 'Standard payment terms', confidence: 65.0 }, { action: 'Negotiate extended terms', confidence: 42.3 }],
     pastDecisions: [{ id: 'DEC-690', action: 'Cash flow advisory', outcome: 'Implemented - saved EUR 1,800' }, { id: 'DEC-560', action: 'Payment optimization', outcome: 'Partially implemented' }, { id: 'DEC-410', action: 'Discount advisory', outcome: 'Implemented - saved EUR 2,100' }],
@@ -728,8 +728,8 @@ export default function AgentStudioPage() {
   const getConfidenceColor = (conf: number) => {
     if (conf >= 95) return '#23C343';
     if (conf >= 85) return '#165DFF';
-    if (conf >= 70) return '#FF9A2E';
-    return '#F76560';
+    if (conf >= 70) return '#D97706';
+    return '#DC2626';
   };
 
   /* ─── Render Pipeline ─────────────────────────────────────── */
@@ -860,7 +860,7 @@ export default function AgentStudioPage() {
                           className={styles.sparklineBar}
                           style={{
                             height: `${(val / 100) * 20}px`,
-                            background: val >= 97 ? '#23C343' : val >= 93 ? '#165DFF' : '#FF9A2E',
+                            background: val >= 97 ? '#23C343' : val >= 93 ? '#165DFF' : '#D97706',
                           }}
                         />
                       ))}
@@ -954,7 +954,7 @@ export default function AgentStudioPage() {
                           className={styles.sparklineBar}
                           style={{
                             height: `${(val / 100) * 20}px`,
-                            background: val >= 97 ? '#23C343' : val >= 93 ? '#165DFF' : '#FF9A2E',
+                            background: val >= 97 ? '#23C343' : val >= 93 ? '#165DFF' : '#D97706',
                           }}
                         />
                       ))}
@@ -1057,13 +1057,12 @@ export default function AgentStudioPage() {
         </thead>
         <tbody>
           {filteredDecisions.map((d) => (
-            <>
+            <React.Fragment key={d.id}>
               <tr
-                key={d.id}
                 className={`${styles.decisionRow} ${expandedDecision === d.id ? styles.decisionRowExpanded : ''}`}
                 onClick={() => setExpandedDecision(expandedDecision === d.id ? null : d.id)}
               >
-                <td style={{ whiteSpace: 'nowrap', fontSize: '0.75rem', color: '#86909C' }}>{d.timestamp}</td>
+                <td style={{ whiteSpace: 'nowrap', fontSize: '0.75rem', color: '#6B7280' }}>{d.timestamp}</td>
                 <td style={{ whiteSpace: 'nowrap' }}>{d.agent.replace(' Agent', '')}</td>
                 <td style={{ color: '#165DFF', fontWeight: 500 }}>{d.invoice}</td>
                 <td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{d.action}</td>
@@ -1141,7 +1140,7 @@ export default function AgentStudioPage() {
                                 <span className={styles.pastDecisionOutcome} style={{
                                   color: pd.outcome.toLowerCase().includes('success') || pd.outcome.toLowerCase().includes('correct') || pd.outcome.toLowerCase().includes('passed') || pd.outcome.toLowerCase().includes('no issues') || pd.outcome.toLowerCase().includes('acknowledged')
                                     ? '#23C343' : pd.outcome.toLowerCase().includes('fraud') || pd.outcome.toLowerCase().includes('reject')
-                                    ? '#F76560' : '#FF9A2E'
+                                    ? '#DC2626' : '#D97706'
                                 }}>{pd.outcome}</span>
                               </div>
                             ))}
@@ -1154,7 +1153,7 @@ export default function AgentStudioPage() {
                   </td>
                 </tr>
               )}
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>
@@ -1360,7 +1359,7 @@ export default function AgentStudioPage() {
             <div className={styles.auditSummaryLabel}>Total Decisions This Month</div>
           </div>
           <div className={styles.auditSummaryCard}>
-            <div className={styles.auditSummaryValue} style={{ color: '#FF9A2E' }}>{overrideRate}%</div>
+            <div className={styles.auditSummaryValue} style={{ color: '#D97706' }}>{overrideRate}%</div>
             <div className={styles.auditSummaryLabel}>Override Rate</div>
           </div>
           <div className={styles.auditSummaryCard}>

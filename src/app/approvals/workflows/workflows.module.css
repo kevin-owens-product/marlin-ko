@@ -1,7 +1,7 @@
 .container { padding: 2rem; max-width: 1400px; }
 .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
 .headerLeft { display: flex; flex-direction: column; gap: 0.25rem; }
-.title { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; }
+.title { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .subtitle { font-size: 0.875rem; color: #4E5969; }
 .createBtn { padding: 0.625rem 1.25rem; font-size: 0.875rem; font-weight: 600; background: #165DFF; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; transition: background 0.15s; }
 .createBtn:hover { background: #0E42D2; }
@@ -10,13 +10,13 @@
 
 /* Workflow List */
 .listSection { display: flex; flex-direction: column; gap: 1rem; }
-.sectionTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 0.5rem; }
+.sectionTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 0.5rem; }
 
 .workflowCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; transition: border-color 0.2s; cursor: pointer; }
 .workflowCard:hover { border-color: #165DFF; }
 .workflowCardActive { background: #F7F8FA; border: 1px solid #165DFF; border-radius: 0.75rem; padding: 1.25rem; cursor: pointer; box-shadow: 0 0 0 1px rgba(22,93,255,0.15); }
 .cardHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-.cardName { font-size: 0.95rem; font-weight: 600; color: #F7F8FA; }
+.cardName { font-size: 0.95rem; font-weight: 600; color: #1D2129; }
 .toggle { position: relative; width: 40px; height: 22px; border-radius: 11px; cursor: pointer; border: none; transition: background 0.2s; }
 .toggleOn { background: #23C343; }
 .toggleOff { background: #E5E6EB; }
@@ -47,7 +47,7 @@
 
 /* Builder Section */
 .builderSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; }
-.builderTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+.builderTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
 
 .formGroup { margin-bottom: 1.25rem; }
 .formLabel { display: block; font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; }

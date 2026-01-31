@@ -20,7 +20,7 @@
 .saveBtn { padding: 0.625rem 1.5rem; background: #165DFF; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; font-size: 0.875rem; margin-top: 1rem; }
 .saveBtn:hover { background: #0E42D2; }
 .userTable { width: 100%; border-collapse: collapse; }
-.userTable th { text-align: left; padding: 0.75rem; color: #4E5969; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E5E6EB; }
+.userTable th { text-align: left; padding: 0.75rem; color: #4E5969; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E5E6EB; }
 .userTable td { padding: 0.75rem; color: #1D2129; font-size: 0.875rem; border-bottom: 1px solid #E5E6EB; }
 .badge { padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; }
 .badgeGreen { background: rgba(16,185,129,0.15); color: #23C343; }

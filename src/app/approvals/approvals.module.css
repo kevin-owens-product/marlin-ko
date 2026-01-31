@@ -1,47 +1,76 @@
 .container { padding: 2rem; max-width: 1400px; }
-.header { margin-bottom: 2rem; }
-.title { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
-.subtitle { font-size: 0.875rem; color: #4E5969; }
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.headerLeft p { font-size: 0.875rem; color: #4E5969; }
+
+/* ── Stats ───────────────────────────────────────────────────── */
 .statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
 .statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
 .statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.statValue { font-size: 1.75rem; font-weight: 700; color: #F7F8FA; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .pending { color: #FF9A2E; }
 .approved { color: #23C343; }
 .rejected { color: #F76560; }
 .timeColor { color: #165DFF; }
 .statChange { font-size: 0.75rem; color: #4E5969; margin-top: 0.25rem; }
+
+/* ── Controls row (tabs + priority + search) ─────────────────── */
 .controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
 .tabs { display: flex; gap: 0.25rem; background: #ffffff; border-radius: 0.5rem; padding: 0.25rem; border: 1px solid #E5E6EB; }
-.tab { padding: 0.5rem 1rem; font-size: 0.875rem; color: #4E5969; background: transparent; border: none; border-radius: 0.375rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-.tab:hover { color: #1D2129; }
-.tabActive { padding: 0.5rem 1rem; font-size: 0.875rem; background: #165DFF; color: #ffffff; border: none; border-radius: 0.375rem; cursor: pointer; white-space: nowrap; }
-.controlsRight { display: flex; align-items: center; gap: 0.75rem; }
+.tab { padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 500; color: #4E5969; background: transparent; border: none; border-radius: 0.375rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: #1D2129; background: #E5E6EB; }
+.tabActive { padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 500; background: #165DFF; color: #ffffff; border: none; border-radius: 0.375rem; cursor: pointer; white-space: nowrap; }
+
+.controlsRight { display: flex; align-items: center; gap: 1rem; }
+
 .filterGroup { display: flex; align-items: center; gap: 0.5rem; }
-.filterLabel { font-size: 0.75rem; color: #4E5969; }
-.filterBtn { padding: 0.375rem 0.75rem; font-size: 0.75rem; color: #4E5969; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.375rem; cursor: pointer; }
+.filterLabel { font-size: 0.75rem; color: #4E5969; white-space: nowrap; }
+.filterBtn { padding: 0.375rem 0.75rem; font-size: 0.75rem; color: #4E5969; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.375rem; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
 .filterBtn:hover { border-color: #165DFF; color: #1D2129; }
-.filterBtnActive { padding: 0.375rem 0.75rem; font-size: 0.75rem; background: #165DFF; border: 1px solid #165DFF; color: #ffffff; border-radius: 0.375rem; cursor: pointer; }
+.filterBtnActive { padding: 0.375rem 0.75rem; font-size: 0.75rem; background: #165DFF; border: 1px solid #165DFF; color: #ffffff; border-radius: 0.375rem; cursor: pointer; white-space: nowrap; }
+
+.searchBar { position: relative; flex-shrink: 0; }
+.searchIcon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #4E5969; font-size: 0.875rem; pointer-events: none; }
+.searchInput { padding: 0.5rem 1rem 0.5rem 2.25rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #1D2129; font-size: 0.8125rem; width: 260px; outline: none; transition: border-color 0.2s; }
+.searchInput::placeholder { color: #86909C; }
+.searchInput:focus { border-color: #165DFF; }
+
+/* ── Bulk actions ─────────────────────────────────────────────── */
 .bulkActions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding: 0.75rem 1rem; background: rgba(22,93,255,0.08); border: 1px solid rgba(22,93,255,0.1); border-radius: 0.5rem; }
-.bulkApprove { padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 500; border: none; border-radius: 0.375rem; cursor: pointer; background: #23C343; color: #fff; }
-.bulkReject { padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 500; border: none; border-radius: 0.375rem; cursor: pointer; background: #F76560; color: #fff; }
+.bulkApprove { padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 500; border: none; border-radius: 0.375rem; cursor: pointer; background: #23C343; color: #fff; transition: background 0.15s; }
+.bulkApprove:hover { background: #00B42A; }
+.bulkReject { padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 500; border: none; border-radius: 0.375rem; cursor: pointer; background: #F76560; color: #fff; transition: background 0.15s; }
+.bulkReject:hover { background: #d94b47; }
 .selectedCount { font-size: 0.8rem; color: #4E5969; margin-left: auto; }
+
+/* ── Card list ────────────────────────────────────────────────── */
 .cardList { display: flex; flex-direction: column; gap: 0.75rem; }
-.card { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1.25rem; align-items: center; transition: border-color 0.2s; }
+.card { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1.25rem; align-items: center; transition: border-color 0.2s; }
 .card:hover { border-color: #165DFF; }
+/* Striped cards */
+.card:nth-child(even) { background: rgba(229,230,235,0.18); }
+
 .cardCheckbox { display: flex; align-items: center; }
 .checkbox { width: 1.125rem; height: 1.125rem; accent-color: #165DFF; cursor: pointer; }
-.cardBody { display: flex; flex-direction: column; gap: 0.75rem; }
+
+/* ── Card body ────────────────────────────────────────────────── */
+.cardBody { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 .cardTopRow { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .invoiceNumber { font-weight: 600; color: #165DFF; font-size: 0.95rem; text-decoration: none; }
 .invoiceNumber:hover { text-decoration: underline; }
 .separator { color: #E5E6EB; }
 .supplier { color: #1D2129; font-size: 0.875rem; }
-.amount { font-weight: 700; color: #F7F8FA; font-size: 1rem; }
+.amount { font-weight: 700; color: #1D2129; font-size: 1rem; font-family: monospace; }
+
+/* ── Priority badges ──────────────────────────────────────────── */
 .priorityBadge { display: inline-flex; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
 .priorityUrgent { background: rgba(239,68,68,0.15); color: #F76560; border: 1px solid rgba(239,68,68,0.3); }
 .priorityHigh { background: rgba(245,158,11,0.15); color: #FF9A2E; border: 1px solid rgba(245,158,11,0.3); }
 .priorityNormal { background: rgba(22,93,255,0.08); color: #165DFF; border: 1px solid rgba(22,93,255,0.15); }
+
+/* ── Card meta row ────────────────────────────────────────────── */
 .cardMeta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .metaItem { font-size: 0.8rem; color: #4E5969; }
 .metaLabel { color: #86909C; }
@@ -51,16 +80,27 @@
 .stepProgress { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2rem 0.6rem; background: rgba(22,93,255,0.08); border-radius: 0.25rem; font-size: 0.75rem; color: #165DFF; }
 .stepDot { width: 6px; height: 6px; border-radius: 50%; background: #165DFF; display: inline-block; }
 .stepDotPending { width: 6px; height: 6px; border-radius: 50%; background: #E5E6EB; display: inline-block; }
+
+/* ── AI row ───────────────────────────────────────────────────── */
 .aiRow { display: flex; align-items: center; gap: 0.75rem; }
 .aiLabel { font-size: 0.75rem; color: #a78bfa; }
 .aiApprove { font-size: 0.8rem; font-weight: 500; color: #23C343; }
 .aiReject { font-size: 0.8rem; font-weight: 500; color: #F76560; }
 .aiReview { font-size: 0.8rem; font-weight: 500; color: #FF9A2E; }
 .confidence { font-size: 0.7rem; color: #86909C; }
+
+/* ── Card actions ─────────────────────────────────────────────── */
 .cardActions { display: flex; flex-direction: column; gap: 0.5rem; }
-.approveBtn { padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 600; background: #23C343; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; }
+.approveBtn { padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 600; background: #23C343; color: #fff; border: none; border-radius: 0.375rem; cursor: pointer; transition: background 0.15s; }
 .approveBtn:hover { background: #00B42A; }
-.rejectBtn { padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 600; background: transparent; color: #F76560; border: 1px solid #F76560; border-radius: 0.375rem; cursor: pointer; }
+.rejectBtn { padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 600; background: transparent; color: #F76560; border: 1px solid #F76560; border-radius: 0.375rem; cursor: pointer; transition: background 0.15s; }
 .rejectBtn:hover { background: rgba(239,68,68,0.1); }
-.detailLink { font-size: 0.75rem; color: #165DFF; text-align: center; background: none; border: none; cursor: pointer; }
+.detailLink { font-size: 0.75rem; color: #165DFF; text-align: center; background: none; border: none; cursor: pointer; text-decoration: none; }
 .detailLink:hover { text-decoration: underline; }
+
+/* ── Pagination ───────────────────────────────────────────────── */
+.pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; margin-top: 1rem; border-top: 1px solid #E5E6EB; }
+.paginationInfo { font-size: 0.8125rem; color: #4E5969; }
+
+/* ── Empty state ──────────────────────────────────────────────── */
+.emptyState { padding: 3rem; text-align: center; color: #86909C; font-size: 0.875rem; }

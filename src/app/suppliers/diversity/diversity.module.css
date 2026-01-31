@@ -9,7 +9,7 @@
 .statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
 .statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
 .statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.statValue { font-size: 1.75rem; font-weight: 700; color: #1D2129; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .statSub { font-size: 0.75rem; color: #4E5969; margin-top: 0.25rem; }
 .statChange { font-size: 0.75rem; color: #23C343; margin-top: 0.25rem; }
 .statWarn { font-size: 0.75rem; color: #FF9A2E; margin-top: 0.25rem; }
@@ -57,7 +57,7 @@
 .table thead th { padding: 0.625rem 0.75rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
 .table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
 .table tbody tr:last-child { border-bottom: none; }
-.table tbody tr:hover { background: #E5E6EB; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
 .table td { padding: 0.625rem 0.75rem; font-size: 0.8125rem; color: #1D2129; }
 
 /* Score colors */

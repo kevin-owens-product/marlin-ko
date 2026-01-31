@@ -31,7 +31,7 @@ export interface UseCRUDReturn<T> {
 }
 
 export function useCRUD<T extends { id: string }>(options: UseCRUDOptions): UseCRUDReturn<T> {
-  const { endpoint, pageSize = 50, autoFetch = true, defaultParams = {} } = options;
+  const { endpoint, pageSize = 50, autoFetch = true, defaultParams } = options;
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,6 +44,8 @@ export function useCRUD<T extends { id: string }>(options: UseCRUDOptions): UseC
     hasPrevious: false,
   });
   const abortRef = useRef<AbortController | null>(null);
+  const defaultParamsRef = useRef(defaultParams);
+  defaultParamsRef.current = defaultParams;
 
   const fetchAll = useCallback(async (params?: Record<string, string>) => {
     abortRef.current?.abort();
@@ -54,7 +56,7 @@ export function useCRUD<T extends { id: string }>(options: UseCRUDOptions): UseC
     setError(null);
 
     try {
-      const merged = { limit: String(pageSize), ...defaultParams, ...params };
+      const merged = { limit: String(pageSize), ...defaultParamsRef.current, ...params };
       const qs = new URLSearchParams(merged).toString();
       const res = await fetch(`${endpoint}?${qs}`, { signal: controller.signal });
       if (!res.ok) {
@@ -71,7 +73,7 @@ export function useCRUD<T extends { id: string }>(options: UseCRUDOptions): UseC
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
-  }, [endpoint, pageSize, defaultParams]);
+  }, [endpoint, pageSize]);
 
   useEffect(() => {
     if (autoFetch) fetchAll();

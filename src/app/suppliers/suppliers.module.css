@@ -21,10 +21,10 @@
 .filterButton:hover { border-color: #165DFF; color: #1D2129; }
 .tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
 .table { width: 100%; border-collapse: collapse; }
-.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
 .table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
 .table tbody tr:last-child { border-bottom: none; }
-.table tbody tr:hover { background: #E5E6EB; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
 .table td { padding: 0.75rem 1rem; font-size: 0.875rem; color: #1D2129; }
 .supplierName { font-weight: 500; color: #1D2129; cursor: pointer; transition: color 0.2s; }
 .supplierName:hover { color: #165DFF; }

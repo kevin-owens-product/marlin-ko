@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useT } from "@/lib/i18n/locale-context";
 import { useCRUD } from "@/lib/hooks/use-crud";
 import { useInlineEdit } from "@/lib/hooks/use-inline-edit";
+import { useColumnResize } from "@/lib/hooks/use-column-resize";
 import { useToast } from "@/components/ui/Toast";
 import { EditableCell } from "@/components/inline-edit/EditableCell";
 import { RowActions } from "@/components/inline-edit/RowActions";
@@ -28,8 +29,6 @@ interface Contract {
   documentUrl: string;
   createdAt: string;
   updatedAt: string;
-  // Populated by API join / virtual field
-  supplierName?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -57,22 +56,56 @@ const sourcingEvents = [
 // ---------------------------------------------------------------------------
 
 const STATUS_OPTIONS = [
-  { label: "Active", value: "Active" },
-  { label: "Expiring", value: "Expiring" },
-  { label: "Expired", value: "Expired" },
-  { label: "Renewal", value: "Renewal" },
-  { label: "Draft", value: "Draft" },
+  { label: "Active", value: "ACTIVE" },
+  { label: "Expiring", value: "EXPIRING" },
+  { label: "Expired", value: "EXPIRED" },
+  { label: "Draft", value: "DRAFT" },
+  { label: "Terminated", value: "TERMINATED" },
+];
+
+const FILTER_TABS = ["All", "ACTIVE", "EXPIRING", "DRAFT", "EXPIRED", "TERMINATED"];
+
+const TAB_LABELS: Record<string, string> = {
+  All: "All",
+  ACTIVE: "Active",
+  EXPIRING: "Expiring",
+  DRAFT: "Draft",
+  EXPIRED: "Expired",
+  TERMINATED: "Terminated",
+};
+
+const COLUMNS = [
+  { key: "title", minWidth: 120, initialWidth: 180 },
+  { key: "supplier", minWidth: 100, initialWidth: 140 },
+  { key: "value", minWidth: 80, initialWidth: 110 },
+  { key: "currency", minWidth: 60, initialWidth: 80 },
+  { key: "startDate", minWidth: 80, initialWidth: 110 },
+  { key: "endDate", minWidth: 80, initialWidth: 110 },
+  { key: "status", minWidth: 80, initialWidth: 110 },
+  { key: "autoRenew", minWidth: 70, initialWidth: 90 },
+  { key: "actions", minWidth: 90, initialWidth: 100 },
 ];
 
 function getStatusClass(status: string) {
   const map: Record<string, string> = {
-    Active: styles.statusActive,
-    Expiring: styles.statusExpiring,
-    Expired: styles.statusExpired,
-    Draft: styles.statusDraft,
-    Renewal: styles.statusRenewal,
+    ACTIVE: styles.statusActive,
+    EXPIRING: styles.statusExpiring,
+    EXPIRED: styles.statusExpired,
+    DRAFT: styles.statusDraft,
+    TERMINATED: styles.statusTerminated,
   };
   return map[status] || styles.statusDraft;
+}
+
+function getStatusLabel(status: string) {
+  const map: Record<string, string> = {
+    ACTIVE: "Active",
+    EXPIRING: "Expiring",
+    EXPIRED: "Expired",
+    DRAFT: "Draft",
+    TERMINATED: "Terminated",
+  };
+  return map[status] || status;
 }
 
 function getUrgencyClass(urgency: string) {
@@ -102,6 +135,11 @@ function formatCurrency(value: number | undefined, currency?: string) {
   }).format(value);
 }
 
+function formatDate(dateStr: string | undefined) {
+  if (!dateStr) return "--";
+  return new Date(dateStr).toLocaleDateString();
+}
+
 // ---------------------------------------------------------------------------
 // Page component
 // ---------------------------------------------------------------------------
@@ -109,29 +147,24 @@ function formatCurrency(value: number | undefined, currency?: string) {
 export default function ContractsPage() {
   const t = useT();
   const [filter, setFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [saving, setSaving] = useState(false);
 
   const crud = useCRUD<Contract>({ endpoint: "/api/contracts", autoFetch: false });
   const inline = useInlineEdit<Contract>();
   const { addToast } = useToast();
+  const { widths, onMouseDown } = useColumnResize(COLUMNS);
 
-  const statuses = ["All", "Active", "Expiring", "Renewal", "Draft"];
-
-  // Fetch data when filter changes
-  const loadContracts = useCallback(() => {
-    const params: Record<string, string> = {};
-    if (filter !== "All") {
-      params.status = filter;
-    }
-    crud.fetchAll(params);
-  }, [filter, crud.fetchAll]);
-
+  // Fetch data when filter or search changes
   useEffect(() => {
-    loadContracts();
-  }, [loadContracts]);
+    const params: Record<string, string> = {};
+    if (filter !== "All") params.status = filter;
+    if (searchQuery) params.search = searchQuery;
+    crud.fetchAll(params);
+  }, [filter, searchQuery, crud.fetchAll]);
 
   // ------- Save handler for editing -------
-  const handleSaveEdit = async () => {
+  const handleSaveEdit = useCallback(async () => {
     if (!inline.editingId) return;
     setSaving(true);
     const result = await crud.update(inline.editingId, inline.editDraft);
@@ -142,17 +175,27 @@ export default function ContractsPage() {
     } else {
       addToast({ type: "error", title: "Failed to update contract", message: crud.error ?? undefined });
     }
-  };
+  }, [inline, crud, addToast]);
 
   // ------- Save handler for creating -------
-  const handleSaveCreate = async () => {
+  const handleSaveCreate = useCallback(async () => {
     const draft = inline.createDraft;
-    if (!draft.title || !draft.supplierId || !draft.value || !draft.startDate || !draft.endDate || !draft.tenantId) {
-      addToast({ type: "warning", title: "Missing required fields", message: "Title, supplier, value, start date, end date, and tenant are required." });
+    if (!draft.title || !draft.supplierId || !draft.value || !draft.startDate || !draft.endDate) {
+      addToast({ type: "warning", title: "Missing required fields", message: "Title, supplier, value, start date, and end date are required." });
       return;
     }
     setSaving(true);
-    const result = await crud.create(draft);
+    const result = await crud.create({
+      title: draft.title,
+      supplierId: draft.supplierId,
+      value: draft.value,
+      currency: draft.currency ?? "USD",
+      startDate: draft.startDate,
+      endDate: draft.endDate,
+      status: draft.status ?? "DRAFT",
+      autoRenew: draft.autoRenew ?? false,
+      tenantId: "default_tenant",
+    } as Partial<Contract>);
     setSaving(false);
     if (result) {
       addToast({ type: "success", title: "Contract created" });
@@ -160,25 +203,39 @@ export default function ContractsPage() {
     } else {
       addToast({ type: "error", title: "Failed to create contract", message: crud.error ?? undefined });
     }
-  };
+  }, [inline, crud, addToast]);
 
   // ------- Delete handler -------
-  const handleConfirmDelete = async (id: string) => {
-    const success = await crud.remove(id);
-    if (success) {
-      addToast({ type: "success", title: "Contract deleted" });
+  const handleConfirmDelete = useCallback(async () => {
+    if (!inline.deleteConfirmId) return;
+    setSaving(true);
+    const ok = await crud.remove(inline.deleteConfirmId);
+    setSaving(false);
+    if (ok) {
       inline.cancelDelete();
+      addToast({ type: "success", title: "Contract deleted" });
     } else {
       addToast({ type: "error", title: "Failed to delete contract", message: crud.error ?? undefined });
     }
-  };
+  }, [inline, crud, addToast]);
 
   // ------- Add new contract -------
-  const handleAddNew = () => {
-    inline.startCreate({ status: "Draft", currency: "USD", autoRenew: false } as Partial<Contract>);
-  };
+  const handleAddNew = useCallback(() => {
+    inline.startCreate({ status: "DRAFT", currency: "USD", autoRenew: false } as Partial<Contract>);
+  }, [inline]);
 
   const contracts = crud.data;
+  const statusParam = filter === "All" ? undefined : filter;
+
+  // ------- Derived stats -------
+  const totalContracts = crud.pagination.totalCount || contracts.length;
+  const activeContracts = contracts.filter((c) => c.status === "ACTIVE").length;
+  const totalValue = contracts.reduce((sum, c) => sum + (c.value || 0), 0);
+  const expiringContracts = contracts.filter((c) => c.status === "EXPIRING").length;
+
+  function thStyle(key: string) {
+    return widths[key] ? { width: widths[key], position: "relative" as const } : { position: "relative" as const };
+  }
 
   return (
     <div className={styles.container}>
@@ -196,30 +253,30 @@ export default function ContractsPage() {
       {/* Stats */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <div className={styles.statLabel}>{t("contracts.activeContracts")}</div>
-          <div className={styles.statValue}>{crud.pagination.totalCount || contracts.length}</div>
+          <div className={styles.statLabel}>{t("contracts.totalContracts")}</div>
+          <div className={styles.statValue}>{totalContracts}</div>
           <div className={styles.statSub}>Across all suppliers</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>{t("contracts.activeContracts")}</div>
+          <div className={styles.statValue} style={{ color: "#23C343" }}>
+            {activeContracts}
+          </div>
+          <div className={styles.statSub}>Currently active</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statLabel}>{t("contracts.totalValue")}</div>
           <div className={styles.statValue}>
-            {formatCurrency(contracts.reduce((sum, c) => sum + (c.value || 0), 0))}
+            {formatCurrency(totalValue)}
           </div>
           <div className={styles.statSub}>Filtered contract value</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statLabel}>{t("contracts.expiringThisMonth")}</div>
           <div className={styles.statValue} style={{ color: "#FF9A2E" }}>
-            {contracts.filter((c) => c.status === "Expiring").length}
+            {expiringContracts}
           </div>
           <div className={`${styles.statSub} ${styles.statWarning}`}>Action needed</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statLabel}>Pending Renewal</div>
-          <div className={styles.statValue} style={{ color: "#165DFF" }}>
-            {contracts.filter((c) => c.status === "Renewal").length}
-          </div>
-          <div className={styles.statSub}>In negotiation</div>
         </div>
       </div>
 
@@ -233,36 +290,38 @@ export default function ContractsPage() {
               <span className={styles.cardCount}>{contracts.length}</span>
             </div>
 
-            {/* Filter tabs */}
-            <div style={{ display: "flex", gap: "0.25rem", padding: "0.75rem 1.25rem", borderBottom: "1px solid #E5E6EB" }}>
-              {statuses.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setFilter(s)}
-                  style={{
-                    padding: "0.375rem 0.75rem",
-                    borderRadius: "9999px",
-                    border: "none",
-                    fontSize: "0.75rem",
-                    fontWeight: filter === s ? 600 : 400,
-                    background: filter === s ? "#165DFF" : "transparent",
-                    color: filter === s ? "#fff" : "#86909C",
-                    cursor: "pointer",
-                    transition: "all 0.15s",
-                  }}
-                >
-                  {s}
-                </button>
-              ))}
+            {/* Controls: filter tabs + search */}
+            <div className={styles.controls}>
+              <div className={styles.filterTabs}>
+                {FILTER_TABS.map((tab) => (
+                  <button
+                    key={tab}
+                    className={filter === tab ? styles.filterTabActive : styles.filterTab}
+                    onClick={() => setFilter(tab)}
+                  >
+                    {TAB_LABELS[tab]}
+                  </button>
+                ))}
+              </div>
+              <div className={styles.searchBar}>
+                <span className={styles.searchIcon}>&#128269;</span>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Search contracts..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
             </div>
 
-            {crud.loading && (
+            {crud.loading && contracts.length === 0 && (
               <div style={{ padding: "2rem", textAlign: "center", color: "#86909C", fontSize: "0.875rem" }}>
                 Loading contracts...
               </div>
             )}
 
-            {crud.error && !crud.loading && (
+            {crud.error && !crud.loading && contracts.length === 0 && (
               <div style={{ padding: "1rem 1.25rem", color: "#F76560", fontSize: "0.8125rem" }}>
                 Error: {crud.error}
               </div>
@@ -271,14 +330,41 @@ export default function ContractsPage() {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>{t("contracts.supplier")}</th>
-                  <th>{t("contracts.value")}</th>
-                  <th>{t("contracts.startDate")}</th>
-                  <th>{t("contracts.endDate")}</th>
-                  <th>{t("contracts.status")}</th>
-                  <th>Auto-Renew</th>
-                  <th>Actions</th>
+                  <th style={thStyle("title")}>
+                    Title
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("title", 120, e)} />
+                  </th>
+                  <th style={thStyle("supplier")}>
+                    {t("contracts.supplier")}
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("supplier", 100, e)} />
+                  </th>
+                  <th style={thStyle("value")}>
+                    {t("contracts.value")}
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("value", 80, e)} />
+                  </th>
+                  <th style={thStyle("currency")}>
+                    Currency
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("currency", 60, e)} />
+                  </th>
+                  <th style={thStyle("startDate")}>
+                    {t("contracts.startDate")}
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("startDate", 80, e)} />
+                  </th>
+                  <th style={thStyle("endDate")}>
+                    {t("contracts.endDate")}
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("endDate", 80, e)} />
+                  </th>
+                  <th style={thStyle("status")}>
+                    {t("contracts.status")}
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("status", 80, e)} />
+                  </th>
+                  <th style={thStyle("autoRenew")}>
+                    Auto-Renew
+                    <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("autoRenew", 70, e)} />
+                  </th>
+                  <th style={thStyle("actions")}>
+                    {t("contracts.actions")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -296,9 +382,9 @@ export default function ContractsPage() {
                     <td>
                       <EditableCell
                         editing
-                        value={(inline.createDraft as any).supplierName ?? ""}
-                        onChange={(v) => inline.updateCreateField("supplierName" as keyof Contract, v)}
-                        placeholder="Supplier name"
+                        value={inline.createDraft.supplierId ?? ""}
+                        onChange={(v) => inline.updateCreateField("supplierId", v)}
+                        placeholder="Supplier ID"
                       />
                     </td>
                     <td>
@@ -308,6 +394,14 @@ export default function ContractsPage() {
                         value={inline.createDraft.value ?? ""}
                         onChange={(v) => inline.updateCreateField("value", v)}
                         placeholder="0"
+                      />
+                    </td>
+                    <td>
+                      <EditableCell
+                        editing
+                        value={inline.createDraft.currency ?? "USD"}
+                        onChange={(v) => inline.updateCreateField("currency", v)}
+                        placeholder="USD"
                       />
                     </td>
                     <td>
@@ -330,7 +424,7 @@ export default function ContractsPage() {
                       <EditableCell
                         editing
                         type="select"
-                        value={inline.createDraft.status ?? "Draft"}
+                        value={inline.createDraft.status ?? "DRAFT"}
                         onChange={(v) => inline.updateCreateField("status", v)}
                         options={STATUS_OPTIONS}
                       />
@@ -365,7 +459,6 @@ export default function ContractsPage() {
 
                   return (
                     <tr key={c.id}>
-                      {/* Title */}
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -374,18 +467,14 @@ export default function ContractsPage() {
                           displayRender={(v) => <span className={styles.contractTitle}>{v}</span>}
                         />
                       </td>
-
-                      {/* Supplier */}
                       <td>
                         <EditableCell
                           editing={isEditing}
-                          value={isEditing ? (inline.editDraft as any).supplierName ?? "" : c.supplierName ?? ""}
-                          onChange={(v) => inline.updateEditField("supplierName" as keyof Contract, v)}
+                          value={isEditing ? inline.editDraft.supplierId : c.supplierId}
+                          onChange={(v) => inline.updateEditField("supplierId", v)}
                           displayRender={(v) => <span className={styles.supplierName}>{v}</span>}
                         />
                       </td>
-
-                      {/* Value */}
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -397,8 +486,13 @@ export default function ContractsPage() {
                           )}
                         />
                       </td>
-
-                      {/* Start date */}
+                      <td>
+                        <EditableCell
+                          editing={isEditing}
+                          value={isEditing ? inline.editDraft.currency : c.currency}
+                          onChange={(v) => inline.updateEditField("currency", v)}
+                        />
+                      </td>
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -406,12 +500,10 @@ export default function ContractsPage() {
                           value={isEditing ? inline.editDraft.startDate : c.startDate}
                           onChange={(v) => inline.updateEditField("startDate", v)}
                           displayRender={(v) => (
-                            <span style={{ fontSize: "0.75rem", color: "#86909C" }}>{v}</span>
+                            <span style={{ fontSize: "0.75rem", color: "#86909C" }}>{formatDate(v)}</span>
                           )}
                         />
                       </td>
-
-                      {/* End date */}
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -419,12 +511,10 @@ export default function ContractsPage() {
                           value={isEditing ? inline.editDraft.endDate : c.endDate}
                           onChange={(v) => inline.updateEditField("endDate", v)}
                           displayRender={(v) => (
-                            <span style={{ fontSize: "0.75rem", color: "#86909C" }}>{v}</span>
+                            <span style={{ fontSize: "0.75rem", color: "#86909C" }}>{formatDate(v)}</span>
                           )}
                         />
                       </td>
-
-                      {/* Status */}
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -433,12 +523,10 @@ export default function ContractsPage() {
                           onChange={(v) => inline.updateEditField("status", v)}
                           options={STATUS_OPTIONS}
                           displayRender={(v) => (
-                            <span className={`${styles.statusBadge} ${getStatusClass(v)}`}>{v}</span>
+                            <span className={`${styles.statusBadge} ${getStatusClass(v)}`}>{getStatusLabel(v)}</span>
                           )}
                         />
                       </td>
-
-                      {/* Auto-renew */}
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -456,8 +544,6 @@ export default function ContractsPage() {
                           )}
                         />
                       </td>
-
-                      {/* Actions */}
                       <td>
                         <RowActions
                           mode={isDeleting ? "deleting" : isEditing ? "editing" : "read"}
@@ -465,7 +551,7 @@ export default function ContractsPage() {
                           onDelete={() => inline.requestDelete(c.id)}
                           onSave={handleSaveEdit}
                           onCancel={inline.cancelEdit}
-                          onConfirmDelete={() => handleConfirmDelete(c.id)}
+                          onConfirmDelete={handleConfirmDelete}
                           onCancelDelete={inline.cancelDelete}
                           saving={saving}
                         />
@@ -477,13 +563,51 @@ export default function ContractsPage() {
                 {/* Empty state */}
                 {!crud.loading && contracts.length === 0 && !inline.isCreating && (
                   <tr>
-                    <td colSpan={8} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
+                    <td colSpan={9} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
                       No contracts found. Click &quot;{t("contracts.createContract")}&quot; to add one.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
+
+            {/* Pagination */}
+            <div className={styles.pagination}>
+              <span className={styles.paginationInfo}>
+                Showing {contracts.length} of {totalContracts} contracts
+              </span>
+              <div className={styles.paginationButtons}>
+                <button
+                  className={styles.pageButton}
+                  disabled={!crud.pagination.hasPrevious}
+                  onClick={() =>
+                    crud.fetchAll({
+                      page: String(crud.pagination.page - 1),
+                      ...(statusParam ? { status: statusParam } : {}),
+                      ...(searchQuery ? { search: searchQuery } : {}),
+                    })
+                  }
+                >
+                  Prev
+                </button>
+                <button className={`${styles.pageButton} ${styles.pageButtonActive}`}>
+                  {crud.pagination.page}
+                </button>
+                <button
+                  className={styles.pageButton}
+                  disabled={!crud.pagination.hasNext}
+                  onClick={() =>
+                    crud.fetchAll({
+                      page: String(crud.pagination.page + 1),
+                      ...(statusParam ? { status: statusParam } : {}),
+                      ...(searchQuery ? { search: searchQuery } : {}),
+                    })
+                  }
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Sourcing Events */}

@@ -60,10 +60,20 @@ export default function ApprovalsPage() {
   ];
   const [activeTab, setActiveTab] = useState('My Approvals');
   const [activePriority, setActivePriority] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const filtered = mockApprovals.filter((a) => {
     if (activePriority !== 'All' && a.priority !== activePriority.toLowerCase()) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (
+        !a.invoiceNumber.toLowerCase().includes(q) &&
+        !a.supplier.toLowerCase().includes(q) &&
+        !a.requester.toLowerCase().includes(q) &&
+        !a.department.toLowerCase().includes(q)
+      ) return false;
+    }
     return true;
   });
 
@@ -121,8 +131,10 @@ export default function ApprovalsPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>{t('approvals.title')}</h1>
-        <p className={styles.subtitle}>{t('approvals.subtitle')}</p>
+        <div className={styles.headerLeft}>
+          <h1>{t('approvals.title')}</h1>
+          <p>{t('approvals.subtitle')}</p>
+        </div>
       </div>
 
       <div className={styles.statsGrid}>
@@ -173,6 +185,16 @@ export default function ApprovalsPage() {
               </button>
             ))}
           </div>
+          <div className={styles.searchBar}>
+            <span className={styles.searchIcon}>&#128269;</span>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search invoices, suppliers..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
       </div>
 
@@ -209,13 +231,13 @@ export default function ApprovalsPage() {
 
               <div className={styles.cardMeta}>
                 <span className={styles.metaItem}>
-                  <span className={styles.metaLabel}>{t('approvals.requested')}</span>{item.requestDate}
+                  <span className={styles.metaLabel}>{t('approvals.requested')}</span> {item.requestDate}
                 </span>
                 <span className={styles.metaItem}>
-                  <span className={styles.metaLabel}>{t('approvals.due')}</span>{item.dueDate}
+                  <span className={styles.metaLabel}>{t('approvals.due')}</span> {item.dueDate}
                 </span>
                 <span className={styles.metaItem}>
-                  <span className={styles.metaLabel}>{t('approvals.waiting')}</span>
+                  <span className={styles.metaLabel}>{t('approvals.waiting')}</span>{' '}
                   <span className={getDaysClass(item.daysWaiting)}>{item.daysWaiting}d</span>
                 </span>
                 <span className={styles.stepProgress}>
@@ -223,7 +245,7 @@ export default function ApprovalsPage() {
                   <span>{t('approvals.step', { current: item.currentStep, total: item.totalSteps })}</span>
                 </span>
                 <span className={styles.metaItem}>
-                  <span className={styles.metaLabel}>{t('approvals.dept')}</span>{item.department}
+                  <span className={styles.metaLabel}>{t('approvals.dept')}</span> {item.department}
                 </span>
               </div>
 
@@ -245,6 +267,18 @@ export default function ApprovalsPage() {
             </div>
           </div>
         ))}
+
+        {filtered.length === 0 && (
+          <div className={styles.emptyState}>
+            No approvals match your filters.
+          </div>
+        )}
+      </div>
+
+      <div className={styles.pagination}>
+        <span className={styles.paginationInfo}>
+          Showing {filtered.length} of {mockApprovals.length} approvals
+        </span>
       </div>
     </div>
   );

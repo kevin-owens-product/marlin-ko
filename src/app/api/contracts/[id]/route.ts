@@ -109,9 +109,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
         }
 
         // Prevent deletion of active contracts
-        if (existing.status === "active") {
+        if (existing.status === "ACTIVE") {
             return NextResponse.json(
-                { error: "Cannot delete contract with status: " + existing.status },
+                { error: "Cannot delete an active contract" },
                 { status: 409 }
             );
         }

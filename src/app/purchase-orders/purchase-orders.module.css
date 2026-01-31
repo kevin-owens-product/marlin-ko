@@ -1,31 +1,96 @@
 .container { padding: 2rem; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
 .headerLeft p { font-size: 0.875rem; color: #4E5969; }
 .createBtn { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; background: #165DFF; color: #fff; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
 .createBtn:hover { background: #0E42D2; }
+
+/* ── Stats ───────────────────────────────────────────────────── */
 .statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
 .statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
 .statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.statValue { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .statSub { font-size: 0.75rem; color: #4E5969; margin-top: 0.25rem; }
 .statUp { color: #23C343; }
-.tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; background: #F7F8FA; border-radius: 0.5rem; padding: 0.25rem; width: fit-content; }
-.tab { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.8125rem; font-weight: 500; color: #4E5969; background: transparent; border: none; cursor: pointer; transition: all 0.2s; }
-.tab:hover { color: #1D2129; }
-.tabActive { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.8125rem; font-weight: 500; background: #165DFF; color: #fff; border: none; cursor: pointer; }
+
+/* ── Controls row (tabs + search) ────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.tabs { display: flex; gap: 0.25rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 0.25rem; }
+.tab { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.8125rem; font-weight: 500; color: #4E5969; background: transparent; border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: #1D2129; background: #E5E6EB; }
+.tabActive { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.8125rem; font-weight: 500; background: #165DFF; color: #fff; border: none; cursor: pointer; white-space: nowrap; }
 .tabCount { font-size: 0.6875rem; background: rgba(255,255,255,0.2); padding: 0.0625rem 0.375rem; border-radius: 9999px; margin-left: 0.375rem; }
-.tableWrapper { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
-.table { width: 100%; border-collapse: collapse; }
-.table thead th { padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
+
+.searchBar { position: relative; flex-shrink: 0; }
+.searchIcon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #4E5969; font-size: 0.875rem; pointer-events: none; }
+.searchInput { padding: 0.5rem 1rem 0.5rem 2.25rem; background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #1D2129; font-size: 0.8125rem; width: 280px; outline: none; transition: border-color 0.2s; }
+.searchInput::placeholder { color: #86909C; }
+.searchInput:focus { border-color: #165DFF; }
+
+/* ── Table wrapper ───────────────────────────────────────────── */
+.tableWrapper { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
+
+/* ── Table ────────────────────────────────────────────────────── */
+.table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+
+.table thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #ffffff;
+  border-bottom: 1px solid #E5E6EB;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Resize handle on th */
+.resizeHandle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  cursor: col-resize;
+  background: transparent;
+  transition: background 0.15s;
+}
+.resizeHandle:hover,
+.resizeHandle.resizing {
+  background: #165DFF;
+}
+
+/* Striped rows */
 .table tbody tr { border-bottom: 1px solid #E5E6EB; transition: background 0.15s; }
+.table tbody tr:nth-child(even) { background: rgba(229,230,235,0.25); }
 .table tbody tr:last-child { border-bottom: none; }
-.table tbody tr:hover { background: #E5E6EB; }
-.table td { padding: 0.75rem 1rem; font-size: 0.875rem; color: #1D2129; }
+.table tbody tr:hover { background: rgba(229, 230, 235, 0.3); }
+
+.table td { padding: 0.75rem 1rem; font-size: 0.875rem; color: #1D2129; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Cell styles ──────────────────────────────────────────────── */
 .poNumber { font-family: monospace; font-weight: 600; color: #165DFF; cursor: pointer; }
 .poNumber:hover { text-decoration: underline; }
-.supplierName { font-weight: 500; color: #F7F8FA; }
-.amount { font-family: monospace; font-weight: 600; color: #F7F8FA; }
+.supplierName { font-weight: 500; color: #1D2129; }
+.amount { font-family: monospace; font-weight: 600; color: #1D2129; }
+
+/* ── Status badges ────────────────────────────────────────────── */
 .statusBadge { display: inline-block; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
 .statusDraft { background: rgba(148,163,184,0.15); color: #86909C; }
 .statusApproved { background: rgba(22,93,255,0.08); color: #165DFF; }
@@ -33,13 +98,18 @@
 .statusReceived { background: rgba(16,185,129,0.15); color: #23C343; }
 .statusClosed { background: rgba(148,163,184,0.15); color: #86909C; }
 .statusCancelled { background: rgba(239,68,68,0.15); color: #F76560; }
+
+/* ── Received progress bar ────────────────────────────────────── */
 .receivedBar { display: flex; align-items: center; gap: 0.5rem; }
 .barTrack { flex: 1; height: 6px; background: #E5E6EB; border-radius: 3px; overflow: hidden; max-width: 80px; }
 .barFill { height: 100%; border-radius: 3px; }
 .barLabel { font-size: 0.75rem; color: #4E5969; }
+
+/* ── Pagination ───────────────────────────────────────────────── */
 .pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #E5E6EB; }
 .paginationInfo { font-size: 0.8125rem; color: #4E5969; }
 .paginationButtons { display: flex; gap: 0.5rem; }
 .pageButton { padding: 0.375rem 0.75rem; background: transparent; border: 1px solid #E5E6EB; border-radius: 0.375rem; color: #4E5969; font-size: 0.8125rem; cursor: pointer; transition: all 0.15s; }
 .pageButton:hover { background: #E5E6EB; color: #1D2129; }
+.pageButton:disabled { opacity: 0.4; cursor: not-allowed; }
 .pageButtonActive { background: #165DFF; border-color: #165DFF; color: #fff; }

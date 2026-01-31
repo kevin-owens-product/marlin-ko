@@ -1,12 +1,12 @@
 .container { padding: 2rem; max-width: 1200px; }
 .header { margin-bottom: 2rem; }
-.title { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.title { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
 .subtitle { font-size: 0.875rem; color: #4E5969; }
 
 .statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
 .statCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
 .statLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-.statValue { font-size: 1.75rem; font-weight: 700; color: #F7F8FA; }
+.statValue { font-size: 1.5rem; font-weight: 700; color: #1D2129; }
 .statTotal { color: #165DFF; }
 .statAI { color: #a78bfa; }
 .statHuman { color: #23C343; }
@@ -37,7 +37,7 @@
 .feedContent { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
 .feedDescription { font-size: 0.875rem; color: #1D2129; line-height: 1.4; }
 .feedHighlight { color: #165DFF; font-weight: 500; }
-.feedAmount { color: #F7F8FA; font-weight: 600; }
+.feedAmount { color: #1D2129; font-weight: 600; }
 .feedMeta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .feedActor { font-size: 0.8rem; color: #4E5969; }
 .feedTime { font-size: 0.75rem; color: #86909C; }

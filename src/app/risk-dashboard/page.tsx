@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useT } from '@/lib/i18n/locale-context';
+import { Tabs } from '@/components/ui/Tabs';
 import styles from './risk-dashboard.module.css';
 
 /* =================================================================
@@ -206,15 +207,15 @@ const monthlyTrends = [
 // ─── Helpers ────────────────────────────────────────────────────
 
 function scoreColor(score: number): string {
-  if (score >= 80) return '#F76560';
-  if (score >= 60) return '#FF9A2E';
+  if (score >= 80) return '#DC2626';
+  if (score >= 60) return '#D97706';
   if (score >= 40) return '#165DFF';
   return '#23C343';
 }
 
 function confidenceColor(pct: number): string {
-  if (pct >= 90) return '#F76560';
-  if (pct >= 80) return '#FF9A2E';
+  if (pct >= 90) return '#DC2626';
+  if (pct >= 80) return '#D97706';
   return '#165DFF';
 }
 
@@ -252,526 +253,530 @@ function statusClass(s: string): string {
 
 export default function RiskDashboardPage() {
   const t = useT();
-  /* risk ring arc calculation */
-  const radius = 72;
-  const circumference = 2 * Math.PI * radius;
-  const arcPct = riskScore.value / riskScore.max;
-  const dashOffset = circumference * (1 - arcPct);
 
   /* monthly trends normalisation */
   const maxAlerts = Math.max(...monthlyTrends.map((m) => m.totalAlerts));
   const maxPrevented = Math.max(...monthlyTrends.map((m) => m.amountPrevented));
 
+  const tabItems = [
+    { label: 'Overview', value: 'overview', count: activeThreats.length },
+    { label: 'Fraud Detection', value: 'fraud' },
+    { label: 'Anomalies', value: 'anomalies' },
+    { label: 'Investigations', value: 'investigations', count: investigations.length },
+    { label: 'Trends', value: 'trends' },
+  ];
+
   return (
     <div className={styles.page}>
       {/* ── Header ─────────────────────────────────────────── */}
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <span className={styles.fireIcon} role="img" aria-label="fire station">
-            🚒
-          </span>
+      <header className={styles.hero}>
+        <div className={styles.heroLeft}>
           <div>
-            <h1 className={styles.title}>{t('riskDashboard.title')}</h1>
-            <p className={styles.subtitle}>
+            <h1 className={styles.heroTitle}>{t('riskDashboard.title')}</h1>
+            <p className={styles.heroSubtitle}>
               {t('riskDashboard.subtitle')}
             </p>
           </div>
         </div>
-        <div className={styles.headerRight}>
-          <span className={styles.liveIndicator}>
-            <span className={styles.liveDot} />
-            Live Monitoring
+        <div className={styles.heroRight}>
+          <div className={styles.heroScoreBlock}>
+            <span className={styles.heroScoreValue} style={{ color: riskScore.color }}>
+              {riskScore.value}
+            </span>
+            <span className={styles.heroScoreLabel}>Risk Score</span>
+          </div>
+          <span className={styles.heroTrendBadge}>
+            <span className={styles.trendArrowUp}>&#8593;</span>
+            {riskScore.trend}
           </span>
-          <button className={styles.refreshBtn}>Refresh Data</button>
+          <div className={styles.heroMeta}>
+            <span className={styles.heroMetaItem}>
+              <span className={styles.liveDot} />
+              Live Monitoring
+            </span>
+            <span className={styles.heroMetaDivider} />
+            <span className={styles.heroMetaItem}>{riskScore.label}</span>
+          </div>
         </div>
       </header>
 
-      {/* ── Top Row: Risk Score + KPIs ─────────────────────── */}
-      <div className={styles.topRow}>
-        {/* score ring */}
-        <div className={styles.scoreCard}>
-          <div className={styles.scoreRing}>
-            <svg className={styles.scoreRingSvg} viewBox="0 0 180 180">
-              <circle className={styles.scoreTrack} cx="90" cy="90" r={radius} />
-              <circle
-                className={styles.scoreArc}
-                cx="90"
-                cy="90"
-                r={radius}
-                stroke={riskScore.color}
-                strokeDasharray={circumference}
-                strokeDashoffset={dashOffset}
-              />
-            </svg>
-            <div className={styles.scoreCenter}>
-              <span className={styles.scoreValue} style={{ color: riskScore.color }}>
-                {riskScore.value}
-              </span>
-              <span className={styles.scoreMax}>/ {riskScore.max}</span>
+      {/* ── Stats Row ─────────────────────────────────────── */}
+      <div className={styles.statsRow}>
+        {kpis.map((k) => (
+          <div className={styles.statCard} key={k.label}>
+            <div className={styles.statLabel}>{k.label}</div>
+            <div className={styles.statValue}>{k.value}</div>
+            <div className={styles.statChange} style={{ color: k.trendColor }}>
+              {k.trend}
             </div>
           </div>
-          <span className={styles.scoreLabel} style={{ color: riskScore.color }}>
-            {riskScore.label}
-          </span>
-          <span className={`${styles.scoreTrend} ${styles.trendUp}`}>{riskScore.trend}</span>
-        </div>
-
-        {/* KPI cards */}
-        <div className={styles.kpiGrid}>
-          {kpis.map((k) => (
-            <div className={styles.kpiCard} key={k.label}>
-              <span className={styles.kpiLabel}>{k.label}</span>
-              <span className={styles.kpiValue}>{k.value}</span>
-              <span className={styles.kpiSub}>{k.sub}</span>
-              <span className={styles.kpiTrend} style={{ color: k.trendColor }}>
-                {k.trend}
-              </span>
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
 
-      {/* ── Active Threats (red-bordered) ──────────────────── */}
-      <section className={styles.sectionCritical}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#9888;</span>
-          Active Threats
-          <span className={`${styles.sectionBadge} ${styles.badgeRed}`}>
-            {activeThreats.length} Active
-          </span>
-        </h2>
-        <div className={styles.threatList}>
-          {activeThreats.map((t) => (
-            <div className={styles.threatCard} key={t.id}>
-              <span
-                className={
-                  t.severity === 'Critical' ? styles.severityCritical : styles.severityHigh
-                }
-              >
-                {t.severity}
-              </span>
-              <div className={styles.threatInfo}>
-                <span className={styles.threatType}>{t.type}</span>
-                <span className={styles.threatRef}>{t.ref}</span>
-                <span className={styles.threatDesc}>{t.desc}</span>
-              </div>
-              <div className={styles.threatScore}>
-                <div className={styles.threatScoreVal} style={{ color: scoreColor(t.score) }}>
-                  {t.score}
-                </div>
-                <div className={styles.threatScoreLabel}>AI Risk</div>
-              </div>
-              <div className={styles.threatActions}>
-                <button className={styles.btnInvestigate}>Investigate</button>
-                <button className={styles.btnApprove}>Approve</button>
-                <button className={styles.btnBlock}>Block</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Duplicate Detection ─────────────────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#128203;</span>
-          Duplicate Detection
-          <span className={`${styles.sectionBadge} ${styles.badgeAmber}`}>
-            {duplicates.length} Potential
-          </span>
-        </h2>
-        <div className={styles.dupList}>
-          {duplicates.map((d) => (
-            <div className={styles.dupCard} key={d.id}>
-              <div className={styles.dupHeader}>
-                <span
-                  className={styles.dupConfidence}
-                  style={{ color: confidenceColor(d.confidence) }}
-                >
-                  {d.confidence}% Match Confidence
-                </span>
-                <div className={styles.dupMatchedFields}>
-                  {d.matchedFields.map((f) => (
-                    <span className={styles.dupField} key={f}>
-                      {f}
-                    </span>
+      {/* ── Tabbed Content ─────────────────────────────────── */}
+      <Tabs items={tabItems} defaultValue="overview">
+        {(activeTab) => (
+          <>
+            {/* ═══════════ OVERVIEW TAB ═══════════ */}
+            {activeTab === 'overview' && (
+              <section className={styles.sectionCritical}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>&#9888;</span>
+                  Active Threats
+                  <span className={`${styles.sectionBadge} ${styles.badgeRed}`}>
+                    {activeThreats.length} Active
+                  </span>
+                </h2>
+                <div className={styles.threatList}>
+                  {activeThreats.map((t) => (
+                    <div className={styles.threatCard} key={t.id}>
+                      <span
+                        className={
+                          t.severity === 'Critical' ? styles.severityCritical : styles.severityHigh
+                        }
+                      >
+                        {t.severity}
+                      </span>
+                      <div className={styles.threatInfo}>
+                        <span className={styles.threatType}>{t.type}</span>
+                        <span className={styles.threatRef}>{t.ref}</span>
+                        <span className={styles.threatDesc}>{t.desc}</span>
+                      </div>
+                      <div className={styles.threatScore}>
+                        <div className={styles.threatScoreVal} style={{ color: scoreColor(t.score) }}>
+                          {t.score}
+                        </div>
+                        <div className={styles.threatScoreLabel}>AI Risk</div>
+                      </div>
+                      <div className={styles.threatActions}>
+                        <button className={styles.btnInvestigate}>Investigate</button>
+                        <button className={styles.btnApprove}>Approve</button>
+                        <button className={styles.btnBlock}>Block</button>
+                      </div>
+                    </div>
                   ))}
                 </div>
-              </div>
-              <div className={styles.dupComparison}>
-                <div className={styles.dupInvoice}>
-                  <div className={styles.dupInvoiceLabel}>Invoice A</div>
-                  <div className={styles.dupInvoiceId}>{d.invoiceA.id}</div>
-                  <div className={styles.dupInvoiceDetail}>
-                    {d.invoiceA.vendor}
-                    <br />
-                    {d.invoiceA.amount} &middot; {d.invoiceA.date}
-                    <br />
-                    {d.invoiceA.lineItems}
-                  </div>
-                </div>
-                <div className={styles.dupVs}>VS</div>
-                <div className={styles.dupInvoice}>
-                  <div className={styles.dupInvoiceLabel}>Invoice B</div>
-                  <div className={styles.dupInvoiceId}>{d.invoiceB.id}</div>
-                  <div className={styles.dupInvoiceDetail}>
-                    {d.invoiceB.vendor}
-                    <br />
-                    {d.invoiceB.amount} &middot; {d.invoiceB.date}
-                    <br />
-                    {d.invoiceB.lineItems}
-                  </div>
-                </div>
-              </div>
-              <div className={styles.dupActions}>
-                <button className={styles.btnConfirmDup}>Confirm Duplicate</button>
-                <button className={styles.btnNotDup}>Not a Duplicate</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+              </section>
+            )}
 
-      {/* ── Bank Account Verification ──────────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#127974;</span>
-          Bank Account Verification
-        </h2>
-
-        {/* Bank change requests */}
-        <div className={styles.bankSubSection}>
-          <h3 className={styles.subTitle}>Recent Bank Change Requests</h3>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Supplier</th>
-                <th>Old Bank</th>
-                <th>New Bank</th>
-                <th>Verification</th>
-                <th>Risk Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bankChanges.map((b, i) => (
-                <tr key={i}>
-                  <td style={{ fontWeight: 600 }}>{b.supplier}</td>
-                  <td>{b.oldBank}</td>
-                  <td>{b.newBank}</td>
-                  <td>
-                    <span
-                      className={
-                        b.status === 'Verified'
-                          ? styles.statusVerified
-                          : b.status === 'Pending'
-                          ? styles.statusPending
-                          : styles.statusFailed
-                      }
-                    >
-                      {b.status}
+            {/* ═══════════ FRAUD DETECTION TAB ═══════════ */}
+            {activeTab === 'fraud' && (
+              <>
+                {/* Duplicate Detection */}
+                <section className={styles.section}>
+                  <h2 className={styles.sectionTitle}>
+                    <span className={styles.sectionIcon}>&#128203;</span>
+                    Duplicate Detection
+                    <span className={`${styles.sectionBadge} ${styles.badgeAmber}`}>
+                      {duplicates.length} Potential
                     </span>
-                  </td>
-                  <td style={{ color: scoreColor(b.riskScore), fontWeight: 700 }}>
-                    {b.riskScore}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </h2>
+                  <div className={styles.dupList}>
+                    {duplicates.map((d) => (
+                      <div className={styles.dupCard} key={d.id}>
+                        <div className={styles.dupHeader}>
+                          <span
+                            className={styles.dupConfidence}
+                            style={{ color: confidenceColor(d.confidence) }}
+                          >
+                            {d.confidence}% Match Confidence
+                          </span>
+                          <div className={styles.dupMatchedFields}>
+                            {d.matchedFields.map((f) => (
+                              <span className={styles.dupField} key={f}>
+                                {f}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className={styles.dupComparison}>
+                          <div className={styles.dupInvoice}>
+                            <div className={styles.dupInvoiceLabel}>Invoice A</div>
+                            <div className={styles.dupInvoiceId}>{d.invoiceA.id}</div>
+                            <div className={styles.dupInvoiceDetail}>
+                              {d.invoiceA.vendor}
+                              <br />
+                              {d.invoiceA.amount} &middot; {d.invoiceA.date}
+                              <br />
+                              {d.invoiceA.lineItems}
+                            </div>
+                          </div>
+                          <div className={styles.dupVs}>VS</div>
+                          <div className={styles.dupInvoice}>
+                            <div className={styles.dupInvoiceLabel}>Invoice B</div>
+                            <div className={styles.dupInvoiceId}>{d.invoiceB.id}</div>
+                            <div className={styles.dupInvoiceDetail}>
+                              {d.invoiceB.vendor}
+                              <br />
+                              {d.invoiceB.amount} &middot; {d.invoiceB.date}
+                              <br />
+                              {d.invoiceB.lineItems}
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.dupActions}>
+                          <button className={styles.btnConfirmDup}>Confirm Duplicate</button>
+                          <button className={styles.btnNotDup}>Not a Duplicate</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
 
-        {/* Sanctions screening */}
-        <div className={styles.bankSubSection}>
-          <h3 className={styles.subTitle}>Sanctions Screening Results</h3>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>Match Score</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sanctionsResults.map((s, i) => (
-                <tr key={i}>
-                  <td style={{ fontWeight: 600 }}>{s.name}</td>
-                  <td>{s.matchType}</td>
-                  <td style={{ color: scoreColor(s.matchScore), fontWeight: 600 }}>
-                    {s.matchScore}%
-                  </td>
-                  <td>
-                    <span
-                      className={
-                        s.status === 'Cleared' ? styles.statusCleared : styles.statusInvestigating
-                      }
-                    >
-                      {s.status}
+                {/* Bank Account Verification */}
+                <section className={styles.section}>
+                  <h2 className={styles.sectionTitle}>
+                    <span className={styles.sectionIcon}>&#127974;</span>
+                    Bank Account Verification
+                  </h2>
+
+                  {/* Bank change requests */}
+                  <div className={styles.bankSubSection}>
+                    <h3 className={styles.subTitle}>Recent Bank Change Requests</h3>
+                    <table className={styles.table}>
+                      <thead>
+                        <tr>
+                          <th>Supplier</th>
+                          <th>Old Bank</th>
+                          <th>New Bank</th>
+                          <th>Verification</th>
+                          <th>Risk Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {bankChanges.map((b, i) => (
+                          <tr key={i}>
+                            <td style={{ fontWeight: 600 }}>{b.supplier}</td>
+                            <td>{b.oldBank}</td>
+                            <td>{b.newBank}</td>
+                            <td>
+                              <span
+                                className={
+                                  b.status === 'Verified'
+                                    ? styles.statusVerified
+                                    : b.status === 'Pending'
+                                    ? styles.statusPending
+                                    : styles.statusFailed
+                                }
+                              >
+                                {b.status}
+                              </span>
+                            </td>
+                            <td style={{ color: scoreColor(b.riskScore), fontWeight: 700 }}>
+                              {b.riskScore}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Sanctions screening */}
+                  <div className={styles.bankSubSection}>
+                    <h3 className={styles.subTitle}>Sanctions Screening Results</h3>
+                    <table className={styles.table}>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Match Type</th>
+                          <th>Match Score</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sanctionsResults.map((s, i) => (
+                          <tr key={i}>
+                            <td style={{ fontWeight: 600 }}>{s.name}</td>
+                            <td>{s.matchType}</td>
+                            <td style={{ color: scoreColor(s.matchScore), fontWeight: 600 }}>
+                              {s.matchScore}%
+                            </td>
+                            <td>
+                              <span
+                                className={
+                                  s.status === 'Cleared' ? styles.statusCleared : styles.statusInvestigating
+                                }
+                              >
+                                {s.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </>
+            )}
+
+            {/* ═══════════ ANOMALIES TAB ═══════════ */}
+            {activeTab === 'anomalies' && (
+              <section className={styles.section}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>&#128200;</span>
+                  Anomaly Detection
+                  <span className={`${styles.sectionBadge} ${styles.badgePurple}`}>AI-Powered</span>
+                </h2>
+
+                <div className={styles.anomalyGrid}>
+                  {/* Amount anomalies */}
+                  <div className={styles.anomalySubFull}>
+                    <div className={styles.anomalySubTitle}>
+                      <span>&#128176;</span> Amount Anomalies
+                    </div>
+                    <table className={styles.table}>
+                      <thead>
+                        <tr>
+                          <th>Vendor</th>
+                          <th>Invoice Amount</th>
+                          <th>Historical Avg</th>
+                          <th>Deviation</th>
+                          <th>Benford&apos;s Law</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {amountAnomalies.map((a, i) => (
+                          <tr key={i}>
+                            <td style={{ fontWeight: 600 }}>{a.vendor}</td>
+                            <td>{a.amount}</td>
+                            <td style={{ color: '#6B7280' }}>{a.avgAmount}</td>
+                            <td style={{ color: a.deviation > 200 ? '#DC2626' : a.deviation > 100 ? '#D97706' : '#165DFF', fontWeight: 600 }}>
+                              +{a.deviation}%
+                            </td>
+                            <td>
+                              {a.benford ? (
+                                <span className={styles.benfordFlag}>FLAGGED</span>
+                              ) : (
+                                <span style={{ color: '#23C343', fontSize: 12, fontWeight: 500 }}>Pass</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Timing anomalies */}
+                  <div className={styles.anomalySubSection}>
+                    <div className={styles.anomalySubTitle}>
+                      <span>&#9200;</span> Timing Anomalies
+                    </div>
+                    {timingAnomalies.map((t, i) => (
+                      <div className={styles.anomalyItem} key={i}>
+                        <span className={styles.anomalyDot} style={{ background: '#D97706' }} />
+                        <span className={styles.anomalyInfo}>
+                          <span className={styles.anomalyDetail}>{t.desc}</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Velocity alerts */}
+                  <div className={styles.anomalySubSection}>
+                    <div className={styles.anomalySubTitle}>
+                      <span>&#9889;</span> Velocity Alerts
+                    </div>
+                    {velocityAlerts.map((v, i) => (
+                      <div className={styles.anomalyItem} key={i}>
+                        <span className={styles.anomalyDot} style={{ background: '#DC2626' }} />
+                        <span className={styles.anomalyInfo}>
+                          <span className={styles.anomalyDetail}>{v.desc}</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* ═══════════ INVESTIGATIONS TAB ═══════════ */}
+            {activeTab === 'investigations' && (
+              <>
+                {/* Risk Heatmap */}
+                <section className={styles.section}>
+                  <h2 className={styles.sectionTitle}>
+                    <span className={styles.sectionIcon}>&#127777;</span>
+                    Risk Heatmap
+                  </h2>
+                  <div className={styles.heatmapGrid}>
+                    {/* header row */}
+                    <div className={styles.heatmapHeader} />
+                    <div className={styles.heatmapHeader} style={{ color: '#DC2626' }}>
+                      {t('riskDashboard.critical')}
+                    </div>
+                    <div className={styles.heatmapHeader} style={{ color: '#D97706' }}>
+                      {t('riskDashboard.high')}
+                    </div>
+                    <div className={styles.heatmapHeader} style={{ color: '#165DFF' }}>
+                      {t('riskDashboard.medium')}
+                    </div>
+                    <div className={styles.heatmapHeader} style={{ color: '#23C343' }}>
+                      {t('riskDashboard.low')}
+                    </div>
+
+                    {/* data rows */}
+                    {heatmapCategories.map((cat) => (
+                      <React.Fragment key={cat}>
+                        <div className={styles.heatmapRowLabel}>{cat}</div>
+                        {heatmapData[cat].map((val, ci) => (
+                          <div className={heatCellStyle(val, ci)} key={ci}>
+                            {val > 0 ? val : '\u2014'}
+                          </div>
+                        ))}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Investigation Queue */}
+                <section className={styles.section}>
+                  <h2 className={styles.sectionTitle}>
+                    <span className={styles.sectionIcon}>&#128269;</span>
+                    Investigation Queue
+                    <span className={`${styles.sectionBadge} ${styles.badgeBlue}`}>
+                      {investigations.length} Open
                     </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* ── Anomaly Detection ──────────────────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#128200;</span>
-          Anomaly Detection
-          <span className={`${styles.sectionBadge} ${styles.badgePurple}`}>AI-Powered</span>
-        </h2>
-
-        <div className={styles.anomalyGrid}>
-          {/* Amount anomalies */}
-          <div className={styles.anomalySubFull}>
-            <div className={styles.anomalySubTitle}>
-              <span>&#128176;</span> Amount Anomalies
-            </div>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Vendor</th>
-                  <th>Invoice Amount</th>
-                  <th>Historical Avg</th>
-                  <th>Deviation</th>
-                  <th>Benford&apos;s Law</th>
-                </tr>
-              </thead>
-              <tbody>
-                {amountAnomalies.map((a, i) => (
-                  <tr key={i}>
-                    <td style={{ fontWeight: 600 }}>{a.vendor}</td>
-                    <td>{a.amount}</td>
-                    <td style={{ color: '#86909C' }}>{a.avgAmount}</td>
-                    <td style={{ color: a.deviation > 200 ? '#F76560' : a.deviation > 100 ? '#FF9A2E' : '#165DFF', fontWeight: 600 }}>
-                      +{a.deviation}%
-                    </td>
-                    <td>
-                      {a.benford ? (
-                        <span className={styles.benfordFlag}>FLAGGED</span>
-                      ) : (
-                        <span style={{ color: '#23C343', fontSize: 12, fontWeight: 500 }}>Pass</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Timing anomalies */}
-          <div className={styles.anomalySubSection}>
-            <div className={styles.anomalySubTitle}>
-              <span>&#9200;</span> Timing Anomalies
-            </div>
-            {timingAnomalies.map((t, i) => (
-              <div className={styles.anomalyItem} key={i}>
-                <span className={styles.anomalyDot} style={{ background: '#FF9A2E' }} />
-                <span className={styles.anomalyInfo}>
-                  <span className={styles.anomalyDetail}>{t.desc}</span>
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Velocity alerts */}
-          <div className={styles.anomalySubSection}>
-            <div className={styles.anomalySubTitle}>
-              <span>&#9889;</span> Velocity Alerts
-            </div>
-            {velocityAlerts.map((v, i) => (
-              <div className={styles.anomalyItem} key={i}>
-                <span className={styles.anomalyDot} style={{ background: '#F76560' }} />
-                <span className={styles.anomalyInfo}>
-                  <span className={styles.anomalyDetail}>{v.desc}</span>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Risk Heatmap ───────────────────────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#127777;</span>
-          Risk Heatmap
-        </h2>
-        <div className={styles.heatmapGrid}>
-          {/* header row */}
-          <div className={styles.heatmapHeader} />
-          <div className={styles.heatmapHeader} style={{ color: '#F76560' }}>
-            {t('riskDashboard.critical')}
-          </div>
-          <div className={styles.heatmapHeader} style={{ color: '#FF9A2E' }}>
-            {t('riskDashboard.high')}
-          </div>
-          <div className={styles.heatmapHeader} style={{ color: '#165DFF' }}>
-            {t('riskDashboard.medium')}
-          </div>
-          <div className={styles.heatmapHeader} style={{ color: '#23C343' }}>
-            {t('riskDashboard.low')}
-          </div>
-
-          {/* data rows */}
-          {heatmapCategories.map((cat) => (
-            <React.Fragment key={cat}>
-              <div className={styles.heatmapRowLabel}>{cat}</div>
-              {heatmapData[cat].map((val, ci) => (
-                <div className={heatCellStyle(val, ci)} key={ci}>
-                  {val > 0 ? val : '\u2014'}
-                </div>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Investigation Queue ─────────────────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#128269;</span>
-          Investigation Queue
-          <span className={`${styles.sectionBadge} ${styles.badgeBlue}`}>
-            {investigations.length} Open
-          </span>
-        </h2>
-        <div style={{ overflowX: 'auto' }}>
-          <table className={styles.investigationTable}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>{t('riskDashboard.alertType')}</th>
-                <th>Entity</th>
-                <th>Assigned To</th>
-                <th>{t('riskDashboard.severity')}</th>
-                <th>{t('riskDashboard.status')}</th>
-                <th>Days Open</th>
-                <th>{t('common.actions')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {investigations.map((inv) => (
-                <tr key={inv.id}>
-                  <td style={{ fontWeight: 600, color: '#165DFF' }}>{inv.id}</td>
-                  <td>{inv.type}</td>
-                  <td style={{ fontWeight: 600 }}>{inv.entity}</td>
-                  <td>{inv.assignedTo}</td>
-                  <td>
-                    <span className={priorityClass(inv.priority)}>{inv.priority}</span>
-                  </td>
-                  <td>
-                    <span className={statusClass(inv.status)}>{inv.status}</span>
-                  </td>
-                  <td
-                    style={{
-                      color: inv.daysOpen > 5 ? '#F76560' : inv.daysOpen > 3 ? '#FF9A2E' : '#E5E6EB',
-                      fontWeight: inv.daysOpen > 3 ? 600 : 400,
-                    }}
-                  >
-                    {inv.daysOpen}d
-                  </td>
-                  <td>
-                    <button className={styles.btnViewCase}>View Case</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* ── Monthly Trends (CSS bar chart) ─────────────────── */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          <span className={styles.sectionIcon}>&#128202;</span>
-          Monthly Trends &mdash; Last 6 Months
-        </h2>
-
-        <div className={styles.trendsGrid}>
-          {monthlyTrends.map((m) => (
-            <div className={styles.trendMonth} key={m.month}>
-              <div className={styles.trendLabel}>{m.month}</div>
-              <div className={styles.trendBars}>
-                {/* total alerts */}
-                <div className={styles.trendBarWrap}>
-                  <div className={styles.trendBarTrack}>
-                    <div
-                      className={styles.trendBar}
-                      style={{
-                        width: `${(m.totalAlerts / maxAlerts) * 100}%`,
-                        background: '#165DFF',
-                      }}
-                    />
+                  </h2>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table className={styles.investigationTable}>
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>{t('riskDashboard.alertType')}</th>
+                          <th>Entity</th>
+                          <th>Assigned To</th>
+                          <th>{t('riskDashboard.severity')}</th>
+                          <th>{t('riskDashboard.status')}</th>
+                          <th>Days Open</th>
+                          <th>{t('common.actions')}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {investigations.map((inv) => (
+                          <tr key={inv.id}>
+                            <td style={{ fontWeight: 600, color: '#165DFF' }}>{inv.id}</td>
+                            <td>{inv.type}</td>
+                            <td style={{ fontWeight: 600 }}>{inv.entity}</td>
+                            <td>{inv.assignedTo}</td>
+                            <td>
+                              <span className={priorityClass(inv.priority)}>{inv.priority}</span>
+                            </td>
+                            <td>
+                              <span className={statusClass(inv.status)}>{inv.status}</span>
+                            </td>
+                            <td
+                              style={{
+                                color: inv.daysOpen > 5 ? '#DC2626' : inv.daysOpen > 3 ? '#D97706' : '#9CA3AF',
+                                fontWeight: inv.daysOpen > 3 ? 600 : 400,
+                              }}
+                            >
+                              {inv.daysOpen}d
+                            </td>
+                            <td>
+                              <button className={styles.btnViewCase}>View Case</button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                  <span className={styles.trendBarValue}>{m.totalAlerts}</span>
-                </div>
-                {/* confirmed fraud */}
-                <div className={styles.trendBarWrap}>
-                  <div className={styles.trendBarTrack}>
-                    <div
-                      className={styles.trendBar}
-                      style={{
-                        width: `${(m.confirmedFraud / maxAlerts) * 100}%`,
-                        background: '#F76560',
-                      }}
-                    />
-                  </div>
-                  <span className={styles.trendBarValue}>{m.confirmedFraud}</span>
-                </div>
-                {/* false positives */}
-                <div className={styles.trendBarWrap}>
-                  <div className={styles.trendBarTrack}>
-                    <div
-                      className={styles.trendBar}
-                      style={{
-                        width: `${(m.falsePositives / maxAlerts) * 100}%`,
-                        background: '#FF9A2E',
-                      }}
-                    />
-                  </div>
-                  <span className={styles.trendBarValue}>{m.falsePositives}</span>
-                </div>
-                {/* amount prevented */}
-                <div className={styles.trendBarWrap}>
-                  <div className={styles.trendBarTrack}>
-                    <div
-                      className={styles.trendBar}
-                      style={{
-                        width: `${(m.amountPrevented / maxPrevented) * 100}%`,
-                        background: '#23C343',
-                      }}
-                    />
-                  </div>
-                  <span className={styles.trendBarValue}>${m.amountPrevented}K</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                </section>
+              </>
+            )}
 
-        <div className={styles.trendsLegend}>
-          <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: '#165DFF' }} />
-            Total Alerts
-          </span>
-          <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: '#F76560' }} />
-            Confirmed Fraud
-          </span>
-          <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: '#FF9A2E' }} />
-            False Positives
-          </span>
-          <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: '#23C343' }} />
-            Amount Prevented
-          </span>
-        </div>
-      </section>
+            {/* ═══════════ TRENDS TAB ═══════════ */}
+            {activeTab === 'trends' && (
+              <section className={styles.section}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>&#128202;</span>
+                  Monthly Trends &mdash; Last 6 Months
+                </h2>
+
+                <div className={styles.trendsGrid}>
+                  {monthlyTrends.map((m) => (
+                    <div className={styles.trendMonth} key={m.month}>
+                      <div className={styles.trendLabel}>{m.month}</div>
+                      <div className={styles.trendBars}>
+                        {/* total alerts */}
+                        <div className={styles.trendBarWrap}>
+                          <div className={styles.trendBarTrack}>
+                            <div
+                              className={styles.trendBar}
+                              style={{
+                                width: `${(m.totalAlerts / maxAlerts) * 100}%`,
+                                background: '#165DFF',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.trendBarValue}>{m.totalAlerts}</span>
+                        </div>
+                        {/* confirmed fraud */}
+                        <div className={styles.trendBarWrap}>
+                          <div className={styles.trendBarTrack}>
+                            <div
+                              className={styles.trendBar}
+                              style={{
+                                width: `${(m.confirmedFraud / maxAlerts) * 100}%`,
+                                background: '#DC2626',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.trendBarValue}>{m.confirmedFraud}</span>
+                        </div>
+                        {/* false positives */}
+                        <div className={styles.trendBarWrap}>
+                          <div className={styles.trendBarTrack}>
+                            <div
+                              className={styles.trendBar}
+                              style={{
+                                width: `${(m.falsePositives / maxAlerts) * 100}%`,
+                                background: '#D97706',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.trendBarValue}>{m.falsePositives}</span>
+                        </div>
+                        {/* amount prevented */}
+                        <div className={styles.trendBarWrap}>
+                          <div className={styles.trendBarTrack}>
+                            <div
+                              className={styles.trendBar}
+                              style={{
+                                width: `${(m.amountPrevented / maxPrevented) * 100}%`,
+                                background: '#23C343',
+                              }}
+                            />
+                          </div>
+                          <span className={styles.trendBarValue}>${m.amountPrevented}K</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className={styles.trendsLegend}>
+                  <span className={styles.legendItem}>
+                    <span className={styles.legendDot} style={{ background: '#165DFF' }} />
+                    Total Alerts
+                  </span>
+                  <span className={styles.legendItem}>
+                    <span className={styles.legendDot} style={{ background: '#DC2626' }} />
+                    Confirmed Fraud
+                  </span>
+                  <span className={styles.legendItem}>
+                    <span className={styles.legendDot} style={{ background: '#D97706' }} />
+                    False Positives
+                  </span>
+                  <span className={styles.legendItem}>
+                    <span className={styles.legendDot} style={{ background: '#23C343' }} />
+                    Amount Prevented
+                  </span>
+                </div>
+              </section>
+            )}
+          </>
+        )}
+      </Tabs>
     </div>
   );
 }

@@ -9,9 +9,9 @@
 .filterInput:focus { border-color: #165DFF; }
 .filterSelect { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; padding: 0.5rem 0.75rem; color: #1D2129; font-size: 0.8125rem; outline: none; appearance: auto; }
 .table { width: 100%; border-collapse: collapse; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
-.table th { text-align: left; padding: 0.75rem 1rem; color: #4E5969; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E5E6EB; background: #F7F8FA; position: sticky; top: 0; }
+.table th { text-align: left; padding: 0.75rem 1rem; color: #4E5969; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E5E6EB; background: #F7F8FA; position: sticky; top: 0; }
 .table td { padding: 0.625rem 1rem; color: #1D2129; font-size: 0.8125rem; border-bottom: 1px solid #E5E6EB; }
-.table tr:hover { background: #E5E6EB; }
+.table tr:hover { background: rgba(229, 230, 235, 0.3); }
 .badge { padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 500; white-space: nowrap; }
 .badgeGreen { background: rgba(16,185,129,0.15); color: #23C343; }
 .badgeBlue { background: rgba(22,93,255,0.08); color: #165DFF; }

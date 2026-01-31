@@ -212,7 +212,7 @@
 }
 
 .marketValue {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #1D2129;
   margin-bottom: 0.25rem;
@@ -275,7 +275,7 @@
 
 .compTable th {
   padding: 0.75rem 1rem;
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: #4E5969;
   text-transform: uppercase;
@@ -292,7 +292,7 @@
 }
 
 .compTable tbody tr:hover {
-  background: rgba(242, 243, 245, 0.6);
+  background: rgba(229, 230, 235, 0.3);
 }
 
 .compName {
@@ -413,7 +413,7 @@
 
 .iceTable th {
   padding: 0.75rem 1rem;
-  font-size: 0.7rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: #4E5969;
   text-transform: uppercase;
@@ -431,7 +431,7 @@
 }
 
 .iceTable tbody tr:hover {
-  background: rgba(242, 243, 245, 0.6);
+  background: rgba(229, 230, 235, 0.3);
 }
 
 .iceBar {

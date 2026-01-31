@@ -94,7 +94,7 @@
 
 .tab:hover {
   color: #1D2129;
-  background: rgba(229, 230, 235, 0.3);
+  background: #F9FAFB;
 }
 
 .tabActive {
@@ -140,17 +140,18 @@
 }
 
 .statChangeDown {
-  color: #F76560;
+  color: #DC2626;
 }
 
 /* ── Section / Card ────────────────────────────────────────── */
 
 .section {
-  background: #F7F8FA;
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   border-radius: 0.75rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .sectionTitle {
@@ -185,7 +186,7 @@
 .pipelineStage {
   flex: 1;
   min-width: 150px;
-  background: rgba(255, 255, 255, 0.6);
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   padding: 1rem;
   position: relative;
@@ -236,18 +237,18 @@
 
 .pipelineStatusActive {
   background: #23C343;
-  box-shadow: 0 0 6px rgba(35, 195, 67, 0.6);
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.6);
   animation: pulse 2s infinite;
 }
 
 .pipelineStatusIdle {
-  background: #FF9A2E;
-  box-shadow: 0 0 6px rgba(255, 154, 46, 0.4);
+  background: #D97706;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.4);
 }
 
 .pipelineStatusError {
-  background: #F76560;
-  box-shadow: 0 0 6px rgba(247, 101, 96, 0.6);
+  background: #DC2626;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.6);
   animation: pulse 1.5s infinite;
 }
 
@@ -265,7 +266,7 @@
 
 .pipelineMetricLabel {
   font-size: 0.65rem;
-  color: #86909C;
+  color: #6B7280;
 }
 
 .pipelineMetricValue {
@@ -283,16 +284,18 @@
 }
 
 .agentCard {
-  background: rgba(255, 255, 255, 0.6);
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   border-radius: 0.75rem;
   padding: 1.25rem;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .agentCard:hover {
-  border-color: #165DFF;
-  background: rgba(255, 255, 255, 0.8);
+  border-color: #C9CDD4;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .agentCardHeader {
@@ -345,18 +348,18 @@
 }
 
 .agentCardStatusActive {
-  background: rgba(35, 195, 67, 0.15);
+  background: rgba(22, 163, 74, 0.15);
   color: #23C343;
 }
 
 .agentCardStatusIdle {
-  background: rgba(255, 154, 46, 0.15);
-  color: #FF9A2E;
+  background: rgba(217, 119, 6, 0.15);
+  color: #D97706;
 }
 
 .agentCardStatusError {
-  background: rgba(247, 101, 96, 0.15);
-  color: #F76560;
+  background: rgba(220, 38, 38, 0.15);
+  color: #DC2626;
 }
 
 .agentStatusDot {
@@ -368,18 +371,18 @@
 
 .agentDotActive {
   background: #23C343;
-  box-shadow: 0 0 4px rgba(35, 195, 67, 0.6);
+  box-shadow: 0 0 4px rgba(22, 163, 74, 0.6);
   animation: pulse 2s infinite;
 }
 
 .agentDotIdle {
-  background: #FF9A2E;
-  box-shadow: 0 0 4px rgba(255, 154, 46, 0.4);
+  background: #D97706;
+  box-shadow: 0 0 4px rgba(217, 119, 6, 0.4);
 }
 
 .agentDotError {
-  background: #F76560;
-  box-shadow: 0 0 4px rgba(247, 101, 96, 0.6);
+  background: #DC2626;
+  box-shadow: 0 0 4px rgba(220, 38, 38, 0.6);
   animation: pulse 1.5s infinite;
 }
 
@@ -397,7 +400,7 @@
 
 .agentMetricLabel {
   font-size: 0.6rem;
-  color: #86909C;
+  color: #6B7280;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-bottom: 0.15rem;
@@ -447,7 +450,7 @@
 
 .agentError {
   font-size: 0.7rem;
-  color: #F76560;
+  color: #DC2626;
   max-width: 70%;
   white-space: nowrap;
   overflow: hidden;
@@ -456,7 +459,7 @@
 
 .agentNoError {
   font-size: 0.7rem;
-  color: #86909C;
+  color: #6B7280;
 }
 
 /* ── Toggle Switch ─────────────────────────────────────────── */
@@ -479,7 +482,7 @@
 .toggleSlider {
   position: absolute;
   inset: 0;
-  background: #E5E6EB;
+  background: #D1D5DB;
   border-radius: 10px;
   transition: background 0.3s;
 }
@@ -497,7 +500,7 @@
 }
 
 .toggleInput:checked + .toggleSlider {
-  background: rgba(35, 195, 67, 0.4);
+  background: rgba(22, 163, 74, 0.4);
 }
 
 .toggleInput:checked + .toggleSlider::before {
@@ -522,7 +525,7 @@
 
 .filterLabel {
   font-size: 0.65rem;
-  color: #86909C;
+  color: #6B7280;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
@@ -530,7 +533,7 @@
 
 .filterSelect {
   background: #ffffff;
-  border: 1px solid #E5E6EB;
+  border: 1px solid #D1D5DB;
   color: #1D2129;
   border-radius: 0.375rem;
   padding: 0.4rem 0.75rem;
@@ -542,6 +545,7 @@
 .filterSelect:focus {
   outline: none;
   border-color: #165DFF;
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
 }
 
 .decisionTable {
@@ -550,8 +554,8 @@
 }
 
 .decisionTable th {
-  font-size: 0.7rem;
-  color: #86909C;
+  font-size: 0.6875rem;
+  color: #6B7280;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: left;
@@ -630,36 +634,36 @@
 }
 
 .outcomeExecuted {
-  background: rgba(35, 195, 67, 0.15);
+  background: rgba(22, 163, 74, 0.15);
   color: #23C343;
 }
 
 .outcomeQueued {
-  background: rgba(255, 154, 46, 0.15);
-  color: #FF9A2E;
+  background: rgba(217, 119, 6, 0.15);
+  color: #D97706;
 }
 
 .outcomeBlocked {
-  background: rgba(247, 101, 96, 0.15);
-  color: #F76560;
+  background: rgba(220, 38, 38, 0.15);
+  color: #DC2626;
 }
 
 .overrideYes {
-  color: #FF9A2E;
+  color: #D97706;
   font-weight: 600;
   font-size: 0.8rem;
 }
 
 .overrideNo {
-  color: #86909C;
+  color: #6B7280;
   font-size: 0.8rem;
 }
 
 /* ── Decision Detail Panel ─────────────────────────────────── */
 
 .detailPanel {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(22, 93, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
   border-radius: 0.5rem;
   padding: 1.25rem;
   margin: 0.5rem 0;
@@ -728,7 +732,7 @@
 
 .factorWeight {
   font-size: 0.65rem;
-  color: #86909C;
+  color: #6B7280;
   width: 30px;
   text-align: right;
   flex-shrink: 0;
@@ -754,7 +758,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0.6rem;
-  background: rgba(229, 230, 235, 0.3);
+  background: #F9FAFB;
   border-radius: 0.375rem;
   font-size: 0.75rem;
 }
@@ -764,7 +768,7 @@
 }
 
 .alternativeConf {
-  color: #86909C;
+  color: #6B7280;
   font-weight: 500;
 }
 
@@ -779,7 +783,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.4rem 0.6rem;
-  background: rgba(229, 230, 235, 0.3);
+  background: #F9FAFB;
   border-radius: 0.375rem;
   font-size: 0.75rem;
 }
@@ -802,9 +806,9 @@
 
 .overrideButton {
   margin-top: 1rem;
-  background: rgba(247, 101, 96, 0.15);
-  color: #F76560;
-  border: 1px solid rgba(247, 101, 96, 0.3);
+  background: rgba(220, 38, 38, 0.15);
+  color: #DC2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
   border-radius: 0.5rem;
   padding: 0.6rem 1.25rem;
   font-size: 0.8rem;
@@ -814,7 +818,7 @@
 }
 
 .overrideButton:hover {
-  background: rgba(247, 101, 96, 0.25);
+  background: rgba(220, 38, 38, 0.25);
 }
 
 /* ── Configuration Tab ─────────────────────────────────────── */
@@ -827,10 +831,11 @@
 }
 
 .configCard {
-  background: rgba(255, 255, 255, 0.6);
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   border-radius: 0.75rem;
   padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .configCardHeader {
@@ -892,7 +897,7 @@
   border-radius: 50%;
   background: #165DFF;
   cursor: pointer;
-  border: 2px solid #F7F8FA;
+  border: 2px solid #ffffff;
 }
 
 .configSlider::-moz-range-thumb {
@@ -901,7 +906,7 @@
   border-radius: 50%;
   background: #165DFF;
   cursor: pointer;
-  border: 2px solid #F7F8FA;
+  border: 2px solid #ffffff;
 }
 
 .configSliderValue {
@@ -919,7 +924,7 @@
 
 .configSelect {
   background: #ffffff;
-  border: 1px solid #E5E6EB;
+  border: 1px solid #D1D5DB;
   color: #1D2129;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
@@ -931,11 +936,12 @@
 .configSelect:focus {
   outline: none;
   border-color: #165DFF;
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
 }
 
 .configInput {
   background: #ffffff;
-  border: 1px solid #E5E6EB;
+  border: 1px solid #D1D5DB;
   color: #1D2129;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
@@ -946,6 +952,7 @@
 .configInput:focus {
   outline: none;
   border-color: #165DFF;
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
 }
 
 /* ── Global Settings ───────────────────────────────────────── */
@@ -961,9 +968,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .globalSettingInfo {
@@ -980,7 +988,7 @@
 
 .globalSettingDescription {
   font-size: 0.7rem;
-  color: #86909C;
+  color: #6B7280;
 }
 
 .globalSettingControl {
@@ -1005,11 +1013,12 @@
 }
 
 .auditSummaryCard {
-  background: #F7F8FA;
+  background: #ffffff;
   border: 1px solid #E5E6EB;
   border-radius: 0.75rem;
   padding: 1.25rem;
   text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .auditSummaryValue {
@@ -1037,8 +1046,8 @@
 }
 
 .auditTable th {
-  font-size: 0.7rem;
-  color: #86909C;
+  font-size: 0.6875rem;
+  color: #6B7280;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: left;
@@ -1064,7 +1073,7 @@
 }
 
 .accuracyMedium {
-  color: #FF9A2E;
+  color: #D97706;
   font-weight: 600;
 }
 
@@ -1081,14 +1090,14 @@
   align-items: flex-start;
   gap: 0.6rem;
   padding: 0.6rem;
-  background: rgba(247, 101, 96, 0.05);
-  border-left: 3px solid #F76560;
+  background: rgba(220, 38, 38, 0.05);
+  border-left: 3px solid #DC2626;
   border-radius: 0 0.375rem 0.375rem 0;
 }
 
 .errorLogTime {
   font-size: 0.65rem;
-  color: #86909C;
+  color: #6B7280;
   white-space: nowrap;
   flex-shrink: 0;
   min-width: 75px;
@@ -1097,7 +1106,7 @@
 .errorLogAgent {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #FF9A2E;
+  color: #D97706;
   white-space: nowrap;
   flex-shrink: 0;
   min-width: 100px;
@@ -1112,8 +1121,8 @@
 /* ── Compliance Report ─────────────────────────────────────── */
 
 .complianceReport {
-  background: linear-gradient(135deg, rgba(35, 195, 67, 0.06), rgba(35, 195, 67, 0.02));
-  border: 1px solid rgba(35, 195, 67, 0.2);
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.06), rgba(22, 163, 74, 0.02));
+  border: 1px solid rgba(22, 163, 74, 0.2);
   border-radius: 0.75rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -1177,13 +1186,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
-  border: 1px solid #E5E6EB;
-  background: #F7F8FA;
+  border: 1px solid #D1D5DB;
+  background: #ffffff;
   color: #1D2129;
 }
 
 .exportButton:hover {
-  background: #E5E6EB;
+  background: #F3F4F6;
   border-color: #165DFF;
 }
 
