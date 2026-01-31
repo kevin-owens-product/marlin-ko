@@ -1,6 +1,6 @@
 .container { padding: 2rem; }
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
 .headerLeft p { font-size: 0.875rem; color: #4E5969; }
 .exportBtn { padding: 0.625rem 1.25rem; background: #165DFF; border: none; border-radius: 0.5rem; color: #fff; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
 .exportBtn:hover { background: #4080FF; }
@@ -15,7 +15,7 @@
 /* Two Column */
 .twoColumn { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
 .panel { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
-.panelTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+.panelTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
 
 /* Geographic Heat Map */
 .heatMapGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }

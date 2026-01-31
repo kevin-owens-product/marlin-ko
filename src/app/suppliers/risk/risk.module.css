@@ -1,6 +1,6 @@
 .container { padding: 2rem; }
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
 .headerLeft p { font-size: 0.875rem; color: #4E5969; }
 .refreshBtn { padding: 0.625rem 1.25rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #4E5969; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
 .refreshBtn:hover { border-color: #165DFF; color: #1D2129; }
@@ -20,7 +20,7 @@
 .dashSub { font-size: 0.75rem; color: #4E5969; margin-top: 0.25rem; }
 .content { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
 .alertsPanel { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; overflow: hidden; }
-.panelTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; padding: 1rem 1.25rem; border-bottom: 1px solid #E5E6EB; display: flex; justify-content: space-between; align-items: center; }
+.panelTitle { font-size: 1rem; font-weight: 600; color: #1D2129; padding: 1rem 1.25rem; border-bottom: 1px solid #E5E6EB; display: flex; justify-content: space-between; align-items: center; }
 .alertCount { font-size: 0.75rem; color: #4E5969; background: #E5E6EB; padding: 0.125rem 0.5rem; border-radius: 9999px; }
 .alertTable { width: 100%; border-collapse: collapse; }
 .alertTable thead th { padding: 0.625rem 1rem; text-align: left; font-size: 0.6875rem; font-weight: 600; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; background: #ffffff; border-bottom: 1px solid #E5E6EB; }
@@ -47,7 +47,7 @@
 .statusResolved { background: rgba(16,185,129,0.15); color: #23C343; }
 .insightsPanel { display: flex; flex-direction: column; gap: 1.5rem; }
 .insightCard { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
-.insightTitle { font-size: 0.875rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+.insightTitle { font-size: 0.875rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
 .trendChart { display: flex; flex-direction: column; gap: 0.5rem; }
 .trendRow { display: flex; align-items: center; gap: 0.75rem; }
 .trendLabel { font-size: 0.75rem; color: #4E5969; width: 2rem; text-align: right; }
@@ -58,5 +58,5 @@
 .aiText { font-size: 0.8125rem; color: #1D2129; line-height: 1.5; }
 .insightList { display: flex; flex-direction: column; gap: 0.75rem; }
 .insightItem { padding: 0.75rem; background: #ffffff; border-radius: 0.5rem; }
-.insightItemTitle { font-size: 0.8125rem; font-weight: 500; color: #F7F8FA; margin-bottom: 0.25rem; }
+.insightItemTitle { font-size: 0.8125rem; font-weight: 500; color: #1D2129; margin-bottom: 0.25rem; }
 .insightItemText { font-size: 0.75rem; color: #4E5969; line-height: 1.4; }

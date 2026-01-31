@@ -1,6 +1,6 @@
 .container { padding: 2rem; }
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #F7F8FA; margin-bottom: 0.25rem; }
+.headerLeft h1 { font-size: 1.5rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
 .headerLeft p { font-size: 0.875rem; color: #4E5969; }
 .downloadBtn { padding: 0.625rem 1.25rem; background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.5rem; color: #4E5969; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
 .downloadBtn:hover { border-color: #165DFF; color: #1D2129; }
@@ -15,7 +15,7 @@
 
 /* Scoring Dimensions */
 .dimensionsPanel { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 2rem; }
-.dimensionsTitle { font-size: 1rem; font-weight: 600; color: #F7F8FA; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
+.dimensionsTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #E5E6EB; }
 .dimensionRow { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
 .dimensionRow:last-child { margin-bottom: 0; }
 .dimensionLabel { font-size: 0.8125rem; color: #1D2129; width: 130px; flex-shrink: 0; }
