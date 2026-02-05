@@ -343,6 +343,158 @@ export default function VirtualCardsPage() {
         </div>
       </div>
 
+      {/* ─── Annualized Revenue KPI ─── */}
+      <div className={styles.revenueHeroSection}>
+        <div className={styles.revenueHeroTitle}>Annualized Revenue KPI</div>
+        <div className={styles.revenueHeroGrid}>
+          <div className={styles.revenueHeroCardPrimary}>
+            <div className={styles.revenueHeroMetric}>$504K/yr</div>
+            <div className={styles.revenueHeroLabel}>Current Run Rate</div>
+            <div className={styles.revenueHeroSub}>$42K/month x 12</div>
+          </div>
+          <div className={styles.revenueHeroCard}>
+            <div className={styles.revenueHeroMetricBlue}>$847K/yr</div>
+            <div className={styles.revenueHeroLabel}>Target (Full Enrollment)</div>
+            <div className={styles.revenueHeroSub}>Annualized rebate revenue</div>
+          </div>
+          <div className={styles.revenueHeroCard}>
+            <div className={styles.revenueHeroMetricAmber}>$343K</div>
+            <div className={styles.revenueHeroLabel}>Gap to Close</div>
+            <div className={styles.revenueHeroSub}>15 suppliers pending conversion</div>
+          </div>
+          <div className={styles.revenueHeroCard}>
+            <div className={styles.revenueHeroMetricPurple}>59%</div>
+            <div className={styles.revenueHeroLabel}>Progress to Target</div>
+            <div className={styles.revenueHeroSub}>$504K of $847K achieved</div>
+          </div>
+        </div>
+
+        <div className={styles.revenueProgressSection}>
+          <div className={styles.revenueProgressHeader}>
+            <span className={styles.revenueProgressLabel}>Revenue Progress to $847K Target</span>
+            <span className={styles.revenueProgressPct}>59%</span>
+          </div>
+          <div className={styles.revenueProgressBarWrap}>
+            <div className={styles.revenueProgressBar} style={{ width: '59%' }} />
+            <span className={styles.revenueProgressText}>$504K / $847K</span>
+          </div>
+          <div className={styles.revenueProgressMeta}>
+            <span className={styles.revenueProgressMetaItem}>
+              Active Suppliers: <span className={styles.revenueProgressMetaValue}>25</span>
+            </span>
+            <span className={styles.revenueProgressMetaItem}>
+              Pipeline: <span className={styles.revenueProgressMetaValue}>8 suppliers</span>
+            </span>
+            <span className={styles.revenueProgressMetaItem}>
+              High-Potential: <span className={styles.revenueProgressMetaValue}>7 suppliers</span>
+            </span>
+          </div>
+          <div className={styles.revenuePerSupplier}>
+            <span className={styles.revenuePerSupplierLabel}>Each supplier conversion =</span>
+            <span className={styles.revenuePerSupplierValue}>avg $22.9K annual rebate</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Revenue Acceleration Plan ─── */}
+      <div className={styles.waterfallSection}>
+        <div className={styles.waterfallTitle}>Revenue Acceleration Plan</div>
+        <div className={styles.waterfallSubtitle}>Waterfall view showing path from current $504K run rate to $847K target at full conversion</div>
+
+        <div className={styles.waterfallChart}>
+          {/* Current Active - $504K */}
+          <div className={styles.waterfallCol}>
+            <div className={styles.waterfallValue}>$504K</div>
+            <div
+              className={`${styles.waterfallBarSegment} ${styles.waterfallBarGreen}`}
+              style={{ height: `${(504 / 847) * 220}px` }}
+            />
+            <span className={styles.waterfallLabel}>Current Active</span>
+            <span className={styles.waterfallLabelSub}>25 suppliers</span>
+          </div>
+
+          {/* Pipeline - +$183K */}
+          <div className={styles.waterfallCol}>
+            <div className={styles.waterfallValue}>+$183K</div>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+              <div
+                className={`${styles.waterfallBarSegment} ${styles.waterfallBarBlue}`}
+                style={{ height: `${(183 / 847) * 220}px`, borderRadius: '3px 3px 0 0' }}
+              />
+              <div
+                className={`${styles.waterfallBarSegment} ${styles.waterfallBarSpacer}`}
+                style={{ height: `${(504 / 847) * 220}px` }}
+              />
+            </div>
+            <span className={styles.waterfallLabel}>In Pipeline</span>
+            <span className={styles.waterfallLabelSub}>8 suppliers</span>
+          </div>
+
+          {/* High-Potential - +$160K */}
+          <div className={styles.waterfallCol}>
+            <div className={styles.waterfallValue}>+$160K</div>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+              <div
+                className={`${styles.waterfallBarSegment} ${styles.waterfallBarPurple}`}
+                style={{ height: `${(160 / 847) * 220}px`, borderRadius: '3px 3px 0 0' }}
+              />
+              <div
+                className={`${styles.waterfallBarSegment} ${styles.waterfallBarSpacer}`}
+                style={{ height: `${(687 / 847) * 220}px` }}
+              />
+            </div>
+            <span className={styles.waterfallLabel}>High-Potential</span>
+            <span className={styles.waterfallLabelSub}>7 suppliers</span>
+          </div>
+
+          {/* Total - $847K */}
+          <div className={styles.waterfallCol}>
+            <div className={styles.waterfallValue}>$847K</div>
+            <div
+              className={`${styles.waterfallBarSegment} ${styles.waterfallBarTotal}`}
+              style={{ height: '220px' }}
+            />
+            <span className={styles.waterfallLabel}>Full Conversion</span>
+            <span className={styles.waterfallLabelSub}>40 suppliers</span>
+          </div>
+        </div>
+
+        <div className={styles.waterfallDetails}>
+          <div className={styles.waterfallDetailCard}>
+            <div className={styles.waterfallDetailHeader}>
+              <span className={`${styles.waterfallDetailDot} ${styles.waterfallDotGreen}`} />
+              <span className={styles.waterfallDetailLabel}>Current Active</span>
+            </div>
+            <div className={styles.waterfallDetailValue}>$504K</div>
+            <div className={styles.waterfallDetailMeta}>25 suppliers enrolled and generating rebates</div>
+          </div>
+          <div className={styles.waterfallDetailCard}>
+            <div className={styles.waterfallDetailHeader}>
+              <span className={`${styles.waterfallDetailDot} ${styles.waterfallDotBlue}`} />
+              <span className={styles.waterfallDetailLabel}>In Pipeline</span>
+            </div>
+            <div className={styles.waterfallDetailValue}>+$183K</div>
+            <div className={styles.waterfallDetailMeta}>8 suppliers in active conversion discussions</div>
+          </div>
+          <div className={styles.waterfallDetailCard}>
+            <div className={styles.waterfallDetailHeader}>
+              <span className={`${styles.waterfallDetailDot} ${styles.waterfallDotPurple}`} />
+              <span className={styles.waterfallDetailLabel}>High-Potential</span>
+            </div>
+            <div className={styles.waterfallDetailValue}>+$160K</div>
+            <div className={styles.waterfallDetailMeta}>7 suppliers identified as strong candidates</div>
+          </div>
+          <div className={styles.waterfallDetailCard}>
+            <div className={styles.waterfallDetailHeader}>
+              <span className={`${styles.waterfallDetailDot} ${styles.waterfallDotGold}`} />
+              <span className={styles.waterfallDetailLabel}>Full Conversion</span>
+            </div>
+            <div className={styles.waterfallDetailValue}>$847K</div>
+            <div className={styles.waterfallDetailMeta}>Total annualized rebate at 100% enrollment</div>
+          </div>
+        </div>
+      </div>
+
       {/* AI Recommendations */}
       <div className={styles.aiCard}>
         <div className={styles.aiHeader}>

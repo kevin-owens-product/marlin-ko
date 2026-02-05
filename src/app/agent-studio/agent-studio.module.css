@@ -1215,6 +1215,612 @@
   border-radius: 2px;
 }
 
+/* ── Business Impact Banner ────────────────────────────────── */
+
+.impactBanner {
+  background: linear-gradient(135deg, rgba(22, 93, 255, 0.07) 0%, rgba(142, 81, 218, 0.07) 50%, rgba(35, 195, 67, 0.05) 100%);
+  border: 1px solid rgba(22, 93, 255, 0.18);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.impactBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #165DFF, #8E51DA, #23C343);
+}
+
+.impactBannerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.impactBannerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.impactBannerIcon {
+  font-size: 1.5rem;
+}
+
+.impactBannerTitleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.impactBannerTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.impactBannerSubtitle {
+  font-size: 0.75rem;
+  color: #4E5969;
+}
+
+.impactBannerIce {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(142, 81, 218, 0.08);
+  border: 1px solid rgba(142, 81, 218, 0.18);
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+}
+
+.impactBannerIceLabel {
+  font-size: 0.65rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.impactBannerIceValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #8E51DA;
+}
+
+.impactBannerIceBreakdown {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+.impactCohorts {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.impactCohortCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  border: 1px solid #E5E6EB;
+}
+
+.impactCohortCardHigh {
+  border-color: rgba(35, 195, 67, 0.3);
+  box-shadow: 0 2px 8px rgba(35, 195, 67, 0.08);
+}
+
+.impactCohortCardLow {
+  border-color: rgba(255, 154, 46, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 154, 46, 0.08);
+}
+
+.impactCohortLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.impactCohortThreshold {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4E5969;
+  margin-bottom: 0.75rem;
+}
+
+.impactCohortRenewal {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.impactCohortRenewalHigh {
+  color: #23C343;
+}
+
+.impactCohortRenewalLow {
+  color: #FF9A2E;
+}
+
+.impactCohortRenewalLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+}
+
+.impactVs {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #86909C;
+  text-align: center;
+}
+
+.impactNpsCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 93, 255, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.impactNpsDelta {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #165DFF;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.impactNpsLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+}
+
+.impactCurrentRate {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(35, 195, 67, 0.06);
+  border: 1px solid rgba(35, 195, 67, 0.15);
+  border-radius: 0.625rem;
+}
+
+.impactCurrentRateLabel {
+  font-size: 0.8rem;
+  color: #4E5969;
+}
+
+.impactCurrentRateValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #23C343;
+}
+
+.impactCurrentRateBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.12);
+  color: #23C343;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+/* ── Retention Impact Dashboard ───────────────────────────── */
+
+.retentionDashboard {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.retentionDashboardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.retentionDashboardBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.retentionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.retentionCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+}
+
+.retentionCardLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.retentionCardIcon {
+  font-size: 0.8rem;
+}
+
+.retentionCardValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.retentionCardTrend {
+  font-size: 0.6875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.retentionCardTrendUp {
+  color: #23C343;
+}
+
+.retentionCardTrendDown {
+  color: #F76560;
+}
+
+.retentionCardTrendNeutral {
+  color: #86909C;
+}
+
+.retentionTrendMini {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+  margin-top: 0.5rem;
+}
+
+.retentionTrendBar {
+  width: 6px;
+  border-radius: 2px;
+  transition: height 0.3s;
+}
+
+/* ── Customer Segment Table ───────────────────────────────── */
+
+.segmentSection {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.segmentSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.segmentSectionBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.segmentTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #E5E6EB;
+}
+
+.segmentTable th {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #E5E6EB;
+  font-weight: 600;
+  background: #F7F8FA;
+}
+
+.segmentTable td {
+  font-size: 0.8rem;
+  color: #1D2129;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.segmentTable tr:last-child td {
+  border-bottom: none;
+}
+
+.segmentRowAtRisk {
+  background: rgba(247, 101, 96, 0.04);
+}
+
+.segmentRowAtRisk td {
+  color: #1D2129;
+}
+
+.segmentNameCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.segmentDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.segmentNameLabel {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.segmentNameSub {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-left: 0.25rem;
+}
+
+.segmentTouchlessCell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.segmentTouchlessBar {
+  flex: 1;
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.segmentTouchlessFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.segmentTouchlessValue {
+  font-weight: 600;
+  font-size: 0.8rem;
+  min-width: 40px;
+}
+
+.segmentRenewalValue {
+  font-weight: 600;
+}
+
+.segmentNpsValue {
+  font-weight: 600;
+}
+
+.segmentAtRiskBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(247, 101, 96, 0.1);
+  color: #F76560;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.segmentNote {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 154, 46, 0.06);
+  border: 1px solid rgba(255, 154, 46, 0.15);
+  border-radius: 0.625rem;
+  font-size: 0.8rem;
+  color: #4E5969;
+}
+
+.segmentNoteIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.segmentNoteStrong {
+  font-weight: 600;
+  color: #FF9A2E;
+}
+
+/* ── Touchless Improvement Roadmap ────────────────────────── */
+
+.roadmapSection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.roadmapSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roadmapSectionSubtitle {
+  font-size: 0.8rem;
+  color: #4E5969;
+  margin-bottom: 1.25rem;
+}
+
+.roadmapSectionBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.roadmapItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roadmapItem {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.roadmapItemLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.roadmapItemPercent {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #165DFF;
+}
+
+.roadmapItemPercentLabel {
+  font-size: 0.6rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.roadmapItemCenter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.roadmapItemTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.roadmapItemDesc {
+  font-size: 0.75rem;
+  color: #4E5969;
+  line-height: 1.4;
+}
+
+.roadmapItemProgressTrack {
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.roadmapItemProgressFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.roadmapItemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.roadmapItemTargetLabel {
+  font-size: 0.6rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.roadmapItemTargetDate {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1D2129;
+  white-space: nowrap;
+}
+
+.roadmapItemStatusBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.roadmapStatusInProgress {
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+}
+
+.roadmapStatusPlanned {
+  background: rgba(134, 144, 156, 0.1);
+  color: #86909C;
+}
+
+.roadmapStatusPilot {
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+}
+
 /* ── Responsive ────────────────────────────────────────────── */
 
 @media (max-width: 1200px) {
@@ -1223,6 +1829,13 @@
   }
   .configGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .retentionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .impactCohorts {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }
 
@@ -1247,5 +1860,15 @@
   }
   .auditSummaryGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .retentionGrid {
+    grid-template-columns: 1fr;
+  }
+  .roadmapItem {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .segmentTable {
+    font-size: 0.7rem;
   }
 }

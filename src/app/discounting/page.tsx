@@ -74,6 +74,18 @@ const monthlyCapture = [
   { month: 'Jan', captured: 156 },
 ];
 
+/* ─── Program ROI Monthly Trend Data ─── */
+const roiTrendData = [
+  { month: 'Aug', roi: 1.4 },
+  { month: 'Sep', roi: 1.6 },
+  { month: 'Oct', roi: 1.8 },
+  { month: 'Nov', roi: 2.0 },
+  { month: 'Dec', roi: 2.1 },
+  { month: 'Jan', roi: 2.3 },
+];
+
+const maxRoi = Math.max(...roiTrendData.map((d) => d.roi));
+
 const maxCapture = Math.max(...monthlyCapture.map((m) => m.captured));
 
 function getOfferBadgeClass(status: string) {
@@ -312,6 +324,125 @@ export default function DiscountingPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Program ROI Dashboard ─── */}
+      <div className={styles.roiDashboard}>
+        <div className={styles.roiDashboardHeader}>
+          <div className={styles.roiDashboardTitle}>Program ROI Dashboard</div>
+          <span className={styles.roiScaleBadge}>Scale Phase — From 20 pilot suppliers to 200+ target</span>
+        </div>
+
+        <div className={styles.roiHeroRow}>
+          <div className={styles.roiHeroCardPrimary}>
+            <div className={styles.roiHeroMetric}>2.3x</div>
+            <div className={styles.roiHeroLabel}>Program ROI</div>
+            <div className={styles.roiHeroSub}>$776K benefit on $337K program investment</div>
+          </div>
+          <div className={styles.roiHeroCard}>
+            <div className={styles.roiHeroMetricGreen}>4.2%</div>
+            <div className={styles.roiHeroLabel}>Avg Discount Capture Rate</div>
+            <div className={styles.roiHeroSub}>Dynamic discounting pilot metric</div>
+          </div>
+          <div className={styles.roiHeroCard}>
+            <div className={styles.roiHeroMetric}>$776K</div>
+            <div className={styles.roiHeroLabel}>Total Program Benefit</div>
+            <div className={styles.roiHeroSub}>Annualized from 20 enrolled suppliers</div>
+          </div>
+        </div>
+
+        <div className={styles.roiTrendSection}>
+          <div className={styles.roiTrendTitle}>Monthly ROI Trend (Improving as Program Scales)</div>
+          <div className={styles.roiTrendChart}>
+            {roiTrendData.map((d) => (
+              <div key={d.month} className={styles.roiTrendCol}>
+                <div className={styles.roiTrendValue}>{d.roi}x</div>
+                <div
+                  className={styles.roiTrendBar}
+                  style={{ height: `${(d.roi / maxRoi) * 120}px` }}
+                  title={`${d.roi}x ROI`}
+                />
+                <span className={styles.roiTrendLabel}>{d.month}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Pilot to Scale Narrative ─── */}
+      <div className={styles.pilotScaleSection}>
+        <div className={styles.pilotScaleTitle}>Pilot to Scale Narrative</div>
+        <div className={styles.pilotScaleSubtitle}>Dynamic discounting program progression from initial pilot through full-scale deployment</div>
+
+        <div className={styles.pilotTimeline}>
+          <div className={styles.pilotTimelineConnector} />
+
+          {/* Phase 1 - Pilot (Completed) */}
+          <div className={styles.pilotPhaseCard}>
+            <div className={`${styles.pilotPhaseDot} ${styles.pilotPhaseDotCompleted}`}>1</div>
+            <div className={styles.pilotPhaseLabel}>Phase 1</div>
+            <div className={styles.pilotPhaseName}>Pilot</div>
+            <div className={styles.pilotPhaseMetrics}>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Suppliers</span>
+                <span className={styles.pilotMetricValue}>5</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Capture Rate</span>
+                <span className={styles.pilotMetricValueGreen}>2.1%</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>ROI</span>
+                <span className={styles.pilotMetricValueBlue}>1.4x</span>
+              </div>
+            </div>
+            <span className={`${styles.pilotPhaseBadge} ${styles.pilotBadgeCompleted}`}>Completed</span>
+          </div>
+
+          {/* Phase 2 - Expansion (Current) */}
+          <div className={styles.pilotPhaseCardActive}>
+            <div className={`${styles.pilotPhaseDot} ${styles.pilotPhaseDotActive}`}>2</div>
+            <div className={styles.pilotPhaseLabel}>Phase 2</div>
+            <div className={styles.pilotPhaseName}>Expansion</div>
+            <div className={styles.pilotPhaseMetrics}>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Suppliers</span>
+                <span className={styles.pilotMetricValue}>20</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Capture Rate</span>
+                <span className={styles.pilotMetricValueGreen}>4.2%</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>ROI</span>
+                <span className={styles.pilotMetricValueBlue}>2.3x</span>
+              </div>
+            </div>
+            <span className={`${styles.pilotPhaseBadge} ${styles.pilotBadgeCurrent}`}>Current</span>
+          </div>
+
+          {/* Phase 3 - Scale (Target) */}
+          <div className={styles.pilotPhaseCardProjected}>
+            <div className={`${styles.pilotPhaseDot} ${styles.pilotPhaseDotTarget}`}>3</div>
+            <div className={styles.pilotPhaseLabel}>Phase 3</div>
+            <div className={styles.pilotPhaseName}>Scale (Target)</div>
+            <div className={styles.pilotPhaseMetrics}>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Suppliers</span>
+                <span className={styles.pilotMetricValue}>200+</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>Capture Rate</span>
+                <span className={styles.pilotMetricValueGreen}>5.5% proj.</span>
+              </div>
+              <div className={styles.pilotMetricRow}>
+                <span className={styles.pilotMetricLabel}>ROI</span>
+                <span className={styles.pilotMetricValueBlue}>3.1x proj.</span>
+              </div>
+            </div>
+            <span className={`${styles.pilotPhaseBadge} ${styles.pilotBadgeTarget}`}>Projected</span>
           </div>
         </div>
       </div>

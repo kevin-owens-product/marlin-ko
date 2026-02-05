@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useT } from "@/lib/i18n/locale-context";
 import { useCRUD } from "@/lib/hooks/use-crud";
+import { useBulkSelect } from "@/lib/hooks/use-bulk-select";
 import { useInlineEdit } from "@/lib/hooks/use-inline-edit";
 import { useToast } from "@/components/ui/Toast";
 import { EditableCell } from "@/components/inline-edit/EditableCell";
@@ -114,6 +115,9 @@ export default function SuppliersPage() {
   const crud = useCRUD<Supplier>({ endpoint: "/api/suppliers" });
   const inline = useInlineEdit<Supplier>();
 
+  const bulk = useBulkSelect();
+  const checkboxRef = useRef<HTMLInputElement>(null);
+
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState("All");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -138,6 +142,14 @@ export default function SuppliersPage() {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, [search, filterCategory, doFetch]);
+
+  const visibleIds = crud.data.map((s) => s.id);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = bulk.someSelected && !bulk.allSelected(visibleIds);
+    }
+  }, [bulk.someSelected, bulk.allSelected, visibleIds]);
 
   // Build category list from fetched data
   const categories = [
@@ -184,6 +196,7 @@ export default function SuppliersPage() {
 
     return (
       <tr key={s.id}>
+        <td><input type="checkbox" checked={bulk.selected.has(s.id)} onChange={() => bulk.toggle(s.id)} /></td>
         {/* Name */}
         <td>
           <EditableCell
@@ -297,6 +310,7 @@ export default function SuppliersPage() {
 
     return (
       <tr>
+        <td />
         {/* Name */}
         <td>
           <EditableCell
@@ -459,10 +473,27 @@ export default function SuppliersPage() {
         </div>
       )}
 
+      {bulk.count > 0 && (
+        <div className={styles.bulkBar}>
+          <span className={styles.bulkCount}>{bulk.count} selected</span>
+          <button className={styles.bulkBtn} onClick={() => {}}>Export</button>
+          <button className={styles.bulkBtn} onClick={() => {}}>Archive</button>
+          <button className={styles.bulkBtnClear} onClick={bulk.clear}>Clear</button>
+        </div>
+      )}
+
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
             <tr>
+              <th style={{ width: 40 }}>
+                <input
+                  type="checkbox"
+                  ref={checkboxRef}
+                  checked={bulk.allSelected(visibleIds)}
+                  onChange={() => bulk.toggleAll(visibleIds)}
+                />
+              </th>
               <th>{t("common.name")}</th>
               <th>{t("common.email")}</th>
               <th>{t("suppliers.category")}</th>
@@ -478,13 +509,13 @@ export default function SuppliersPage() {
             {renderCreateRow()}
             {crud.loading && crud.data.length === 0 ? (
               <tr>
-                <td colSpan={9} style={{ textAlign: "center", padding: "2rem" }}>
+                <td colSpan={10} style={{ textAlign: "center", padding: "2rem" }}>
                   {t("common.loading")}
                 </td>
               </tr>
             ) : crud.data.length === 0 ? (
               <tr>
-                <td colSpan={9} style={{ textAlign: "center", padding: "2rem" }}>
+                <td colSpan={10} style={{ textAlign: "center", padding: "2rem" }}>
                   {t("common.noData")}
                 </td>
               </tr>

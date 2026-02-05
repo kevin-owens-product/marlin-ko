@@ -806,6 +806,250 @@ export default function AgentStudioPage() {
         </div>
       </div>
 
+      {/* ── Business Impact Banner ──────────────────────────────── */}
+      <div className={styles.impactBanner}>
+        <div className={styles.impactBannerHeader}>
+          <div className={styles.impactBannerTitleRow}>
+            <span className={styles.impactBannerIcon}>&#x1F680;</span>
+            <div className={styles.impactBannerTitleBlock}>
+              <span className={styles.impactBannerTitle}>Agentic AI: The Retention Engine</span>
+              <span className={styles.impactBannerSubtitle}>Bet 3 &mdash; Touchless processing autonomy drives customer retention and NPS</span>
+            </div>
+          </div>
+          <div className={styles.impactBannerIce}>
+            <div>
+              <div className={styles.impactBannerIceLabel}>ICE Score</div>
+              <div className={styles.impactBannerIceValue}>21</div>
+            </div>
+            <div className={styles.impactBannerIceBreakdown}>Impact 10 | Confidence 6 | Ease 5</div>
+          </div>
+        </div>
+
+        <div className={styles.impactCohorts}>
+          <div className={`${styles.impactCohortCard} ${styles.impactCohortCardHigh}`}>
+            <div className={styles.impactCohortLabel}>High Autonomy Cohort</div>
+            <div className={styles.impactCohortThreshold}>&gt;90% Touchless Processing</div>
+            <div className={`${styles.impactCohortRenewal} ${styles.impactCohortRenewalHigh}`}>97%</div>
+            <div className={styles.impactCohortRenewalLabel}>Renewal Rate</div>
+          </div>
+
+          <div className={styles.impactVs}>vs</div>
+
+          <div className={`${styles.impactCohortCard} ${styles.impactCohortCardLow}`}>
+            <div className={styles.impactCohortLabel}>Low Autonomy Cohort</div>
+            <div className={styles.impactCohortThreshold}>&lt;70% Touchless Processing</div>
+            <div className={`${styles.impactCohortRenewal} ${styles.impactCohortRenewalLow}`}>82%</div>
+            <div className={styles.impactCohortRenewalLabel}>Renewal Rate</div>
+          </div>
+
+          <div className={styles.impactNpsCard}>
+            <div className={styles.impactNpsDelta}>+28</div>
+            <div className={styles.impactNpsLabel}>NPS Delta Between Cohorts</div>
+          </div>
+        </div>
+
+        <div className={styles.impactCurrentRate}>
+          <span className={styles.impactCurrentRateLabel}>Current Touchless Rate:</span>
+          <span className={styles.impactCurrentRateValue}>94.9%</span>
+          <span className={styles.impactCurrentRateBadge}>In &gt;90% High-Retention Zone</span>
+        </div>
+      </div>
+
+      {/* ── Customer Retention Impact Dashboard ─────────────────── */}
+      <div className={styles.retentionDashboard}>
+        <div className={styles.retentionDashboardTitle}>
+          Customer Retention Impact Dashboard
+          <span className={styles.retentionDashboardBadge}>All Targets Met</span>
+        </div>
+        <div className={styles.retentionGrid}>
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x1F4C8;</span> Touchless Processing Rate
+            </div>
+            <div className={styles.retentionCardValue} style={{ color: '#23C343' }}>94.9%</div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendUp}`}>
+              &#x25B2; 6-month trend: 88.2% &rarr; 94.9% (+6.7pp)
+            </div>
+            <div className={styles.retentionTrendMini}>
+              {[88.2, 89.5, 90.8, 92.1, 93.4, 94.9].map((v, i) => (
+                <div
+                  key={i}
+                  className={styles.retentionTrendBar}
+                  style={{
+                    height: `${((v - 85) / 15) * 24}px`,
+                    background: v >= 90 ? '#23C343' : '#FF9A2E',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x1F91D;</span> Customer Renewal Rate
+            </div>
+            <div className={styles.retentionCardValue} style={{ color: '#23C343' }}>97%</div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendUp}`}>
+              &#x25B2; Target achieved (benchmark: 82%)
+            </div>
+          </div>
+
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x2B50;</span> NPS Score
+            </div>
+            <div className={styles.retentionCardValue} style={{ color: '#165DFF' }}>72</div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendUp}`}>
+              &#x25B2; +28 vs baseline of 44
+            </div>
+          </div>
+
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x23F1;&#xFE0F;</span> Avg Cycle Time
+            </div>
+            <div className={styles.retentionCardValue}>2.1 <span style={{ fontSize: '0.85rem', color: '#4E5969' }}>days</span></div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendUp}`}>
+              &#x25BC; -0.3d this week
+            </div>
+          </div>
+
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x1F4B0;</span> Cost per Invoice
+            </div>
+            <div className={styles.retentionCardValue} style={{ color: '#23C343' }}>$1.24</div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendUp}`}>
+              &#x25BC; vs $8.40 manual benchmark (-85%)
+            </div>
+          </div>
+
+          <div className={styles.retentionCard}>
+            <div className={styles.retentionCardLabel}>
+              <span className={styles.retentionCardIcon}>&#x1F4BC;</span> Annual Labor Savings
+            </div>
+            <div className={styles.retentionCardValue} style={{ color: '#8E51DA' }}>$2.4M</div>
+            <div className={`${styles.retentionCardTrend} ${styles.retentionCardTrendNeutral}`}>
+              Equivalent to 28 FTEs redeployed
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Touchless Rate by Customer Segment ──────────────────── */}
+      <div className={styles.segmentSection}>
+        <div className={styles.segmentSectionTitle}>
+          Touchless Rate by Customer Segment
+          <span className={styles.segmentSectionBadge}>5 Segments</span>
+        </div>
+        <table className={styles.segmentTable}>
+          <thead>
+            <tr>
+              <th>Segment</th>
+              <th>Touchless Rate</th>
+              <th>Renewal Rate</th>
+              <th>NPS</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { name: 'Enterprise', sub: '>$1M AP volume', touchless: 96.2, renewal: '98%', nps: 76, color: '#23C343', status: 'healthy' },
+              { name: 'Mid-Market', sub: '$250K\u2013$1M', touchless: 94.1, renewal: '97%', nps: 71, color: '#23C343', status: 'healthy' },
+              { name: 'SMB', sub: '<$250K', touchless: 91.8, renewal: '94%', nps: 68, color: '#165DFF', status: 'healthy' },
+              { name: 'New Customers', sub: '<6 months', touchless: 87.4, renewal: 'N/A', nps: 62, color: '#FF9A2E', status: 'onboarding' },
+              { name: 'At-Risk', sub: '<70% touchless', touchless: 64.2, renewal: '82%', nps: 44, color: '#F76560', status: 'at-risk' },
+            ].map((seg) => (
+              <tr key={seg.name} className={seg.status === 'at-risk' ? styles.segmentRowAtRisk : undefined}>
+                <td>
+                  <div className={styles.segmentNameCell}>
+                    <span className={styles.segmentDot} style={{ background: seg.color }} />
+                    <span>
+                      <span className={styles.segmentNameLabel}>{seg.name}</span>
+                      <span className={styles.segmentNameSub}>{seg.sub}</span>
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div className={styles.segmentTouchlessCell}>
+                    <span className={styles.segmentTouchlessValue} style={{ color: seg.color }}>{seg.touchless}%</span>
+                    <div className={styles.segmentTouchlessBar}>
+                      <div className={styles.segmentTouchlessFill} style={{ width: `${seg.touchless}%`, background: seg.color }} />
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span className={styles.segmentRenewalValue} style={{ color: seg.status === 'at-risk' ? '#F76560' : '#23C343' }}>
+                    {seg.renewal}
+                  </span>
+                </td>
+                <td>
+                  <span className={styles.segmentNpsValue} style={{ color: seg.nps >= 70 ? '#23C343' : seg.nps >= 60 ? '#FF9A2E' : '#F76560' }}>
+                    {seg.nps}
+                  </span>
+                </td>
+                <td>
+                  {seg.status === 'at-risk' ? (
+                    <span className={styles.segmentAtRiskBadge}>At-Risk</span>
+                  ) : seg.status === 'onboarding' ? (
+                    <span style={{ fontSize: '0.6875rem', fontWeight: 600, background: 'rgba(255, 154, 46, 0.1)', color: '#FF9A2E', padding: '0.2rem 0.625rem', borderRadius: '9999px' }}>Onboarding</span>
+                  ) : (
+                    <span style={{ fontSize: '0.6875rem', fontWeight: 600, background: 'rgba(35, 195, 67, 0.1)', color: '#23C343', padding: '0.2rem 0.625rem', borderRadius: '9999px' }}>Healthy</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className={styles.segmentNote}>
+          <span className={styles.segmentNoteIcon}>&#x26A0;&#xFE0F;</span>
+          <span><span className={styles.segmentNoteStrong}>12 customers in at-risk zone</span> (&lt;70% touchless processing) &mdash; escalation recommended to prevent churn</span>
+        </div>
+      </div>
+
+      {/* ── Touchless Improvement Roadmap ────────────────────────── */}
+      <div className={styles.roadmapSection}>
+        <div className={styles.roadmapSectionTitle}>
+          Touchless Improvement Roadmap
+          <span className={styles.roadmapSectionBadge}>5.1% remaining gap</span>
+        </div>
+        <div className={styles.roadmapSectionSubtitle}>
+          Closing the gap from 94.9% to 100% touchless processing &mdash; prioritized by impact
+        </div>
+        <div className={styles.roadmapItems}>
+          {[
+            { pct: '2.1%', title: 'New Supplier Onboarding', desc: 'First-invoice learning requires 3\u20135 samples before the model reaches high-confidence extraction and matching.', progress: 45, target: 'Q2 2026', status: 'In Progress', statusClass: 'roadmapStatusInProgress' as const, color: '#165DFF' },
+            { pct: '1.4%', title: 'Complex PO Structures', desc: 'Multi-line, multi-currency POs need enhanced matching logic and tolerance rules.', progress: 30, target: 'Q3 2026', status: 'In Progress', statusClass: 'roadmapStatusInProgress' as const, color: '#165DFF' },
+            { pct: '0.9%', title: 'Missing Master Data', desc: 'Incomplete vendor records cause manual routing. Data enrichment pipeline being built.', progress: 60, target: 'Q2 2026', status: 'Pilot', statusClass: 'roadmapStatusPilot' as const, color: '#8E51DA' },
+            { pct: '0.7%', title: 'Edge Case Exceptions', desc: 'Unusual invoice formats, handwritten documents, and non-standard layouts requiring specialized models.', progress: 15, target: 'Q4 2026', status: 'Planned', statusClass: 'roadmapStatusPlanned' as const, color: '#86909C' },
+          ].map((item) => (
+            <div key={item.title} className={styles.roadmapItem}>
+              <div className={styles.roadmapItemLeft}>
+                <div className={styles.roadmapItemPercent}>{item.pct}</div>
+                <div className={styles.roadmapItemPercentLabel}>of gap</div>
+              </div>
+              <div className={styles.roadmapItemCenter}>
+                <div className={styles.roadmapItemTitle}>{item.title}</div>
+                <div className={styles.roadmapItemDesc}>{item.desc}</div>
+                <div className={styles.roadmapItemProgressTrack}>
+                  <div
+                    className={styles.roadmapItemProgressFill}
+                    style={{ width: `${item.progress}%`, background: item.color }}
+                  />
+                </div>
+              </div>
+              <div className={styles.roadmapItemRight}>
+                <div className={styles.roadmapItemTargetLabel}>Target</div>
+                <div className={styles.roadmapItemTargetDate}>{item.target}</div>
+                <span className={`${styles.roadmapItemStatusBadge} ${styles[item.statusClass]}`}>
+                  {item.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Pipeline */}
       {renderPipeline()}
 

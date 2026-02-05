@@ -347,3 +347,394 @@
   color: #86909C;
   margin-top: 0.125rem;
 }
+
+/* ---------- Agentic AI — Touchless Processing ---------- */
+
+.touchlessSection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.touchlessSectionWhite {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.touchlessSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.betBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+}
+
+.touchlessMetricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.touchlessMetricCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.touchlessMetricLabel {
+  font-size: 0.6875rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.touchlessMetricValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.touchlessMetricValueGreen {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #23C343;
+  margin-bottom: 0.25rem;
+}
+
+.touchlessMetricValueBlue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #165DFF;
+  margin-bottom: 0.25rem;
+}
+
+.touchlessMetricSub {
+  font-size: 0.75rem;
+  color: #86909C;
+}
+
+.touchlessMetricBenchmark {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.benchmarkStrike {
+  text-decoration: line-through;
+  color: #C9CDD4;
+}
+
+.trendRow {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.trendRowTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trendTarget {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #165DFF;
+}
+
+.trendBarContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.375rem;
+}
+
+.trendBarLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  min-width: 2.5rem;
+  text-align: right;
+  font-weight: 500;
+}
+
+.trendBarTrack {
+  flex: 1;
+  height: 1.25rem;
+  background: #F3F4F6;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.trendBarFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #165DFF, #36ABFF);
+  transition: width 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+}
+
+.trendBarPercent {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.trendTargetLine {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: #F76560;
+  z-index: 2;
+}
+
+.trendTargetLabel {
+  position: absolute;
+  top: -14px;
+  font-size: 0.5625rem;
+  color: #F76560;
+  font-weight: 600;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* ---------- Speed & Efficiency Impact ---------- */
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.impactCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.impactIcon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.impactLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.375rem;
+}
+
+.impactValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #165DFF;
+  margin-bottom: 0.25rem;
+}
+
+.impactValueGreen {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #23C343;
+  margin-bottom: 0.25rem;
+}
+
+.impactValuePurple {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #8E51DA;
+  margin-bottom: 0.25rem;
+}
+
+.impactSub {
+  font-size: 0.6875rem;
+  color: #86909C;
+  line-height: 1.4;
+}
+
+/* ---------- Exception Insights ---------- */
+
+.exceptionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.exceptionRow {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 5rem 5.5rem 6rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.exceptionName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.exceptionPercent {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1D2129;
+  text-align: right;
+}
+
+.exceptionCount {
+  font-size: 0.75rem;
+  color: #86909C;
+  text-align: right;
+}
+
+.exceptionBarWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exceptionBarTrack {
+  flex: 1;
+  height: 0.375rem;
+  background: #F3F4F6;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.exceptionBarFill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+.exceptionBarRed { background: #F76560; }
+.exceptionBarAmber { background: #FF9A2E; }
+.exceptionBarBlue { background: #165DFF; }
+.exceptionBarPurple { background: #8E51DA; }
+.exceptionBarGreen { background: #23C343; }
+
+.aiLearningBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  white-space: nowrap;
+}
+
+.aiLearningDot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: #165DFF;
+  animation: learningPulse 2s ease-in-out infinite;
+}
+
+@keyframes learningPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.strategicInsight {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.strategicInsightIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.strategicInsightText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+  line-height: 1.5;
+}
+
+.strategicInsightHighlight {
+  font-weight: 700;
+  color: #165DFF;
+}
+
+@media (max-width: 1200px) {
+  .touchlessMetricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .impactGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exceptionRow {
+    grid-template-columns: 1fr 4rem 5rem 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .touchlessMetricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .impactGrid {
+    grid-template-columns: 1fr;
+  }
+  .exceptionRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

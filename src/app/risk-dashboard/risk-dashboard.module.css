@@ -998,3 +998,487 @@
     grid-column: 1;
   }
 }
+
+/* ==========================================================
+   Agentic AI — Touchless Enablement & Detection Efficiency
+   ========================================================== */
+
+/* ---------- touchless enablement view ---------- */
+
+.touchlessSection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.touchlessSectionWhite {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.touchlessSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.betBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+}
+
+/* risk tier rows */
+.riskTierList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.riskTierRow {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: grid;
+  grid-template-columns: 10rem 7rem 1fr 6rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.riskTierLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.riskTierRange {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+}
+
+.riskTierCount {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4E5969;
+}
+
+.riskTierBarWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.riskTierBarTrack {
+  height: 1.25rem;
+  background: #F3F4F6;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.riskTierBarTouchless {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: width 0.6s ease;
+}
+
+.riskTierBarManual {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: width 0.6s ease;
+}
+
+.riskTierBarLegend {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.625rem;
+  color: #86909C;
+}
+
+.riskTierEligibility {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.eligibilityGreen { color: #23C343; }
+.eligibilityAmber { color: #FF9A2E; }
+.eligibilityRed { color: #F76560; }
+.eligibilityCritical { color: #DC2626; }
+
+/* touchless total summary */
+.touchlessTotalCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.touchlessTotalLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.touchlessTotalSub {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+}
+
+.touchlessTotalValue {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #23C343;
+}
+
+/* stacked bar legend */
+.stackedBarLegend {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+
+.stackedBarLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.stackedBarLegendDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+/* ---------- AI detection efficiency ---------- */
+
+.detectionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detectionCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.detectionLabel {
+  font-size: 0.6875rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.detectionValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.detectionValueGreen {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #23C343;
+  margin-bottom: 0.25rem;
+}
+
+.detectionValueBlue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #165DFF;
+  margin-bottom: 0.25rem;
+}
+
+.detectionSub {
+  font-size: 0.75rem;
+  color: #86909C;
+  line-height: 1.4;
+}
+
+.detectionComparison {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.detectionComparisonVisual {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  min-width: 8rem;
+}
+
+.detectionComparisonBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.detectionComparisonBarFill {
+  width: 2.5rem;
+  border-radius: 0.375rem 0.375rem 0 0;
+  transition: height 0.6s ease;
+}
+
+.detectionComparisonBarLabel {
+  font-size: 0.625rem;
+  color: #86909C;
+  font-weight: 500;
+  text-align: center;
+}
+
+.detectionComparisonText {
+  flex: 1;
+}
+
+.detectionComparisonHeadline {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.375rem;
+}
+
+.detectionComparisonDetail {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  line-height: 1.5;
+}
+
+.detectionHighlight {
+  font-weight: 700;
+  color: #165DFF;
+}
+
+.detectionInsightRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.detectionInsightCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.detectionInsightIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.detectionInsightLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.detectionInsightValue {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #165DFF;
+  margin-bottom: 0.125rem;
+}
+
+.detectionInsightSub {
+  font-size: 0.6875rem;
+  color: #86909C;
+  line-height: 1.4;
+}
+
+/* ---------- risk-adjusted processing speed ---------- */
+
+.speedList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1rem;
+}
+
+.speedRow {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: grid;
+  grid-template-columns: 8rem 7rem 1fr 7rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.speedRiskLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.speedTime {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.speedTimeGreen { color: #23C343; }
+.speedTimeBlue { color: #165DFF; }
+.speedTimeAmber { color: #FF9A2E; }
+.speedTimeRed { color: #F76560; }
+
+.speedBarTrack {
+  height: 0.5rem;
+  background: #F3F4F6;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.speedBarFill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+.speedMethod {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-align: right;
+}
+
+.speedSummary {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.speedSummaryIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.speedSummaryText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+  line-height: 1.5;
+}
+
+.speedSummaryHighlight {
+  font-weight: 700;
+  color: #165DFF;
+}
+
+/* strategic insight callout */
+.strategicInsight {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.strategicInsightIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.strategicInsightText {
+  font-size: 0.8125rem;
+  color: #1D2129;
+  line-height: 1.5;
+}
+
+.strategicInsightHighlight {
+  font-weight: 700;
+  color: #165DFF;
+}
+
+/* ---------- agentic AI responsive ---------- */
+@media (max-width: 1200px) {
+  .detectionGrid {
+    grid-template-columns: 1fr;
+  }
+  .detectionInsightRow {
+    grid-template-columns: 1fr;
+  }
+  .riskTierRow {
+    grid-template-columns: 8rem 6rem 1fr 5rem;
+  }
+  .speedRow {
+    grid-template-columns: 7rem 5rem 1fr 6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .riskTierRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .speedRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .detectionComparison {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

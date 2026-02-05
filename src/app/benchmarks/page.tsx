@@ -253,6 +253,36 @@ export default function BenchmarksPage() {
       {/* ========== TAB: Performance Benchmarks ========== */}
       {activeTab === 'Performance Benchmarks' && (
         <>
+          {/* Network Data Source Banner */}
+          <div className={styles.networkBanner}>
+            <div className={styles.networkBannerIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="2"/><circle cx="4" cy="8" r="1.5"/><circle cx="20" cy="8" r="1.5"/><circle cx="4" cy="16" r="1.5"/><circle cx="20" cy="16" r="1.5"/>
+                <path d="M5.5 8.5L10 11M14 11l4.5-2.5M5.5 15.5L10 13M14 13l4.5 2.5"/>
+              </svg>
+            </div>
+            <div className={styles.networkBannerContent}>
+              <div className={styles.networkBannerTitle}>Powered by the Medius Data Network</div>
+              <div className={styles.networkBannerDesc}>
+                Benchmarks are derived from anonymized, aggregated data across our network of <strong>4,218 companies</strong> processing <strong>$48.2B annually</strong> through <strong>547,000+ suppliers</strong>. Each new customer strengthens the network — insights improve as the ecosystem grows.
+              </div>
+            </div>
+            <div className={styles.networkBannerStats}>
+              <div className={styles.networkStat}>
+                <div className={styles.networkStatValue}>4,218</div>
+                <div className={styles.networkStatLabel}>Companies</div>
+              </div>
+              <div className={styles.networkStat}>
+                <div className={styles.networkStatValue}>547K</div>
+                <div className={styles.networkStatLabel}>Suppliers</div>
+              </div>
+              <div className={styles.networkStat}>
+                <div className={styles.networkStatValue}>$48.2B</div>
+                <div className={styles.networkStatLabel}>Processed</div>
+              </div>
+            </div>
+          </div>
+
           {/* Summary KPIs */}
           <div className={styles.kpiRow}>
             <div className={styles.kpiMini}>

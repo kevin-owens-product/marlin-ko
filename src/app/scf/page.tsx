@@ -553,6 +553,175 @@ export default function SupplyChainFinancePage() {
           </div>
         </div>
       </div>
+
+      {/* ---- SCF Revenue Model ---- */}
+      <div className={styles.revenueSection}>
+        <div className={styles.revenueSectionHeader}>
+          <div>
+            <div className={styles.revenueSectionTitle}>SCF Revenue Model</div>
+            <div className={styles.sectionSubtitle}>How supply chain finance generates revenue beyond SaaS</div>
+          </div>
+          <span className={styles.revenueBadge}>Bet 2 — Payment Monetization</span>
+        </div>
+        <div className={styles.revenueGrid}>
+          <div className={styles.revenueCard}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineBlue}`} points="0,22 10,18 20,20 30,14 40,12 50,8 60,4" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Program Volume</div>
+            <div className={styles.revenueCardValue}>$4.2M</div>
+            <div className={styles.revenueCardSub}>Financed this quarter</div>
+          </div>
+          <div className={styles.revenueCard}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineAmber}`} points="0,20 10,22 20,18 30,16 40,14 50,10 60,8" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Avg Fee Rate</div>
+            <div className={styles.revenueCardValue}>1.8%</div>
+            <div className={styles.revenueCardSub}>Of financed amount</div>
+          </div>
+          <div className={styles.revenueCard}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineGreen}`} points="0,24 10,22 20,18 30,16 40,10 50,8 60,4" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Quarterly Fee Revenue</div>
+            <div className={styles.revenueCardValueBlue}>$75.6K</div>
+            <div className={styles.revenueCardSubGreen}>+18% QoQ</div>
+          </div>
+        </div>
+        <div className={styles.revenueGrid}>
+          <div className={styles.revenueCardHighlight}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineBlue}`} points="0,26 10,22 20,20 30,16 40,10 50,6 60,2" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Annualized Revenue</div>
+            <div className={styles.revenueCardValueBlue}>$302K</div>
+            <div className={styles.revenueCardSub}>Projected yearly run rate</div>
+          </div>
+          <div className={styles.revenueCard}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineGreen}`} points="0,14 10,12 20,14 30,10 40,8 50,10 60,8" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Program Margin</div>
+            <div className={styles.revenueCardValueGreen}>62%</div>
+            <div className={styles.revenueCardSub}>After funding costs</div>
+          </div>
+          <div className={styles.revenueCardHighlight}>
+            <div className={styles.sparklineWrap}>
+              <svg className={styles.sparklineSvg} viewBox="0 0 60 28">
+                <polyline className={`${styles.sparklinePath} ${styles.sparklineGreen}`} points="0,24 10,20 20,16 30,14 40,10 50,6 60,2" />
+              </svg>
+            </div>
+            <div className={styles.revenueCardLabel}>Net Revenue</div>
+            <div className={styles.revenueCardValueGreen}>$187K</div>
+            <div className={styles.revenueCardSub}>Annualized (after costs)</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ---- Supplier Value Exchange ---- */}
+      <div className={styles.valueExchangeSection}>
+        <div className={styles.valueExchangeHeader}>
+          <div>
+            <div className={styles.valueExchangeTitle}>Supplier Value Exchange</div>
+            <div className={styles.valueExchangeSubtitle}>Mutual benefit analysis: supplier early payment vs Medius fee revenue</div>
+          </div>
+        </div>
+        <div className={styles.valueExchangeGrid}>
+          {/* Supplier Benefit */}
+          <div className={styles.valueExchangePanel}>
+            <div className={styles.valueExchangePanelTitle}>Supplier Benefit</div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>DPO (Days Payable)</span>
+              <span className={styles.valueExchangeValueBefore}>30 days</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Average Payment Wait</span>
+              <span className={styles.valueExchangeValueBefore}>45 days</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Working Capital Strain</span>
+              <span className={styles.valueExchangeValueBefore}>High</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Supplier Satisfaction</span>
+              <span className={styles.valueExchangeValueBefore}>72%</span>
+            </div>
+          </div>
+
+          {/* Arrow Column */}
+          <div className={styles.valueExchangeArrowCol}>
+            <div className={styles.valueExchangeArrow}>&#8594;</div>
+            <div className={styles.valueExchangeArrowLabel}>SCF Program</div>
+            <div className={styles.valueExchangeArrow}>&#8594;</div>
+          </div>
+
+          {/* Medius + Supplier After */}
+          <div className={styles.valueExchangePanel}>
+            <div className={styles.valueExchangePanelTitle}>After SCF Enrollment</div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>DPO Improvement</span>
+              <span className={styles.valueExchangeValueAfter}>30 &#8594; 42 days</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Early Payment Access</span>
+              <span className={styles.valueExchangeValueAfter}>5-10 days</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Fee Revenue (Medius)</span>
+              <span className={styles.valueExchangeValueAfter}>$302K/yr</span>
+            </div>
+            <div className={styles.valueExchangeMetric}>
+              <span className={styles.valueExchangeLabel}>Supplier Satisfaction</span>
+              <span className={styles.valueExchangeValueAfter}>89%</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Win-Win Summary */}
+        <div className={styles.valueExchangeWinWin}>
+          <div className={styles.valueExchangeWinWinTitle}>Win-Win Value Exchange</div>
+          <div className={styles.valueExchangeWinWinText}>
+            Suppliers get early cash access (5-10 day payment vs 45 day wait), Medius earns{' '}
+            <span className={styles.valueExchangeWinWinHighlight}>$302K/year</span> in program fees
+          </div>
+        </div>
+
+        {/* Satisfaction + Retention */}
+        <div className={styles.satisfactionRow}>
+          <div className={styles.satisfactionCard}>
+            <div className={styles.satisfactionLabel}>Supplier Satisfaction</div>
+            <div className={styles.satisfactionValues}>
+              <span className={styles.satisfactionBefore}>72%</span>
+              <span className={styles.satisfactionAfter}>89%</span>
+            </div>
+            <div className={styles.satisfactionSub}>+17 point improvement with SCF enrollment</div>
+            <div className={styles.satisfactionBarWrap}>
+              <div className={styles.satisfactionBar} style={{ width: '89%' }} />
+            </div>
+          </div>
+          <div className={styles.satisfactionCard}>
+            <div className={styles.satisfactionLabel}>Supplier Retention Value</div>
+            <div className={styles.satisfactionValues}>
+              <span className={styles.satisfactionAfter}>$1.2M</span>
+            </div>
+            <div className={styles.satisfactionSub}>Annual revenue protected through higher satisfaction &amp; stickiness</div>
+            <div className={styles.satisfactionBarWrap}>
+              <div className={styles.satisfactionBar} style={{ width: '92%' }} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

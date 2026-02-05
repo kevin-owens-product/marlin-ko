@@ -124,6 +124,18 @@
 .execMeta { display: flex; gap: 1.5rem; margin-top: 0.75rem; font-size: 0.6875rem; color: #86909C; }
 .generatedTag { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; color: #8E51DA; background: rgba(139, 92, 246, 0.1); padding: 0.25rem 0.625rem; border-radius: 0.25rem; }
 
+/* Network Data Source Banner */
+.networkBanner { display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, rgba(22, 93, 255, 0.06), rgba(142, 81, 218, 0.06)); border: 1px solid rgba(22, 93, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.networkBannerIcon { color: #165DFF; flex-shrink: 0; width: 40px; height: 40px; background: rgba(22, 93, 255, 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
+.networkBannerContent { flex: 1; min-width: 0; }
+.networkBannerTitle { font-size: 0.8125rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.networkBannerDesc { font-size: 0.75rem; color: #4E5969; line-height: 1.5; }
+.networkBannerDesc strong { color: #165DFF; font-weight: 600; }
+.networkBannerStats { display: flex; gap: 1.5rem; flex-shrink: 0; }
+.networkStat { text-align: center; }
+.networkStatValue { font-size: 1.125rem; font-weight: 700; color: #165DFF; }
+.networkStatLabel { font-size: 0.625rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; }
+
 /* KPI summary row at top of benchmark section */
 .kpiRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
 .kpiMini { background: #ffffff; border-radius: 0.5rem; padding: 1rem; text-align: center; }

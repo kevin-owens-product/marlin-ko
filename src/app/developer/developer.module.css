@@ -1,0 +1,933 @@
+/* Developer Portal — Pillar 4: Composable Platform */
+
+.page {
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin: 0 0 0.375rem 0;
+}
+
+.pageSubtitle {
+  font-size: 0.875rem;
+  color: #4E5969;
+  margin: 0;
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+.headerBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.pillarTag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #165DFF;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pillarLabel {
+  font-size: 0.75rem;
+  color: #86909C;
+  font-weight: 500;
+}
+
+/* ── Tabs ── */
+
+.tabBar {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid #E5E6EB;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #86909C;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab:hover {
+  color: #4E5969;
+}
+
+.tabActive {
+  color: #165DFF;
+  border-bottom-color: #165DFF;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── KPI Row ── */
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.kpiCard {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.kpiValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #165DFF;
+  margin-bottom: 0.25rem;
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  color: #86909C;
+  font-weight: 500;
+}
+
+/* ── Sections ── */
+
+.section {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 1rem 0;
+}
+
+.sectionSubtitle {
+  font-size: 0.875rem;
+  color: #4E5969;
+  margin: -0.5rem 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+/* ── API Categories Grid ── */
+
+.apiGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.apiCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  transition: box-shadow 0.15s;
+}
+
+.apiCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.apiCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.apiName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.versionBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #165DFF;
+  background: rgba(22, 93, 255, 0.08);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.apiDescription {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.apiMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.endpointCount {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+}
+
+.rateLimit {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+.methodBadges {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.methodBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Live API Console ── */
+
+.consoleLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.consoleRequest {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.consoleResponse {
+  background: #1D2129;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.consoleLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.endpointRow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.methodBadgeLarge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.endpointSelector {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.urlBar {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.urlBase {
+  color: #86909C;
+}
+
+.urlPath {
+  color: #165DFF;
+  font-weight: 500;
+}
+
+.headersSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.headersTitle {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.headerLine {
+  display: flex;
+  gap: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid #F2F3F5;
+}
+
+.headerKey {
+  color: #165DFF;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.headerValue {
+  color: #4E5969;
+  word-break: break-all;
+}
+
+.responseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.responseHeader .consoleLabel {
+  color: #86909C;
+}
+
+.responseMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.statusBadgeOk {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #23C343;
+  background: rgba(35, 195, 67, 0.15);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.responseTime {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #86909C;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+}
+
+.responseBody {
+  background: #1D2129;
+  color: #C9CDD4;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+  flex: 1;
+  padding: 0.25rem 0;
+}
+
+/* ── Webhooks: Event Catalog ── */
+
+.eventDomainGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.eventDomainCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+}
+
+.domainTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin: 0 0 0.875rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eventItem {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #F2F3F5;
+}
+
+.eventItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.eventNameRow {
+  margin-bottom: 0.25rem;
+}
+
+.eventName {
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #165DFF;
+  background: rgba(22, 93, 255, 0.06);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+.eventDescription {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin: 0.25rem 0;
+  line-height: 1.4;
+}
+
+.eventMeta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.eventFrequency {
+  font-size: 0.6875rem;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.eventPayload {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+/* ── Webhooks: Subscriptions Table ── */
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #F7F8FA;
+}
+
+.table th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #E5E6EB;
+  white-space: nowrap;
+}
+
+.table td {
+  font-size: 0.75rem;
+  color: #4E5969;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #F2F3F5;
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.webhookUrl {
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  color: #1D2129;
+  word-break: break-all;
+}
+
+.eventTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.eventTag {
+  font-size: 0.6875rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  color: #4E5969;
+  background: #F2F3F5;
+  padding: 0.0625rem 0.375rem;
+  border-radius: 0.1875rem;
+  white-space: nowrap;
+}
+
+.statusBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+.statusActive {
+  color: #23C343;
+  background: rgba(35, 195, 67, 0.1);
+}
+
+.statusPaused {
+  color: #FF9A2E;
+  background: rgba(255, 154, 46, 0.1);
+}
+
+.statusFailed {
+  color: #F76560;
+  background: rgba(247, 101, 96, 0.1);
+}
+
+.rateGood {
+  color: #23C343;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.rateWarn {
+  color: #FF9A2E;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.rateBad {
+  color: #F76560;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.mutedText {
+  color: #86909C;
+}
+
+/* ── Webhooks: Event Stream ── */
+
+.streamContainer {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #E5E6EB;
+  overflow: hidden;
+}
+
+.streamHeader {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 80px 80px;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #F7F8FA;
+  border-bottom: 1px solid #E5E6EB;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.streamRow {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 80px 80px;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid #F2F3F5;
+  align-items: center;
+  font-size: 0.75rem;
+  transition: background 0.1s;
+}
+
+.streamRow:last-child {
+  border-bottom: none;
+}
+
+.streamRow:hover {
+  background: #FAFBFC;
+}
+
+.streamTimestamp {
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+.streamEvent {
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #165DFF;
+}
+
+.streamDest {
+  font-size: 0.6875rem;
+  color: #4E5969;
+}
+
+.streamCode {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.0625rem 0.375rem;
+  border-radius: 0.1875rem;
+}
+
+.responseOk {
+  color: #23C343;
+  background: rgba(35, 195, 67, 0.1);
+}
+
+.responseError {
+  color: #F76560;
+  background: rgba(247, 101, 96, 0.1);
+}
+
+.responseWarn {
+  color: #FF9A2E;
+  background: rgba(255, 154, 46, 0.1);
+}
+
+.streamLatency {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-align: right;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+}
+
+/* ── Partner Marketplace: Partner Grid ── */
+
+.partnerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.partnerCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: box-shadow 0.15s;
+}
+
+.partnerCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.partnerHeader {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.partnerLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #165DFF 0%, #4E8FFF 100%);
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.partnerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.partnerNameRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.partnerName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.partnerCategory {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+.partnerBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 0.0625rem 0.5rem;
+  border-radius: 0.25rem;
+  align-self: flex-start;
+}
+
+.partnerDescription {
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.partnerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid #F2F3F5;
+}
+
+.partnerInstalls {
+  font-size: 0.6875rem;
+  color: #86909C;
+  font-weight: 500;
+}
+
+.partnerRating {
+  font-size: 0.75rem;
+  color: #FF9A2E;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ratingValue {
+  font-size: 0.6875rem;
+  color: #4E5969;
+  font-weight: 600;
+}
+
+/* ── Partner Marketplace: SDK Grid ── */
+
+.sdkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.sdkCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.sdkHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sdkLanguage {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.sdkStars {
+  font-size: 0.75rem;
+  color: #FF9A2E;
+  font-weight: 500;
+}
+
+.sdkInstall {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sdkInstallLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sdkInstallCmd {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #1D2129;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.sdkSnippet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sdkSnippetLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sdkSnippetCode {
+  background: #1D2129;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  color: #C9CDD4;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px) {
+  .apiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partnerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .consoleLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .headerTop {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .headerBadge {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .kpiRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .apiGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .eventDomainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .partnerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sdkGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .streamHeader,
+  .streamRow {
+    grid-template-columns: 140px 1fr 1fr 60px 60px;
+    font-size: 0.625rem;
+  }
+
+  .table {
+    font-size: 0.6875rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.625rem 0.5rem;
+  }
+}

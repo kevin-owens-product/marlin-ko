@@ -52,3 +52,108 @@
 .aiSavings { color: #23C343; font-weight: 600; }
 .methodTag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 0.25rem; font-size: 0.6875rem; font-weight: 500; background: rgba(22, 93, 255, 0.08); color: #4E5969; }
 .twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+/* ------------------------------------------------------------------ */
+/*  Unified Payment Monetization Dashboard                             */
+/* ------------------------------------------------------------------ */
+.monetizationSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.monetizationHeader { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; }
+.monetizationHeaderLeft { display: flex; flex-direction: column; gap: 0.25rem; }
+.monetizationTitle { font-size: 1rem; font-weight: 600; color: #1D2129; }
+.monetizationSubtitle { font-size: 0.8125rem; color: #4E5969; }
+.monetizationTagline { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+
+/* Stacked Horizontal Bar Chart */
+.stackedBarSection { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.25rem; }
+.stackedBarTitle { font-size: 0.8125rem; font-weight: 600; color: #1D2129; margin-bottom: 0.75rem; }
+.stackedBarTotal { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
+.stackedBarTotalValue { font-size: 1.75rem; font-weight: 700; color: #1D2129; }
+.stackedBarTotalSub { font-size: 0.875rem; color: #4E5969; }
+.stackedBarTotalAnnual { font-size: 0.8125rem; color: #165DFF; font-weight: 600; }
+.stackedBarWrap { background: #F7F8FA; border-radius: 0.5rem; height: 40px; overflow: hidden; display: flex; margin-bottom: 1rem; }
+.stackedBarSegment { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 600; color: #ffffff; transition: width 0.5s ease; min-width: 2%; }
+.stackedSegDynDisc { background: #165DFF; }
+.stackedSegVCard { background: #23C343; }
+.stackedSegSCF { background: #8E51DA; }
+.stackedSegCostSav { background: #FF9A2E; }
+.stackedBarLegend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
+.legendItem { display: flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; color: #4E5969; }
+.legendDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.legendDotBlue { background: #165DFF; }
+.legendDotGreen { background: #23C343; }
+.legendDotPurple { background: #8E51DA; }
+.legendDotAmber { background: #FF9A2E; }
+
+/* Revenue Stream Cards */
+.revenueStreamGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+.revenueStreamCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; position: relative; }
+.revenueStreamCardAccent { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 0.75rem 0.75rem 0 0; }
+.accentBlue { background: #165DFF; }
+.accentGreen { background: #23C343; }
+.accentPurple { background: #8E51DA; }
+.accentAmber { background: #FF9A2E; }
+.revenueStreamLabel { font-size: 0.6875rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; margin-top: 0.25rem; }
+.revenueStreamValue { font-size: 1.25rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.revenueStreamMonthly { font-size: 0.6875rem; color: #86909C; margin-bottom: 0.375rem; }
+.revenueStreamTarget { font-size: 0.6875rem; color: #165DFF; font-weight: 500; }
+.revenueStreamPct { font-size: 0.6875rem; color: #23C343; font-weight: 600; }
+
+/* Total Impact Card */
+.totalImpactCard { background: rgba(22, 93, 255, 0.04); border: 1px solid rgba(22, 93, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+.totalImpactLeft { display: flex; flex-direction: column; gap: 0.25rem; }
+.totalImpactLabel { font-size: 0.75rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.totalImpactValue { font-size: 1.75rem; font-weight: 700; color: #165DFF; }
+.totalImpactSub { font-size: 0.8125rem; color: #4E5969; }
+.totalImpactRight { text-align: right; }
+.totalImpactAnnual { font-size: 1.5rem; font-weight: 700; color: #23C343; }
+.totalImpactAnnualLabel { font-size: 0.6875rem; color: #86909C; }
+
+/* ------------------------------------------------------------------ */
+/*  Payment Intelligence Summary                                       */
+/* ------------------------------------------------------------------ */
+.intelligenceSection { background: rgba(22, 93, 255, 0.04); border: 1px solid rgba(22, 93, 255, 0.1); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.intelligenceHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; }
+.intelligenceIcon { width: 28px; height: 28px; background: rgba(22, 93, 255, 0.1); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #165DFF; }
+.intelligenceTitle { font-size: 1rem; font-weight: 600; color: #1D2129; }
+.intelligenceBadge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; background: rgba(142, 81, 218, 0.15); color: #8E51DA; margin-left: auto; }
+
+/* Key Insight Card */
+.insightCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; }
+.insightQuote { font-size: 0.9375rem; font-weight: 600; color: #1D2129; line-height: 1.5; margin-bottom: 0.5rem; border-left: 3px solid #165DFF; padding-left: 0.75rem; }
+.insightHighlight { color: #165DFF; font-weight: 700; }
+
+/* Monetization Rate Trend */
+.trendRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.trendCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.trendCardLabel { font-size: 0.6875rem; color: #4E5969; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.trendValues { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.375rem; }
+.trendBefore { font-size: 1rem; font-weight: 600; color: #86909C; text-decoration: line-through; }
+.trendAfter { font-size: 1.375rem; font-weight: 700; color: #23C343; }
+.trendSub { font-size: 0.6875rem; color: #86909C; }
+.trendBarWrap { background: #F7F8FA; border-radius: 0.25rem; height: 6px; overflow: hidden; margin-top: 0.75rem; }
+.trendBar { height: 100%; border-radius: 0.25rem; transition: width 0.5s ease; }
+.trendBarBlue { background: #165DFF; }
+.trendBarGreen { background: #23C343; }
+
+/* Optimization Opportunity */
+.optimizationCard { background: #ffffff; border: 1px solid rgba(35, 195, 67, 0.3); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; }
+.optimizationBadge { display: inline-block; padding: 0.2rem 0.625rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; background: rgba(35, 195, 67, 0.15); color: #23C343; margin-bottom: 0.75rem; }
+.optimizationText { font-size: 0.8125rem; color: #4E5969; line-height: 1.6; }
+.optimizationValue { color: #23C343; font-weight: 700; font-size: 0.875rem; }
+
+/* Supplier Adoption Funnel */
+.funnelCard { background: #ffffff; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.25rem; }
+.funnelTitle { font-size: 0.8125rem; font-weight: 600; color: #1D2129; margin-bottom: 1rem; }
+.funnelSteps { display: flex; flex-direction: column; gap: 0.625rem; }
+.funnelStep { display: flex; align-items: center; gap: 0.75rem; }
+.funnelBarOuter { flex: 1; background: #F7F8FA; border-radius: 0.25rem; height: 28px; overflow: hidden; position: relative; }
+.funnelBar { height: 100%; border-radius: 0.25rem; display: flex; align-items: center; padding-left: 0.625rem; font-size: 0.6875rem; font-weight: 600; color: #ffffff; transition: width 0.5s ease; }
+.funnelBarBlue { background: #165DFF; }
+.funnelBarPurple { background: #8E51DA; }
+.funnelBarGreen { background: #23C343; }
+.funnelBarAmber { background: #FF9A2E; }
+.funnelLabel { width: 140px; font-size: 0.75rem; color: #4E5969; flex-shrink: 0; }
+.funnelValue { width: 50px; font-size: 0.8125rem; font-weight: 600; color: #1D2129; text-align: right; flex-shrink: 0; }
+.funnelTarget { display: flex; align-items: center; gap: 0.375rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed #E5E6EB; }
+.funnelTargetLabel { font-size: 0.6875rem; color: #86909C; }
+.funnelTargetValue { font-size: 0.8125rem; font-weight: 600; color: #165DFF; }

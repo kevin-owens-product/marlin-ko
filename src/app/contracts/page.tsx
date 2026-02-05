@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useT } from "@/lib/i18n/locale-context";
 import { useCRUD } from "@/lib/hooks/use-crud";
 import { useInlineEdit } from "@/lib/hooks/use-inline-edit";
 import { useColumnResize } from "@/lib/hooks/use-column-resize";
+import { useBulkSelect } from "@/lib/hooks/use-bulk-select";
 import { useToast } from "@/components/ui/Toast";
 import { EditableCell } from "@/components/inline-edit/EditableCell";
 import { RowActions } from "@/components/inline-edit/RowActions";
@@ -152,8 +153,10 @@ export default function ContractsPage() {
 
   const crud = useCRUD<Contract>({ endpoint: "/api/contracts", autoFetch: false });
   const inline = useInlineEdit<Contract>();
+  const bulk = useBulkSelect();
   const { addToast } = useToast();
   const { widths, onMouseDown } = useColumnResize(COLUMNS);
+  const checkboxRef = useRef<HTMLInputElement>(null);
 
   // Fetch data when filter or search changes
   useEffect(() => {
@@ -162,6 +165,14 @@ export default function ContractsPage() {
     if (searchQuery) params.search = searchQuery;
     crud.fetchAll(params);
   }, [filter, searchQuery, crud.fetchAll]);
+
+  const visibleIds = crud.data.map((c) => c.id);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = bulk.someSelected && !bulk.allSelected(visibleIds);
+    }
+  }, [bulk.someSelected, bulk.allSelected, visibleIds]);
 
   // ------- Save handler for editing -------
   const handleSaveEdit = useCallback(async () => {
@@ -283,6 +294,16 @@ export default function ContractsPage() {
       {/* Content */}
       <div className={styles.content}>
         <div className={styles.mainPanel}>
+          {/* Bulk action bar */}
+          {bulk.count > 0 && (
+            <div className={styles.bulkBar}>
+              <span className={styles.bulkCount}>{bulk.count} selected</span>
+              <button className={styles.bulkBtn} onClick={() => {}}>Export</button>
+              <button className={`${styles.bulkBtn} ${styles.bulkBtnDanger}`} onClick={() => {}}>Delete</button>
+              <button className={styles.bulkBtnClear} onClick={bulk.clear}>Clear</button>
+            </div>
+          )}
+
           {/* Contracts table */}
           <div className={styles.card}>
             <div className={styles.cardTitle}>
@@ -330,6 +351,14 @@ export default function ContractsPage() {
             <table className={styles.table}>
               <thead>
                 <tr>
+                  <th style={{ width: 40 }}>
+                    <input
+                      type="checkbox"
+                      ref={checkboxRef}
+                      checked={bulk.allSelected(visibleIds)}
+                      onChange={() => bulk.toggleAll(visibleIds)}
+                    />
+                  </th>
                   <th style={thStyle("title")}>
                     Title
                     <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("title", 120, e)} />
@@ -371,6 +400,7 @@ export default function ContractsPage() {
                 {/* --- Create row --- */}
                 {inline.isCreating && (
                   <tr>
+                    <td />
                     <td>
                       <EditableCell
                         editing
@@ -459,6 +489,7 @@ export default function ContractsPage() {
 
                   return (
                     <tr key={c.id}>
+                      <td><input type="checkbox" checked={bulk.selected.has(c.id)} onChange={() => bulk.toggle(c.id)} /></td>
                       <td>
                         <EditableCell
                           editing={isEditing}
@@ -563,7 +594,7 @@ export default function ContractsPage() {
                 {/* Empty state */}
                 {!crud.loading && contracts.length === 0 && !inline.isCreating && (
                   <tr>
-                    <td colSpan={9} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
+                    <td colSpan={10} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
                       No contracts found. Click &quot;{t("contracts.createContract")}&quot; to add one.
                     </td>
                   </tr>

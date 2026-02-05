@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useT } from "@/lib/i18n/locale-context";
 import { useCRUD } from "@/lib/hooks/use-crud";
+import { useBulkSelect } from "@/lib/hooks/use-bulk-select";
 import { useInlineEdit } from "@/lib/hooks/use-inline-edit";
 import { useColumnResize } from "@/lib/hooks/use-column-resize";
 import { useToast } from "@/components/ui/Toast";
@@ -89,8 +90,17 @@ export default function PurchaseOrdersPage() {
   });
 
   const inline = useInlineEdit<PurchaseOrder>();
+  const bulk = useBulkSelect();
   const { addToast } = useToast();
   const { widths, onMouseDown } = useColumnResize(COLUMNS);
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const visibleIds = crud.data.map((po) => po.id);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = bulk.someSelected && !bulk.allSelected(visibleIds);
+    }
+  }, [bulk.someSelected, bulk.allSelected, visibleIds]);
 
   // Re-fetch when tab or search changes
   useEffect(() => {
@@ -245,6 +255,15 @@ export default function PurchaseOrdersPage() {
         </div>
       </div>
 
+      {bulk.count > 0 && (
+        <div className={styles.bulkBar}>
+          <span className={styles.bulkCount}>{bulk.count} selected</span>
+          <button className={styles.bulkBtn} onClick={() => {}}>Export</button>
+          <button className={`${styles.bulkBtn} ${styles.bulkBtnDanger}`} onClick={() => {}}>Delete</button>
+          <button className={styles.bulkBtnClear} onClick={bulk.clear}>Clear</button>
+        </div>
+      )}
+
       <div className={styles.tableWrapper}>
         {crud.loading && crud.data.length === 0 ? (
           <div style={{ padding: "2rem", textAlign: "center", color: "#86909C" }}>Loading...</div>
@@ -254,6 +273,14 @@ export default function PurchaseOrdersPage() {
           <table className={styles.table}>
             <thead>
               <tr>
+                <th style={{ width: 40 }}>
+                  <input
+                    type="checkbox"
+                    ref={checkboxRef}
+                    checked={bulk.allSelected(visibleIds)}
+                    onChange={() => bulk.toggleAll(visibleIds)}
+                  />
+                </th>
                 <th style={thStyle("poNumber")}>
                   {t("purchaseOrders.poNumber")}
                   <span className={styles.resizeHandle} onMouseDown={(e) => onMouseDown("poNumber", 100, e)} />
@@ -291,6 +318,7 @@ export default function PurchaseOrdersPage() {
               {/* --- Create row --- */}
               {inline.isCreating && (
                 <tr>
+                  <td />
                   <td>
                     <EditableCell
                       editing
@@ -354,6 +382,7 @@ export default function PurchaseOrdersPage() {
 
                 return (
                   <tr key={po.id}>
+                    <td><input type="checkbox" checked={bulk.selected.has(po.id)} onChange={() => bulk.toggle(po.id)} /></td>
                     <td>
                       <EditableCell
                         editing={isEditing}
@@ -433,7 +462,7 @@ export default function PurchaseOrdersPage() {
               {/* Empty state */}
               {!crud.loading && crud.data.length === 0 && !inline.isCreating && (
                 <tr>
-                  <td colSpan={8} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
+                  <td colSpan={9} style={{ textAlign: "center", padding: "2rem", color: "#86909C", fontSize: "0.875rem" }}>
                     No purchase orders found.
                   </td>
                 </tr>

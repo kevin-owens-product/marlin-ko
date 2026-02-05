@@ -63,10 +63,10 @@ const paymentCalendar: { day: string; date: string; items: { supplier: string; a
 ];
 
 const aiInsights = [
-  { icon: '!', color: 'Amber' as const, label: 'Receivables Aging Alert', desc: 'Receivables aging alert: $340K overdue >60 days from 3 customers. Recommend escalation to collections workflow.' },
-  { icon: '$', color: 'Green' as const, label: 'Cash Surplus Opportunity', desc: 'Cash surplus opportunity: $1.2M available for 7-day dynamic discounting. Projected savings of $18,400 at current discount rates.' },
-  { icon: 'FX', color: 'Purple' as const, label: 'FX Exposure Warning', desc: 'FX exposure: EUR payables increasing. Consider forward contract for Q2 to hedge \u20AC1.4M in expected outflows.' },
-  { icon: '%', color: 'Blue' as const, label: 'Payment Timing', desc: 'Payment timing: Deferring $450K in non-critical payments by 5 days improves month-end position by 3.2% with zero late-fee risk.' },
+  { icon: '!', color: 'Amber' as const, label: 'Receivables Aging Alert', desc: 'Receivables aging alert: $340K overdue >60 days from 3 customers. Recommend escalation to collections workflow.', roi: '$340K', roiLabel: 'At-risk receivables', roiType: 'risk' as const },
+  { icon: '$', color: 'Green' as const, label: 'Cash Surplus Opportunity', desc: 'Cash surplus opportunity: $1.2M available for 7-day dynamic discounting. Projected savings of $18,400 at current discount rates.', roi: '$18.4K', roiLabel: 'Projected savings', roiType: 'savings' as const },
+  { icon: 'FX', color: 'Purple' as const, label: 'FX Exposure Warning', desc: 'FX exposure: EUR payables increasing. Consider forward contract for Q2 to hedge \u20AC1.4M in expected outflows.', roi: '$42K', roiLabel: 'Estimated hedge savings', roiType: 'savings' as const },
+  { icon: '%', color: 'Blue' as const, label: 'Payment Timing', desc: 'Payment timing: Deferring $450K in non-critical payments by 5 days improves month-end position by 3.2% with zero late-fee risk.', roi: '$14.4K', roiLabel: 'Float value (annualized)', roiType: 'savings' as const },
 ];
 
 /* Payment Optimization Data */
@@ -345,8 +345,16 @@ export default function TreasuryPage() {
                     <div className={styles.insightLabel}>{ins.label}</div>
                   </div>
                   <div className={styles.insightDesc}>{ins.desc}</div>
+                  <div className={styles.insightRoi}>
+                    <span className={`${styles.insightRoiValue} ${ins.roiType === 'risk' ? styles.insightRoiRisk : styles.insightRoiSavings}`}>{ins.roi}</span>
+                    <span className={styles.insightRoiLabel}>{ins.roiLabel}</span>
+                  </div>
                 </div>
               ))}
+            </div>
+            <div className={styles.insightsTotalRow}>
+              <span className={styles.insightsTotalLabel}>Total optimization opportunity this period</span>
+              <span className={styles.insightsTotalValue}>$74.8K savings + $340K risk mitigation</span>
             </div>
           </div>
         </>

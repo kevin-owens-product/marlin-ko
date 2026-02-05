@@ -40,6 +40,120 @@ const mockEntries: CodingEntry[] = [
   { id: '18', invoiceNumber: 'INV-2024-001830', supplier: 'Seoul Semiconductor', predictedGLCode: '5200-02', glName: 'Electronic Components', confidence: 93.6, status: 'Auto-Coded', amount: 28900000, currency: 'KRW', category: 'Manufacturing' },
 ];
 
+const accuracyTrendData = [
+  { month: 'Sep', accuracy: 91.2, modelVersion: null },
+  { month: 'Oct', accuracy: 93.1, modelVersion: 'v2.1' },
+  { month: 'Nov', accuracy: 94.8, modelVersion: null },
+  { month: 'Dec', accuracy: 95.6, modelVersion: 'v2.2' },
+  { month: 'Jan', accuracy: 96.5, modelVersion: null },
+  { month: 'Feb', accuracy: 97.3, modelVersion: 'v2.3' },
+];
+
+interface VerticalData {
+  name: string;
+  status: 'Active' | 'Learning';
+  patterns: { name: string; code: string }[];
+  accuracy: number;
+  samples: number;
+}
+
+const verticalData: VerticalData[] = [
+  {
+    name: 'Technology',
+    status: 'Active',
+    patterns: [
+      { name: 'Cloud/Hosting', code: 'GL 6200-01' },
+      { name: 'Software Licenses', code: '6210-03' },
+      { name: 'SaaS Subscriptions', code: '6200-05' },
+    ],
+    accuracy: 98.2,
+    samples: 4200,
+  },
+  {
+    name: 'Manufacturing',
+    status: 'Active',
+    patterns: [
+      { name: 'Raw Materials', code: '5200-01' },
+      { name: 'Machine Parts', code: '5200-03' },
+      { name: 'Electronic Components', code: '5200-02' },
+    ],
+    accuracy: 96.8,
+    samples: 3800,
+  },
+  {
+    name: 'Professional Services',
+    status: 'Active',
+    patterns: [
+      { name: 'Consulting', code: '6300-02' },
+      { name: 'Legal', code: '6300-04' },
+      { name: 'Advisory', code: '6300-01' },
+    ],
+    accuracy: 94.2,
+    samples: 1900,
+  },
+  {
+    name: 'Healthcare',
+    status: 'Learning',
+    patterns: [
+      { name: 'Medical Supplies', code: '6400-05' },
+      { name: 'Pharma', code: '6400-01' },
+      { name: 'Equipment', code: '6400-03' },
+    ],
+    accuracy: 91.5,
+    samples: 850,
+  },
+  {
+    name: 'Logistics',
+    status: 'Active',
+    patterns: [
+      { name: 'Freight & Shipping', code: '5400-01' },
+      { name: 'Warehousing', code: '5400-03' },
+      { name: 'Customs', code: '5400-05' },
+    ],
+    accuracy: 97.5,
+    samples: 2100,
+  },
+  {
+    name: 'R&D',
+    status: 'Learning',
+    patterns: [
+      { name: 'Lab Equipment', code: '6500-01' },
+      { name: 'Research Materials', code: '6500-03' },
+      { name: 'Patents', code: '6500-05' },
+    ],
+    accuracy: 89.3,
+    samples: 620,
+  },
+];
+
+interface OverridePattern {
+  originalCode: string;
+  correctedCode: string;
+  frequency: number;
+  patternLearned: string;
+  modelUpdated: boolean;
+  confidenceAfter: number;
+}
+
+const overridePatterns: OverridePattern[] = [
+  { originalCode: '6200-01', correctedCode: '6200-05', frequency: 42, patternLearned: 'SaaS vs Hosting distinction', modelUpdated: true, confidenceAfter: 96.8 },
+  { originalCode: '5200-01', correctedCode: '5200-03', frequency: 38, patternLearned: 'Parts vs Raw materials', modelUpdated: true, confidenceAfter: 95.2 },
+  { originalCode: '6300-02', correctedCode: '6300-04', frequency: 31, patternLearned: 'Legal vs Consulting services', modelUpdated: true, confidenceAfter: 93.7 },
+  { originalCode: '5400-01', correctedCode: '5400-03', frequency: 27, patternLearned: 'Warehousing vs Freight', modelUpdated: true, confidenceAfter: 97.1 },
+  { originalCode: '5100-01', correctedCode: '5200-04', frequency: 19, patternLearned: 'Chemical supplies reclassification', modelUpdated: false, confidenceAfter: 88.4 },
+  { originalCode: '6500-01', correctedCode: '6500-03', frequency: 14, patternLearned: 'Research materials vs Equipment', modelUpdated: false, confidenceAfter: 85.9 },
+];
+
+const feedbackCycleSteps = [
+  { label: 'Invoice Arrives', icon: '1' },
+  { label: 'ML Classifies', icon: '2' },
+  { label: 'Human Reviews', icon: '3' },
+  { label: 'Override (if needed)', icon: '4' },
+  { label: 'Pattern Learned', icon: '5' },
+  { label: 'Model Updated', icon: '6' },
+  { label: 'Better Classification', icon: '7' },
+];
+
 const smartFlowRules = [
   { name: 'Technology Services Auto-Code', description: 'Auto-assign GL 6200-xx for known technology vendors with >90% confidence', hits: 1247, accuracy: '99.1%', active: true },
   { name: 'Raw Materials Classification', description: 'Map supplier categories to GL 5200-xx based on material type keywords', hits: 892, accuracy: '96.8%', active: true },
@@ -62,6 +176,13 @@ function getConfidenceClass(confidence: number): string {
   if (confidence >= 85) return styles.confidenceHigh;
   if (confidence >= 60) return styles.confidenceMedium;
   return styles.confidenceLow;
+}
+
+function getVerticalAccuracyColor(accuracy: number): string {
+  if (accuracy >= 97) return '#23C343';
+  if (accuracy >= 94) return '#165DFF';
+  if (accuracy >= 90) return '#FF9A2E';
+  return '#F76560';
 }
 
 export default function CodingPage() {
@@ -194,6 +315,179 @@ export default function CodingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Accuracy Trend Over Time */}
+      <div className={styles.aiSection}>
+        <div className={styles.aiSectionHeader}>
+          <div className={styles.aiSectionTitleRow}>
+            <span className={styles.aiSectionTitle}>Accuracy Trend Over Time</span>
+            <span className={styles.aiBadge}>AI</span>
+          </div>
+          <span className={styles.aiSectionSubtitle}>Continuous Learning</span>
+        </div>
+        <div className={styles.aiSectionBody}>
+          <div className={styles.trendChartWrapper}>
+            <div className={styles.trendChart}>
+              {accuracyTrendData.map((d, i) => (
+                <div key={i} className={styles.trendBarCol}>
+                  <span className={styles.trendBarValue}>{d.accuracy}%</span>
+                  {d.modelVersion && (
+                    <span className={styles.trendModelLabel}>{d.modelVersion}</span>
+                  )}
+                  <div className={styles.trendBarTrack}>
+                    <div
+                      className={styles.trendBarFill}
+                      style={{ height: `${((d.accuracy - 88) / 12) * 100}%` }}
+                    />
+                  </div>
+                  <span className={styles.trendBarMonth}>{d.month}</span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.trendDelta}>
+              <span className={styles.trendDeltaValue}>+6.1%</span>
+              <span className={styles.trendDeltaLabel}>improvement over 6 months</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Industry Vertical Intelligence */}
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <span className={styles.cardTitle}>Industry Vertical Intelligence</span>
+          <span style={{ fontSize: '0.75rem', color: '#86909C' }}>{verticalData.length} verticals tracked</span>
+        </div>
+        <div className={styles.verticalsGrid}>
+          {verticalData.map((v, i) => (
+            <div key={i} className={styles.verticalCard}>
+              <div className={styles.verticalCardHeader}>
+                <span className={styles.verticalName}>{v.name}</span>
+                <span className={v.status === 'Active' ? styles.verticalBadgeActive : styles.verticalBadgeLearning}>
+                  {v.status}
+                </span>
+              </div>
+              <div className={styles.verticalPatterns}>
+                {v.patterns.map((p, j) => (
+                  <div key={j} className={styles.verticalPatternRow}>
+                    <span className={styles.verticalPatternName}>{p.name}</span>
+                    <span className={styles.verticalPatternCode}>{p.code}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.verticalAccuracy}>
+                <div className={styles.verticalAccuracyBar}>
+                  <div
+                    className={styles.verticalAccuracyFill}
+                    style={{ width: `${v.accuracy}%`, background: getVerticalAccuracyColor(v.accuracy) }}
+                  />
+                </div>
+                <span className={styles.verticalAccuracyValue} style={{ color: getVerticalAccuracyColor(v.accuracy) }}>
+                  {v.accuracy}%
+                </span>
+              </div>
+              <div className={styles.verticalSamples}>
+                <span className={styles.verticalSamplesValue}>{v.samples.toLocaleString()}</span>
+                <span className={styles.verticalSamplesLabel}>training samples</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Feedback Loop & Override Intelligence */}
+      <div className={styles.aiSection}>
+        <div className={styles.aiSectionHeader}>
+          <div className={styles.aiSectionTitleRow}>
+            <span className={styles.aiSectionTitle}>Feedback Loop &amp; Override Intelligence</span>
+            <span className={styles.aiBadge}>AI</span>
+          </div>
+          <span className={styles.aiSectionSubtitle}>Adaptive Learning Pipeline</span>
+        </div>
+        <div className={styles.aiSectionBody}>
+          {/* Feedback summary stats */}
+          <div className={styles.feedbackStatsRow}>
+            <div className={styles.feedbackStatCard}>
+              <span className={styles.feedbackStatValue}>247</span>
+              <span className={styles.feedbackStatLabel}>Total Overrides</span>
+            </div>
+            <div className={styles.feedbackStatCard}>
+              <span className={styles.feedbackStatValue}>198</span>
+              <span className={styles.feedbackStatLabel}>Patterns Learned</span>
+            </div>
+            <div className={styles.feedbackStatCard}>
+              <span className={styles.feedbackStatValue}>12</span>
+              <span className={styles.feedbackStatLabel}>Model Updates Triggered</span>
+            </div>
+            <div className={styles.feedbackStatCard}>
+              <span className={styles.feedbackStatValue} style={{ color: '#23C343' }}>+4.1%</span>
+              <span className={styles.feedbackStatLabel}>Accuracy Lift from Feedback</span>
+            </div>
+          </div>
+
+          {/* Override patterns table */}
+          <div className={styles.feedbackTableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Original Code</th>
+                  <th>Corrected Code</th>
+                  <th>Frequency</th>
+                  <th>Pattern Learned</th>
+                  <th>Model Updated</th>
+                  <th>Confidence After</th>
+                </tr>
+              </thead>
+              <tbody>
+                {overridePatterns.map((op, i) => (
+                  <tr key={i}>
+                    <td><span className={styles.glCode}>{op.originalCode}</span></td>
+                    <td><span className={styles.glCode}>{op.correctedCode}</span></td>
+                    <td style={{ fontWeight: 600 }}>{op.frequency}</td>
+                    <td style={{ fontSize: '0.8125rem', color: '#4E5969' }}>{op.patternLearned}</td>
+                    <td>
+                      <span className={op.modelUpdated ? styles.feedbackBadgeYes : styles.feedbackBadgeNo}>
+                        {op.modelUpdated ? 'Yes' : 'Pending'}
+                      </span>
+                    </td>
+                    <td>
+                      <div className={styles.confidenceBar}>
+                        <div className={styles.confidenceTrack}>
+                          <div
+                            className={`${styles.confidenceFill} ${getConfidenceClass(op.confidenceAfter)}`}
+                            style={{ width: `${op.confidenceAfter}%` }}
+                          />
+                        </div>
+                        <span className={styles.confidenceValue}>{op.confidenceAfter}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Feedback cycle visualization */}
+          <div className={styles.feedbackCycle}>
+            <span className={styles.feedbackCycleTitle}>Adaptive Feedback Cycle</span>
+            <div className={styles.feedbackCycleSteps}>
+              {feedbackCycleSteps.map((step, i) => (
+                <div key={i} className={styles.feedbackCycleStep}>
+                  <div className={styles.feedbackCycleIcon}>{step.icon}</div>
+                  <span className={styles.feedbackCycleLabel}>{step.label}</span>
+                  {i < feedbackCycleSteps.length - 1 && (
+                    <div className={styles.feedbackCycleArrow}>
+                      <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                        <path d="M14 1L19 6L14 11M1 6H19" stroke="#165DFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

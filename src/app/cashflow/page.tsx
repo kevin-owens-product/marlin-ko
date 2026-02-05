@@ -50,6 +50,72 @@ const aiInsights = [
   },
 ];
 
+const scenarioPlanning = [
+  {
+    name: 'Base Case',
+    tag: 'Current Trajectory',
+    tagClass: 'tagBlue',
+    description: 'Projected cashflow based on current AR/AP patterns, contractual obligations, and historical seasonal trends.',
+    endingBalance: '$14.2M',
+    netChange: '+$1.4M',
+    netPositive: true,
+    confidence: 92,
+    assumptions: [
+      'AR collections maintain 34-day DSO average',
+      'No major contract changes or cancellations',
+      'Seasonal patterns consistent with prior year',
+    ],
+  },
+  {
+    name: 'Optimistic',
+    tag: 'Highest Upside',
+    tagClass: 'tagGreen',
+    description: 'Accelerated collections from top accounts plus two pending enterprise contract wins closing in Q1.',
+    endingBalance: '$17.6M',
+    netChange: '+$4.8M',
+    netPositive: true,
+    confidence: 38,
+    assumptions: [
+      'Enterprise deals ($2.1M) close by mid-February',
+      'Meridian and Apex accelerate payment to net-15',
+      'Dynamic discounting captures $180K in savings',
+    ],
+  },
+  {
+    name: 'Conservative',
+    tag: 'Downside Risk',
+    tagClass: 'tagAmber',
+    description: 'Delayed receivables due to client budget freezes and broader economic headwinds affecting mid-market segment.',
+    endingBalance: '$10.1M',
+    netChange: '-$2.7M',
+    netPositive: false,
+    confidence: 15,
+    assumptions: [
+      'DSO extends to 48 days across mid-market clients',
+      'Two enterprise renewals delayed to Q2',
+      'Additional $400K in unplanned infrastructure costs',
+    ],
+  },
+];
+
+const profitCenterData = [
+  { unit: 'Enterprise Solutions', inflow: '$2,180K', outflow: '$1,420K', net: '+$760K', netPositive: true, margin: '34.9%', trend: 82 },
+  { unit: 'Mid-Market', inflow: '$1,540K', outflow: '$980K', net: '+$560K', netPositive: true, margin: '36.4%', trend: 68 },
+  { unit: 'SMB', inflow: '$720K', outflow: '$510K', net: '+$210K', netPositive: true, margin: '29.2%', trend: 45 },
+  { unit: 'Professional Services', inflow: '$480K', outflow: '$390K', net: '+$90K', netPositive: true, margin: '18.8%', trend: 30 },
+  { unit: 'Partner Channel', inflow: '$340K', outflow: '$180K', net: '+$160K', netPositive: true, margin: '47.1%', trend: 72 },
+  { unit: 'Product / R&D', inflow: '$140K', outflow: '$820K', net: '-$680K', netPositive: false, margin: '-485.7%', trend: -55 },
+];
+
+const cashAllocation = [
+  { label: 'Operating Reserve', amount: '$3.8M', pct: 30, color: '#165DFF' },
+  { label: 'Growth Investment', amount: '$2.5M', pct: 20, color: '#23C343' },
+  { label: 'Debt Service', amount: '$1.8M', pct: 14, color: '#FF9A2E' },
+  { label: 'Strategic M&A Reserve', amount: '$2.0M', pct: 16, color: '#8E51DA' },
+  { label: 'Dynamic Discounting Pool', amount: '$1.2M', pct: 9, color: '#14C9C9' },
+  { label: 'Unallocated', amount: '$1.5M', pct: 11, color: '#86909C' },
+];
+
 function getBadgeClass(status: string) {
   const map: Record<string, string> = {
     Due: styles.badgeDue,
@@ -192,6 +258,130 @@ export default function CashFlowPage() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Scenario Planning */}
+      <div className={styles.section}>
+        <div className={styles.sectionTitle}>90-Day Scenario Planning</div>
+        <div className={styles.scenarioGrid}>
+          {scenarioPlanning.map((s, i) => (
+            <div key={i} className={styles.scenarioCard}>
+              <div className={styles.scenarioHeader}>
+                <span className={styles.scenarioName}>{s.name}</span>
+                <span className={`${styles.scenarioTag} ${styles[s.tagClass]}`}>{s.tag}</span>
+              </div>
+              <p className={styles.scenarioDesc}>{s.description}</p>
+              <div className={styles.scenarioMetrics}>
+                <div className={styles.scenarioMetric}>
+                  <span className={styles.scenarioMetricLabel}>90-Day Ending Balance</span>
+                  <span className={styles.scenarioMetricValue}>{s.endingBalance}</span>
+                </div>
+                <div className={styles.scenarioMetric}>
+                  <span className={styles.scenarioMetricLabel}>Net Cash Change</span>
+                  <span className={`${styles.scenarioMetricValue} ${s.netPositive ? styles.kpiUp : styles.kpiDown}`}>{s.netChange}</span>
+                </div>
+              </div>
+              <div className={styles.scenarioAssumptions}>
+                <span className={styles.scenarioAssumptionsLabel}>Key Assumptions</span>
+                <ul className={styles.scenarioList}>
+                  {s.assumptions.map((a, j) => (
+                    <li key={j}>{a}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.scenarioConfidence}>
+                <div className={styles.confidenceRow}>
+                  <span className={styles.confidenceLabel}>Confidence</span>
+                  <span className={styles.confidenceValue}>{s.confidence}%</span>
+                </div>
+                <div className={styles.confidenceTrack}>
+                  <div className={styles.confidenceFill} style={{ width: `${s.confidence}%` }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Profit Center Impact */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeaderRow}>
+          <div className={styles.sectionTitle} style={{ marginBottom: 0 }}>Cashflow by Profit Center</div>
+          <span className={styles.aiBadge}>AI</span>
+        </div>
+        <p className={styles.sectionSubtext}>AI-attributed cashflow contribution by business unit over the trailing 30 days</p>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Business Unit</th>
+                <th>Inflows (30d)</th>
+                <th>Outflows (30d)</th>
+                <th>Net Cash</th>
+                <th>Margin</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              {profitCenterData.map((row, i) => (
+                <tr key={i}>
+                  <td className={styles.unitName}>{row.unit}</td>
+                  <td>{row.inflow}</td>
+                  <td>{row.outflow}</td>
+                  <td>
+                    <span className={row.netPositive ? styles.netPositive : styles.netNegative}>{row.net}</span>
+                  </td>
+                  <td>{row.margin}</td>
+                  <td>
+                    <div className={styles.trendBarWrap}>
+                      {row.trend >= 0 ? (
+                        <div className={styles.trendBarPositive} style={{ width: `${row.trend}%` }} />
+                      ) : (
+                        <div className={styles.trendBarNegative} style={{ width: `${Math.abs(row.trend)}%` }} />
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Strategic Cash Allocation */}
+      <div className={styles.section}>
+        <div className={styles.sectionTitle}>Strategic Cash Allocation</div>
+        <p className={styles.sectionSubtext}>Current deployment of $12.8M across strategic reserves and operational pools</p>
+        <div className={styles.allocationBar}>
+          {cashAllocation.map((a, i) => (
+            <div
+              key={i}
+              className={styles.allocationSegment}
+              style={{ width: `${a.pct}%`, background: a.color }}
+              title={`${a.label}: ${a.amount} (${a.pct}%)`}
+            />
+          ))}
+        </div>
+        <div className={styles.allocationLegend}>
+          {cashAllocation.map((a, i) => (
+            <div key={i} className={styles.allocationLegendItem}>
+              <span className={styles.allocationDot} style={{ background: a.color }} />
+              <span className={styles.allocationLegendLabel}>{a.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className={styles.allocationCards}>
+          {cashAllocation.map((a, i) => (
+            <div key={i} className={styles.allocationCard}>
+              <div className={styles.allocationCardHeader}>
+                <span className={styles.allocationCardDot} style={{ background: a.color }} />
+                <span className={styles.allocationCardLabel}>{a.label}</span>
+              </div>
+              <div className={styles.allocationCardAmount}>{a.amount}</div>
+              <div className={styles.allocationCardPct}>{a.pct}% of total</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

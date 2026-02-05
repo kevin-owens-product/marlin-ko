@@ -100,3 +100,57 @@
 .topSupplierRank { font-size: 0.6875rem; color: #4E5969; width: 20px; text-align: center; font-weight: 600; flex-shrink: 0; }
 .topSupplierName { font-size: 0.8125rem; color: #1D2129; flex: 1; }
 .topSupplierRebate { font-size: 0.8125rem; color: #23C343; font-weight: 600; width: 70px; text-align: right; flex-shrink: 0; }
+
+/* ─── Annualized Revenue KPI Hero ─── */
+.revenueHeroSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.revenueHeroTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 1.25rem; }
+.revenueHeroGrid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.revenueHeroCard { background: #ffffff; border-radius: 0.75rem; padding: 1.25rem; text-align: center; }
+.revenueHeroCardPrimary { background: #ffffff; border-radius: 0.75rem; padding: 1.25rem; text-align: center; border: 2px solid rgba(35, 195, 67, 0.3); }
+.revenueHeroMetric { font-size: 1.75rem; font-weight: 800; color: #23C343; margin-bottom: 0.25rem; }
+.revenueHeroMetricBlue { font-size: 1.75rem; font-weight: 800; color: #165DFF; margin-bottom: 0.25rem; }
+.revenueHeroMetricAmber { font-size: 1.75rem; font-weight: 800; color: #FF9A2E; margin-bottom: 0.25rem; }
+.revenueHeroMetricPurple { font-size: 1.75rem; font-weight: 800; color: #8E51DA; margin-bottom: 0.25rem; }
+.revenueHeroLabel { font-size: 0.75rem; color: #4E5969; margin-bottom: 0.375rem; }
+.revenueHeroSub { font-size: 0.6875rem; color: #86909C; }
+.revenueProgressSection { background: #ffffff; border-radius: 0.75rem; padding: 1.25rem; }
+.revenueProgressHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.revenueProgressLabel { font-size: 0.8125rem; font-weight: 600; color: #1D2129; }
+.revenueProgressPct { font-size: 0.875rem; font-weight: 700; color: #23C343; }
+.revenueProgressBarWrap { background: rgba(229, 230, 235, 0.5); border-radius: 0.375rem; height: 28px; overflow: hidden; position: relative; }
+.revenueProgressBar { height: 100%; border-radius: 0.375rem; background: linear-gradient(90deg, #23C343, #165DFF); transition: width 0.3s ease; }
+.revenueProgressText { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.6875rem; color: #1D2129; font-weight: 600; }
+.revenueProgressMeta { display: flex; justify-content: space-between; margin-top: 0.625rem; }
+.revenueProgressMetaItem { font-size: 0.6875rem; color: #86909C; }
+.revenueProgressMetaValue { color: #1D2129; font-weight: 600; }
+.revenuePerSupplier { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; padding: 0.75rem; background: rgba(22, 93, 255, 0.04); border: 1px solid rgba(22, 93, 255, 0.1); border-radius: 0.5rem; }
+.revenuePerSupplierLabel { font-size: 0.75rem; color: #4E5969; }
+.revenuePerSupplierValue { font-size: 0.875rem; font-weight: 700; color: #165DFF; }
+
+/* ─── Revenue Acceleration Plan (Waterfall) ─── */
+.waterfallSection { background: #F7F8FA; border: 1px solid #E5E6EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+.waterfallTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin-bottom: 0.375rem; }
+.waterfallSubtitle { font-size: 0.8125rem; color: #4E5969; margin-bottom: 1.5rem; }
+.waterfallChart { display: flex; align-items: flex-end; gap: 1rem; height: 280px; padding: 1rem 0; }
+.waterfallCol { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; gap: 4px; }
+.waterfallBarStack { display: flex; flex-direction: column; width: 100%; gap: 0; }
+.waterfallBarSegment { width: 100%; min-height: 4px; }
+.waterfallBarGreen { background: #23C343; border-radius: 3px 3px 0 0; }
+.waterfallBarBlue { background: #165DFF; border-radius: 3px 3px 0 0; }
+.waterfallBarPurple { background: #8E51DA; border-radius: 3px 3px 0 0; }
+.waterfallBarTotal { background: linear-gradient(180deg, #23C343, #165DFF); border-radius: 3px 3px 0 0; }
+.waterfallBarSpacer { background: transparent; }
+.waterfallValue { font-size: 0.6875rem; font-weight: 700; color: #1D2129; text-align: center; }
+.waterfallLabel { font-size: 0.625rem; color: #4E5969; white-space: nowrap; text-align: center; max-width: 100%; }
+.waterfallLabelSub { font-size: 0.5625rem; color: #86909C; white-space: nowrap; text-align: center; }
+.waterfallDetails { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.waterfallDetailCard { background: #ffffff; border-radius: 0.75rem; padding: 1rem; }
+.waterfallDetailHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.waterfallDetailDot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.waterfallDotGreen { background: #23C343; }
+.waterfallDotBlue { background: #165DFF; }
+.waterfallDotPurple { background: #8E51DA; }
+.waterfallDotGold { background: linear-gradient(135deg, #23C343, #165DFF); }
+.waterfallDetailLabel { font-size: 0.75rem; font-weight: 600; color: #1D2129; }
+.waterfallDetailValue { font-size: 1.125rem; font-weight: 700; color: #1D2129; margin-bottom: 0.25rem; }
+.waterfallDetailMeta { font-size: 0.6875rem; color: #86909C; }

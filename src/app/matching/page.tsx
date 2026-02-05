@@ -226,6 +226,153 @@ export default function MatchingPage() {
           </div>
         </div>
       </div>
+
+      {/* ── Agentic AI: Touchless Processing Metrics ──────── */}
+      <div className={styles.touchlessSection}>
+        <div className={styles.touchlessSectionTitle}>
+          Touchless Processing Metrics
+          <span className={styles.aiBadge}>Agentic AI</span>
+          <span className={styles.betBadge}>Bet 3</span>
+        </div>
+
+        <div className={styles.touchlessMetricsGrid}>
+          <div className={styles.touchlessMetricCard}>
+            <div className={styles.touchlessMetricLabel}>Touchless Match Rate</div>
+            <div className={styles.touchlessMetricValueGreen}>94.2%</div>
+            <div className={styles.touchlessMetricSub}>Auto-matched without human intervention</div>
+          </div>
+          <div className={styles.touchlessMetricCard}>
+            <div className={styles.touchlessMetricLabel}>Auto-Match SLA</div>
+            <div className={styles.touchlessMetricValueBlue}>95%</div>
+            <div className={styles.touchlessMetricSub}>Resolved within 2 hours</div>
+          </div>
+          <div className={styles.touchlessMetricCard}>
+            <div className={styles.touchlessMetricLabel}>Avg Time-to-Match</div>
+            <div className={styles.touchlessMetricValue}>1.8 hrs</div>
+            <div className={styles.touchlessMetricBenchmark}>
+              vs <span className={styles.benchmarkStrike}>4.2 hrs</span> manual benchmark
+            </div>
+          </div>
+          <div className={styles.touchlessMetricCard}>
+            <div className={styles.touchlessMetricLabel}>Exception Resolution Time</div>
+            <div className={styles.touchlessMetricValue}>4.2 hrs</div>
+            <div className={styles.touchlessMetricSub}>Average across all exception types</div>
+          </div>
+        </div>
+
+        <div className={styles.trendRow}>
+          <div className={styles.trendRowTitle}>
+            6-Month Touchless Rate Trend
+            <span className={styles.trendTarget}>Target: 96% by Q2 2026</span>
+          </div>
+          {[
+            { month: 'Aug', pct: 86.1 },
+            { month: 'Sep', pct: 88.4 },
+            { month: 'Oct', pct: 89.7 },
+            { month: 'Nov', pct: 91.3 },
+            { month: 'Dec', pct: 92.8 },
+            { month: 'Jan', pct: 94.2 },
+          ].map((item) => (
+            <div className={styles.trendBarContainer} key={item.month}>
+              <span className={styles.trendBarLabel}>{item.month}</span>
+              <div className={styles.trendBarTrack}>
+                <div
+                  className={styles.trendBarFill}
+                  style={{ width: `${item.pct}%` }}
+                >
+                  <span className={styles.trendBarPercent}>{item.pct}%</span>
+                </div>
+                <div className={styles.trendTargetLine} style={{ left: '96%' }}>
+                  <span className={styles.trendTargetLabel}>96%</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Agentic AI: Speed & Efficiency Impact ─────────── */}
+      <div className={styles.touchlessSectionWhite}>
+        <div className={styles.touchlessSectionTitle}>
+          Speed &amp; Efficiency Impact
+          <span className={styles.aiBadge}>Business Value</span>
+        </div>
+
+        <div className={styles.impactGrid}>
+          <div className={styles.impactCard}>
+            <div className={styles.impactIcon}>&#9201;</div>
+            <div className={styles.impactLabel}>Time Savings</div>
+            <div className={styles.impactValue}>3,400 hrs/mo</div>
+            <div className={styles.impactSub}>Saved vs manual matching process</div>
+          </div>
+          <div className={styles.impactCard}>
+            <div className={styles.impactIcon}>&#128176;</div>
+            <div className={styles.impactLabel}>Cost per Match</div>
+            <div className={styles.impactValueGreen}>$0.42 auto</div>
+            <div className={styles.impactSub}>
+              vs <span className={styles.benchmarkStrike}>$8.70</span> manual &mdash; 95% cost reduction
+            </div>
+          </div>
+          <div className={styles.impactCard}>
+            <div className={styles.impactIcon}>&#9889;</div>
+            <div className={styles.impactLabel}>Payment Acceleration</div>
+            <div className={styles.impactValuePurple}>2.1 days faster</div>
+            <div className={styles.impactSub}>Average payment to suppliers vs pre-automation</div>
+          </div>
+          <div className={styles.impactCard}>
+            <div className={styles.impactIcon}>&#11088;</div>
+            <div className={styles.impactLabel}>Supplier Satisfaction</div>
+            <div className={styles.impactValueGreen}>+18 NPS pts</div>
+            <div className={styles.impactSub}>Driven by faster, more predictable payments</div>
+          </div>
+        </div>
+
+        <div className={styles.strategicInsight}>
+          <div className={styles.strategicInsightIcon}>&#128161;</div>
+          <div className={styles.strategicInsightText}>
+            <span className={styles.strategicInsightHighlight}>Strategic Bet 3 — Agentic AI: </span>
+            Customers with &gt;90% touchless processing show{' '}
+            <span className={styles.strategicInsightHighlight}>97% renewal rate</span> vs 82% below 70%.
+            NPS delta of <span className={styles.strategicInsightHighlight}>+28 points</span>.
+          </div>
+        </div>
+      </div>
+
+      {/* ── Agentic AI: Exception Insights ────────────────── */}
+      <div className={styles.touchlessSectionWhite}>
+        <div className={styles.touchlessSectionTitle}>
+          Exception Insights &mdash; Blocking 100% Touchless
+          <span className={styles.aiBadge}>AI Learning</span>
+        </div>
+
+        <div className={styles.exceptionList}>
+          {[
+            { name: 'Amount Variance >2%', pct: 35, count: 124, color: 'exceptionBarRed' },
+            { name: 'No PO Found', pct: 25, count: 89, color: 'exceptionBarAmber' },
+            { name: 'First-Time Supplier', pct: 20, count: 71, color: 'exceptionBarBlue' },
+            { name: 'Multi-Line Mismatch', pct: 12, count: 43, color: 'exceptionBarPurple' },
+            { name: 'Currency Rounding', pct: 8, count: 28, color: 'exceptionBarGreen' },
+          ].map((exc) => (
+            <div className={styles.exceptionRow} key={exc.name}>
+              <div className={styles.exceptionName}>{exc.name}</div>
+              <div className={styles.exceptionPercent}>{exc.pct}%</div>
+              <div className={styles.exceptionCount}>{exc.count} this month</div>
+              <div className={styles.exceptionBarWrap}>
+                <div className={styles.exceptionBarTrack}>
+                  <div
+                    className={`${styles.exceptionBarFill} ${styles[exc.color]}`}
+                    style={{ width: `${exc.pct}%` }}
+                  />
+                </div>
+                <span className={styles.aiLearningBadge}>
+                  <span className={styles.aiLearningDot} />
+                  AI
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

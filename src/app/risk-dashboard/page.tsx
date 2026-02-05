@@ -777,6 +777,292 @@ export default function RiskDashboardPage() {
           </>
         )}
       </Tabs>
+
+      {/* ══════════════════════════════════════════════════════
+          Agentic AI — Bet 3: Touchless Enablement & Efficiency
+          ══════════════════════════════════════════════════════ */}
+
+      {/* ── Touchless Enablement View ─────────────────────── */}
+      <div className={styles.touchlessSection}>
+        <div className={styles.touchlessSectionTitle}>
+          Touchless Enablement View
+          <span className={styles.aiBadge}>Agentic AI</span>
+          <span className={styles.betBadge}>Bet 3</span>
+        </div>
+
+        <div className={styles.riskTierList}>
+          {/* Low Risk */}
+          <div className={styles.riskTierRow}>
+            <div>
+              <div className={styles.riskTierLabel} style={{ color: '#23C343' }}>Low Risk</div>
+              <div className={styles.riskTierRange}>Score 0&ndash;30</div>
+            </div>
+            <div className={styles.riskTierCount}>1,200 invoices</div>
+            <div className={styles.riskTierBarWrap}>
+              <div className={styles.riskTierBarTrack}>
+                <div
+                  className={styles.riskTierBarTouchless}
+                  style={{ width: '100%', background: '#23C343' }}
+                >
+                  100% touchless
+                </div>
+              </div>
+              <div className={styles.riskTierBarLegend}>
+                <span>100% eligible for touchless processing</span>
+              </div>
+            </div>
+            <div className={`${styles.riskTierEligibility} ${styles.eligibilityGreen}`}>100%</div>
+          </div>
+
+          {/* Medium Risk */}
+          <div className={styles.riskTierRow}>
+            <div>
+              <div className={styles.riskTierLabel} style={{ color: '#FF9A2E' }}>Medium Risk</div>
+              <div className={styles.riskTierRange}>Score 31&ndash;60</div>
+            </div>
+            <div className={styles.riskTierCount}>180 invoices</div>
+            <div className={styles.riskTierBarWrap}>
+              <div className={styles.riskTierBarTrack}>
+                <div
+                  className={styles.riskTierBarTouchless}
+                  style={{ width: '72%', background: '#23C343' }}
+                >
+                  72%
+                </div>
+                <div
+                  className={styles.riskTierBarManual}
+                  style={{ width: '28%', background: '#FF9A2E' }}
+                >
+                  28%
+                </div>
+              </div>
+              <div className={styles.riskTierBarLegend}>
+                <span>72% touchless &middot; 28% flagged for review</span>
+              </div>
+            </div>
+            <div className={`${styles.riskTierEligibility} ${styles.eligibilityAmber}`}>72%</div>
+          </div>
+
+          {/* High Risk */}
+          <div className={styles.riskTierRow}>
+            <div>
+              <div className={styles.riskTierLabel} style={{ color: '#F76560' }}>High Risk</div>
+              <div className={styles.riskTierRange}>Score 61&ndash;80</div>
+            </div>
+            <div className={styles.riskTierCount}>45 invoices</div>
+            <div className={styles.riskTierBarWrap}>
+              <div className={styles.riskTierBarTrack}>
+                <div
+                  className={styles.riskTierBarManual}
+                  style={{ width: '100%', background: '#F76560' }}
+                >
+                  Manual review required
+                </div>
+              </div>
+              <div className={styles.riskTierBarLegend}>
+                <span>Manual review required</span>
+              </div>
+            </div>
+            <div className={`${styles.riskTierEligibility} ${styles.eligibilityRed}`}>0%</div>
+          </div>
+
+          {/* Critical */}
+          <div className={styles.riskTierRow}>
+            <div>
+              <div className={styles.riskTierLabel} style={{ color: '#DC2626' }}>Critical</div>
+              <div className={styles.riskTierRange}>Score 81&ndash;100</div>
+            </div>
+            <div className={styles.riskTierCount}>12 invoices</div>
+            <div className={styles.riskTierBarWrap}>
+              <div className={styles.riskTierBarTrack}>
+                <div
+                  className={styles.riskTierBarManual}
+                  style={{ width: '100%', background: '#DC2626' }}
+                >
+                  Blocked &mdash; investigation required
+                </div>
+              </div>
+              <div className={styles.riskTierBarLegend}>
+                <span>Blocked, investigation required</span>
+              </div>
+            </div>
+            <div className={`${styles.riskTierEligibility} ${styles.eligibilityCritical}`}>0%</div>
+          </div>
+        </div>
+
+        <div className={styles.touchlessTotalCard}>
+          <div>
+            <div className={styles.touchlessTotalLabel}>Total Touchless-Eligible</div>
+            <div className={styles.touchlessTotalSub}>
+              1,330 of 1,437 invoices pass risk threshold for autonomous processing
+            </div>
+          </div>
+          <div className={styles.touchlessTotalValue}>96.1%</div>
+        </div>
+
+        <div className={styles.stackedBarLegend}>
+          <span className={styles.stackedBarLegendItem}>
+            <span className={styles.stackedBarLegendDot} style={{ background: '#23C343' }} />
+            Touchless
+          </span>
+          <span className={styles.stackedBarLegendItem}>
+            <span className={styles.stackedBarLegendDot} style={{ background: '#FF9A2E' }} />
+            Light Review
+          </span>
+          <span className={styles.stackedBarLegendItem}>
+            <span className={styles.stackedBarLegendDot} style={{ background: '#F76560' }} />
+            Manual Review
+          </span>
+          <span className={styles.stackedBarLegendItem}>
+            <span className={styles.stackedBarLegendDot} style={{ background: '#DC2626' }} />
+            Blocked
+          </span>
+        </div>
+      </div>
+
+      {/* ── AI Detection Efficiency ───────────────────────── */}
+      <div className={styles.touchlessSectionWhite}>
+        <div className={styles.touchlessSectionTitle}>
+          AI Detection Efficiency
+          <span className={styles.aiBadge}>Auto vs Manual</span>
+        </div>
+
+        <div className={styles.detectionGrid}>
+          <div className={styles.detectionCard}>
+            <div className={styles.detectionLabel}>Auto-Detected Fraud</div>
+            <div className={styles.detectionValueGreen}>$180K</div>
+            <div className={styles.detectionSub}>77% of total prevented &mdash; caught by AI models</div>
+          </div>
+          <div className={styles.detectionCard}>
+            <div className={styles.detectionLabel}>Human-Escalated Fraud</div>
+            <div className={styles.detectionValue}>$54K</div>
+            <div className={styles.detectionSub}>23% of total prevented &mdash; manual escalation</div>
+          </div>
+        </div>
+
+        <div className={styles.detectionComparison}>
+          <div className={styles.detectionComparisonVisual}>
+            <div className={styles.detectionComparisonBar}>
+              <div
+                className={styles.detectionComparisonBarFill}
+                style={{ height: '5rem', background: '#165DFF' }}
+              />
+              <div className={styles.detectionComparisonBarLabel}>AI</div>
+            </div>
+            <div className={styles.detectionComparisonBar}>
+              <div
+                className={styles.detectionComparisonBarFill}
+                style={{ height: '1.5rem', background: '#C9CDD4' }}
+              />
+              <div className={styles.detectionComparisonBarLabel}>Manual</div>
+            </div>
+          </div>
+          <div className={styles.detectionComparisonText}>
+            <div className={styles.detectionComparisonHeadline}>
+              AI catches <span className={styles.detectionHighlight}>3.3x</span> more fraud per hour than manual review
+            </div>
+            <div className={styles.detectionComparisonDetail}>
+              Automated detection processes thousands of invoices simultaneously,
+              identifying patterns invisible to human reviewers.
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.detectionInsightRow}>
+          <div className={styles.detectionInsightCard}>
+            <div className={styles.detectionInsightIcon}>&#128269;</div>
+            <div>
+              <div className={styles.detectionInsightLabel}>False Positive Impact</div>
+              <div className={styles.detectionInsightValue}>1.8% false positive rate</div>
+              <div className={styles.detectionInsightSub}>
+                Only 26 invoices/month requiring manual clearance
+              </div>
+            </div>
+          </div>
+          <div className={styles.detectionInsightCard}>
+            <div className={styles.detectionInsightIcon}>&#128200;</div>
+            <div>
+              <div className={styles.detectionInsightLabel}>Benford&apos;s Law Validation</div>
+              <div className={styles.detectionInsightValue}>94% catch rate</div>
+              <div className={styles.detectionInsightSub}>
+                Anomaly detection catches 94% of invoice amount manipulation
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Risk-Adjusted Processing Speed ────────────────── */}
+      <div className={styles.touchlessSectionWhite}>
+        <div className={styles.touchlessSectionTitle}>
+          Risk-Adjusted Processing Speed
+          <span className={styles.aiBadge}>SLA Performance</span>
+        </div>
+
+        <div className={styles.speedList}>
+          <div className={styles.speedRow}>
+            <div className={styles.speedRiskLabel} style={{ color: '#23C343' }}>Low Risk</div>
+            <div className={`${styles.speedTime} ${styles.speedTimeGreen}`}>0.8 hrs</div>
+            <div>
+              <div className={styles.speedBarTrack}>
+                <div className={styles.speedBarFill} style={{ width: '1.1%', background: '#23C343' }} />
+              </div>
+            </div>
+            <div className={styles.speedMethod}>Touchless</div>
+          </div>
+
+          <div className={styles.speedRow}>
+            <div className={styles.speedRiskLabel} style={{ color: '#165DFF' }}>Medium Risk</div>
+            <div className={`${styles.speedTime} ${styles.speedTimeBlue}`}>3.2 hrs</div>
+            <div>
+              <div className={styles.speedBarTrack}>
+                <div className={styles.speedBarFill} style={{ width: '4.4%', background: '#165DFF' }} />
+              </div>
+            </div>
+            <div className={styles.speedMethod}>Light Review</div>
+          </div>
+
+          <div className={styles.speedRow}>
+            <div className={styles.speedRiskLabel} style={{ color: '#FF9A2E' }}>High Risk</div>
+            <div className={`${styles.speedTime} ${styles.speedTimeAmber}`}>18 hrs</div>
+            <div>
+              <div className={styles.speedBarTrack}>
+                <div className={styles.speedBarFill} style={{ width: '25%', background: '#FF9A2E' }} />
+              </div>
+            </div>
+            <div className={styles.speedMethod}>Full Investigation</div>
+          </div>
+
+          <div className={styles.speedRow}>
+            <div className={styles.speedRiskLabel} style={{ color: '#DC2626' }}>Critical</div>
+            <div className={`${styles.speedTime} ${styles.speedTimeRed}`}>72 hrs</div>
+            <div>
+              <div className={styles.speedBarTrack}>
+                <div className={styles.speedBarFill} style={{ width: '100%', background: '#F76560' }} />
+              </div>
+            </div>
+            <div className={styles.speedMethod}>Forensic Review</div>
+          </div>
+        </div>
+
+        <div className={styles.speedSummary}>
+          <div className={styles.speedSummaryIcon}>&#9889;</div>
+          <div className={styles.speedSummaryText}>
+            <span className={styles.speedSummaryHighlight}>98.6%</span> of invoices clear in under 4 hours.
+            Risk-based routing ensures critical items get appropriate scrutiny without slowing the entire pipeline.
+          </div>
+        </div>
+
+        <div className={styles.strategicInsight}>
+          <div className={styles.strategicInsightIcon}>&#128161;</div>
+          <div className={styles.strategicInsightText}>
+            <span className={styles.strategicInsightHighlight}>Strategic Bet 3 — Agentic AI: </span>
+            Customers with &gt;90% touchless processing show{' '}
+            <span className={styles.strategicInsightHighlight}>97% renewal rate</span> vs 82% below 70%.
+            NPS delta of <span className={styles.strategicInsightHighlight}>+28 points</span>.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

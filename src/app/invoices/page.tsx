@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useT } from '@/lib/i18n/locale-context';
 import { useCRUD } from '@/lib/hooks/use-crud';
 import { useInlineEdit } from '@/lib/hooks/use-inline-edit';
+import { useBulkSelect } from '@/lib/hooks/use-bulk-select';
 import { useToast } from '@/components/ui/Toast';
 import { EditableCell } from '@/components/inline-edit/EditableCell';
 import { RowActions } from '@/components/inline-edit/RowActions';
@@ -84,6 +85,15 @@ export default function InvoicesPage() {
   const crud = useCRUD<Invoice>({ endpoint: '/api/invoices', autoFetch: false });
   const inline = useInlineEdit<Invoice>();
   const { addToast } = useToast();
+  const bulk = useBulkSelect();
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const visibleIds = crud.data.map((inv) => inv.id);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = bulk.someSelected && !bulk.allSelected(visibleIds);
+    }
+  }, [bulk.someSelected, bulk.allSelected, visibleIds]);
 
   useEffect(() => {
     const params: Record<string, string> = {};
@@ -227,10 +237,27 @@ export default function InvoicesPage() {
         </div>
       )}
 
+      {bulk.count > 0 && (
+        <div className={styles.bulkBar}>
+          <span className={styles.bulkCount}>{bulk.count} selected</span>
+          <button className={styles.bulkBtn} onClick={() => { /* export */ }}>Export</button>
+          <button className={`${styles.bulkBtn} ${styles.bulkBtnDanger}`} onClick={() => { /* delete */ }}>Delete</button>
+          <button className={styles.bulkBtnClear} onClick={bulk.clear}>Clear</button>
+        </div>
+      )}
+
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
+              <th style={{ width: 40 }}>
+                <input
+                  type="checkbox"
+                  ref={checkboxRef}
+                  checked={bulk.allSelected(visibleIds)}
+                  onChange={() => bulk.toggleAll(visibleIds)}
+                />
+              </th>
               <th>{t('invoices.invoiceNumber')}</th>
               <th>{t('invoices.supplier')}</th>
               <th>{t('invoices.amount')}</th>
@@ -246,6 +273,7 @@ export default function InvoicesPage() {
             {/* Create row */}
             {inline.isCreating && (
               <tr>
+                <td />
                 <td>
                   <EditableCell
                     editing
@@ -306,7 +334,7 @@ export default function InvoicesPage() {
             {/* Loading state */}
             {crud.loading && crud.data.length === 0 && (
               <tr>
-                <td colSpan={9} style={{ textAlign: 'center', padding: '2rem', color: '#86909C' }}>
+                <td colSpan={10} style={{ textAlign: 'center', padding: '2rem', color: '#86909C' }}>
                   {t('common.loading')}
                 </td>
               </tr>
@@ -315,7 +343,7 @@ export default function InvoicesPage() {
             {/* Empty state */}
             {!crud.loading && crud.data.length === 0 && (
               <tr>
-                <td colSpan={9} style={{ textAlign: 'center', padding: '2rem', color: '#86909C' }}>
+                <td colSpan={10} style={{ textAlign: 'center', padding: '2rem', color: '#86909C' }}>
                   {t('common.noData')}
                 </td>
               </tr>
@@ -330,6 +358,7 @@ export default function InvoicesPage() {
 
               return (
                 <tr key={inv.id}>
+                  <td><input type="checkbox" checked={bulk.selected.has(inv.id)} onChange={() => bulk.toggle(inv.id)} /></td>
                   <td>
                     <EditableCell
                       editing={isEditing}

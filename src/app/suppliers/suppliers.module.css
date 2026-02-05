@@ -59,3 +59,10 @@
 .pageButton:hover { background: #E5E6EB; color: #1D2129; }
 .pageButtonActive { background: #165DFF; border-color: #165DFF; color: #fff; }
 .spend { font-family: monospace; font-weight: 500; }
+.table tbody tr:nth-child(even) { background: rgba(229, 230, 235, 0.25); }
+.bulkBar { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: rgba(22, 93, 255, 0.06); border: 1px solid rgba(22, 93, 255, 0.15); border-radius: 0.5rem; margin-bottom: 1rem; }
+.bulkCount { font-size: 0.8125rem; font-weight: 600; color: #165DFF; margin-right: auto; }
+.bulkBtn { padding: 0.375rem 0.875rem; background: #165DFF; color: #fff; border: none; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.bulkBtn:hover { background: #0E42D2; }
+.bulkBtnClear { padding: 0.375rem 0.875rem; background: transparent; color: #4E5969; border: 1px solid #E5E6EB; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.bulkBtnClear:hover { background: #E5E6EB; color: #1D2129; }

@@ -215,6 +215,16 @@
 .wcTrendBar { flex: 1; background: #165DFF; border-radius: 2px 2px 0 0; min-width: 6px; opacity: 0.7; }
 .wcTrendBar:last-child { opacity: 1; }
 
+/* ROI on AI Insights */
+.insightRoi { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.625rem; border-top: 1px solid rgba(229, 230, 235, 0.5); }
+.insightRoiValue { font-size: 1rem; font-weight: 700; }
+.insightRoiRisk { color: #F76560; }
+.insightRoiSavings { color: #23C343; }
+.insightRoiLabel { font-size: 0.6875rem; color: #4E5969; }
+.insightsTotalRow { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding: 0.875rem 1rem; background: rgba(22, 93, 255, 0.06); border: 1px solid rgba(22, 93, 255, 0.12); border-radius: 0.5rem; }
+.insightsTotalLabel { font-size: 0.8125rem; font-weight: 500; color: #4E5969; }
+.insightsTotalValue { font-size: 0.875rem; font-weight: 700; color: #1D2129; }
+
 /* Responsive */
 @media (max-width: 1024px) {
   .bankGrid { grid-template-columns: repeat(2, 1fr); }

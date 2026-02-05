@@ -178,6 +178,43 @@ const countryCodeMap: Record<string, string> = {
   NL: 'Netherlands', ES: 'Spain', NO: 'Norway', FI: 'Finland',
 };
 
+/* ── Strategic Bet 1: E-Invoicing as Competitive Moat ── */
+
+const peppolReadiness = {
+  overall: 34,
+  segments: [
+    { name: 'Enterprise', ready: 78, total: 320, color: '#165DFF' },
+    { name: 'Mid-Market', ready: 42, total: 890, color: '#8E51DA' },
+    { name: 'SMB', ready: 18, total: 1580, color: '#FF9A2E' },
+  ],
+  conversionMultiplier: 2.4,
+  unrealizedRevenue: 17.8,
+  unactivatedCustomers: 1190,
+};
+
+const competitivePositioning = [
+  { vendor: 'Medius', peppolApproach: 'Peppol Access Point Owner', mandateCoverage: '14 EU markets', enterpriseReady: true, advantage: 'Proprietary network control', color: '#165DFF', highlight: true },
+  { vendor: 'Coupa', peppolApproach: 'Partner-based Peppol', mandateCoverage: '9 EU markets', enterpriseReady: true, advantage: 'Slower, less control', color: '#86909C', highlight: false },
+  { vendor: 'Tipalti', peppolApproach: 'Limited integration', mandateCoverage: '4 EU markets', enterpriseReady: false, advantage: 'Limited European mandate coverage', color: '#86909C', highlight: false },
+  { vendor: 'Bill.com', peppolApproach: 'No Peppol support', mandateCoverage: '0 EU markets', enterpriseReady: false, advantage: 'SMB-only, no enterprise compliance moat', color: '#86909C', highlight: false },
+  { vendor: 'SAP Concur', peppolApproach: 'Legacy integration', mandateCoverage: '11 EU markets', enterpriseReady: true, advantage: 'Legacy architecture, slower to adapt', color: '#86909C', highlight: false },
+];
+
+const winRateData = {
+  withCompliance: 58,
+  withoutCompliance: 34,
+  uplift: 24,
+  pipelineContribution: 2.8,
+  pipelinePercent: 34,
+  projectedRevenue: 8.2,
+  cohorts: {
+    ready: { nps: 87, retention: 96 },
+    notReady: { nps: 62, retention: 78 },
+  },
+};
+
+const iceScore = { impact: 9, confidence: 8, ease: 7, total: 24 };
+
 /* Heatmap data: country x format pass rate */
 const heatmapData: { country: string; format: string; rate: number }[] = [
   { country: 'BE', format: 'UBL 2.1', rate: 99.4 },
@@ -518,6 +555,212 @@ export default function CompliancePage() {
                     <span className={styles.periodStatLabel}>Pass Rate</span>
                   </div>
                 </div>
+
+                {/* ── Strategic Context Banner ── */}
+                <div className={styles.strategicBanner}>
+                  <div className={styles.strategicBannerTop}>
+                    <div className={styles.strategicBannerLeft}>
+                      <div className={styles.strategicBannerIcon}>{'\uD83D\uDEE1\uFE0F'}</div>
+                      <div>
+                        <h2 className={styles.strategicBannerTitle}>E-Invoicing: Compliance as Competitive Moat</h2>
+                        <p className={styles.strategicBannerSubtitle}>
+                          Belgium B2B Mandate <span className={styles.mandateLiveBadge}><span className={styles.mandateLiveDot} /> LIVE</span> &mdash; <strong>67% of EU companies lack Peppol readiness</strong> &mdash; your market opportunity
+                        </p>
+                      </div>
+                    </div>
+                    <div className={styles.strategicBannerIce}>
+                      <div className={styles.iceScoreTotal}>
+                        <span className={styles.iceScoreValue}>{iceScore.total}</span>
+                        <span className={styles.iceScoreLabel}>ICE Score</span>
+                      </div>
+                      <div className={styles.iceBreakdown}>
+                        <span className={styles.iceItem}>Impact <span className={styles.iceItemValue}>{iceScore.impact}</span></span>
+                        <span className={styles.iceItem}>Confidence <span className={styles.iceItemValue}>{iceScore.confidence}</span></span>
+                        <span className={styles.iceItem}>Ease <span className={styles.iceItemValue}>{iceScore.ease}</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.strategicStatsRow}>
+                    <div className={styles.strategicStatCard}>
+                      <div className={styles.strategicStatValue}>
+                        34% <span style={{ color: '#86909C', fontWeight: 400, fontSize: '0.875rem' }}>{'\u2192'}</span> <span className={styles.strategicHighlight} style={{ color: '#23C343' }}>58%</span>
+                      </div>
+                      <div className={styles.strategicStatLabel}>RFP Win Rate in compliance-mentioning deals (+24pp uplift)</div>
+                    </div>
+                    <div className={styles.strategicStatCard}>
+                      <div className={styles.strategicStatValue} style={{ color: '#165DFF' }}>67%</div>
+                      <div className={styles.strategicStatLabel}>EU customers with no Peppol readiness (addressable gap)</div>
+                    </div>
+                    <div className={styles.strategicStatCard}>
+                      <div className={styles.strategicStatValue} style={{ color: '#8E51DA' }}>Bet 1</div>
+                      <div className={styles.strategicStatLabel}>Strategic priority: Belgium B2B mandate drives urgency across EU</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Peppol Readiness Dashboard ── */}
+                <section className={styles.peppolSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionTitle}>
+                      Peppol Readiness Dashboard
+                      <span className={styles.badge}>Customer Activation</span>
+                    </div>
+                    <span className={styles.sectionAction}>View Activation Pipeline</span>
+                  </div>
+                  <div className={styles.peppolGrid}>
+                    <div className={styles.peppolSegments}>
+                      <div className={styles.peppolOverallBar}>
+                        <div className={styles.peppolOverallLabel}>
+                          <span className={styles.peppolOverallText}>Overall Peppol-Activated</span>
+                          <span className={styles.peppolOverallPercent}>{peppolReadiness.overall}%</span>
+                        </div>
+                        <div className={styles.peppolProgressTrack}>
+                          <div className={styles.peppolProgressFill} style={{ width: `${peppolReadiness.overall}%`, background: 'linear-gradient(90deg, #165DFF, #8E51DA)' }} />
+                        </div>
+                      </div>
+                      {peppolReadiness.segments.map((seg) => (
+                        <div key={seg.name} className={styles.peppolSegmentRow}>
+                          <div className={styles.peppolSegmentHeader}>
+                            <span className={styles.peppolSegmentName}>{seg.name}</span>
+                            <span className={styles.peppolSegmentStat}>
+                              <span className={styles.peppolSegmentPercent} style={{ color: seg.color }}>{seg.ready}%</span>
+                              {' '}ready ({Math.round(seg.total * seg.ready / 100).toLocaleString()} / {seg.total.toLocaleString()})
+                            </span>
+                          </div>
+                          <div className={styles.peppolSegmentBar}>
+                            <div className={styles.peppolSegmentFill} style={{ width: `${seg.ready}%`, backgroundColor: seg.color }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={styles.peppolInsights}>
+                      <div className={styles.peppolInsightCard}>
+                        <span className={styles.peppolInsightIcon}>{'\uD83D\uDD04'}</span>
+                        <span className={styles.peppolInsightValue}>{peppolReadiness.conversionMultiplier}x</span>
+                        <span className={styles.peppolInsightLabel}>
+                          Peppol-ready customers are <span className={styles.peppolInsightHighlight}>{peppolReadiness.conversionMultiplier}x more likely</span> to expand license
+                        </span>
+                      </div>
+                      <div className={styles.peppolInsightCard}>
+                        <span className={styles.peppolInsightIcon}>{'\uD83D\uDCB0'}</span>
+                        <span className={styles.peppolInsightValue}>${peppolReadiness.unrealizedRevenue}M</span>
+                        <span className={styles.peppolInsightLabel}>
+                          Unrealized revenue from <span className={styles.peppolInsightHighlight}>{peppolReadiness.unactivatedCustomers.toLocaleString()} unactivated customers</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* ── Competitive Positioning ── */}
+                <section className={styles.competitiveSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionTitle}>
+                      Competitive Positioning
+                      <span className={styles.badge}>E-Invoicing Landscape</span>
+                    </div>
+                  </div>
+                  <div className={styles.competitiveGrid}>
+                    {competitivePositioning.map((comp) => (
+                      <div key={comp.vendor} className={`${styles.competitiveCard} ${comp.highlight ? styles.competitiveCardHighlight : ''}`}>
+                        <div className={styles.competitiveVendorName}>{comp.vendor}</div>
+                        <div className={styles.competitiveDetail}>
+                          <span className={styles.competitiveDetailLabel}>Peppol Approach</span>
+                          <span className={styles.competitiveDetailValue}>{comp.peppolApproach}</span>
+                        </div>
+                        <div className={styles.competitiveDetail}>
+                          <span className={styles.competitiveDetailLabel}>Mandate Coverage</span>
+                          <span className={styles.competitiveDetailValue}>{comp.mandateCoverage}</span>
+                        </div>
+                        <div className={styles.competitiveCheckRow}>
+                          {comp.enterpriseReady ? (
+                            <><span className={styles.competitiveCheckYes}>{'\u2713'}</span> Enterprise Ready</>
+                          ) : (
+                            <><span className={styles.competitiveCheckNo}>{'\u2717'}</span> Enterprise Ready</>
+                          )}
+                        </div>
+                        <div className={comp.highlight ? styles.competitiveAdvantageMedius : styles.competitiveAdvantage}>
+                          {comp.advantage}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* ── Win Rate Impact ── */}
+                <section className={styles.winRateSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionTitle}>
+                      Win Rate Impact
+                      <span className={styles.badge}>Deal Intelligence</span>
+                    </div>
+                    <span className={styles.sectionAction}>View Pipeline Detail</span>
+                  </div>
+                  <div className={styles.winRateGrid}>
+                    <div className={styles.winRateLeft}>
+                      <div className={styles.winRateComparison}>
+                        <div className={styles.winRateBar}>
+                          <div className={styles.winRateBarValue}>{winRateData.withCompliance}%</div>
+                          <div className={styles.winRateBarTrack}>
+                            <div className={`${styles.winRateBarFill} ${styles.winRateBarFillGreen}`} style={{ height: `${winRateData.withCompliance}%` }} />
+                          </div>
+                          <div className={styles.winRateBarLabel}>With Compliance Narrative</div>
+                        </div>
+                        <div className={styles.winRateBar}>
+                          <div className={styles.winRateBarValue}>{winRateData.withoutCompliance}%</div>
+                          <div className={styles.winRateBarTrack}>
+                            <div className={`${styles.winRateBarFill} ${styles.winRateBarFillGray}`} style={{ height: `${winRateData.withoutCompliance}%` }} />
+                          </div>
+                          <div className={styles.winRateBarLabel}>Without Compliance Narrative</div>
+                        </div>
+                      </div>
+                      <div className={styles.winRateUplift}>
+                        {'\u2191'} +{winRateData.uplift}pp Win Rate Uplift
+                      </div>
+                      <div className={styles.winRatePipeline}>
+                        <div className={styles.winRatePipelineCard}>
+                          <div className={styles.winRatePipelineValue}>${winRateData.pipelineContribution}M</div>
+                          <div className={styles.winRatePipelineLabel}>Pipeline Contribution ({winRateData.pipelinePercent}% of open EU deals)</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.winRateRight}>
+                      <h4 className={styles.winRateCohortTitle}>Customer Cohort Comparison</h4>
+                      <div className={styles.winRateCohorts}>
+                        <div className={`${styles.winRateCohortCard} ${styles.winRateCohortCardReady}`}>
+                          <span className={styles.winRateCohortLabel}>Compliance-Ready Customers</span>
+                          <div className={styles.winRateCohortStats}>
+                            <div className={styles.winRateCohortStat}>
+                              <span className={styles.winRateCohortStatValue} style={{ color: '#23C343' }}>{winRateData.cohorts.ready.nps}</span>
+                              <span className={styles.winRateCohortStatLabel}>NPS</span>
+                            </div>
+                            <div className={styles.winRateCohortStat}>
+                              <span className={styles.winRateCohortStatValue} style={{ color: '#23C343' }}>{winRateData.cohorts.ready.retention}%</span>
+                              <span className={styles.winRateCohortStatLabel}>Retention</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={`${styles.winRateCohortCard} ${styles.winRateCohortCardNotReady}`}>
+                          <span className={styles.winRateCohortLabel}>Not-Ready Customers</span>
+                          <div className={styles.winRateCohortStats}>
+                            <div className={styles.winRateCohortStat}>
+                              <span className={styles.winRateCohortStatValue} style={{ color: '#F76560' }}>{winRateData.cohorts.notReady.nps}</span>
+                              <span className={styles.winRateCohortStatLabel}>NPS</span>
+                            </div>
+                            <div className={styles.winRateCohortStat}>
+                              <span className={styles.winRateCohortStatValue} style={{ color: '#F76560' }}>{winRateData.cohorts.notReady.retention}%</span>
+                              <span className={styles.winRateCohortStatLabel}>Retention</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.winRateProjection}>
+                        <div className={styles.winRateProjectionValue}>+${winRateData.projectedRevenue}M</div>
+                        <div className={styles.winRateProjectionLabel}>Projected 2026 revenue impact from mandate momentum</div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
 
                 {/* Compliance Score Donut + Legend */}
                 <section className={styles.section}>

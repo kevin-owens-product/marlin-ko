@@ -303,3 +303,378 @@
 .ruleToggleOff::after {
   left: 2px;
 }
+
+/* ── AI Section (shared) ── */
+
+.aiSection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.aiSectionHeader {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(22, 93, 255, 0.1);
+}
+
+.aiSectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aiSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.aiSectionSubtitle {
+  font-size: 0.75rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+  display: block;
+}
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.12);
+  color: #165DFF;
+}
+
+.aiSectionBody {
+  padding: 1.5rem;
+}
+
+/* ── Accuracy Trend ── */
+
+.trendChartWrapper {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.trendChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+
+.trendBarCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.trendBarValue {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1D2129;
+  font-variant-numeric: tabular-nums;
+}
+
+.trendModelLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #8E51DA;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.trendBarTrack {
+  width: 3rem;
+  height: 120px;
+  background: #E5E6EB;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.trendBarFill {
+  width: 100%;
+  background: linear-gradient(180deg, #165DFF 0%, rgba(22, 93, 255, 0.6) 100%);
+  border-radius: 0.375rem;
+  transition: height 0.6s ease;
+}
+
+.trendBarMonth {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4E5969;
+  margin-top: 0.25rem;
+}
+
+.trendDelta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E5E6EB;
+}
+
+.trendDeltaValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #23C343;
+}
+
+.trendDeltaLabel {
+  font-size: 0.8125rem;
+  color: #86909C;
+}
+
+/* ── Industry Vertical Intelligence ── */
+
+.verticalsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.verticalCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.verticalCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.verticalName {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.verticalBadgeActive {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.verticalBadgeLearning {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(142, 81, 218, 0.12);
+  color: #8E51DA;
+}
+
+.verticalPatterns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.verticalPatternRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+}
+
+.verticalPatternName {
+  color: #4E5969;
+}
+
+.verticalPatternCode {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.375rem;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  border-radius: 0.25rem;
+}
+
+.verticalAccuracy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.verticalAccuracyBar {
+  flex: 1;
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.verticalAccuracyFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.verticalAccuracyValue {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 3rem;
+  text-align: right;
+}
+
+.verticalSamples {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.verticalSamplesValue {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.verticalSamplesLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+/* ── Feedback Loop & Override Intelligence ── */
+
+.feedbackStatsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.feedbackStatCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.feedbackStatValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.feedbackStatLabel {
+  font-size: 0.75rem;
+  color: #86909C;
+  text-align: center;
+}
+
+.feedbackTableWrapper {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.feedbackBadgeYes {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.15);
+  color: #23C343;
+}
+
+.feedbackBadgeNo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(255, 154, 46, 0.15);
+  color: #FF9A2E;
+}
+
+.feedbackCycle {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.feedbackCycleTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+  display: block;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.feedbackCycleSteps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.feedbackCycleStep {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feedbackCycleIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feedbackCycleLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4E5969;
+  white-space: nowrap;
+}
+
+.feedbackCycleArrow {
+  display: flex;
+  align-items: center;
+  margin-left: 0.25rem;
+  flex-shrink: 0;
+}

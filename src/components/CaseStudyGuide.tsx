@@ -124,8 +124,8 @@ const QUESTIONS: Question[] = [
       {
         heading: 'Pillar 1 — Data Network Effects',
         links: [
-          { label: 'Benchmarks', path: '/benchmarks', description: 'Industry benchmarking' },
-          { label: 'Analytics', path: '/analytics', description: 'Spend intelligence' },
+          { label: 'Benchmarks', path: '/benchmarks', description: 'Industry benchmarking from anonymized network' },
+          { label: 'Network Map', path: '/suppliers/network', description: 'Supplier network flywheel & compounding data' },
         ],
       },
       {
@@ -137,6 +137,7 @@ const QUESTIONS: Question[] = [
           { label: 'Network Map', path: '/suppliers/network', description: 'Network intelligence & geographic reach' },
           { label: 'Onboarding Pipeline', path: '/suppliers/onboarding', description: 'Supplier activation funnel' },
           { label: 'Performance', path: '/suppliers/performance', description: 'Supplier scorecards & benchmarks' },
+          { label: 'Risk Management', path: '/suppliers/risk', description: 'Risk alerts & mitigation tracking' },
           { label: 'Diversity & ESG', path: '/suppliers/diversity', description: 'Certifications & sustainability' },
         ],
       },
@@ -145,12 +146,16 @@ const QUESTIONS: Question[] = [
         links: [
           { label: 'Treasury', path: '/treasury', description: 'Cash positions & investments' },
           { label: 'Cash Flow', path: '/cashflow', description: 'AI cash forecasting' },
+          { label: 'Payments', path: '/payments', description: 'AI payment optimization' },
+          { label: 'SCF', path: '/scf', description: 'Supply chain financing & working capital' },
         ],
       },
       {
         heading: 'Pillar 4 — Composable Platform',
         links: [
-          { label: 'Settings', path: '/settings', description: 'ERP integrations & APIs' },
+          { label: 'Integrations Hub', path: '/integrations', description: 'ERP ecosystem & data flow orchestration' },
+          { label: 'Developer Portal', path: '/developer', description: 'API-first architecture & partner marketplace' },
+          { label: 'Settings', path: '/settings', description: 'Configuration & API keys' },
         ],
       },
       {

@@ -531,6 +531,182 @@ export default function PaymentsPage() {
           </div>
         )}
       </div>
+
+      {/* ---------- Unified Payment Monetization Dashboard ---------- */}
+      <div className={styles.monetizationSection}>
+        <div className={styles.monetizationHeader}>
+          <div className={styles.monetizationHeaderLeft}>
+            <div className={styles.monetizationTitle}>Unified Payment Monetization Dashboard</div>
+            <div className={styles.monetizationSubtitle}>Cross-product view of all payment-derived revenue streams</div>
+          </div>
+          <span className={styles.monetizationTagline}>Revenue Beyond SaaS</span>
+        </div>
+
+        {/* Stacked Horizontal Bar Chart */}
+        <div className={styles.stackedBarSection}>
+          <div className={styles.stackedBarTitle}>Monthly Monetization by Revenue Stream</div>
+          <div className={styles.stackedBarTotal}>
+            <span className={styles.stackedBarTotalValue}>$231.6K</span>
+            <span className={styles.stackedBarTotalSub}>/month</span>
+            <span className={styles.stackedBarTotalAnnual}>$2.78M annualized</span>
+          </div>
+          <div className={styles.stackedBarWrap}>
+            <div className={`${styles.stackedBarSegment} ${styles.stackedSegDynDisc}`} style={{ width: '67.4%' }} title="Dynamic Discounting: $156K/mo">
+              $156K
+            </div>
+            <div className={`${styles.stackedBarSegment} ${styles.stackedSegVCard}`} style={{ width: '18.1%' }} title="Virtual Card Rebates: $42K/mo">
+              $42K
+            </div>
+            <div className={`${styles.stackedBarSegment} ${styles.stackedSegSCF}`} style={{ width: '10.9%' }} title="SCF Program Fees: $25.2K/mo">
+              $25.2K
+            </div>
+            <div className={`${styles.stackedBarSegment} ${styles.stackedSegCostSav}`} style={{ width: '3.6%' }} title="Payment Cost Savings: $8.4K/mo">
+            </div>
+          </div>
+          <div className={styles.stackedBarLegend}>
+            <span className={styles.legendItem}><span className={`${styles.legendDot} ${styles.legendDotBlue}`} />Dynamic Discounting (67.4%)</span>
+            <span className={styles.legendItem}><span className={`${styles.legendDot} ${styles.legendDotGreen}`} />Virtual Card Rebates (18.1%)</span>
+            <span className={styles.legendItem}><span className={`${styles.legendDot} ${styles.legendDotPurple}`} />SCF Program Fees (10.9%)</span>
+            <span className={styles.legendItem}><span className={`${styles.legendDot} ${styles.legendDotAmber}`} />Payment Cost Savings (3.6%)</span>
+          </div>
+        </div>
+
+        {/* Revenue Stream Cards */}
+        <div className={styles.revenueStreamGrid}>
+          <div className={styles.revenueStreamCard}>
+            <div className={`${styles.revenueStreamCardAccent} ${styles.accentBlue}`} />
+            <div className={styles.revenueStreamLabel}>Dynamic Discounting</div>
+            <div className={styles.revenueStreamValue}>$1.87M</div>
+            <div className={styles.revenueStreamMonthly}>$156K/month</div>
+            <div className={styles.revenueStreamPct}>67.4% of total</div>
+          </div>
+          <div className={styles.revenueStreamCard}>
+            <div className={`${styles.revenueStreamCardAccent} ${styles.accentGreen}`} />
+            <div className={styles.revenueStreamLabel}>Virtual Card Rebates</div>
+            <div className={styles.revenueStreamValue}>$504K</div>
+            <div className={styles.revenueStreamMonthly}>$42K/month</div>
+            <div className={styles.revenueStreamTarget}>Target: $847K (+68%)</div>
+          </div>
+          <div className={styles.revenueStreamCard}>
+            <div className={`${styles.revenueStreamCardAccent} ${styles.accentPurple}`} />
+            <div className={styles.revenueStreamLabel}>SCF Program Fees</div>
+            <div className={styles.revenueStreamValue}>$302K</div>
+            <div className={styles.revenueStreamMonthly}>$25.2K/month</div>
+            <div className={styles.revenueStreamPct}>10.9% of total</div>
+          </div>
+          <div className={styles.revenueStreamCard}>
+            <div className={`${styles.revenueStreamCardAccent} ${styles.accentAmber}`} />
+            <div className={styles.revenueStreamLabel}>Payment Cost Savings</div>
+            <div className={styles.revenueStreamValue}>$101K</div>
+            <div className={styles.revenueStreamMonthly}>$8.4K/month</div>
+            <div className={styles.revenueStreamPct}>3.6% of total</div>
+          </div>
+        </div>
+
+        {/* Total Monetization Impact */}
+        <div className={styles.totalImpactCard}>
+          <div className={styles.totalImpactLeft}>
+            <div className={styles.totalImpactLabel}>Total Monetization Impact</div>
+            <div className={styles.totalImpactValue}>$231.6K/month</div>
+            <div className={styles.totalImpactSub}>Revenue diversification beyond SaaS subscriptions</div>
+          </div>
+          <div className={styles.totalImpactRight}>
+            <div className={styles.totalImpactAnnual}>$2.78M</div>
+            <div className={styles.totalImpactAnnualLabel}>Annualized</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ---------- Payment Intelligence Summary ---------- */}
+      <div className={styles.intelligenceSection}>
+        <div className={styles.intelligenceHeader}>
+          <div className={styles.intelligenceIcon}>AI</div>
+          <div className={styles.intelligenceTitle}>Payment Intelligence Summary</div>
+          <span className={styles.intelligenceBadge}>ICE Score 21</span>
+        </div>
+
+        {/* Key Insight */}
+        <div className={styles.insightCard}>
+          <div className={styles.insightQuote}>
+            For every <span className={styles.insightHighlight}>$1M</span> in payments processed, Medius generates{' '}
+            <span className={styles.insightHighlight}>$23.1K</span> in monetization revenue
+          </div>
+        </div>
+
+        {/* Monetization Rate + Trend */}
+        <div className={styles.trendRow}>
+          <div className={styles.trendCard}>
+            <div className={styles.trendCardLabel}>Monetization Rate Trend</div>
+            <div className={styles.trendValues}>
+              <span className={styles.trendBefore}>1.8%</span>
+              <span className={styles.trendAfter}>2.3%</span>
+            </div>
+            <div className={styles.trendSub}>+0.5% improvement over 6 months</div>
+            <div className={styles.trendBarWrap}>
+              <div className={`${styles.trendBar} ${styles.trendBarGreen}`} style={{ width: '76%' }} />
+            </div>
+          </div>
+          <div className={styles.trendCard}>
+            <div className={styles.trendCardLabel}>Revenue per $1M Processed</div>
+            <div className={styles.trendValues}>
+              <span className={styles.trendAfter}>$23.1K</span>
+            </div>
+            <div className={styles.trendSub}>Blended rate across all monetization channels</div>
+            <div className={styles.trendBarWrap}>
+              <div className={`${styles.trendBar} ${styles.trendBarBlue}`} style={{ width: '65%' }} />
+            </div>
+          </div>
+        </div>
+
+        {/* Top Optimization Opportunity */}
+        <div className={styles.optimizationCard}>
+          <span className={styles.optimizationBadge}>Top Optimization</span>
+          <div className={styles.optimizationText}>
+            Converting 15 remaining ACH suppliers to virtual cards would add{' '}
+            <span className={styles.optimizationValue}>$183K/year</span>{' '}
+            in rebate revenue. Current virtual card adoption is at 40 suppliers with a target of 120.
+          </div>
+        </div>
+
+        {/* Supplier Adoption Funnel */}
+        <div className={styles.funnelCard}>
+          <div className={styles.funnelTitle}>Supplier Adoption Funnel</div>
+          <div className={styles.funnelSteps}>
+            <div className={styles.funnelStep}>
+              <span className={styles.funnelLabel}>Total Suppliers</span>
+              <div className={styles.funnelBarOuter}>
+                <div className={`${styles.funnelBar} ${styles.funnelBarBlue}`} style={{ width: '100%' }}>340</div>
+              </div>
+              <span className={styles.funnelValue}>340</span>
+            </div>
+            <div className={styles.funnelStep}>
+              <span className={styles.funnelLabel}>Optimized Terms</span>
+              <div className={styles.funnelBarOuter}>
+                <div className={`${styles.funnelBar} ${styles.funnelBarPurple}`} style={{ width: '58.8%' }}>200</div>
+              </div>
+              <span className={styles.funnelValue}>200</span>
+            </div>
+            <div className={styles.funnelStep}>
+              <span className={styles.funnelLabel}>On Virtual Cards</span>
+              <div className={styles.funnelBarOuter}>
+                <div className={`${styles.funnelBar} ${styles.funnelBarGreen}`} style={{ width: '11.8%' }}>40</div>
+              </div>
+              <span className={styles.funnelValue}>40</span>
+            </div>
+            <div className={styles.funnelStep}>
+              <span className={styles.funnelLabel}>Target on Cards</span>
+              <div className={styles.funnelBarOuter}>
+                <div className={`${styles.funnelBar} ${styles.funnelBarAmber}`} style={{ width: '35.3%' }}>120</div>
+              </div>
+              <span className={styles.funnelValue}>120</span>
+            </div>
+          </div>
+          <div className={styles.funnelTarget}>
+            <span className={styles.funnelTargetLabel}>Gap to close:</span>
+            <span className={styles.funnelTargetValue}>80 suppliers (40 &#8594; 120)</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

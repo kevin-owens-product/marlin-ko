@@ -18,6 +18,33 @@ interface ExpensePolicy {
   createdAt: string;
 }
 
+/* ---------- Vertical Intelligence Data ---------- */
+
+const verticalPatterns = [
+  { vertical: 'Technology', pattern: 'SaaS subscription auto-renewal detection', accuracy: 96.8, learned: '2,847 transactions', trend: [88, 91, 93, 95, 96, 96.8], status: 'Active' as const },
+  { vertical: 'Manufacturing', pattern: 'Raw material price variance flagging', accuracy: 94.2, learned: '1,923 transactions', trend: [82, 86, 89, 92, 93, 94.2], status: 'Active' as const },
+  { vertical: 'Professional Services', pattern: 'Hourly rate cap enforcement by seniority', accuracy: 97.1, learned: '3,412 transactions', trend: [90, 92, 94, 95, 96, 97.1], status: 'Active' as const },
+  { vertical: 'Healthcare', pattern: 'HIPAA-compliant vendor verification', accuracy: 91.5, learned: '1,204 transactions', trend: [78, 82, 85, 88, 90, 91.5], status: 'Active' as const },
+  { vertical: 'Financial Services', pattern: 'Regulatory gift & entertainment limits', accuracy: 98.3, learned: '4,156 transactions', trend: [93, 95, 96, 97, 98, 98.3], status: 'Active' as const },
+  { vertical: 'Retail', pattern: 'Seasonal procurement budget auto-adjustment', accuracy: 89.7, learned: '856 transactions', trend: [72, 77, 81, 85, 88, 89.7], status: 'Learning' as const },
+];
+
+const policyEffectiveness = [
+  { name: 'Travel Expense Policy', violations30d: 12, violations90d: 47, reductionRate: 34, autoResolved: 78, avgResolutionHrs: 4.2 },
+  { name: 'Meals & Entertainment Policy', violations30d: 8, violations90d: 31, reductionRate: 22, autoResolved: 85, avgResolutionHrs: 2.1 },
+  { name: 'Software & Subscriptions Policy', violations30d: 5, violations90d: 28, reductionRate: 46, autoResolved: 62, avgResolutionHrs: 8.4 },
+  { name: 'Office Supplies Policy', violations30d: 3, violations90d: 15, reductionRate: 41, autoResolved: 91, avgResolutionHrs: 1.3 },
+  { name: 'Professional Services Policy', violations30d: 2, violations90d: 12, reductionRate: 55, autoResolved: 70, avgResolutionHrs: 6.8 },
+];
+
+const adaptiveRules = [
+  { rule: 'Hotel rate cap increased to $300 in NYC, SF, London', trigger: 'Detected 68% override rate in high-cost cities', confidence: 94, applied: 'Jan 15, 2026' },
+  { rule: 'Meal per-person limit adjusted by team size', trigger: 'Groups >6 systematically exceeded flat cap', confidence: 91, applied: 'Jan 8, 2026' },
+  { rule: 'IT approval auto-routed for renewals under $500', trigger: 'Low-risk renewals consumed 40% of IT approval queue', confidence: 97, applied: 'Dec 20, 2025' },
+  { rule: 'Conference travel pre-approved for speaker roles', trigger: 'Speaker travel requests had 99% approval rate', confidence: 99, applied: 'Dec 12, 2025' },
+  { rule: 'Vendor diversity bonus scoring for underrepresented categories', trigger: 'Diversity spend gap identified in 3 categories', confidence: 88, applied: 'Nov 28, 2025' },
+];
+
 const violations = [
   { id: 'VIO-041', date: '2026-01-29', employee: 'David Kim', policy: 'Travel Expense Policy', rule: 'Hotel rate exceeded $250 cap ($380/night)', severity: 'High', status: 'Open' },
   { id: 'VIO-040', date: '2026-01-28', employee: 'Lisa Park', policy: 'Meals & Entertainment Policy', rule: 'Client dinner exceeded $100 per person ($140)', severity: 'Medium', status: 'Open' },
@@ -311,6 +338,123 @@ export default function ExpensePoliciesPage() {
                   <td>
                     <span className={getStatusBadge(v.status)}>{v.status}</span>
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Vertical Intelligence — Industry-Specific Patterns */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionTitle}>Vertical Intelligence</div>
+          <span className={styles.aiBadge}>ML-Powered</span>
+        </div>
+        <p className={styles.sectionDesc}>
+          Policy rules that learn industry-specific patterns from transaction data. Accuracy improves with every transaction processed across the network.
+        </p>
+        <div className={styles.verticalGrid}>
+          {verticalPatterns.map((vp) => (
+            <div key={vp.vertical} className={styles.verticalCard}>
+              <div className={styles.verticalCardHeader}>
+                <span className={styles.verticalName}>{vp.vertical}</span>
+                <span className={`${styles.verticalStatus} ${vp.status === 'Active' ? styles.statusActive : styles.statusLearning}`}>
+                  {vp.status}
+                </span>
+              </div>
+              <div className={styles.verticalPattern}>{vp.pattern}</div>
+              <div className={styles.verticalAccuracy}>
+                <div className={styles.accuracyBarTrack}>
+                  <div className={styles.accuracyBarFill} style={{ width: `${vp.accuracy}%` }} />
+                </div>
+                <span className={styles.accuracyValue}>{vp.accuracy}%</span>
+              </div>
+              <div className={styles.verticalSparkline}>
+                {vp.trend.map((val, i) => (
+                  <div key={i} className={styles.sparkBar} style={{ height: `${(val / 100) * 28}px`, background: i === vp.trend.length - 1 ? '#165DFF' : '#C9CDD4' }} />
+                ))}
+              </div>
+              <div className={styles.verticalMeta}>Trained on {vp.learned}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Policy Effectiveness — Trend & Auto-Resolution */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionTitle}>Policy Effectiveness</div>
+          <span className={styles.aiBadge}>Tracking</span>
+        </div>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Policy</th>
+                <th>Violations (30d)</th>
+                <th>Violations (90d)</th>
+                <th>Reduction Rate</th>
+                <th>Auto-Resolved</th>
+                <th>Avg Resolution</th>
+              </tr>
+            </thead>
+            <tbody>
+              {policyEffectiveness.map((pe) => (
+                <tr key={pe.name}>
+                  <td style={{ fontWeight: 500 }}>{pe.name}</td>
+                  <td>{pe.violations30d}</td>
+                  <td style={{ color: '#86909C' }}>{pe.violations90d}</td>
+                  <td>
+                    <span style={{ color: '#23C343', fontWeight: 600 }}>-{pe.reductionRate}%</span>
+                  </td>
+                  <td>
+                    <div className={styles.accuracyBarTrack} style={{ width: 80, display: 'inline-flex', verticalAlign: 'middle', marginRight: 6 }}>
+                      <div className={styles.accuracyBarFill} style={{ width: `${pe.autoResolved}%`, background: pe.autoResolved > 80 ? '#23C343' : pe.autoResolved > 60 ? '#FF9A2E' : '#F76560' }} />
+                    </div>
+                    <span style={{ fontSize: '0.75rem', color: '#4E5969' }}>{pe.autoResolved}%</span>
+                  </td>
+                  <td style={{ color: '#4E5969' }}>{pe.avgResolutionHrs}h</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Adaptive Rules — ML-Driven Policy Adjustments */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionTitle}>Adaptive Rules</div>
+          <span className={styles.aiBadge}>Auto-Tuned</span>
+        </div>
+        <p className={styles.sectionDesc}>
+          Rules automatically adjusted based on override patterns and approval data. Each adjustment is logged with the trigger pattern and confidence score.
+        </p>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Rule Adjustment</th>
+                <th>Trigger Pattern</th>
+                <th>Confidence</th>
+                <th>Applied</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adaptiveRules.map((ar) => (
+                <tr key={ar.rule}>
+                  <td style={{ fontWeight: 500 }}>{ar.rule}</td>
+                  <td style={{ color: '#4E5969', fontSize: '0.75rem' }}>{ar.trigger}</td>
+                  <td>
+                    <span style={{
+                      fontWeight: 600,
+                      color: ar.confidence >= 95 ? '#23C343' : ar.confidence >= 90 ? '#165DFF' : '#FF9A2E',
+                    }}>
+                      {ar.confidence}%
+                    </span>
+                  </td>
+                  <td style={{ color: '#86909C', fontSize: '0.75rem' }}>{ar.applied}</td>
                 </tr>
               ))}
             </tbody>
