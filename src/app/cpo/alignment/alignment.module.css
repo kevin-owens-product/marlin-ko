@@ -150,6 +150,35 @@
   margin-top: 0.25rem;
 }
 
+/* --- RAG Legend --- */
+
+.ragLegend {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.5rem;
+}
+
+.ragLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ragLegendLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.ragLegendDesc {
+  font-size: 0.7rem;
+  color: #86909C;
+}
+
 /* --- Stakeholder Map --- */
 
 .stakeholderGrid {
@@ -502,6 +531,16 @@
 .outcomeDeferred {
   background: rgba(255, 154, 46, 0.1);
   color: #FF9A2E;
+}
+
+.outcomeModified {
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+}
+
+.outcomePilot {
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
 }
 
 .outcomeRejected {

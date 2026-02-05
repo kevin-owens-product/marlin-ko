@@ -111,6 +111,46 @@ const customerInsights = [
   },
 ];
 
+const differentiators = [
+  {
+    icon: '🧠',
+    title: 'AI-Native Architecture',
+    text: 'Built from the ground up with AI at the core, not bolted on. Competitors retrofit AI onto legacy systems.',
+    stat: '94.9% touchless processing vs industry average of 78%',
+  },
+  {
+    icon: '⚡',
+    title: 'Speed-to-Value',
+    text: 'Modular architecture allows customers to start with AP and expand to Treasury, Payments, Compliance.',
+    stat: 'Average 8 weeks vs 6-12 months for legacy platforms',
+  },
+  {
+    icon: '🌐',
+    title: 'Network Effects',
+    text: 'Every transaction makes benchmarks smarter, every supplier connection strengthens the ecosystem. Competitors operate in silos.',
+    stat: '4,218 companies on the Medius Data Network',
+  },
+];
+
+const competitiveWins = [
+  {
+    competitor: 'vs Coupa',
+    text: 'Win on speed and AI depth. Coupa is comprehensive but slow to implement and AI is surface-level.',
+  },
+  {
+    competitor: 'vs SAP Concur',
+    text: 'Win on modularity and UX. Concur is entrenched but dated architecture limits innovation.',
+  },
+  {
+    competitor: 'vs Tipalti',
+    text: 'Win on enterprise readiness. Tipalti strong in mid-market but lacks compliance depth for global enterprises.',
+  },
+  {
+    competitor: 'vs Bill.com',
+    text: 'Win on sophistication. Bill.com is SMB-focused with limited AI and no Treasury capabilities.',
+  },
+];
+
 const iceBets = [
   {
     name: 'E-Invoicing Compliance Engine',
@@ -266,6 +306,38 @@ export default function VisionPage() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Competitive Differentiation - Why Medius Wins */}
+      <div className={styles.sectionAi}>
+        <div className={styles.heroStatement}>
+          <div className={styles.heroTitle}>Why Medius Wins</div>
+          <div className={styles.heroSubtitle}>Strategic differentiation that drives competitive advantage</div>
+        </div>
+
+        <div className={styles.differentiatorGrid}>
+          {differentiators.map((d) => (
+            <div key={d.title} className={styles.differentiatorCard}>
+              <div className={styles.differentiatorIcon}>{d.icon}</div>
+              <div className={styles.differentiatorTitle}>{d.title}</div>
+              <div className={styles.differentiatorText}>{d.text}</div>
+              <div className={styles.differentiatorStat}>{d.stat}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.winSummaryTitle}>
+          Competitive Win Summary
+          <span className={styles.sectionBadge}>4 head-to-head</span>
+        </div>
+        <div className={styles.winSummaryGrid}>
+          {competitiveWins.map((w) => (
+            <div key={w.competitor} className={styles.winCard}>
+              <div className={styles.winCardCompetitor}>{w.competitor}</div>
+              <div className={styles.winCardText}>{w.text}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Customer Insights */}

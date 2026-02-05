@@ -16,6 +16,7 @@ const riskQuadrants = {
   highHigh: [
     { id: 'G1', label: 'AI Trust Deficit', color: '#F76560' },
     { id: 'G2', label: 'Peppol Scale', color: '#F76560' },
+    { id: 'G10', label: 'APAC Expansion', color: '#FF9A2E' },
   ],
   lowHigh: [
     { id: 'G3', label: 'Enterprise Readiness', color: '#FF9A2E' },
@@ -24,10 +25,13 @@ const riskQuadrants = {
   highLow: [
     { id: 'G5', label: 'Partner Ecosystem', color: '#FF9A2E' },
     { id: 'G6', label: 'Pricing Model', color: '#FF9A2E' },
+    { id: 'G11', label: 'CS Capacity', color: '#23C343' },
   ],
   lowLow: [
     { id: 'G7', label: 'Brand Perception', color: '#23C343' },
     { id: 'G8', label: 'Talent Gap', color: '#23C343' },
+    { id: 'G9', label: 'API Platform', color: '#23C343' },
+    { id: 'G12', label: 'Competitive Intel', color: '#23C343' },
   ],
 };
 
@@ -120,6 +124,50 @@ const gapInventory = [
     targetDate: 'Q1 2026',
     owner: 'Marcus K.',
   },
+  {
+    id: 'G9',
+    severity: 'Medium',
+    category: 'Technology',
+    title: 'API Platform Maturity',
+    description: 'Current API coverage at 60% of features. Partners and customers requesting full API access for integrations.',
+    mitigationStatus: 'Active',
+    mitigationPlan: 'API-first initiative to expose remaining features; OpenAPI spec documentation in progress',
+    targetDate: 'Q3 2026',
+    owner: 'Johan A.',
+  },
+  {
+    id: 'G10',
+    severity: 'High',
+    category: 'Market',
+    title: 'International Expansion Readiness',
+    description: 'Limited localization for APAC markets. Missing language support for Japanese, Korean, Mandarin.',
+    mitigationStatus: 'Planned',
+    mitigationPlan: 'Localization roadmap defined; partnering with regional SI for market entry strategy',
+    targetDate: 'Q4 2026',
+    owner: 'Karin N.',
+  },
+  {
+    id: 'G11',
+    severity: 'Medium',
+    category: 'Operations',
+    title: 'Customer Success Capacity',
+    description: 'CS team bandwidth stretched with 1:80 CSM-to-customer ratio. Expansion revenue at risk.',
+    mitigationStatus: 'Active',
+    mitigationPlan: 'Hiring 4 CSMs in Q1; implementing digital-touch model for SMB segment',
+    targetDate: 'Q2 2026',
+    owner: 'Maria E.',
+  },
+  {
+    id: 'G12',
+    severity: 'Medium',
+    category: 'Strategy',
+    title: 'Competitive Intelligence Gap',
+    description: 'No systematic win/loss analysis. Relying on anecdotal sales feedback for competitive positioning.',
+    mitigationStatus: 'Planned',
+    mitigationPlan: 'Implementing automated win/loss surveys; building competitive battlecards with product marketing',
+    targetDate: 'Q2 2026',
+    owner: 'Sarah L.',
+  },
 ];
 
 const openQuestions = [
@@ -190,7 +238,7 @@ export default function GapsPage() {
       <div className={styles.section}>
         <div className={styles.sectionTitle}>
           Risk Matrix
-          <span className={styles.sectionBadge}>8 risks mapped</span>
+          <span className={styles.sectionBadge}>12 risks mapped</span>
         </div>
         <div className={styles.riskMatrix}>
           {/* Row 0: axis labels */}
@@ -242,7 +290,7 @@ export default function GapsPage() {
       <div className={styles.section}>
         <div className={styles.sectionTitle}>
           Gap Inventory
-          <span className={styles.sectionBadge}>8 gaps</span>
+          <span className={styles.sectionBadge}>12 gaps</span>
         </div>
         <div className={styles.gapGrid}>
           {gapInventory.map((gap) => (

@@ -63,6 +63,18 @@ const decisions = [
   { id: 'D-004', date: 'Oct 1', title: 'Delay partner API program to Q2', participants: ['SL', 'JA', 'EB'], outcome: 'Deferred', rationale: 'Resource constraints; focus on core bets first' },
   { id: 'D-005', date: 'Oct 24', title: 'Expand AI agent framework scope', participants: ['SL', 'OS', 'TL'], outcome: 'Approved', rationale: 'Beta results exceeded expectations; accelerate investment' },
   { id: 'D-006', date: 'Nov 7', title: 'Approve $4.2M incremental budget', participants: ['AJ', 'SL', 'MK'], outcome: 'Approved', rationale: 'Board approved based on projected 3.2x ROI in 18 months' },
+  { id: 'D-007', date: 'Nov 14', title: 'Expand beta to 10 additional customers', participants: ['SL', 'PN', 'KN'], outcome: 'Approved', rationale: 'Strong demand from pipeline; CS capacity confirmed' },
+  { id: 'D-008', date: 'Nov 18', title: 'Hire dedicated Peppol compliance lead', participants: ['SL', 'HW', 'MK'], outcome: 'Approved', rationale: 'Critical for EU regulatory expertise; budget allocated' },
+  { id: 'D-009', date: 'Nov 21', title: 'Delay multi-tenant architecture migration', participants: ['MK', 'EB', 'OS'], outcome: 'Deferred', rationale: 'Current architecture sufficient for 18-month horizon; revisit Q3' },
+  { id: 'D-010', date: 'Nov 28', title: 'Launch customer advisory board', participants: ['SL', 'PN', 'KN'], outcome: 'Approved', rationale: 'Validates roadmap priorities; strengthens customer relationships' },
+  { id: 'D-011', date: 'Dec 2', title: 'Increase dynamic discounting pilot budget', participants: ['AJ', 'SL', 'MA'], outcome: 'Modified', rationale: '+50% vs requested; phased rollout approved' },
+  { id: 'D-012', date: 'Dec 5', title: 'Partner with 3 regional resellers in DACH', participants: ['JA', 'KN', 'SL'], outcome: 'Approved', rationale: 'Accelerates market entry; reduces direct sales burden' },
+  { id: 'D-013', date: 'Dec 10', title: 'Deprecate legacy reporting module', participants: ['SL', 'EB', 'PN'], outcome: 'Deferred', rationale: 'Customer dependency identified; 6-month migration support needed' },
+  { id: 'D-014', date: 'Dec 12', title: 'Implement SOC2 Type II certification', participants: ['HW', 'MK', 'AJ'], outcome: 'Approved', rationale: 'Enterprise sales requirement; audit scheduled for Q2' },
+  { id: 'D-015', date: 'Dec 18', title: 'Add virtual card issuing capability', participants: ['SL', 'MA', 'AJ'], outcome: 'Pilot', rationale: '3-month trial with 5 customers; evaluate unit economics' },
+  { id: 'D-016', date: 'Jan 8', title: 'Migrate to new ML inference platform', participants: ['OS', 'MK', 'EB'], outcome: 'Approved', rationale: '40% cost reduction; improved latency for AI features' },
+  { id: 'D-017', date: 'Jan 15', title: 'Expand sales team by 4 enterprise AEs', participants: ['KN', 'AJ', 'SL'], outcome: 'Modified', rationale: '2 AEs approved; prove ROI before additional hires' },
+  { id: 'D-018', date: 'Jan 22', title: 'Acquire Peppol access point provider', participants: ['SL', 'MK', 'AJ', 'JA'], outcome: 'Deferred', rationale: 'Build vs buy analysis required; revisit after Q1 results' },
 ];
 
 const avatarColors: Record<string, string> = {
@@ -106,6 +118,23 @@ export default function AlignmentPage() {
         <div className={styles.sectionTitle}>
           Stakeholder Map
           <span className={styles.sectionBadge}>14 stakeholders</span>
+        </div>
+        <div className={styles.ragLegend}>
+          <div className={styles.ragLegendItem}>
+            <span className={`${styles.ragDot} ${styles.ragGreen}`} />
+            <span className={styles.ragLegendLabel}>Champion/Supportive</span>
+            <span className={styles.ragLegendDesc}>Fully aligned, actively advocating</span>
+          </div>
+          <div className={styles.ragLegendItem}>
+            <span className={`${styles.ragDot} ${styles.ragAmber}`} />
+            <span className={styles.ragLegendLabel}>Cautious</span>
+            <span className={styles.ragLegendDesc}>Supportive but has concerns to address</span>
+          </div>
+          <div className={styles.ragLegendItem}>
+            <span className={`${styles.ragDot} ${styles.ragRed}`} />
+            <span className={styles.ragLegendLabel}>Skeptical</span>
+            <span className={styles.ragLegendDesc}>Significant concerns, needs more evidence</span>
+          </div>
         </div>
         <div className={styles.stakeholderGrid}>
           {stakeholders.map((s) => (
@@ -217,7 +246,7 @@ export default function AlignmentPage() {
       <div className={styles.section}>
         <div className={styles.sectionTitle}>
           Decision Log
-          <span className={styles.sectionBadge}>6 decisions</span>
+          <span className={styles.sectionBadge}>18 decisions</span>
         </div>
         <table className={styles.decisionTable}>
           <thead>
@@ -253,6 +282,8 @@ export default function AlignmentPage() {
                   <span className={`${styles.outcomeBadge} ${
                     d.outcome === 'Approved' ? styles.outcomeApproved :
                     d.outcome === 'Deferred' ? styles.outcomeDeferred :
+                    d.outcome === 'Modified' ? styles.outcomeModified :
+                    d.outcome === 'Pilot' ? styles.outcomePilot :
                     styles.outcomeRejected
                   }`}>
                     {d.outcome}
