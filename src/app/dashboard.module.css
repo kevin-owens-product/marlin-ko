@@ -462,3 +462,589 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+/* =============================================
+   CFO COMMAND CENTER SECTIONS
+   ============================================= */
+
+/* --- CFO Strategic KPI Row --- */
+
+.cfoKpiGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cfoKpiCard {
+  background: #ffffff;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.cfoKpiCard:nth-child(1) { animation-delay: 0ms; }
+.cfoKpiCard:nth-child(2) { animation-delay: 60ms; }
+.cfoKpiCard:nth-child(3) { animation-delay: 120ms; }
+.cfoKpiCard:nth-child(4) { animation-delay: 180ms; }
+.cfoKpiCard:nth-child(5) { animation-delay: 240ms; }
+
+.cfoKpiCard:hover {
+  border-color: #165DFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cfoKpiHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+.cfoKpiLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.cfoKpiStatusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cfoKpiValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.375rem;
+}
+
+.cfoKpiMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.cfoKpiBadge {
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cfoKpiBadgeGreen {
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+}
+
+.cfoKpiBadgeAmber {
+  background: rgba(255, 154, 46, 0.1);
+  color: #FF9A2E;
+}
+
+.cfoKpiBadgeRed {
+  background: rgba(247, 101, 96, 0.1);
+  color: #F76560;
+}
+
+.cfoKpiBadgeBlue {
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+}
+
+.cfoKpiContext {
+  font-size: 0.6875rem;
+  color: #86909C;
+}
+
+/* --- Cash Forecast Widget --- */
+
+.cashForecastSection {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cashForecastSection:hover {
+  border-color: #C9CDD4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.forecastHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.forecastHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forecastLink {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #165DFF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.forecastLink:hover {
+  text-decoration: underline;
+}
+
+.forecastBody {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.forecastChart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.forecastChartLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.forecastBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 80px;
+}
+
+.forecastBarGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 2px;
+  position: relative;
+}
+
+.forecastBarPair {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 64px;
+  width: 100%;
+}
+
+.forecastBarInflow {
+  flex: 1;
+  background: #23C343;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+  transition: opacity 0.15s;
+}
+
+.forecastBarOutflow {
+  flex: 1;
+  background: #F76560;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.forecastBarWeek {
+  font-size: 0.55rem;
+  color: #86909C;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.forecastLegend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.forecastLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.6875rem;
+  color: #4E5969;
+}
+
+.forecastLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.forecastSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 220px;
+}
+
+.forecastStat {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.forecastStatLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.forecastStatValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #23C343;
+}
+
+.forecastStatValueBlue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #165DFF;
+}
+
+.forecastStatContext {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+}
+
+/* --- AI Strategic Insights --- */
+
+.aiInsightsSection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.aiInsightsSection:hover {
+  border-color: rgba(22, 93, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(22, 93, 255, 0.06);
+}
+
+.aiInsightsHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.aiInsightsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.aiBadge {
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.1);
+  color: #165DFF;
+}
+
+.insightCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.insightCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.insightCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.insightCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.insightIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.insightIconGreen {
+  background: rgba(35, 195, 67, 0.1);
+}
+
+.insightIconBlue {
+  background: rgba(22, 93, 255, 0.1);
+}
+
+.insightIconAmber {
+  background: rgba(255, 154, 46, 0.1);
+}
+
+.insightImpactBadge {
+  border-radius: 9999px;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.insightTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+  line-height: 1.3;
+}
+
+.insightDescription {
+  font-size: 0.75rem;
+  color: #4E5969;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.insightAction {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #165DFF;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.insightAction:hover {
+  text-decoration: underline;
+}
+
+/* --- Strategic Spend Summary --- */
+
+.spendSection {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease-out both;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.spendSection:hover {
+  border-color: #C9CDD4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.spendHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.spendHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spendBody {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.spendChartArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.spendStackedBar {
+  width: 100%;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+}
+
+.spendBarSegment {
+  height: 100%;
+  transition: opacity 0.15s;
+  position: relative;
+}
+
+.spendBarSegment:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.spendBarSegment:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.spendBarSegment:hover {
+  opacity: 0.85;
+}
+
+.spendLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.spendLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: #4E5969;
+}
+
+.spendLegendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.spendLegendValue {
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.spendSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 200px;
+}
+
+.spendTotal {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.spendTotalLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.spendTotalValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.spendTotalContext {
+  font-size: 0.6875rem;
+  color: #86909C;
+  margin-top: 0.125rem;
+}
+
+.spendAnomaly {
+  background: rgba(255, 154, 46, 0.06);
+  border: 1px solid rgba(255, 154, 46, 0.2);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+}
+
+.spendAnomalyLabel {
+  font-size: 0.6875rem;
+  color: #FF9A2E;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.spendAnomalyText {
+  font-size: 0.75rem;
+  color: #4E5969;
+  line-height: 1.4;
+}
+
+.spendLink {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #165DFF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.spendLink:hover {
+  text-decoration: underline;
+}
+
+/* --- CFO Command Center section divider --- */
+
+.cfoDivider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.cfoDividerLine {
+  flex: 1;
+  height: 1px;
+  background: #E5E6EB;
+}
+
+.cfoDividerLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}

@@ -73,6 +73,80 @@ const complianceDeadlines: { name: string; detail: string; urgency: 'urgent' | '
   { name: 'France PPF Registration', detail: 'Jun 2026', urgency: 'normal' },
 ];
 
+/* ---- CFO Command Center data ---- */
+
+const cfoKpis: {
+  label: string;
+  value: string;
+  badge: string;
+  badgeColor: 'green' | 'amber' | 'red' | 'blue';
+  context: string;
+  dotColor: string;
+}[] = [
+  { label: 'Cash Position', value: '$12.8M', badge: '+3.2% vs last week', badgeColor: 'green', context: 'Real-time consolidated', dotColor: '#23C343' },
+  { label: 'DSO', value: '34 days', badge: '-2d vs prior month', badgeColor: 'green', context: 'Industry avg: 42 days', dotColor: '#23C343' },
+  { label: 'Cash Conversion Cycle', value: '-8 days', badge: 'Cash efficient', badgeColor: 'green', context: 'Negative = collecting before paying', dotColor: '#23C343' },
+  { label: 'Forecast Accuracy', value: '94.2%', badge: 'AI-powered', badgeColor: 'blue', context: '2-week horizon', dotColor: '#165DFF' },
+  { label: 'Working Capital Ratio', value: '2.1x', badge: 'Above 2.0x target', badgeColor: 'green', context: 'Healthy liquidity', dotColor: '#23C343' },
+];
+
+const cashForecastWeeks: { week: string; inflow: number; outflow: number }[] = [
+  { week: 'W1', inflow: 82, outflow: 70 },
+  { week: 'W2', inflow: 75, outflow: 68 },
+  { week: 'W3', inflow: 90, outflow: 72 },
+  { week: 'W4', inflow: 65, outflow: 60 },
+  { week: 'W5', inflow: 78, outflow: 74 },
+  { week: 'W6', inflow: 85, outflow: 65 },
+  { week: 'W7', inflow: 70, outflow: 66 },
+  { week: 'W8', inflow: 88, outflow: 75 },
+  { week: 'W9', inflow: 72, outflow: 58 },
+  { week: 'W10', inflow: 80, outflow: 70 },
+  { week: 'W11', inflow: 76, outflow: 64 },
+  { week: 'W12', inflow: 92, outflow: 78 },
+];
+
+const aiInsights: {
+  icon: string;
+  iconColor: 'green' | 'blue' | 'amber';
+  title: string;
+  description: string;
+  impact: string;
+  impactColor: 'green' | 'amber' | 'blue';
+}[] = [
+  {
+    icon: '\u23F1',
+    iconColor: 'green',
+    title: 'Payment timing optimization',
+    description: 'Deferring $450K in flexible payments improves month-end position by 3.2%. Savings: $14.4K annualized.',
+    impact: '$14.4K/yr',
+    impactColor: 'green',
+  },
+  {
+    icon: '\uD83D\uDCC8',
+    iconColor: 'blue',
+    title: 'Cash surplus opportunity',
+    description: '$410K available in Week 1 March for overnight sweep. Projected income: $1,200.',
+    impact: '$1,200',
+    impactColor: 'blue',
+  },
+  {
+    icon: '\u26A0\uFE0F',
+    iconColor: 'amber',
+    title: 'Supplier concentration risk',
+    description: 'Top 3 suppliers = 76% of spend. Recommend diversification plan to reduce single-source dependency.',
+    impact: 'Risk',
+    impactColor: 'amber',
+  },
+];
+
+const spendCategories: { name: string; pct: number; color: string }[] = [
+  { name: 'IT Services', pct: 32, color: '#165DFF' },
+  { name: 'Manufacturing', pct: 24, color: '#8E51DA' },
+  { name: 'Professional Services', pct: 18, color: '#23C343' },
+  { name: 'Facilities', pct: 14, color: '#FF9A2E' },
+  { name: 'Other', pct: 12, color: '#86909C' },
+];
+
 export default function Home() {
   const t = useT();
   const now = new Date();
@@ -112,6 +186,161 @@ export default function Home() {
           </div>
         ))}
       </div>
+
+      {/* === CFO COMMAND CENTER === */}
+      <div className={styles.cfoDivider}>
+        <div className={styles.cfoDividerLine} />
+        <span className={styles.cfoDividerLabel}>CFO Command Center</span>
+        <div className={styles.cfoDividerLine} />
+      </div>
+
+      {/* 1. CFO Strategic KPI Row */}
+      <div className={styles.cfoKpiGrid}>
+        {cfoKpis.map((kpi) => (
+          <div key={kpi.label} className={styles.cfoKpiCard}>
+            <div className={styles.cfoKpiHeader}>
+              <span className={styles.cfoKpiLabel}>{kpi.label}</span>
+              <span className={styles.cfoKpiStatusDot} style={{ backgroundColor: kpi.dotColor }} />
+            </div>
+            <div className={styles.cfoKpiValue}>{kpi.value}</div>
+            <div className={styles.cfoKpiMeta}>
+              <span className={`${styles.cfoKpiBadge} ${
+                kpi.badgeColor === 'green' ? styles.cfoKpiBadgeGreen :
+                kpi.badgeColor === 'amber' ? styles.cfoKpiBadgeAmber :
+                kpi.badgeColor === 'red' ? styles.cfoKpiBadgeRed :
+                styles.cfoKpiBadgeBlue
+              }`}>{kpi.badge}</span>
+              <span className={styles.cfoKpiContext}>{kpi.context}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 2. Cash Forecast Widget - 12-week outlook */}
+      <div className={styles.cashForecastSection}>
+        <div className={styles.forecastHeader}>
+          <div className={styles.forecastHeaderLeft}>
+            <span className={styles.sectionTitle} style={{ marginBottom: 0 }}>Cash Forecast</span>
+            <span className={styles.sectionTitleBadge}>12-Week</span>
+          </div>
+          <span className={styles.forecastLink}>View Full Forecast &rarr;</span>
+        </div>
+        <div className={styles.forecastBody}>
+          <div className={styles.forecastChart}>
+            <div className={styles.forecastChartLabel}>Projected Inflows vs Outflows</div>
+            <div className={styles.forecastBars}>
+              {cashForecastWeeks.map((w) => (
+                <div key={w.week} className={styles.forecastBarGroup}>
+                  <div className={styles.forecastBarPair}>
+                    <div className={styles.forecastBarInflow} style={{ height: `${w.inflow}%` }} />
+                    <div className={styles.forecastBarOutflow} style={{ height: `${w.outflow}%` }} />
+                  </div>
+                  <span className={styles.forecastBarWeek}>{w.week}</span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.forecastLegend}>
+              <span className={styles.forecastLegendItem}>
+                <span className={styles.forecastLegendDot} style={{ backgroundColor: '#23C343' }} />
+                Inflows
+              </span>
+              <span className={styles.forecastLegendItem}>
+                <span className={styles.forecastLegendDot} style={{ backgroundColor: '#F76560' }} />
+                Outflows
+              </span>
+            </div>
+          </div>
+          <div className={styles.forecastSidebar}>
+            <div className={styles.forecastStat}>
+              <div className={styles.forecastStatLabel}>Net Position (12 Weeks)</div>
+              <div className={styles.forecastStatValue}>+$2.4M</div>
+              <div className={styles.forecastStatContext}>Cumulative net inflow</div>
+            </div>
+            <div className={styles.forecastStat}>
+              <div className={styles.forecastStatLabel}>Forecast Confidence</div>
+              <div className={styles.forecastStatValueBlue}>94.2%</div>
+              <div className={styles.forecastStatContext}>Accuracy at 2-week horizon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. AI Strategic Insights */}
+      <div className={styles.aiInsightsSection}>
+        <div className={styles.aiInsightsHeader}>
+          <span className={styles.aiInsightsTitle}>AI Strategic Recommendations</span>
+          <span className={styles.aiBadge}>AI</span>
+        </div>
+        <div className={styles.insightCards}>
+          {aiInsights.map((insight) => (
+            <div key={insight.title} className={styles.insightCard}>
+              <div className={styles.insightCardHeader}>
+                <div className={`${styles.insightIcon} ${
+                  insight.iconColor === 'green' ? styles.insightIconGreen :
+                  insight.iconColor === 'blue' ? styles.insightIconBlue :
+                  styles.insightIconAmber
+                }`}>
+                  {insight.icon}
+                </div>
+                <span className={`${styles.insightImpactBadge} ${
+                  insight.impactColor === 'green' ? styles.cfoKpiBadgeGreen :
+                  insight.impactColor === 'amber' ? styles.cfoKpiBadgeAmber :
+                  styles.cfoKpiBadgeBlue
+                }`}>{insight.impact}</span>
+              </div>
+              <div className={styles.insightTitle}>{insight.title}</div>
+              <div className={styles.insightDescription}>{insight.description}</div>
+              <span className={styles.insightAction}>Take Action &rarr;</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 4. Strategic Spend Summary */}
+      <div className={styles.spendSection}>
+        <div className={styles.spendHeader}>
+          <div className={styles.spendHeaderLeft}>
+            <span className={styles.sectionTitle} style={{ marginBottom: 0 }}>Strategic Spend Intelligence</span>
+          </div>
+          <span className={styles.spendLink}>View Full Analytics &rarr;</span>
+        </div>
+        <div className={styles.spendBody}>
+          <div className={styles.spendChartArea}>
+            <div className={styles.spendStackedBar}>
+              {spendCategories.map((cat) => (
+                <div
+                  key={cat.name}
+                  className={styles.spendBarSegment}
+                  style={{ width: `${cat.pct}%`, backgroundColor: cat.color }}
+                  title={`${cat.name}: ${cat.pct}%`}
+                />
+              ))}
+            </div>
+            <div className={styles.spendLegend}>
+              {spendCategories.map((cat) => (
+                <span key={cat.name} className={styles.spendLegendItem}>
+                  <span className={styles.spendLegendDot} style={{ backgroundColor: cat.color }} />
+                  {cat.name}
+                  <span className={styles.spendLegendValue}>{cat.pct}%</span>
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className={styles.spendSidebar}>
+            <div className={styles.spendTotal}>
+              <div className={styles.spendTotalLabel}>Total MTD</div>
+              <div className={styles.spendTotalValue}>$2.4M</div>
+              <div className={styles.spendTotalContext}>Across 847 invoices</div>
+            </div>
+            <div className={styles.spendAnomaly}>
+              <div className={styles.spendAnomalyLabel}>Spend Anomaly</div>
+              <div className={styles.spendAnomalyText}>Office Supplies +42% vs 6-month avg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* === END CFO COMMAND CENTER === */}
 
       {/* Processing Pipeline */}
       <div className={styles.section}>

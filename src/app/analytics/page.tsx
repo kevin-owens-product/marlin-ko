@@ -54,6 +54,138 @@ const agents = [
 
 const maxSpend = Math.max(...monthlySpend.map(m => m.amount));
 
+/* ===== Benchmark Comparison Data ===== */
+const benchmarkMetrics = [
+  {
+    name: 'Cost per Invoice',
+    yours: '$1.23',
+    industry: '$1.87',
+    pctYours: 34,
+    pctIndustry: 51,
+    barColor: '#165DFF',
+    advantage: '34% below benchmark',
+    savings: '$640K annual savings',
+    badge: 'Top Performer',
+    badgeType: 'green' as const,
+  },
+  {
+    name: 'Touchless Rate',
+    yours: '94.9%',
+    industry: '78%',
+    pctYours: 95,
+    pctIndustry: 78,
+    barColor: '#23C343',
+    advantage: '16.9pp above industry',
+    savings: 'Top 5% of platforms',
+    badge: 'Best-in-Class',
+    badgeType: 'green' as const,
+  },
+  {
+    name: 'Processing Time',
+    yours: '3.2 hrs',
+    industry: '8.0 hrs',
+    pctYours: 40,
+    pctIndustry: 100,
+    barColor: '#8E51DA',
+    advantage: '60% faster',
+    savings: '4.8 hrs saved per invoice',
+    badge: 'Elite Speed',
+    badgeType: 'blue' as const,
+  },
+  {
+    name: 'Exception Rate',
+    yours: '5.1%',
+    industry: '12%',
+    pctYours: 43,
+    pctIndustry: 100,
+    barColor: '#FF9A2E',
+    advantage: '58% fewer exceptions',
+    savings: '6.9pp below average',
+    badge: 'Low Risk',
+    badgeType: 'green' as const,
+  },
+  {
+    name: 'Fraud Detection',
+    yours: '99.2%',
+    industry: '94%',
+    pctYours: 99,
+    pctIndustry: 94,
+    barColor: '#F76560',
+    advantage: '5.2pp above benchmark',
+    savings: 'Best-in-class',
+    badge: 'Top 1%',
+    badgeType: 'green' as const,
+  },
+];
+
+/* ===== AI Spend Recommendations Data ===== */
+const spendRecommendations = [
+  {
+    title: 'Category Consolidation',
+    description: '23 suppliers in IT Services — consolidating to top 5 could save $180K/year through volume pricing. Current fragmentation drives 31% cost premium vs. consolidated peers.',
+    impact: '$180K/year',
+    priority: 'high' as const,
+  },
+  {
+    title: 'Early Payment Capture',
+    description: '$420K in available early-pay discounts this month across 34 eligible invoices. Average discount: 2.1% / 10 net 30. Current capture rate: 68% — optimizing payment timing lifts this to 92%.',
+    impact: '$420K/month',
+    priority: 'high' as const,
+  },
+  {
+    title: 'Supplier Risk Mitigation',
+    description: '2 suppliers with >$500K annual spend show declining delivery metrics — recommend sourcing alternatives. Shanghai Electronics (78% risk score) and Nordic Supplies (65% risk score) flagged.',
+    impact: '$1.2M at risk',
+    priority: 'medium' as const,
+  },
+  {
+    title: 'Payment Method Optimization',
+    description: 'Converting 15 wire transfers to virtual cards would generate $22K in annual rebates. Wire transfer fees of $35/each vs. virtual card rebates of 1.5% on average transaction of $12K.',
+    impact: '$22K/year',
+    priority: 'low' as const,
+  },
+];
+
+/* ===== Spend Anomaly Detection Data ===== */
+const spendAnomalies = [
+  {
+    category: 'Office Supplies',
+    description: '+42% vs 6-month average ($34K overspend). Spike driven by Q1 bulk ordering from 3 new cost centers. No approved POs on file for $18K of the variance.',
+    severity: 'amber' as const,
+    trendValue: '+42%',
+    trendLabel: 'vs 6-mo avg',
+    amount: '$34K over',
+    action: 'Review bulk orders with cost center managers; enforce PO requirements',
+  },
+  {
+    category: 'Travel & Entertainment',
+    description: '+18% vs budget ($12K over). Conference season driving higher-than-forecast travel spend. 4 trips above per-diem policy limits detected.',
+    severity: 'amber' as const,
+    trendValue: '+18%',
+    trendLabel: 'vs budget',
+    amount: '$12K over',
+    action: 'Flag policy violations; review conference ROI with department heads',
+  },
+  {
+    category: 'Consulting Fees',
+    description: 'New vendor Apex Advisory at $89K — no historical baseline. Engagement approved by VP Engineering but bypassed standard procurement workflow. Single-source selection.',
+    severity: 'blue' as const,
+    trendValue: 'New',
+    trendLabel: 'no baseline',
+    amount: '$89K',
+    action: 'Conduct retroactive vendor qualification; add to approved vendor list',
+  },
+  {
+    category: 'Duplicate Risk',
+    description: '3 potential duplicate invoices detected worth $14.2K. Pattern: same supplier, amounts within 2%, dates within 5 business days. Two from Acme Corp, one from GlobalTech.',
+    severity: 'red' as const,
+    trendValue: '3 found',
+    trendLabel: 'this period',
+    amount: '$14.2K',
+    action: 'Hold payment on flagged invoices; verify with suppliers before release',
+  },
+];
+
 export default function AnalyticsPage() {
   const t = useT();
   const [period, setPeriod] = useState('30D');
@@ -154,6 +286,163 @@ export default function AnalyticsPage() {
               <div className={styles.agentStat}><span>Accuracy</span><span className={styles.agentValue}>{a.accuracy}%</span></div>
               <div className={styles.agentStat}><span>Processed Today</span><span className={styles.agentValue}>{a.processed}</span></div>
               <div className={styles.agentStat}><span>Avg Time</span><span className={styles.agentValue}>{a.avgTime}</span></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ========== Benchmark Comparison Section ========== */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionHeaderLeft}>
+            <h2 className={styles.sectionHeaderTitle}>Industry Benchmark Comparison</h2>
+            <span className={styles.networkBadge}>
+              <span className={styles.networkDot} />
+              Powered by Medius Data Network — 4,218 companies
+            </span>
+          </div>
+        </div>
+        <div className={styles.benchmarkGrid}>
+          {benchmarkMetrics.map(m => (
+            <div key={m.name} className={styles.benchmarkCard}>
+              <div className={styles.benchmarkCardHeader}>
+                <span className={styles.benchmarkMetricName}>{m.name}</span>
+                <span className={`${styles.benchmarkStatusBadge} ${m.badgeType === 'green' ? styles.badgeGreen : styles.badgeBlue}`}>
+                  {m.badge}
+                </span>
+              </div>
+              <div className={styles.benchmarkValues}>
+                <span className={styles.benchmarkYourValue}>{m.yours}</span>
+                <span className={styles.benchmarkVs}>vs</span>
+                <span className={styles.benchmarkIndustryValue}>{m.industry} avg</span>
+              </div>
+              <div className={styles.benchmarkBarContainer}>
+                <div className={styles.benchmarkBarYours} style={{ width: `${m.pctYours}%`, background: m.barColor }} />
+                <div className={styles.benchmarkBarIndustry} style={{ left: `${m.pctIndustry}%` }} />
+              </div>
+              <div className={styles.benchmarkCallout}>
+                <span className={m.barColor === '#165DFF' ? styles.benchmarkCalloutBlue : styles.benchmarkCalloutHighlight}>
+                  {m.advantage}
+                </span>
+                {' '}&mdash; {m.savings}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ========== AI Spend Recommendations Section ========== */}
+      <div className={styles.aiSection}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionHeaderLeft}>
+            <span className={styles.aiSectionIcon}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22" />
+                <path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93" />
+                <path d="M8 15h8" /><path d="M8 19h8" />
+              </svg>
+            </span>
+            <h2 className={styles.sectionHeaderTitle}>AI Spend Recommendations</h2>
+          </div>
+          <span className={styles.networkBadge}>
+            <span className={styles.networkDot} />
+            4 Actionable Insights
+          </span>
+        </div>
+        <p className={styles.sectionSubtitle}>
+          Strategic opportunities identified by Medius AI across your spend data — ranked by potential ROI impact.
+        </p>
+        <div className={styles.recommendationsList}>
+          {spendRecommendations.map(rec => (
+            <div key={rec.title} className={styles.recommendationCard}>
+              <div className={styles.recommendationTop}>
+                <div className={styles.recommendationTitleRow}>
+                  <span className={`${styles.priorityDot} ${
+                    rec.priority === 'high' ? styles.priorityHigh :
+                    rec.priority === 'medium' ? styles.priorityMedium :
+                    styles.priorityLow
+                  }`} />
+                  <span className={styles.recommendationTitle}>{rec.title}</span>
+                </div>
+                <span className={styles.impactBadge}>{rec.impact}</span>
+              </div>
+              <div className={styles.recommendationDesc}>{rec.description}</div>
+              <div className={styles.recommendationFooter}>
+                <span className={`${styles.priorityLabel} ${
+                  rec.priority === 'high' ? styles.priorityLabelHigh :
+                  rec.priority === 'medium' ? styles.priorityLabelMedium :
+                  styles.priorityLabelLow
+                }`}>
+                  {rec.priority === 'high' ? 'High Priority' : rec.priority === 'medium' ? 'Medium Priority' : 'Opportunity'}
+                </span>
+                <button className={styles.recommendationAction}>View Details &rarr;</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ========== Spend Anomaly Detection Section ========== */}
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionHeaderLeft}>
+            <h2 className={styles.sectionHeaderTitle}>Spend Anomaly Detection</h2>
+          </div>
+          <span className={`${styles.severityBadge} ${styles.severityRed}`}>4 Active Alerts</span>
+        </div>
+        <p className={styles.sectionSubtitle}>
+          Automated monitoring flags unusual spend patterns, budget variances, and potential risks requiring review.
+        </p>
+        <div className={styles.anomalyList}>
+          {spendAnomalies.map(a => (
+            <div key={a.category} className={`${styles.anomalyCard} ${
+              a.severity === 'amber' ? styles.anomalyCardAmber :
+              a.severity === 'red' ? styles.anomalyCardRed :
+              styles.anomalyCardBlue
+            }`}>
+              <div className={`${styles.anomalyIconWrap} ${
+                a.severity === 'amber' ? styles.anomalyIconAmber :
+                a.severity === 'red' ? styles.anomalyIconRed :
+                styles.anomalyIconBlue
+              }`}>
+                {a.severity === 'red' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                ) : a.severity === 'amber' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                )}
+              </div>
+              <div className={styles.anomalyContent}>
+                <div className={styles.anomalyHeader}>
+                  <span className={styles.anomalyTitle}>{a.category}</span>
+                  <span className={`${styles.severityBadge} ${
+                    a.severity === 'amber' ? styles.severityAmber :
+                    a.severity === 'red' ? styles.severityRed :
+                    styles.severityBlue
+                  }`}>
+                    {a.severity === 'amber' ? 'Warning' : a.severity === 'red' ? 'Critical' : 'Info'}
+                  </span>
+                </div>
+                <div className={styles.anomalyDesc}>{a.description}</div>
+                <div className={styles.anomalyFooter}>
+                  <span className={`${styles.anomalyTrend} ${
+                    a.severity === 'amber' ? styles.anomalyTrendAmber :
+                    a.severity === 'red' ? styles.anomalyTrendRed :
+                    styles.anomalyTrendBlue
+                  }`}>
+                    {a.severity === 'red' ? '\u26A0' : a.severity === 'amber' ? '\u2191' : '\u2139'} {a.trendValue} {a.trendLabel} &middot; {a.amount}
+                  </span>
+                  <span className={styles.anomalyRecommendation}>{a.action}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>

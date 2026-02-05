@@ -386,3 +386,477 @@
 }
 
 .bulkBtnClear:hover { background: #E5E6EB; color: #1D2129; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Autonomous Processing Banner
+   ═══════════════════════════════════════════════════════════════ */
+
+.autonomousBanner {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.autonomousBannerHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1.5rem;
+}
+
+.autonomousBannerHero {
+  flex: 1;
+}
+
+.autonomousBannerLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4E5969;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.375rem;
+}
+
+.autonomousBannerRate {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1D2129;
+  line-height: 1.1;
+  margin-bottom: 0.375rem;
+}
+
+.autonomousBannerRateHighlight {
+  color: #23C343;
+}
+
+.autonomousBannerTrend {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.autonomousBannerTrendArrow {
+  color: #23C343;
+  font-weight: 600;
+}
+
+.autonomousBannerTarget {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  margin-top: 0.5rem;
+}
+
+.autonomousBannerBreakdown {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.breakdownItem {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  min-width: 110px;
+}
+
+.breakdownValue {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #1D2129;
+  margin-bottom: 0.125rem;
+}
+
+.breakdownLabel {
+  font-size: 0.6875rem;
+  color: #86909C;
+  font-weight: 500;
+}
+
+.breakdownValueGreen {
+  color: #23C343;
+}
+
+.breakdownValueAmber {
+  color: #FF9A2E;
+}
+
+.breakdownValueRed {
+  color: #F76560;
+}
+
+.autonomousProgressSection {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.autonomousProgressLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.autonomousProgressTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.autonomousProgressPct {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #23C343;
+}
+
+.autonomousProgressTrack {
+  width: 100%;
+  height: 10px;
+  background: #E5E6EB;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.autonomousProgressFill {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #23C343, #1ed760);
+  transition: width 0.6s ease;
+}
+
+.autonomousTrendBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.autonomousTrendBarGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.autonomousTrendBar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  background: rgba(22, 93, 255, 0.15);
+  transition: height 0.3s ease;
+}
+
+.autonomousTrendBarCurrent {
+  background: #165DFF;
+}
+
+.autonomousTrendBarValue {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #4E5969;
+}
+
+.autonomousTrendBarMonth {
+  font-size: 0.5625rem;
+  color: #86909C;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Agent Processing Pipeline
+   ═══════════════════════════════════════════════════════════════ */
+
+.agentPipeline {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.agentPipelineTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.25rem;
+}
+
+.agentPipelineSubtitle {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  margin-bottom: 1.25rem;
+}
+
+.pipelineFlow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.pipelineStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 90px;
+  padding: 0.5rem 0.375rem;
+  flex: 1;
+}
+
+.pipelineStepDot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.375rem;
+}
+
+.pipelineStepDotGreen {
+  background: #23C343;
+}
+
+.pipelineStepDotAmber {
+  background: #FF9A2E;
+}
+
+.pipelineStepDotBlue {
+  background: #165DFF;
+}
+
+.pipelineStepName {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.125rem;
+}
+
+.pipelineStepAccuracy {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #86909C;
+}
+
+.pipelineStepAccuracyGreen {
+  color: #23C343;
+}
+
+.pipelineStepAccuracyAmber {
+  color: #FF9A2E;
+}
+
+.pipelineArrow {
+  color: #C9CDD4;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 0.125rem;
+}
+
+.pipelineStats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pipelineStat {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: #4E5969;
+}
+
+.pipelineStatIcon {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pipelineStatIconBlue {
+  background: #165DFF;
+}
+
+.pipelineStatIconGreen {
+  background: #23C343;
+}
+
+.pipelineStatValue {
+  font-weight: 600;
+  color: #1D2129;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AI Processing Insights
+   ═══════════════════════════════════════════════════════════════ */
+
+.aiInsights {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.aiInsightsHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.aiInsightsIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 0.5rem;
+  background: rgba(22, 93, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.aiInsightsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.aiInsightsBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(22, 93, 255, 0.08);
+  color: #165DFF;
+  margin-left: 0.5rem;
+}
+
+.aiInsightsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.aiInsightCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.aiInsightIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.aiInsightIconGreen {
+  background: rgba(35, 195, 67, 0.1);
+}
+
+.aiInsightIconAmber {
+  background: rgba(255, 154, 46, 0.1);
+}
+
+.aiInsightIconPurple {
+  background: rgba(142, 81, 218, 0.1);
+}
+
+.aiInsightIconRed {
+  background: rgba(247, 101, 96, 0.1);
+}
+
+.aiInsightContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.aiInsightLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #86909C;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.aiInsightValue {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 0.125rem;
+}
+
+.aiInsightValueGreen {
+  color: #23C343;
+}
+
+.aiInsightValuePurple {
+  color: #8E51DA;
+}
+
+.aiInsightDesc {
+  font-size: 0.75rem;
+  color: #4E5969;
+  line-height: 1.4;
+}
+
+.aiInsightDescMuted {
+  font-size: 0.6875rem;
+  color: #86909C;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .autonomousBannerHeader {
+    flex-direction: column;
+  }
+
+  .autonomousBannerBreakdown {
+    width: 100%;
+  }
+
+  .breakdownItem {
+    flex: 1;
+  }
+
+  .aiInsightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pipelineFlow {
+    overflow-x: auto;
+  }
+}

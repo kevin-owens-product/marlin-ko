@@ -197,6 +197,204 @@ export default function InvoicesPage() {
         </div>
       </div>
 
+      {/* ── Autonomous Processing Banner ── */}
+      <div className={styles.autonomousBanner}>
+        <div className={styles.autonomousBannerHeader}>
+          <div className={styles.autonomousBannerHero}>
+            <div className={styles.autonomousBannerLabel}>Autonomous Processing Rate</div>
+            <div className={styles.autonomousBannerRate}>
+              <span className={styles.autonomousBannerRateHighlight}>94.9%</span>
+            </div>
+            <div className={styles.autonomousBannerTrend}>
+              88.2% <span className={styles.autonomousBannerTrendArrow}>{'\u2192'}</span> 94.9% over 6 months
+              <span className={styles.autonomousBannerTrendArrow}>(+6.7pp)</span>
+            </div>
+            <div className={styles.autonomousBannerTarget}>Target: 96% by Q2 2026</div>
+          </div>
+          <div className={styles.autonomousBannerBreakdown}>
+            <div className={styles.breakdownItem}>
+              <div className={`${styles.breakdownValue} ${styles.breakdownValueGreen}`}>412</div>
+              <div className={styles.breakdownLabel}>Auto-Approved</div>
+            </div>
+            <div className={styles.breakdownItem}>
+              <div className={`${styles.breakdownValue} ${styles.breakdownValueAmber}`}>23</div>
+              <div className={styles.breakdownLabel}>Human Review</div>
+            </div>
+            <div className={styles.breakdownItem}>
+              <div className={`${styles.breakdownValue} ${styles.breakdownValueRed}`}>12</div>
+              <div className={styles.breakdownLabel}>Exceptions</div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.autonomousProgressSection}>
+          <div className={styles.autonomousProgressLabel}>
+            <span className={styles.autonomousProgressTitle}>Touchless Processing Progress</span>
+            <span className={styles.autonomousProgressPct}>94.9%</span>
+          </div>
+          <div className={styles.autonomousProgressTrack}>
+            <div className={styles.autonomousProgressFill} style={{ width: '94.9%' }} />
+          </div>
+          <div className={styles.autonomousTrendBars}>
+            {[
+              { month: 'Sep', value: 88.2 },
+              { month: 'Oct', value: 89.8 },
+              { month: 'Nov', value: 91.4 },
+              { month: 'Dec', value: 92.7 },
+              { month: 'Jan', value: 93.8 },
+              { month: 'Feb', value: 94.9 },
+            ].map((d, i, arr) => (
+              <div key={d.month} className={styles.autonomousTrendBarGroup}>
+                <div className={styles.autonomousTrendBarValue}>{d.value}%</div>
+                <div
+                  className={`${styles.autonomousTrendBar} ${i === arr.length - 1 ? styles.autonomousTrendBarCurrent : ''}`}
+                  style={{ height: `${(d.value - 85) * 4}px` }}
+                />
+                <div className={styles.autonomousTrendBarMonth}>{d.month}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Agent Processing Pipeline ── */}
+      <div className={styles.agentPipeline}>
+        <div className={styles.agentPipelineTitle}>Agent Processing Pipeline</div>
+        <div className={styles.agentPipelineSubtitle}>
+          847 invoices processed today through 7 AI agents
+        </div>
+
+        <div className={styles.pipelineFlow}>
+          {[
+            { name: 'Capture', pct: 99.1 },
+            { name: 'Classification', pct: 97.3 },
+            { name: 'Compliance', pct: 98.8 },
+            { name: 'Matching', pct: 94.2 },
+            { name: 'Risk', pct: 98.2 },
+            { name: 'Approval', pct: 96.5 },
+            { name: 'Payment', pct: null },
+          ].map((step, i, arr) => {
+            const dotClass =
+              step.pct === null
+                ? styles.pipelineStepDotBlue
+                : step.pct >= 95
+                  ? styles.pipelineStepDotGreen
+                  : step.pct >= 90
+                    ? styles.pipelineStepDotAmber
+                    : styles.pipelineStepDotBlue;
+            const accClass =
+              step.pct !== null && step.pct >= 95
+                ? styles.pipelineStepAccuracyGreen
+                : step.pct !== null && step.pct >= 90
+                  ? styles.pipelineStepAccuracyAmber
+                  : '';
+            return (
+              <span key={step.name} style={{ display: 'contents' }}>
+                <div className={styles.pipelineStep}>
+                  <div className={`${styles.pipelineStepDot} ${dotClass}`}>
+                    {step.pct !== null ? `${step.pct.toFixed(0)}` : '\u2713'}
+                  </div>
+                  <div className={styles.pipelineStepName}>{step.name}</div>
+                  {step.pct !== null && (
+                    <div className={`${styles.pipelineStepAccuracy} ${accClass}`}>
+                      {step.pct}%
+                    </div>
+                  )}
+                </div>
+                {i < arr.length - 1 && (
+                  <div className={styles.pipelineArrow}>{'\u2192'}</div>
+                )}
+              </span>
+            );
+          })}
+        </div>
+
+        <div className={styles.pipelineStats}>
+          <div className={styles.pipelineStat}>
+            <span className={`${styles.pipelineStatIcon} ${styles.pipelineStatIconBlue}`} />
+            Avg end-to-end time: <span className={styles.pipelineStatValue}>2.1 hours</span>
+            <span style={{ color: '#86909C', fontSize: '0.75rem' }}>(vs 18 hours manual)</span>
+          </div>
+          <div className={styles.pipelineStat}>
+            <span className={`${styles.pipelineStatIcon} ${styles.pipelineStatIconGreen}`} />
+            Pipeline uptime: <span className={styles.pipelineStatValue}>99.97%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── AI Processing Insights ── */}
+      <div className={styles.aiInsights}>
+        <div className={styles.aiInsightsHeader}>
+          <div className={styles.aiInsightsIcon}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#165DFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" />
+              <line x1="10" y1="22" x2="14" y2="22" />
+            </svg>
+          </div>
+          <div className={styles.aiInsightsTitle}>AI Processing Insights</div>
+          <span className={styles.aiInsightsBadge}>Live</span>
+        </div>
+
+        <div className={styles.aiInsightsGrid}>
+          <div className={styles.aiInsightCard}>
+            <div className={`${styles.aiInsightIconWrap} ${styles.aiInsightIconGreen}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#23C343" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <div className={styles.aiInsightContent}>
+              <div className={styles.aiInsightLabel}>Cost Savings</div>
+              <div className={`${styles.aiInsightValue} ${styles.aiInsightValueGreen}`}>$3,144 saved today</div>
+              <div className={styles.aiInsightDesc}>$1.24/invoice vs $8.40 manual benchmark</div>
+            </div>
+          </div>
+
+          <div className={styles.aiInsightCard}>
+            <div className={`${styles.aiInsightIconWrap} ${styles.aiInsightIconAmber}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <div className={styles.aiInsightContent}>
+              <div className={styles.aiInsightLabel}>Top Exception</div>
+              <div className={styles.aiInsightValue}>Amount variance &gt;2% (12 invoices)</div>
+              <div className={styles.aiInsightDescMuted}>AI learning from corrections</div>
+            </div>
+          </div>
+
+          <div className={styles.aiInsightCard}>
+            <div className={`${styles.aiInsightIconWrap} ${styles.aiInsightIconPurple}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8E51DA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </div>
+            <div className={styles.aiInsightContent}>
+              <div className={styles.aiInsightLabel}>Discount Opportunity</div>
+              <div className={`${styles.aiInsightValue} ${styles.aiInsightValuePurple}`}>$4,200 in early-pay discounts</div>
+              <div className={styles.aiInsightDesc}>8 invoices eligible for early-pay discounts</div>
+            </div>
+          </div>
+
+          <div className={styles.aiInsightCard}>
+            <div className={`${styles.aiInsightIconWrap} ${styles.aiInsightIconRed}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F76560" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </div>
+            <div className={styles.aiInsightContent}>
+              <div className={styles.aiInsightLabel}>Risk Flag</div>
+              <div className={styles.aiInsightValue}>2 invoices flagged for duplicate review</div>
+              <div className={styles.aiInsightDescMuted}>Auto-held, pending verification</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className={styles.controls}>
         <div className={styles.filterTabs}>
           {filterTabs.map((tab) => {

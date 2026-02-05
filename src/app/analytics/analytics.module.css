@@ -35,3 +35,129 @@
 .monthBar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
 .monthBarFill { width: 100%; border-radius: 0.25rem 0.25rem 0 0; min-height: 4px; transition: height 0.3s; }
 .monthLabel { font-size: 0.625rem; color: #4E5969; }
+
+/* ===== Benchmark Comparison Section ===== */
+.sectionHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.sectionHeaderLeft { display: flex; align-items: center; gap: 0.75rem; }
+.sectionHeaderTitle { font-size: 1rem; font-weight: 600; color: #1D2129; margin: 0; }
+.networkBadge {
+  display: inline-flex; align-items: center; gap: 0.375rem;
+  background: rgba(22, 93, 255, 0.06); border: 1px solid rgba(22, 93, 255, 0.15);
+  border-radius: 9999px; padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem; font-weight: 600; color: #165DFF;
+}
+.networkDot { width: 6px; height: 6px; border-radius: 50%; background: #165DFF; }
+.benchmarkGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+.benchmarkCard {
+  background: #ffffff; border-radius: 0.75rem; padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.625rem;
+}
+.benchmarkCardHeader { display: flex; justify-content: space-between; align-items: flex-start; }
+.benchmarkMetricName { font-size: 0.75rem; font-weight: 500; color: #4E5969; text-transform: uppercase; letter-spacing: 0.03em; }
+.benchmarkStatusBadge {
+  border-radius: 9999px; padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem; font-weight: 600;
+}
+.badgeGreen { background: rgba(35, 195, 67, 0.1); color: #23C343; }
+.badgeBlue { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.benchmarkValues { display: flex; align-items: baseline; gap: 0.5rem; }
+.benchmarkYourValue { font-size: 1.375rem; font-weight: 700; color: #1D2129; }
+.benchmarkVs { font-size: 0.6875rem; color: #86909C; }
+.benchmarkIndustryValue { font-size: 0.8125rem; font-weight: 500; color: #86909C; }
+.benchmarkBarContainer { position: relative; height: 6px; background: #E5E6EB; border-radius: 3px; overflow: hidden; }
+.benchmarkBarYours {
+  position: absolute; top: 0; left: 0; height: 100%; border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.benchmarkBarIndustry {
+  position: absolute; top: -3px; height: 12px; width: 2px;
+  background: #86909C; border-radius: 1px;
+}
+.benchmarkCallout {
+  font-size: 0.6875rem; color: #4E5969; line-height: 1.4;
+  padding-top: 0.25rem; border-top: 1px solid #F2F3F5;
+}
+.benchmarkCalloutHighlight { font-weight: 600; color: #23C343; }
+.benchmarkCalloutBlue { font-weight: 600; color: #165DFF; }
+
+/* ===== AI Spend Recommendations Section ===== */
+.aiSection {
+  background: rgba(22, 93, 255, 0.04); border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.aiSectionIcon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 0.5rem;
+  background: rgba(22, 93, 255, 0.08); color: #165DFF;
+}
+.recommendationsList { display: flex; flex-direction: column; gap: 0.75rem; }
+.recommendationCard {
+  background: #ffffff; border-radius: 0.75rem; padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  border: 1px solid rgba(22, 93, 255, 0.06);
+}
+.recommendationTop { display: flex; justify-content: space-between; align-items: center; }
+.recommendationTitleRow { display: flex; align-items: center; gap: 0.5rem; }
+.recommendationTitle { font-size: 0.875rem; font-weight: 600; color: #1D2129; }
+.priorityDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.priorityHigh { background: #F76560; }
+.priorityMedium { background: #FF9A2E; }
+.priorityLow { background: #165DFF; }
+.impactBadge {
+  border-radius: 9999px; padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem; font-weight: 600;
+  background: rgba(35, 195, 67, 0.1); color: #23C343;
+  white-space: nowrap;
+}
+.recommendationDesc { font-size: 0.8125rem; color: #4E5969; line-height: 1.5; }
+.recommendationFooter { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.25rem; }
+.priorityLabel {
+  font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.priorityLabelHigh { color: #F76560; }
+.priorityLabelMedium { color: #FF9A2E; }
+.priorityLabelLow { color: #165DFF; }
+.recommendationAction {
+  font-size: 0.6875rem; color: #165DFF; font-weight: 500;
+  cursor: pointer; background: none; border: none; padding: 0;
+}
+.recommendationAction:hover { text-decoration: underline; }
+
+/* ===== Spend Anomaly Detection Section ===== */
+.anomalyList { display: flex; flex-direction: column; gap: 0.75rem; }
+.anomalyCard {
+  background: #ffffff; border-radius: 0.75rem; padding: 1.25rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+  border-left: 3px solid transparent;
+}
+.anomalyCardAmber { border-left-color: #FF9A2E; }
+.anomalyCardRed { border-left-color: #F76560; }
+.anomalyCardBlue { border-left-color: #165DFF; }
+.anomalyIconWrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 0.5rem; flex-shrink: 0;
+}
+.anomalyIconAmber { background: rgba(255, 154, 46, 0.1); color: #FF9A2E; }
+.anomalyIconRed { background: rgba(247, 101, 96, 0.1); color: #F76560; }
+.anomalyIconBlue { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.anomalyContent { flex: 1; min-width: 0; }
+.anomalyHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+.anomalyTitle { font-size: 0.875rem; font-weight: 600; color: #1D2129; }
+.severityBadge {
+  border-radius: 9999px; padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem; font-weight: 600;
+}
+.severityAmber { background: rgba(255, 154, 46, 0.1); color: #FF9A2E; }
+.severityRed { background: rgba(247, 101, 96, 0.1); color: #F76560; }
+.severityBlue { background: rgba(22, 93, 255, 0.08); color: #165DFF; }
+.anomalyDesc { font-size: 0.8125rem; color: #4E5969; line-height: 1.5; margin-bottom: 0.5rem; }
+.anomalyFooter { display: flex; align-items: center; gap: 1rem; }
+.anomalyTrend { display: flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; font-weight: 500; }
+.anomalyTrendAmber { color: #FF9A2E; }
+.anomalyTrendRed { color: #F76560; }
+.anomalyTrendBlue { color: #165DFF; }
+.anomalyRecommendation {
+  font-size: 0.6875rem; color: #4E5969; font-style: italic;
+  padding-left: 0.75rem; border-left: 2px solid #E5E6EB;
+}
+.sectionSubtitle { font-size: 0.8125rem; color: #4E5969; margin-bottom: 1rem; }

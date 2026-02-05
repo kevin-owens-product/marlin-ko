@@ -1821,6 +1821,444 @@
   color: #8E51DA;
 }
 
+/* ── Cash Flow Impact Dashboard ───────────────────────────── */
+
+.cashFlowSection {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cashFlowTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cashFlowBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.cashFlowGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cashFlowCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+}
+
+.cashFlowCardIcon {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.cashFlowCardLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+  margin-bottom: 0.5rem;
+}
+
+.cashFlowCardValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.cashFlowCardDetail {
+  font-size: 0.6875rem;
+  color: #86909C;
+  line-height: 1.4;
+}
+
+.cashFlowCardTrend {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.35rem;
+}
+
+.cashFlowCardTrendUp {
+  color: #23C343;
+}
+
+.cashFlowSummary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(35, 195, 67, 0.06);
+  border: 1px solid rgba(35, 195, 67, 0.15);
+  border-radius: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.cashFlowSummaryIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.cashFlowSummaryText {
+  font-size: 0.85rem;
+  color: #1D2129;
+  font-weight: 500;
+}
+
+.cashFlowSummaryValue {
+  font-weight: 700;
+  color: #23C343;
+}
+
+.cashFlowTrendSection {
+  margin-top: 0.25rem;
+}
+
+.cashFlowTrendLabel {
+  font-size: 0.7rem;
+  color: #86909C;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.cashFlowTrendChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 60px;
+}
+
+.cashFlowTrendBarGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 0.35rem;
+}
+
+.cashFlowTrendBar {
+  width: 100%;
+  max-width: 48px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s;
+}
+
+.cashFlowTrendBarLabel {
+  font-size: 0.6rem;
+  color: #86909C;
+  white-space: nowrap;
+}
+
+.cashFlowTrendBarValue {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+/* ── Risk & Compliance Summary ───────────────────────────── */
+
+.riskSection {
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.riskTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.riskBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(35, 195, 67, 0.1);
+  color: #23C343;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.riskGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.riskCard {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+}
+
+.riskCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.riskCardCheckmark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(35, 195, 67, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #23C343;
+  flex-shrink: 0;
+}
+
+.riskCardLabel {
+  font-size: 0.7rem;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.riskCardValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1D2129;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.riskCardDetail {
+  font-size: 0.6875rem;
+  color: #86909C;
+  line-height: 1.4;
+}
+
+.riskCardMetricBar {
+  height: 6px;
+  background: #E5E6EB;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 0.625rem;
+}
+
+.riskCardMetricBarFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.riskCardComparison {
+  font-size: 0.6875rem;
+  color: #23C343;
+  font-weight: 600;
+  margin-top: 0.35rem;
+}
+
+.riskCallout {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(35, 195, 67, 0.06);
+  border: 1px solid rgba(35, 195, 67, 0.18);
+  border-radius: 0.625rem;
+}
+
+.riskCalloutIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(35, 195, 67, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.riskCalloutText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.riskCalloutTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #23C343;
+}
+
+.riskCalloutSubtitle {
+  font-size: 0.75rem;
+  color: #4E5969;
+}
+
+/* ── Board-Ready Executive Summary ───────────────────────── */
+
+.execSummarySection {
+  background: rgba(22, 93, 255, 0.04);
+  border: 1px solid rgba(22, 93, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.execSummarySection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #165DFF, #8E51DA, #23C343);
+}
+
+.execSummaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.execSummaryTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.execSummaryIcon {
+  font-size: 1.25rem;
+}
+
+.execSummaryTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1D2129;
+}
+
+.execSummaryBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(142, 81, 218, 0.1);
+  color: #8E51DA;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.execSummaryColumns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.execSummaryColumn {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #E5E6EB;
+}
+
+.execSummaryColumnTitle {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid;
+}
+
+.execSummaryColumnTitleBlue {
+  color: #165DFF;
+  border-color: #165DFF;
+}
+
+.execSummaryColumnTitlePurple {
+  color: #8E51DA;
+  border-color: #8E51DA;
+}
+
+.execSummaryColumnTitleGreen {
+  color: #23C343;
+  border-color: #23C343;
+}
+
+.execSummaryMetrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.execSummaryMetric {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.execSummaryMetricLabel {
+  font-size: 0.75rem;
+  color: #4E5969;
+}
+
+.execSummaryMetricValue {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1D2129;
+}
+
+.execSummaryFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(134, 144, 156, 0.06);
+  border: 1px solid rgba(134, 144, 156, 0.12);
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  color: #86909C;
+}
+
+.execSummaryFooterSep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #C9CDD4;
+  flex-shrink: 0;
+}
+
+.execSummaryFooterConfidence {
+  font-weight: 600;
+  color: #23C343;
+}
+
 /* ── Responsive ────────────────────────────────────────────── */
 
 @media (max-width: 1200px) {
@@ -1836,6 +2274,15 @@
   .impactCohorts {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+  .cashFlowGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .riskGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .execSummaryColumns {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1870,5 +2317,14 @@
   }
   .segmentTable {
     font-size: 0.7rem;
+  }
+  .cashFlowGrid {
+    grid-template-columns: 1fr;
+  }
+  .riskGrid {
+    grid-template-columns: 1fr;
+  }
+  .cashFlowTrendChart {
+    gap: 0.35rem;
   }
 }

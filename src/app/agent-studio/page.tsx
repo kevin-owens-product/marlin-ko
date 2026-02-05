@@ -1050,6 +1050,232 @@ export default function AgentStudioPage() {
         </div>
       </div>
 
+      {/* ── Cash Flow Impact Dashboard ─────────────────────────── */}
+      <div className={styles.cashFlowSection}>
+        <div className={styles.cashFlowTitle}>
+          Cash Flow Impact Dashboard
+          <span className={styles.cashFlowBadge}>+$2.49M This Quarter</span>
+        </div>
+
+        <div className={styles.cashFlowGrid}>
+          <div className={styles.cashFlowCard}>
+            <div className={styles.cashFlowCardIcon}>&#x1F4B5;</div>
+            <div className={styles.cashFlowCardLabel}>Early Payment Discounts Captured</div>
+            <div className={styles.cashFlowCardValue} style={{ color: '#23C343' }}>$2.1M</div>
+            <div className={styles.cashFlowCardDetail}>This quarter</div>
+            <div className={`${styles.cashFlowCardTrend} ${styles.cashFlowCardTrendUp}`}>
+              &#x25B2; +18% QoQ
+            </div>
+          </div>
+
+          <div className={styles.cashFlowCard}>
+            <div className={styles.cashFlowCardIcon}>&#x1F4C5;</div>
+            <div className={styles.cashFlowCardLabel}>Payment Timing Optimized</div>
+            <div className={styles.cashFlowCardValue} style={{ color: '#165DFF' }}>847</div>
+            <div className={styles.cashFlowCardDetail}>Invoices with AI-optimal payment dates</div>
+          </div>
+
+          <div className={styles.cashFlowCard}>
+            <div className={styles.cashFlowCardIcon}>&#x1F4CA;</div>
+            <div className={styles.cashFlowCardLabel}>Working Capital Improvement</div>
+            <div className={styles.cashFlowCardValue} style={{ color: '#8E51DA' }}>$12.3M</div>
+            <div className={styles.cashFlowCardDetail}>Freed through DPO extension</div>
+            <div className={`${styles.cashFlowCardTrend} ${styles.cashFlowCardTrendUp}`}>
+              &#x25B2; +$2.8M vs prior quarter
+            </div>
+          </div>
+
+          <div className={styles.cashFlowCard}>
+            <div className={styles.cashFlowCardIcon}>&#x23F3;</div>
+            <div className={styles.cashFlowCardLabel}>Float Value Generated</div>
+            <div className={styles.cashFlowCardValue} style={{ color: '#23C343' }}>$186K</div>
+            <div className={styles.cashFlowCardDetail}>Annualized from strategic payment deferral</div>
+          </div>
+        </div>
+
+        <div className={styles.cashFlowSummary}>
+          <span className={styles.cashFlowSummaryIcon}>&#x2705;</span>
+          <span className={styles.cashFlowSummaryText}>
+            Agent decisions have generated <span className={styles.cashFlowSummaryValue}>$2.49M</span> in direct cash flow benefits this quarter
+          </span>
+        </div>
+
+        <div className={styles.cashFlowTrendSection}>
+          <div className={styles.cashFlowTrendLabel}>6-Month Quarterly Trend</div>
+          <div className={styles.cashFlowTrendChart}>
+            {[
+              { label: 'Q3 2025', value: 1.42, height: 28 },
+              { label: 'Q4 2025', value: 1.78, height: 36 },
+              { label: 'Q1 2026', value: 2.11, height: 42 },
+              { label: 'Q2 2026', value: 2.49, height: 50 },
+            ].map((q) => (
+              <div key={q.label} className={styles.cashFlowTrendBarGroup}>
+                <div className={styles.cashFlowTrendBarValue}>${q.value}M</div>
+                <div
+                  className={styles.cashFlowTrendBar}
+                  style={{
+                    height: `${q.height}px`,
+                    background: q.label === 'Q2 2026'
+                      ? 'linear-gradient(180deg, #23C343, rgba(35, 195, 67, 0.4))'
+                      : 'linear-gradient(180deg, #165DFF, rgba(22, 93, 255, 0.3))',
+                  }}
+                />
+                <div className={styles.cashFlowTrendBarLabel}>{q.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Risk & Compliance Summary ──────────────────────────── */}
+      <div className={styles.riskSection}>
+        <div className={styles.riskTitle}>
+          Risk &amp; Compliance Summary
+          <span className={styles.riskBadge}>All Clear</span>
+        </div>
+
+        <div className={styles.riskGrid}>
+          <div className={styles.riskCard}>
+            <div className={styles.riskCardHeader}>
+              <span className={styles.riskCardCheckmark}>&#x2713;</span>
+              <span className={styles.riskCardLabel}>Fraud Prevented</span>
+            </div>
+            <div className={styles.riskCardValue} style={{ color: '#F76560' }}>$234K</div>
+            <div className={styles.riskCardDetail}>23 duplicate invoices blocked</div>
+            <div className={styles.riskCardDetail}>4 bank fraud attempts stopped</div>
+            <div className={styles.riskCardMetricBar}>
+              <div className={styles.riskCardMetricBarFill} style={{ width: '100%', background: '#F76560' }} />
+            </div>
+          </div>
+
+          <div className={styles.riskCard}>
+            <div className={styles.riskCardHeader}>
+              <span className={styles.riskCardCheckmark}>&#x2713;</span>
+              <span className={styles.riskCardLabel}>Compliance Rate</span>
+            </div>
+            <div className={styles.riskCardValue} style={{ color: '#23C343' }}>99.7%</div>
+            <div className={styles.riskCardDetail}>3 violations caught before submission</div>
+            <div className={styles.riskCardMetricBar}>
+              <div className={styles.riskCardMetricBarFill} style={{ width: '99.7%', background: '#23C343' }} />
+            </div>
+          </div>
+
+          <div className={styles.riskCard}>
+            <div className={styles.riskCardHeader}>
+              <span className={styles.riskCardCheckmark}>&#x2713;</span>
+              <span className={styles.riskCardLabel}>Sanctions Screening</span>
+            </div>
+            <div className={styles.riskCardValue} style={{ color: '#23C343' }}>100%</div>
+            <div className={styles.riskCardDetail}>12,341 invoices screened &mdash; all clean</div>
+            <div className={styles.riskCardMetricBar}>
+              <div className={styles.riskCardMetricBarFill} style={{ width: '100%', background: '#23C343' }} />
+            </div>
+          </div>
+
+          <div className={styles.riskCard}>
+            <div className={styles.riskCardHeader}>
+              <span className={styles.riskCardCheckmark}>&#x2713;</span>
+              <span className={styles.riskCardLabel}>False Positive Rate</span>
+            </div>
+            <div className={styles.riskCardValue} style={{ color: '#165DFF' }}>1.8%</div>
+            <div className={styles.riskCardDetail}>vs 4.2% industry average</div>
+            <div className={styles.riskCardComparison}>57% more precise than industry avg</div>
+            <div className={styles.riskCardMetricBar}>
+              <div className={styles.riskCardMetricBarFill} style={{ width: '43%', background: '#165DFF' }} />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.riskCallout}>
+          <div className={styles.riskCalloutIcon}>&#x1F6E1;&#xFE0F;</div>
+          <div className={styles.riskCalloutText}>
+            <span className={styles.riskCalloutTitle}>Zero fraud escapes in 180 days</span>
+            <span className={styles.riskCalloutSubtitle}>All fraudulent invoices were detected and blocked before payment execution</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Board-Ready Executive Summary ──────────────────────── */}
+      <div className={styles.execSummarySection}>
+        <div className={styles.execSummaryHeader}>
+          <div className={styles.execSummaryTitleRow}>
+            <span className={styles.execSummaryIcon}>&#x1F4CB;</span>
+            <span className={styles.execSummaryTitle}>Executive Summary &mdash; Board Ready</span>
+          </div>
+          <span className={styles.execSummaryBadge}>Strategic View</span>
+        </div>
+
+        <div className={styles.execSummaryColumns}>
+          <div className={styles.execSummaryColumn}>
+            <div className={`${styles.execSummaryColumnTitle} ${styles.execSummaryColumnTitleBlue}`}>
+              Operational Excellence
+            </div>
+            <div className={styles.execSummaryMetrics}>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Touchless Rate</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#165DFF' }}>94.9%</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Cycle Time</span>
+                <span className={styles.execSummaryMetricValue}>2.1 days</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Cost per Invoice</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#23C343' }}>$1.24</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.execSummaryColumn}>
+            <div className={`${styles.execSummaryColumnTitle} ${styles.execSummaryColumnTitlePurple}`}>
+              Business Impact
+            </div>
+            <div className={styles.execSummaryMetrics}>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Renewal Rate</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#23C343' }}>97%</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>NPS Delta</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#8E51DA' }}>+28</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Labor Savings</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#8E51DA' }}>$2.4M</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.execSummaryColumn}>
+            <div className={`${styles.execSummaryColumnTitle} ${styles.execSummaryColumnTitleGreen}`}>
+              Risk &amp; Compliance
+            </div>
+            <div className={styles.execSummaryMetrics}>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Fraud Prevented</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#F76560' }}>$234K</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Compliance Rate</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#23C343' }}>99.7%</span>
+              </div>
+              <div className={styles.execSummaryMetric}>
+                <span className={styles.execSummaryMetricLabel}>Fraud Escapes</span>
+                <span className={styles.execSummaryMetricValue} style={{ color: '#23C343' }}>0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.execSummaryFooter}>
+          <span>Generated by Medius AI Platform</span>
+          <span className={styles.execSummaryFooterSep} />
+          <span>Data as of Feb 2026</span>
+          <span className={styles.execSummaryFooterSep} />
+          <span>Confidence: <span className={styles.execSummaryFooterConfidence}>94.2%</span></span>
+        </div>
+      </div>
+
       {/* Pipeline */}
       {renderPipeline()}
 
