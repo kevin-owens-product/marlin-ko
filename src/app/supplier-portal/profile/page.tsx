@@ -3,11 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import { SUPPORTED_LOCALES } from '@/lib/i18n/types';
-import styles from './portal-profile.module.css';
+import styles from './profile.module.css';
 
 /* ───────── Types ───────── */
 
-type ProfileTab = 'company' | 'banking' | 'contacts' | 'preferences';
+type ProfileTab = 'company' | 'banking' | 'contacts' | 'compliance' | 'preferences';
 
 interface Contact {
   id: string;
@@ -62,6 +62,31 @@ const initialContacts: Contact[] = [
   { id: 'c-3', titleKey: 'supplierPortal.profile.technicalContact', name: 'Emily Park', email: 'e.park@acmecorp.com', phone: '+1 (555) 234-8903', role: 'IT Director' },
 ];
 
+type DocStatus = 'Verified' | 'Uploaded' | 'Expired' | 'Missing';
+
+interface ComplianceDoc {
+  id: string;
+  name: string;
+  nameKey: string;
+  status: DocStatus;
+  uploadDate: string;
+  expiryDate: string;
+}
+
+const complianceDocs: ComplianceDoc[] = [
+  { id: 'cd-1', name: 'W-9 Form', nameKey: 'supplierPortal.profile.docW9', status: 'Verified', uploadDate: 'Jan 15, 2026', expiryDate: 'N/A' },
+  { id: 'cd-2', name: 'Insurance Certificate', nameKey: 'supplierPortal.profile.docInsurance', status: 'Uploaded', uploadDate: 'Dec 10, 2025', expiryDate: 'Dec 10, 2026' },
+  { id: 'cd-3', name: 'Compliance Certificate', nameKey: 'supplierPortal.profile.docCompliance', status: 'Expired', uploadDate: 'Jan 05, 2025', expiryDate: 'Jan 05, 2026' },
+  { id: 'cd-4', name: 'Business License', nameKey: 'supplierPortal.profile.docBusinessLicense', status: 'Missing', uploadDate: '--', expiryDate: '--' },
+];
+
+const docStatusClassMap: Record<DocStatus, string> = {
+  Verified: 'docStatusVerified',
+  Uploaded: 'docStatusUploaded',
+  Expired: 'docStatusExpired',
+  Missing: 'docStatusMissing',
+};
+
 /* ───────── Component ───────── */
 
 export default function SupplierPortalProfile() {
@@ -83,6 +108,14 @@ export default function SupplierPortalProfile() {
     portalNotifications: true,
     language: 'en',
     earlyPayment: false,
+  });
+
+  /* Notification preferences */
+  const [notifPrefs, setNotifPrefs] = useState({
+    paymentReceived: true,
+    invoiceStatusChange: true,
+    newDispute: true,
+    scfOffers: false,
   });
 
   useEffect(() => {
@@ -117,6 +150,7 @@ export default function SupplierPortalProfile() {
     { key: 'company', labelKey: 'supplierPortal.profile.tabCompanyInfo' },
     { key: 'banking', labelKey: 'supplierPortal.profile.tabBanking' },
     { key: 'contacts', labelKey: 'supplierPortal.profile.tabContacts' },
+    { key: 'compliance', labelKey: 'supplierPortal.profile.tabCompliance' },
     { key: 'preferences', labelKey: 'supplierPortal.profile.tabPreferences' },
   ];
 
@@ -431,6 +465,43 @@ export default function SupplierPortalProfile() {
         </div>
       )}
 
+      {/* ── Compliance Documents Tab ── */}
+      {activeTab === 'compliance' && (
+        <div className={styles.contentCard}>
+          <p className={styles.complianceIntro}>
+            {t('supplierPortal.profile.complianceIntro')}
+          </p>
+          <div className={styles.complianceTable}>
+            <div className={styles.complianceHeader}>
+              <span className={styles.complianceHeaderCell}>{t('supplierPortal.profile.document')}</span>
+              <span className={styles.complianceHeaderCell}>{t('supplierPortal.profile.docStatus')}</span>
+              <span className={styles.complianceHeaderCell}>{t('supplierPortal.profile.uploadedDate')}</span>
+              <span className={styles.complianceHeaderCell}>{t('supplierPortal.profile.expiryDate')}</span>
+              <span className={styles.complianceHeaderCell}>{t('supplierPortal.profile.docActions')}</span>
+            </div>
+            {complianceDocs.map((doc) => (
+              <div key={doc.id} className={styles.complianceRow}>
+                <span className={styles.complianceDocName}>{t(doc.nameKey)}</span>
+                <span>
+                  <span className={`${styles.docStatusBadge} ${styles[docStatusClassMap[doc.status]]}`}>
+                    {doc.status}
+                  </span>
+                </span>
+                <span className={styles.complianceDate}>{doc.uploadDate}</span>
+                <span className={styles.complianceDate}>{doc.expiryDate}</span>
+                <span>
+                  <button className={styles.uploadDocButton}>
+                    {doc.status === 'Missing' || doc.status === 'Expired'
+                      ? t('supplierPortal.profile.upload')
+                      : t('supplierPortal.profile.replace')}
+                  </button>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── Preferences Tab ── */}
       {activeTab === 'preferences' && (
         <div className={styles.contentCard}>
@@ -531,6 +602,61 @@ export default function SupplierPortalProfile() {
                 role="switch"
                 aria-checked={prefs.earlyPayment}
                 aria-label={t('supplierPortal.profile.earlyPaymentDiscount')}
+              />
+            </div>
+          </div>
+
+          {/* Notification Preferences */}
+          <div className={styles.preferenceSection}>
+            <div className={styles.preferenceSectionTitle}>
+              {t('supplierPortal.profile.notificationPreferences')}
+            </div>
+            <div className={styles.preferenceRow}>
+              <div className={styles.preferenceInfo}>
+                <span className={styles.preferenceLabel}>{t('supplierPortal.profile.notifPaymentReceived')}</span>
+                <span className={styles.preferenceDesc}>{t('supplierPortal.profile.notifPaymentReceivedDesc')}</span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifPrefs.paymentReceived ? styles.toggleActive : ''}`}
+                onClick={() => setNotifPrefs((p) => ({ ...p, paymentReceived: !p.paymentReceived }))}
+                role="switch"
+                aria-checked={notifPrefs.paymentReceived}
+              />
+            </div>
+            <div className={styles.preferenceRow}>
+              <div className={styles.preferenceInfo}>
+                <span className={styles.preferenceLabel}>{t('supplierPortal.profile.notifInvoiceStatus')}</span>
+                <span className={styles.preferenceDesc}>{t('supplierPortal.profile.notifInvoiceStatusDesc')}</span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifPrefs.invoiceStatusChange ? styles.toggleActive : ''}`}
+                onClick={() => setNotifPrefs((p) => ({ ...p, invoiceStatusChange: !p.invoiceStatusChange }))}
+                role="switch"
+                aria-checked={notifPrefs.invoiceStatusChange}
+              />
+            </div>
+            <div className={styles.preferenceRow}>
+              <div className={styles.preferenceInfo}>
+                <span className={styles.preferenceLabel}>{t('supplierPortal.profile.notifNewDispute')}</span>
+                <span className={styles.preferenceDesc}>{t('supplierPortal.profile.notifNewDisputeDesc')}</span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifPrefs.newDispute ? styles.toggleActive : ''}`}
+                onClick={() => setNotifPrefs((p) => ({ ...p, newDispute: !p.newDispute }))}
+                role="switch"
+                aria-checked={notifPrefs.newDispute}
+              />
+            </div>
+            <div className={styles.preferenceRow}>
+              <div className={styles.preferenceInfo}>
+                <span className={styles.preferenceLabel}>{t('supplierPortal.profile.notifScfOffers')}</span>
+                <span className={styles.preferenceDesc}>{t('supplierPortal.profile.notifScfOffersDesc')}</span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifPrefs.scfOffers ? styles.toggleActive : ''}`}
+                onClick={() => setNotifPrefs((p) => ({ ...p, scfOffers: !p.scfOffers }))}
+                role="switch"
+                aria-checked={notifPrefs.scfOffers}
               />
             </div>
           </div>

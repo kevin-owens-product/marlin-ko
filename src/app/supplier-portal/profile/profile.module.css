@@ -1,0 +1,720 @@
+/* ===============================================================
+   Supplier Portal — Profile & Settings
+   profile.module.css
+   =============================================================== */
+
+/* ── Page Header ── */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6, 24px);
+  flex-wrap: wrap;
+  gap: var(--space-4, 16px);
+}
+
+.pageTitle {
+  font-size: var(--text-2xl, 24px);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.pageSubtitle {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-muted, #86909C);
+  margin-top: var(--space-1, 4px);
+}
+
+/* ── Tab Navigation ── */
+.tabs {
+  display: flex;
+  gap: var(--space-1, 4px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  padding: var(--space-1, 4px);
+  border-radius: var(--radius-lg, 8px);
+  border: 1px solid var(--color-border, #E5E6EB);
+  margin-bottom: var(--space-6, 24px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  padding: var(--space-2, 8px) var(--space-5, 20px);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--color-text-primary, #1D2129);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.tabActive {
+  background: var(--color-bg-primary, #ffffff);
+  color: var(--color-accent, #165DFF);
+  font-weight: var(--font-semibold, 600);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+/* ── Content Card ── */
+.contentCard {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-8, 32px);
+}
+
+/* ── Form Styles ── */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5, 20px);
+}
+
+.formGridThree {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-5, 20px);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+}
+
+.formGroupFull {
+  grid-column: 1 / -1;
+}
+
+.formLabel {
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-secondary, #4E5969);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.formInput {
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-primary, #1D2129);
+  font-size: var(--text-base, 14px);
+  outline: none;
+  transition: border-color var(--transition-normal, 200ms) ease;
+}
+
+.formInput:focus {
+  border-color: var(--color-accent, #165DFF);
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.08);
+}
+
+.formInput:disabled {
+  background: var(--color-bg-secondary, #F7F8FA);
+  color: var(--color-text-muted, #86909C);
+  cursor: not-allowed;
+}
+
+.formSelect {
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-primary, #1D2129);
+  font-size: var(--text-base, 14px);
+  outline: none;
+  appearance: auto;
+  transition: border-color var(--transition-normal, 200ms) ease;
+}
+
+.formSelect:focus {
+  border-color: var(--color-accent, #165DFF);
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.08);
+}
+
+.formHelperText {
+  font-size: var(--text-xs, 12px);
+  color: var(--color-text-muted, #86909C);
+  margin-top: var(--space-1, 4px);
+}
+
+/* ── Save Button Area ── */
+.saveArea {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3, 12px);
+  margin-top: var(--space-6, 24px);
+  padding-top: var(--space-6, 24px);
+  border-top: 1px solid var(--color-border, #E5E6EB);
+}
+
+.saveButton {
+  padding: var(--space-2, 8px) var(--space-6, 24px);
+  background: var(--color-accent, #165DFF);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: background var(--transition-normal, 200ms) ease;
+}
+
+.saveButton:hover {
+  background: var(--color-accent-hover, #0E42D2);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  padding: var(--space-2, 8px) var(--space-5, 20px);
+  background: transparent;
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.cancelButton:hover {
+  border-color: var(--color-text-muted, #86909C);
+  color: var(--color-text-primary, #1D2129);
+}
+
+/* ── Banking Tab ── */
+.maskedValue {
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted, #86909C);
+}
+
+.bankNote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 12px);
+  padding: var(--space-4, 16px);
+  background: rgba(255, 125, 0, 0.06);
+  border: 1px solid rgba(255, 125, 0, 0.2);
+  border-radius: var(--radius-lg, 8px);
+  margin-bottom: var(--space-6, 24px);
+}
+
+.bankNoteIcon {
+  font-size: var(--text-lg, 16px);
+  color: var(--color-warning, #FF7D00);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bankNoteText {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-secondary, #4E5969);
+  line-height: 1.5;
+}
+
+.requestChangeButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px) var(--space-5, 20px);
+  background: transparent;
+  border: 1px solid var(--color-warning, #FF7D00);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-warning, #FF7D00);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.requestChangeButton:hover {
+  background: rgba(255, 125, 0, 0.06);
+}
+
+/* ── Change History ── */
+.changeHistory {
+  margin-top: var(--space-6, 24px);
+}
+
+.changeHistoryTitle {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-3, 12px);
+}
+
+.changeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3, 12px) 0;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.changeItem:last-child {
+  border-bottom: none;
+}
+
+.changeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.changeEvent {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-primary, #1D2129);
+  font-weight: var(--font-medium, 500);
+}
+
+.changeDate {
+  font-size: var(--text-xs, 12px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.changeBadge {
+  display: inline-block;
+  padding: 2px var(--space-2, 8px);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 11px;
+  font-weight: var(--font-semibold, 600);
+}
+
+.changeBadgeCompleted {
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--color-success, #00B42A);
+}
+
+.changeBadgePending {
+  background: rgba(255, 125, 0, 0.1);
+  color: var(--color-warning, #FF7D00);
+}
+
+/* ── Contacts Tab ── */
+.contactsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5, 20px);
+}
+
+.contactCard {
+  padding: var(--space-6, 24px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  transition: box-shadow var(--transition-normal, 200ms) ease;
+}
+
+.contactCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.contactCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4, 16px);
+}
+
+.contactCardTitle {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.removeContactButton {
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  background: transparent;
+  border: 1px solid rgba(245, 63, 63, 0.3);
+  border-radius: var(--radius-sm, 2px);
+  color: var(--color-error, #F53F3F);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.removeContactButton:hover {
+  background: rgba(245, 63, 63, 0.06);
+  border-color: var(--color-error, #F53F3F);
+}
+
+.addContactButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 8px);
+  width: 100%;
+  padding: var(--space-4, 16px);
+  background: transparent;
+  border: 2px dashed var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.addContactButton:hover {
+  border-color: var(--color-accent, #165DFF);
+  color: var(--color-accent, #165DFF);
+  background: rgba(22, 93, 255, 0.02);
+}
+
+/* ── Preferences Tab ── */
+.preferenceSection {
+  margin-bottom: var(--space-8, 32px);
+}
+
+.preferenceSection:last-of-type {
+  margin-bottom: 0;
+}
+
+.preferenceSectionTitle {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-4, 16px);
+  padding-bottom: var(--space-2, 8px);
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.preferenceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3, 12px) 0;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.3);
+}
+
+.preferenceRow:last-child {
+  border-bottom: none;
+}
+
+.preferenceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 75%;
+}
+
+.preferenceLabel {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.preferenceDesc {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+  line-height: 1.4;
+}
+
+/* ── Toggle Switch ── */
+.toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #C9CDD4;
+  border-radius: 26px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.toggleActive {
+  background: var(--color-accent, #165DFF);
+}
+
+.toggleActive::after {
+  transform: translateX(22px);
+}
+
+/* ── Status Indicators ── */
+.statusVerified {
+  color: var(--color-success, #00B42A);
+}
+
+.statusPending {
+  color: var(--color-warning, #FF7D00);
+}
+
+.statusError {
+  color: var(--color-error, #F53F3F);
+}
+
+/* ── Success Message ── */
+.successMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: rgba(0, 180, 42, 0.06);
+  border: 1px solid rgba(0, 180, 42, 0.2);
+  border-radius: var(--radius-md, 4px);
+  margin-bottom: var(--space-4, 16px);
+  font-size: var(--text-base, 14px);
+  color: var(--color-success, #00B42A);
+  font-weight: var(--font-medium, 500);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Loading ── */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+}
+
+.skeleton {
+  border-radius: var(--radius-lg, 8px);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonTabs {
+  height: 48px;
+}
+
+.skeletonContent {
+  height: 400px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Responsive: 1200px ── */
+@media (max-width: 1200px) {
+  .formGridThree {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Responsive: 768px ── */
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGridThree {
+    grid-template-columns: 1fr;
+  }
+
+  .contentCard {
+    padding: var(--space-5, 20px);
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .preferenceRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3, 12px);
+  }
+
+  .preferenceInfo {
+    max-width: 100%;
+  }
+
+  .bankNote {
+    flex-direction: column;
+    gap: var(--space-2, 8px);
+  }
+
+  .saveArea {
+    flex-direction: column-reverse;
+    gap: var(--space-2, 8px);
+  }
+
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ── Compliance Documents Tab ── */
+.complianceIntro {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-secondary, #4E5969);
+  margin-bottom: var(--space-5, 20px);
+  line-height: 1.5;
+}
+
+.complianceTable {
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+}
+
+.complianceHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  border-bottom: 1px solid var(--color-border, #E5E6EB);
+}
+
+.complianceHeaderCell {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted, #86909C);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.complianceRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  align-items: center;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+  transition: background 0.15s ease;
+}
+
+.complianceRow:last-child {
+  border-bottom: none;
+}
+
+.complianceRow:hover {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.complianceDocName {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.complianceDate {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.docStatusBadge {
+  display: inline-block;
+  padding: 2px var(--space-2, 8px);
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.docStatusVerified {
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--color-success, #00B42A);
+}
+
+.docStatusUploaded {
+  background: rgba(22, 93, 255, 0.1);
+  color: var(--color-accent, #165DFF);
+}
+
+.docStatusExpired {
+  background: rgba(255, 125, 0, 0.1);
+  color: var(--color-warning, #FF7D00);
+}
+
+.docStatusMissing {
+  background: rgba(245, 63, 63, 0.1);
+  color: var(--color-error, #F53F3F);
+}
+
+.uploadDocButton {
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  background: transparent;
+  border: 1px solid var(--color-accent, #165DFF);
+  border-radius: var(--radius-sm, 2px);
+  color: var(--color-accent, #165DFF);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.uploadDocButton:hover {
+  background: var(--color-accent-muted, rgba(22, 93, 255, 0.08));
+}
+
+/* ── Responsive: 480px ── */
+@media (max-width: 480px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contactCardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2, 8px);
+  }
+
+  .contentCard {
+    padding: var(--space-4, 16px);
+  }
+
+  .changeItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2, 8px);
+  }
+
+  .tab {
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+    font-size: var(--text-sm, 13px);
+  }
+}

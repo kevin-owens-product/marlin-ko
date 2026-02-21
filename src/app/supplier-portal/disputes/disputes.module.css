@@ -603,6 +603,61 @@
   background: var(--color-accent-hover, #0E42D2);
 }
 
+/* Resolution Actions */
+.resolutionActions {
+  margin-top: var(--space-4, 16px);
+  padding: var(--space-4, 16px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+}
+
+.resolutionLabel {
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-3, 12px);
+}
+
+.resolutionButtons {
+  display: flex;
+  gap: var(--space-3, 12px);
+}
+
+.acceptButton {
+  flex: 1;
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  background: var(--color-success, #00B42A);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: background var(--transition-normal, 200ms) ease;
+}
+
+.acceptButton:hover {
+  background: #009A29;
+}
+
+.rejectButton {
+  flex: 1;
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  background: transparent;
+  border: 1px solid var(--color-error, #F53F3F);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-error, #F53F3F);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.rejectButton:hover {
+  background: rgba(245, 63, 63, 0.08);
+}
+
 /* Loading */
 .loadingContainer {
   display: flex;
