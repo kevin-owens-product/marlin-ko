@@ -251,6 +251,34 @@ export default function SupplierPortalSCF() {
             </div>
           </div>
 
+          {/* How It Works */}
+          <div className={styles.howItWorks}>
+            <h2 className={styles.howItWorksTitle}>{t('supplierPortal.scf.howItWorks')}</h2>
+            <div className={styles.stepsGrid}>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>1</div>
+                <h3 className={styles.stepTitle}>{t('supplierPortal.scf.step1Title')}</h3>
+                <p className={styles.stepDesc}>{t('supplierPortal.scf.step1Desc')}</p>
+              </div>
+              <div className={styles.stepArrowWrapper}>
+                <span className={styles.stepArrow}>&#8594;</span>
+              </div>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>2</div>
+                <h3 className={styles.stepTitle}>{t('supplierPortal.scf.step2Title')}</h3>
+                <p className={styles.stepDesc}>{t('supplierPortal.scf.step2Desc')}</p>
+              </div>
+              <div className={styles.stepArrowWrapper}>
+                <span className={styles.stepArrow}>&#8594;</span>
+              </div>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>3</div>
+                <h3 className={styles.stepTitle}>{t('supplierPortal.scf.step3Title')}</h3>
+                <p className={styles.stepDesc}>{t('supplierPortal.scf.step3Desc')}</p>
+              </div>
+            </div>
+          </div>
+
           {/* Eligible Invoices Table */}
           <div className={styles.sectionCard}>
             <div className={styles.sectionHeader}>
@@ -411,6 +439,34 @@ export default function SupplierPortalSCF() {
                   ))}
                 </tbody>
               </table>
+            )}
+          </div>
+          {/* Terms & Conditions */}
+          <div className={styles.termsSection}>
+            <button
+              className={styles.termsToggle}
+              onClick={() => setShowApplication(!showApplication)}
+              aria-expanded={showApplication}
+            >
+              <span className={styles.termsToggleText}>
+                {t('supplierPortal.scf.termsAndConditions')}
+              </span>
+              <span className={styles.termsToggleIcon}>
+                {showApplication ? '\u25B2' : '\u25BC'}
+              </span>
+            </button>
+            {showApplication && (
+              <div className={styles.termsContent}>
+                <p className={styles.termsText}>{t('supplierPortal.scf.termsIntro')}</p>
+                <ul className={styles.termsList}>
+                  <li>{t('supplierPortal.scf.term1')}</li>
+                  <li>{t('supplierPortal.scf.term2')}</li>
+                  <li>{t('supplierPortal.scf.term3')}</li>
+                  <li>{t('supplierPortal.scf.term4')}</li>
+                  <li>{t('supplierPortal.scf.term5')}</li>
+                </ul>
+                <p className={styles.termsFootnote}>{t('supplierPortal.scf.termsFootnote')}</p>
+              </div>
             )}
           </div>
         </>

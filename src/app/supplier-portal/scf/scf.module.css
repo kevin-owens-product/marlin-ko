@@ -426,6 +426,143 @@
   color: var(--color-accent, #165DFF);
 }
 
+/* ── How It Works ── */
+.howItWorks {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-6, 24px);
+  margin-bottom: var(--space-6, 24px);
+}
+
+.howItWorksTitle {
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-5, 20px);
+  text-align: center;
+}
+
+.stepsGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3, 12px);
+}
+
+.stepCard {
+  flex: 1;
+  max-width: 280px;
+  text-align: center;
+  padding: var(--space-5, 20px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  border-radius: var(--radius-lg, 8px);
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent, #165DFF);
+  color: #ffffff;
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-bold, 700);
+  margin-bottom: var(--space-3, 12px);
+}
+
+.stepTitle {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.stepDesc {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-secondary, #4E5969);
+  line-height: 1.5;
+}
+
+.stepArrowWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepArrow {
+  font-size: var(--text-xl, 20px);
+  color: var(--color-text-muted, #86909C);
+}
+
+/* ── Terms & Conditions ── */
+.termsSection {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  margin-bottom: var(--space-6, 24px);
+}
+
+.termsToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4, 16px) var(--space-6, 24px);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast, 150ms);
+}
+
+.termsToggle:hover {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.termsToggleText {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.termsToggleIcon {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.termsContent {
+  padding: 0 var(--space-6, 24px) var(--space-6, 24px);
+  border-top: 1px solid var(--color-border, #E5E6EB);
+}
+
+.termsText {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-secondary, #4E5969);
+  line-height: 1.6;
+  margin-top: var(--space-4, 16px);
+}
+
+.termsList {
+  margin: var(--space-4, 16px) 0;
+  padding-left: var(--space-6, 24px);
+}
+
+.termsList li {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-secondary, #4E5969);
+  line-height: 1.8;
+}
+
+.termsFootnote {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+  font-style: italic;
+}
+
 /* ── Not Enrolled View ── */
 .notEnrolledSection {
   margin-top: var(--space-6, 24px);
@@ -780,6 +917,14 @@
 
   .resultGrid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .stepsGrid {
+    flex-direction: column;
+  }
+
+  .stepArrowWrapper {
+    transform: rotate(90deg);
   }
 }
 

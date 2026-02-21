@@ -2,8 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useT } from '@/lib/i18n/locale-context';
-import { useLocale } from '@/lib/i18n/locale-context';
+import { useT, useLocale } from '@/lib/i18n/locale-context';
 import { SUPPORTED_LOCALES, Locale } from '@/lib/i18n/types';
 import styles from './layout.module.css';
 
