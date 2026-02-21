@@ -116,7 +116,17 @@
     "onboarding": "Mise en route",
     "expandSidebar": "Développer la barre latérale",
     "collapseSidebar": "Réduire la barre latérale",
-    "apAutomation": "Automatisation CF"
+    "apAutomation": "Automatisation CF",
+    "cpoStrategy": "STRATÉGIE CPO",
+    "cpoPortal": "Portail stratégie CPO",
+    "cpoVision": "Développement de la vision",
+    "cpoValidation": "Approche de validation",
+    "cpoAlignment": "Alignement interfonctionnel",
+    "cpoGaps": "Lacunes et incertitudes",
+    "networkMap": "Intelligence réseau",
+    "onboardingPipeline": "Pipeline d'intégration",
+    "performanceScores": "Tableaux de bord de performance",
+    "diversityEsg": "Diversité et ESG"
   },
   "header": {
     "searchPlaceholder": "Rechercher des pages, factures, fournisseurs...",
@@ -148,6 +158,9 @@
     "directory": "Annuaire",
     "conversations": "Conversations",
     "risk": "Surveillance des risques",
+    "network": "Intelligence réseau",
+    "performance": "Tableaux de bord de performance",
+    "diversity": "Diversité et ESG",
     "analytics": "Analytique",
     "benchmarks": "Benchmarks",
     "reports": "Rapports",
