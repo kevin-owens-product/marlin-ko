@@ -234,6 +234,12 @@
   gap: var(--space-6, 24px);
 }
 
+.footerLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+}
+
 .footerLink {
   font-size: var(--text-sm, 13px);
   color: var(--color-text-secondary, #4E5969);

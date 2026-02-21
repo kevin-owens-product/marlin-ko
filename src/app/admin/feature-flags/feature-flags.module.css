@@ -22,7 +22,7 @@
 
 .title {
   font-size: var(--text-2xl);
-  font-weight: 700;
+  font-weight: var(--font-bold);
   color: var(--color-text-primary);
   margin-bottom: var(--space-1);
 }
@@ -51,7 +51,7 @@
   font-size: var(--text-sm);
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  transition: border-color 0.15s ease;
+  transition: border-color var(--transition-fast);
 }
 
 .searchInput:focus {
@@ -88,27 +88,23 @@
   padding: var(--space-3) var(--space-4);
   text-align: left;
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: var(--font-semibold);
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: var(--tracking-wider);
   background: var(--color-bg-secondary);
   border-bottom: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
 .table tbody tr {
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   transition: background-color 0.1s ease;
   cursor: pointer;
 }
 
-.table tbody tr:nth-child(even) {
-  background-color: var(--color-bg-secondary);
-}
-
 .table tbody tr:hover {
-  background-color: var(--arcoblue-1);
+  background-color: var(--color-bg-secondary);
 }
 
 .table tbody tr:last-child {
@@ -130,11 +126,11 @@
   background: var(--arcoblue-1);
   padding: var(--space-0-5) var(--space-2);
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: var(--font-medium);
 }
 
 .flagName {
-  font-weight: 600;
+  font-weight: var(--font-semibold);
   color: var(--color-text-primary);
 }
 
@@ -142,7 +138,7 @@
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   margin-top: var(--space-0-5);
-  max-width: 280px;
+  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -174,7 +170,7 @@
   inset: 0;
   background-color: var(--gray-4);
   border-radius: var(--radius-full);
-  transition: background-color 0.2s ease;
+  transition: background-color var(--transition-normal);
 }
 
 .toggleInput:checked + .toggleTrack {
@@ -189,7 +185,7 @@
   height: 20px;
   background: #fff;
   border-radius: 50%;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-normal);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -199,7 +195,7 @@
 
 .toggleLabel {
   font-size: var(--text-xs);
-  font-weight: 500;
+  font-weight: var(--font-medium);
 }
 
 .toggleLabelOn {
@@ -210,71 +206,35 @@
   color: var(--color-text-muted);
 }
 
-/* Plan badges */
-.planBadge {
+/* Scope Badge */
+.scopeBadge {
   display: inline-flex;
   align-items: center;
   padding: var(--space-0-5) var(--space-2);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: var(--font-semibold);
 }
 
-.planAll {
-  background-color: var(--green-1);
-  color: var(--green-7);
-}
-
-.planStarter {
+.scopeGlobal {
   background-color: var(--arcoblue-1);
   color: var(--arcoblue-7);
 }
 
-.planProfessional {
+.scopeTenant {
   background-color: var(--purple-1);
   color: var(--purple-7);
 }
 
-.planEnterprise {
+.scopePlan {
   background-color: var(--orange-1);
   color: var(--orange-7);
 }
 
-/* Override count */
-.overrideCount {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  height: 22px;
-  padding: 0 var(--space-2);
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius-full);
+/* Updated column */
+.updatedText {
   font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-text-secondary);
-}
-
-.overrideCountActive {
-  background: var(--arcoblue-1);
-  color: var(--arcoblue-7);
-}
-
-/* Plan Visual Indicator */
-.planIndicator {
-  display: flex;
-  gap: var(--space-1);
-}
-
-.planDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gray-3);
-}
-
-.planDotActive {
-  background: var(--color-accent);
+  color: var(--color-text-muted);
 }
 
 /* Expanded Row */
@@ -300,7 +260,7 @@
 
 .overrideTitle {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-semibold);
   color: var(--color-text-primary);
 }
 
@@ -318,7 +278,7 @@
   padding: var(--space-2) var(--space-3);
   text-align: left;
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: var(--font-semibold);
   color: var(--color-text-muted);
   background: var(--color-bg-elevated);
   border-bottom: 1px solid var(--color-border);
@@ -327,7 +287,7 @@
 .overrideTable td {
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .overrideTable tr:last-child td {
@@ -361,6 +321,21 @@
   padding: var(--space-4);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+}
+
+.removeBtn {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.removeBtn:hover {
+  background-color: var(--red-1);
 }
 
 /* Modal Form */
@@ -419,5 +394,11 @@
   .addOverrideRow {
     flex-direction: column;
     align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-3);
   }
 }

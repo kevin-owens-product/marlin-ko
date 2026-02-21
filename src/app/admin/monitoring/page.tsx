@@ -6,102 +6,111 @@ import { Skeleton } from '@/components/ui';
 import styles from './monitoring.module.css';
 
 /* ---------- Mock Data ---------- */
-const apiMetrics = [
-  { label: 'Avg Response Time', value: '42ms', sub: 'Last 5 minutes', status: 'good' as const },
-  { label: 'P95 Latency', value: '128ms', sub: 'Below 200ms threshold', status: 'good' as const },
-  { label: 'P99 Latency', value: '340ms', sub: 'Slightly elevated', status: 'warn' as const },
-  { label: 'Error Rate', value: '0.03%', sub: '12 errors / 38,400 requests', status: 'good' as const },
-];
-
-const sessionsByTenant = [
-  { tenant: 'Acme Corporation', count: 87, pct: 28 },
-  { tenant: 'GlobalLogistics Inc', count: 64, pct: 21 },
-  { tenant: 'BigRetail Inc', count: 52, pct: 17 },
-  { tenant: 'NordicTech AB', count: 38, pct: 12 },
-  { tenant: 'CloudHost Services', count: 24, pct: 8 },
-  { tenant: 'FinanceHub Ltd', count: 18, pct: 6 },
-  { tenant: 'Others (6 tenants)', count: 29, pct: 9 },
-];
-
-const dbStats = [
-  { label: 'Connection Pool', value: '24/50 active' },
-  { label: 'Avg Query Time', value: '4.2ms' },
-  { label: 'Slow Queries (>1s)', value: '3 in last hour' },
-  { label: 'Total Table Size', value: '142 GB' },
-  { label: 'Index Hit Rate', value: '99.7%' },
-  { label: 'Replication Lag', value: '0.2s' },
-];
-
-const agentQueues = [
-  { name: 'Capture Agent', depth: 23, maxDepth: 100, color: '#165DFF', status: 'Healthy' },
-  { name: 'Classification Agent', depth: 18, maxDepth: 100, color: '#8E51DA', status: 'Healthy' },
-  { name: 'Compliance Agent', depth: 42, maxDepth: 100, color: '#14C9C9', status: 'Healthy' },
-  { name: 'Matching Agent', depth: 67, maxDepth: 100, color: '#FF9A2E', status: 'Warning' },
-  { name: 'Risk Agent', depth: 8, maxDepth: 100, color: '#F53F3F', status: 'Healthy' },
-  { name: 'Payment Agent', depth: 3, maxDepth: 100, color: '#23C343', status: 'Healthy' },
-  { name: 'Coding Agent', depth: 31, maxDepth: 100, color: '#722ED1', status: 'Healthy' },
-];
-
-const recentErrors = [
+const healthCards = [
   {
-    id: 'e1',
-    type: 'TimeoutError',
-    message: 'Request to payment gateway timed out after 30000ms',
-    time: '4 min ago',
-    stack: 'at PaymentService.processPayment (payment-service.ts:142)\nat BatchProcessor.run (batch-processor.ts:89)\nat async Queue.process (queue.ts:45)',
+    title: 'API Server',
+    status: 'Operational',
+    statusType: 'green' as const,
+    stats: [
+      { label: 'Uptime', value: '99.97%' },
+      { label: 'Avg Response', value: '42ms' },
+      { label: 'Requests/min', value: '2,340' },
+    ],
   },
   {
-    id: 'e2',
-    type: 'ValidationError',
-    message: 'Invalid invoice format: missing required field "tax_id" for tenant nordictech',
-    time: '12 min ago',
-    stack: 'at InvoiceValidator.validate (invoice-validator.ts:67)\nat CaptureAgent.process (capture-agent.ts:134)\nat async AgentRunner.execute (agent-runner.ts:28)',
+    title: 'Database',
+    status: 'Healthy',
+    statusType: 'green' as const,
+    stats: [
+      { label: 'Connections', value: '24/50' },
+      { label: 'Query Latency', value: '4.2ms' },
+      { label: 'Pool Usage', value: '48%' },
+    ],
   },
   {
-    id: 'e3',
-    type: 'DatabaseError',
-    message: 'Connection pool exhausted: max connections (50) reached, retrying in 500ms',
-    time: '28 min ago',
-    stack: 'at ConnectionPool.acquire (connection-pool.ts:89)\nat QueryExecutor.execute (query-executor.ts:34)\nat async InvoiceRepository.findById (invoice-repo.ts:56)',
+    title: 'Redis',
+    status: 'Healthy',
+    statusType: 'green' as const,
+    stats: [
+      { label: 'Memory', value: '2.8/8 GB' },
+      { label: 'Hit Rate', value: '99.2%' },
+      { label: 'Connections', value: '156' },
+    ],
   },
   {
-    id: 'e4',
-    type: 'RateLimitError',
-    message: 'API rate limit exceeded for tenant "globallogistics" (25000 req/hr)',
-    time: '45 min ago',
-    stack: 'at RateLimiter.check (rate-limiter.ts:42)\nat APIGateway.handleRequest (gateway.ts:78)\nat async Router.dispatch (router.ts:23)',
-  },
-  {
-    id: 'e5',
-    type: 'AuthenticationError',
-    message: 'JWT token expired for user david.k@cloudhost.io, refresh token also invalid',
-    time: '1 hr ago',
-    stack: 'at AuthMiddleware.verify (auth-middleware.ts:56)\nat async TokenService.refresh (token-service.ts:89)\nat SessionManager.validate (session-manager.ts:34)',
+    title: 'Queue',
+    status: 'Warning',
+    statusType: 'yellow' as const,
+    stats: [
+      { label: 'Pending Jobs', value: '182' },
+      { label: 'Processing Rate', value: '45/min' },
+      { label: 'Failed Jobs', value: '3' },
+    ],
   },
 ];
 
-const systemGauges = [
-  { label: 'CPU Usage', value: 34, unit: '%', sub: '8 cores / 16 threads', color: '#165DFF' },
-  { label: 'Memory Usage', value: 62, unit: '%', sub: '12.4 / 20 GB', color: '#8E51DA' },
-  { label: 'Disk I/O', value: 18, unit: '%', sub: '145 MB/s read, 67 MB/s write', color: '#23C343' },
-  { label: 'Network', value: 24, unit: '%', sub: '340 Mbps in, 128 Mbps out', color: '#14C9C9' },
+const hourlyRequests = [
+  { hour: '00:00', count: 12400 },
+  { hour: '01:00', count: 8200 },
+  { hour: '02:00', count: 5600 },
+  { hour: '03:00', count: 4100 },
+  { hour: '04:00', count: 3800 },
+  { hour: '05:00', count: 5200 },
+  { hour: '06:00', count: 14600 },
+  { hour: '07:00', count: 32400 },
+  { hour: '08:00', count: 48200 },
+  { hour: '09:00', count: 62100 },
+  { hour: '10:00', count: 71800 },
+  { hour: '11:00', count: 68400 },
+  { hour: '12:00', count: 54200 },
+  { hour: '13:00', count: 65800 },
+  { hour: '14:00', count: 72100 },
+  { hour: '15:00', count: 69400 },
+  { hour: '16:00', count: 58200 },
+  { hour: '17:00', count: 42800 },
+  { hour: '18:00', count: 28600 },
+  { hour: '19:00', count: 22400 },
+  { hour: '20:00', count: 18600 },
+  { hour: '21:00', count: 15200 },
+  { hour: '22:00', count: 14800 },
+  { hour: '23:00', count: 13200 },
 ];
 
-const agents = [
-  { name: 'Capture Agent', status: 'active' as const, tasks: 142, accuracy: 99.1, avgTime: '1.2s', health: 98 },
-  { name: 'Classification Agent', status: 'active' as const, tasks: 138, accuracy: 97.8, avgTime: '0.8s', health: 96 },
-  { name: 'Compliance Agent', status: 'active' as const, tasks: 115, accuracy: 99.7, avgTime: '2.1s', health: 99 },
-  { name: 'Matching Agent', status: 'active' as const, tasks: 108, accuracy: 96.3, avgTime: '1.5s', health: 87 },
-  { name: 'Risk Agent', status: 'active' as const, tasks: 108, accuracy: 98.2, avgTime: '0.9s', health: 97 },
-  { name: 'Payment Agent', status: 'idle' as const, tasks: 47, accuracy: 99.9, avgTime: '3.2s', health: 100 },
-  { name: 'Coding Agent', status: 'active' as const, tasks: 134, accuracy: 98.1, avgTime: '0.6s', health: 95 },
-  { name: 'Supplier Agent', status: 'active' as const, tasks: 56, accuracy: 97.4, avgTime: '1.8s', health: 93 },
+const maxRequests = Math.max(...hourlyRequests.map((h) => h.count));
+
+const errorBreakdown = [
+  { endpoint: 'POST /api/invoices', errors: 5, rate: '0.02%' },
+  { endpoint: 'GET /api/suppliers', errors: 3, rate: '0.01%' },
+  { endpoint: 'POST /api/payments', errors: 2, rate: '0.08%' },
+  { endpoint: 'PUT /api/approvals', errors: 1, rate: '0.005%' },
+  { endpoint: 'GET /api/analytics', errors: 1, rate: '0.003%' },
+];
+
+const topEndpoints = [
+  { name: 'GET /api/invoices', count: 142000, pct: 100 },
+  { name: 'GET /api/dashboard', count: 98400, pct: 69 },
+  { name: 'POST /api/invoices', count: 62100, pct: 44 },
+  { name: 'GET /api/suppliers', count: 48200, pct: 34 },
+  { name: 'POST /api/payments', count: 34600, pct: 24 },
+  { name: 'GET /api/approvals', count: 28900, pct: 20 },
+  { name: 'PUT /api/invoices', count: 22400, pct: 16 },
+  { name: 'GET /api/analytics', count: 18700, pct: 13 },
+];
+
+const activeSessions = [
+  { user: 'Sarah Chen', ip: '192.168.1.105', duration: '2h 14m', lastActivity: 'Now' },
+  { user: 'Kevin Owens', ip: '192.168.1.100', duration: '1h 48m', lastActivity: 'Now' },
+  { user: 'Michael Johnson', ip: '192.168.1.112', duration: '45m', lastActivity: '2 min ago' },
+  { user: 'Emma Wilson', ip: '192.168.1.120', duration: '32m', lastActivity: '5 min ago' },
+  { user: 'James Park', ip: '10.0.0.15', duration: '1h 22m', lastActivity: '8 min ago' },
+  { user: 'Tom Richards', ip: '10.0.1.42', duration: '28m', lastActivity: '12 min ago' },
+  { user: 'Yuki Tanaka', ip: '192.168.2.50', duration: '15m', lastActivity: '3 min ago' },
+  { user: 'David Kim', ip: '172.16.0.88', duration: '55m', lastActivity: '15 min ago' },
 ];
 
 export default function MonitoringPage() {
   const t = useT();
   const [loading, setLoading] = useState(true);
-  const [expandedError, setExpandedError] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600);
@@ -117,12 +126,13 @@ export default function MonitoringPage() {
             <Skeleton width={200} height={16} />
           </div>
         </div>
-        <div className={styles.metricsGrid}>
+        <div className={styles.healthGrid}>
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className={styles.metricCard}>
-              <Skeleton width={120} height={12} />
-              <Skeleton width={80} height={28} />
-              <Skeleton width={140} height={12} />
+            <div key={i} className={styles.healthCard}>
+              <Skeleton width={120} height={14} />
+              <Skeleton width={80} height={14} />
+              <Skeleton width={100} height={14} />
+              <Skeleton width={100} height={14} />
             </div>
           ))}
         </div>
@@ -152,131 +162,119 @@ export default function MonitoringPage() {
         </div>
       </div>
 
-      {/* API Performance Metrics */}
-      <div className={styles.metricsGrid}>
-        {apiMetrics.map((metric) => (
-          <div key={metric.label} className={styles.metricCard}>
-            <div className={styles.metricLabel}>{metric.label}</div>
-            <div className={`${styles.metricValue} ${
-              metric.status === 'good' ? styles.metricGood :
-              metric.status === 'warn' ? styles.metricWarn :
-              styles.metricBad
-            }`}>
-              {metric.value}
+      {/* System Health Status Cards */}
+      <div className={styles.healthGrid}>
+        {healthCards.map((card) => (
+          <div key={card.title} className={styles.healthCard}>
+            <div className={styles.healthCardHeader}>
+              <span className={styles.healthCardTitle}>{card.title}</span>
+              <span className={`${styles.healthStatus} ${
+                card.statusType === 'green' ? styles.healthStatusGreen :
+                card.statusType === 'yellow' ? styles.healthStatusYellow :
+                styles.healthStatusRed
+              }`}>
+                <span className={styles.healthDot} />
+                {card.status}
+              </span>
             </div>
-            <div className={styles.metricSub}>{metric.sub}</div>
+            <div className={styles.healthStats}>
+              {card.stats.map((stat) => (
+                <div key={stat.label} className={styles.healthStatRow}>
+                  <span className={styles.healthStatLabel}>{stat.label}</span>
+                  <span className={styles.healthStatValue}>{stat.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Sessions + Database Stats */}
+      {/* API Request Volume + Response Time Distribution */}
       <div className={styles.sectionGrid}>
-        {/* Active Sessions by Tenant */}
+        {/* Request Volume Bar Chart */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.activeSessions')}</span>
-            <span className={`${styles.cardBadge} ${styles.cardBadgeGreen}`}>312 {t('admin.monitoring.total')}</span>
+            <span className={styles.cardTitle}>{t('admin.monitoring.requestVolume')}</span>
+            <span className={`${styles.cardBadge} ${styles.cardBadgeGreen}`}>1.24M {t('admin.monitoring.last24h')}</span>
           </div>
           <div className={styles.cardBody}>
-            <div className={styles.sessionsList}>
-              {sessionsByTenant.map((session) => (
-                <div key={session.tenant} className={styles.sessionRow}>
-                  <span className={styles.sessionTenant}>{session.tenant}</span>
-                  <div className={styles.sessionBar}>
-                    <div className={styles.sessionBarFill} style={{ width: `${session.pct}%` }} />
-                  </div>
-                  <span className={styles.sessionCount}>{session.count}</span>
+            <div className={styles.barChart}>
+              {hourlyRequests.map((hr) => (
+                <div key={hr.hour} className={styles.barCol}>
+                  <div
+                    className={styles.bar}
+                    style={{ height: `${(hr.count / maxRequests) * 100}%` }}
+                    title={`${hr.hour}: ${hr.count.toLocaleString()} requests`}
+                  />
+                  <span className={styles.barLabel}>{hr.hour.split(':')[0]}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Database Stats */}
+        {/* Response Time Distribution */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.databaseStats')}</span>
-            <span className={`${styles.cardBadge} ${styles.cardBadgeGreen}`}>{t('admin.monitoring.healthy')}</span>
+            <span className={styles.cardTitle}>{t('admin.monitoring.responseTime')}</span>
           </div>
           <div className={styles.cardBody}>
-            <div className={styles.statsGrid}>
-              {dbStats.map((stat) => (
-                <div key={stat.label} className={styles.statItem}>
-                  <span className={styles.statLabel}>{stat.label}</span>
-                  <span className={styles.statValue}>{stat.value}</span>
-                </div>
-              ))}
+            <div className={styles.percentileGrid}>
+              <div className={styles.percentileCard}>
+                <span className={styles.percentileLabel}>P50</span>
+                <span className={`${styles.percentileValue} ${styles.metricGood}`}>28</span>
+                <span className={styles.percentileUnit}>ms</span>
+              </div>
+              <div className={styles.percentileCard}>
+                <span className={styles.percentileLabel}>P95</span>
+                <span className={`${styles.percentileValue} ${styles.metricGood}`}>128</span>
+                <span className={styles.percentileUnit}>ms</span>
+              </div>
+              <div className={styles.percentileCard}>
+                <span className={styles.percentileLabel}>P99</span>
+                <span className={`${styles.percentileValue} ${styles.metricWarn}`}>340</span>
+                <span className={styles.percentileUnit}>ms</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Queue Depths + Recent Errors */}
+      {/* Error Rate Breakdown + Top Endpoints */}
       <div className={styles.sectionGrid}>
-        {/* Queue Depths */}
+        {/* Error Rate by Endpoint */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.queueDepths')}</span>
-          </div>
-          <div className={styles.cardBody}>
-            <div className={styles.queueList}>
-              {agentQueues.map((queue) => (
-                <div key={queue.name} className={styles.queueItem}>
-                  <span className={styles.queueName}>{queue.name}</span>
-                  <div className={styles.queueBar}>
-                    <div
-                      className={styles.queueBarFill}
-                      style={{
-                        width: `${(queue.depth / queue.maxDepth) * 100}%`,
-                        backgroundColor: queue.depth > 60 ? '#FF9A2E' : queue.color,
-                      }}
-                    >
-                      <span className={styles.queueBarLabel}>{queue.depth}</span>
-                    </div>
-                  </div>
-                  <span className={`${styles.queueStatus} ${
-                    queue.status === 'Healthy' ? styles.metricGood : styles.metricWarn
-                  }`}>
-                    {queue.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Errors */}
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.recentErrors')}</span>
-            <span className={`${styles.cardBadge} ${styles.cardBadgeAmber}`}>
-              {recentErrors.length} {t('admin.monitoring.errors')}
-            </span>
+            <span className={styles.cardTitle}>{t('admin.monitoring.errorBreakdown')}</span>
+            <span className={`${styles.cardBadge} ${styles.cardBadgeAmber}`}>0.03% {t('admin.monitoring.overallRate')}</span>
           </div>
           <div className={styles.cardBody}>
             <div className={styles.errorList}>
-              {recentErrors.map((error) => (
-                <div
-                  key={error.id}
-                  className={styles.errorItem}
-                  onClick={() => setExpandedError(expandedError === error.id ? null : error.id)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setExpandedError(expandedError === error.id ? null : error.id);
-                    }
-                  }}
-                >
-                  <div className={styles.errorHeader}>
-                    <span className={styles.errorType}>{error.type}</span>
-                    <span className={styles.errorTime}>{error.time}</span>
+              {errorBreakdown.map((err) => (
+                <div key={err.endpoint} className={styles.errorRow}>
+                  <span className={styles.errorEndpoint}>{err.endpoint}</span>
+                  <span className={styles.errorCount}>{err.errors}</span>
+                  <span className={styles.errorRate}>{err.rate}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Top Endpoints by Volume */}
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <span className={styles.cardTitle}>{t('admin.monitoring.topEndpoints')}</span>
+          </div>
+          <div className={styles.cardBody}>
+            <div className={styles.endpointList}>
+              {topEndpoints.map((ep) => (
+                <div key={ep.name} className={styles.endpointRow}>
+                  <span className={styles.endpointName}>{ep.name}</span>
+                  <div className={styles.endpointBar}>
+                    <div className={styles.endpointBarFill} style={{ width: `${ep.pct}%` }} />
                   </div>
-                  <div className={styles.errorMessage}>{error.message}</div>
-                  {expandedError === error.id && (
-                    <div className={styles.errorStack}>{error.stack}</div>
-                  )}
+                  <span className={styles.endpointCount}>{(ep.count / 1000).toFixed(1)}K</span>
                 </div>
               ))}
             </div>
@@ -284,86 +282,50 @@ export default function MonitoringPage() {
         </div>
       </div>
 
-      {/* System Gauges + Agent Health */}
+      {/* Active Sessions */}
       <div className={styles.sectionGrid}>
-        {/* CPU / Memory / Disk / Network */}
-        <div className={styles.card}>
+        <div className={`${styles.card} ${styles.sectionFull}`} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.systemResources')}</span>
-          </div>
-          <div className={styles.cardBody}>
-            <div className={styles.gaugeGrid}>
-              {systemGauges.map((gauge) => (
-                <div key={gauge.label} className={styles.gaugeItem}>
-                  <div className={styles.gaugeRing}>
-                    <div className={styles.gaugeRingBg} />
-                    <div
-                      className={styles.gaugeRingFill}
-                      style={{
-                        borderTopColor: gauge.value > 80 ? '#F53F3F' : gauge.value > 60 ? '#FF9A2E' : gauge.color,
-                        borderRightColor: gauge.value > 25 ? (gauge.value > 80 ? '#F53F3F' : gauge.value > 60 ? '#FF9A2E' : gauge.color) : 'transparent',
-                        borderBottomColor: gauge.value > 50 ? (gauge.value > 80 ? '#F53F3F' : gauge.value > 60 ? '#FF9A2E' : gauge.color) : 'transparent',
-                        borderLeftColor: gauge.value > 75 ? (gauge.value > 80 ? '#F53F3F' : gauge.value > 60 ? '#FF9A2E' : gauge.color) : 'transparent',
-                        transform: `rotate(${(gauge.value / 100) * 360}deg)`,
-                      }}
-                    />
-                    <span className={styles.gaugeValue}>{gauge.value}{gauge.unit}</span>
-                  </div>
-                  <span className={styles.gaugeLabel}>{gauge.label}</span>
-                  <span className={styles.gaugeSub}>{gauge.sub}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Agent Health Status */}
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{t('admin.monitoring.agentHealth')}</span>
+            <span className={styles.cardTitle}>{t('admin.monitoring.activeSessions')}</span>
             <span className={`${styles.cardBadge} ${styles.cardBadgeGreen}`}>
-              {agents.filter((a) => a.status === 'active').length}/{agents.length} {t('admin.monitoring.active')}
+              {activeSessions.length} {t('admin.monitoring.online')}
             </span>
           </div>
           <div className={styles.cardBody}>
-            <div className={styles.agentGrid}>
-              {agents.map((agent) => (
-                <div
-                  key={agent.name}
-                  className={`${styles.agentCard} ${
-                    agent.status === 'active'
-                      ? styles.agentCardActive
-                      : agent.status === 'idle'
-                      ? styles.agentCardIdle
-                      : styles.agentCardError
-                  }`}
-                >
-                  <div className={styles.agentName}>{agent.name}</div>
-                  <div className={styles.agentStats}>
-                    <div className={styles.agentStat}>
-                      <span className={styles.agentStatValue}>{agent.tasks}</span>
-                      <span className={styles.agentStatLabel}>Tasks</span>
-                    </div>
-                    <div className={styles.agentStat}>
-                      <span className={styles.agentStatValue}>{agent.accuracy}%</span>
-                      <span className={styles.agentStatLabel}>Accuracy</span>
-                    </div>
-                    <div className={styles.agentStat}>
-                      <span className={styles.agentStatValue}>{agent.avgTime}</span>
-                      <span className={styles.agentStatLabel}>Avg Time</span>
-                    </div>
-                  </div>
-                  <div className={styles.agentHealth}>
-                    <div
-                      className={styles.agentHealthFill}
-                      style={{
-                        width: `${agent.health}%`,
-                        backgroundColor: agent.health >= 95 ? '#23C343' : agent.health >= 90 ? '#FF9A2E' : '#F53F3F',
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div style={{ overflowX: 'auto' }}>
+              <table className={styles.sessionTable}>
+                <thead>
+                  <tr>
+                    <th>{t('admin.monitoring.user')}</th>
+                    <th>{t('admin.monitoring.ipAddress')}</th>
+                    <th>{t('admin.monitoring.duration')}</th>
+                    <th>{t('admin.monitoring.lastActivityCol')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activeSessions.map((session, i) => (
+                    <tr key={i}>
+                      <td>
+                        <span className={styles.sessionUser}>{session.user}</span>
+                      </td>
+                      <td>
+                        <span className={styles.sessionIp}>{session.ip}</span>
+                      </td>
+                      <td>
+                        <span className={styles.sessionDuration}>{session.duration}</span>
+                      </td>
+                      <td>
+                        <span className={styles.sessionActivity}>
+                          {session.lastActivity === 'Now' && (
+                            <span className={styles.healthDot} style={{ color: 'var(--color-success)', marginRight: '6px' }} />
+                          )}
+                          {session.lastActivity}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

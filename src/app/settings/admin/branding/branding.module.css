@@ -1,118 +1,119 @@
 .page {
-  padding: 2rem;
+  padding: var(--space-8);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .header {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
 }
 
 .backLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  color: var(--color-text-secondary, #4E5969);
-  font-size: 0.8125rem;
+  gap: 6px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
   text-decoration: none;
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
-  margin-bottom: 0.75rem;
-  transition: color 0.2s;
+  margin-bottom: var(--space-3);
+  transition: color var(--transition-normal);
 }
 
 .backLink:hover {
-  color: var(--color-accent, #165DFF);
+  color: var(--color-accent);
 }
 
 .headerTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-text-primary, #1D2129);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .headerSubtitle {
-  color: var(--color-text-secondary, #4E5969);
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  margin-top: var(--space-1);
 }
 
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: var(--space-6);
 }
 
 .settingsPanel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-6);
 }
 
 .previewPanel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-6);
 }
 
 .card {
-  background: var(--color-bg-primary, #ffffff);
-  border: 1px solid var(--color-border, #E5E6EB);
-  border-radius: var(--radius-lg, 8px);
-  padding: 1.25rem;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
 }
 
 .cardTitle {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-text-primary, #1D2129);
-  margin-bottom: 1rem;
+  font-size: 15px;
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
 }
 
+/* Logo Upload */
 .dropZone {
-  border: 2px dashed var(--color-border, #E5E6EB);
-  border-radius: var(--radius-lg, 8px);
-  padding: 2rem;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s;
-  background: var(--color-bg-secondary, #F7F8FA);
+  transition: all var(--transition-normal);
+  background: var(--color-bg-secondary);
 }
 
 .dropZone:hover,
 .dropZoneActive {
-  border-color: var(--color-accent, #165DFF);
+  border-color: var(--color-accent);
   background: rgba(22, 93, 255, 0.04);
 }
 
 .dropZoneIcon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-muted, #86909C);
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
 }
 
 .dropZoneText {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary, #4E5969);
-  margin-bottom: 0.25rem;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
 }
 
 .dropZoneFormats {
-  font-size: 0.75rem;
-  color: var(--color-text-muted, #86909C);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 .logoPreview {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--color-bg-secondary, #F7F8FA);
-  border-radius: var(--radius-lg, 8px);
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
 }
 
 .logoImage {
@@ -121,37 +122,45 @@
   object-fit: contain;
 }
 
-.logoPlaceholder {
-  width: 120px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg-elevated, #F2F3F5);
-  border-radius: var(--radius-lg, 8px);
-  color: var(--color-text-muted, #86909C);
-  font-size: 0.8125rem;
+.hiddenInput {
+  display: none;
 }
 
-.colorPicker {
+/* Color Picker */
+.colorSection {
+  margin-bottom: var(--space-5);
+}
+
+.colorSection:last-child {
+  margin-bottom: 0;
+}
+
+.colorSectionLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.colorPickerRow {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .presetColors {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .colorSwatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition-fast);
   position: relative;
 }
 
@@ -160,8 +169,8 @@
 }
 
 .colorSwatchSelected {
-  border-color: var(--color-text-primary, #1D2129);
-  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--color-text-primary, #1D2129);
+  border-color: var(--color-text-primary);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--color-text-primary);
 }
 
 .colorSwatchCheck {
@@ -170,60 +179,61 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hexInputRow {
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .hexPrefix {
   display: flex;
   align-items: center;
-  height: 38px;
-  padding: 0 0.5rem;
-  color: var(--color-text-muted, #86909C);
-  font-family: monospace;
-  font-size: 0.875rem;
+  height: 36px;
+  padding: 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
 }
 
+/* Preview */
 .previewTabBar {
   display: flex;
-  gap: 0.25rem;
-  background: var(--color-bg-secondary, #F7F8FA);
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-  margin-bottom: 1rem;
+  gap: var(--space-1);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-1);
+  margin-bottom: var(--space-4);
 }
 
 .previewTab {
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  color: var(--color-text-secondary, #4E5969);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 6px;
+  color: var(--color-text-secondary);
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   border: none;
   background: none;
-  transition: all 0.2s;
+  transition: all var(--transition-normal);
 }
 
 .previewTab:hover {
-  color: var(--color-text-primary, #1D2129);
+  color: var(--color-text-primary);
 }
 
 .previewTabActive {
-  background: var(--color-bg-primary, #ffffff);
-  color: var(--color-text-primary, #1D2129);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .previewContainer {
-  border: 1px solid var(--color-border, #E5E6EB);
-  border-radius: var(--radius-lg, 8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   min-height: 200px;
 }
@@ -231,76 +241,77 @@
 /* Email Preview */
 .emailPreview {
   background: #f4f4f4;
-  padding: 1.25rem;
+  padding: var(--space-5);
 }
 
 .emailCard {
   background: white;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   max-width: 400px;
   margin: 0 auto;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .emailHeader {
-  padding: 1rem 1.25rem;
+  padding: var(--space-4) var(--space-5);
   color: white;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .emailLogoPlaceholder {
   width: 32px;
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   color: white;
+  flex-shrink: 0;
 }
 
 .emailCompanyName {
-  font-weight: 600;
-  font-size: 0.9375rem;
+  font-weight: var(--font-semibold);
+  font-size: 15px;
 }
 
 .emailBody {
-  padding: 1.25rem;
+  padding: var(--space-5);
 }
 
 .emailSubject {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: #1D2129;
-  margin-bottom: 0.5rem;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
 }
 
 .emailText {
-  font-size: 0.8125rem;
-  color: #4E5969;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
   line-height: 1.5;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
 .emailButton {
   display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border-radius: 6px;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-md);
   color: white;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   text-decoration: none;
 }
 
 .emailFooter {
-  padding: 0.75rem 1.25rem;
-  border-top: 1px solid #E5E6EB;
-  font-size: 0.6875rem;
-  color: #86909C;
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
@@ -312,34 +323,34 @@
 
 .loginSidebar {
   width: 40%;
-  padding: 1.5rem;
+  padding: var(--space-6);
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .loginSidebarLogo {
   width: 48px;
   height: 48px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: var(--radius-2xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   color: white;
 }
 
 .loginSidebarName {
-  font-weight: 700;
-  font-size: 1.125rem;
+  font-weight: var(--font-bold);
+  font-size: 18px;
 }
 
 .loginSidebarTag {
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   opacity: 0.8;
 }
 
@@ -348,101 +359,104 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.5rem;
+  padding: var(--space-6);
   background: white;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .loginFormTitle {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #1D2129;
-  margin-bottom: 0.5rem;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
 }
 
 .loginFormInput {
   height: 32px;
-  border: 1px solid #E5E6EB;
-  border-radius: 6px;
-  background: #F7F8FA;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
 }
 
 .loginFormBtn {
   height: 32px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   color: white;
   border: none;
-  font-weight: 500;
-  font-size: 0.8125rem;
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Invoice Preview */
 .invoicePreview {
   background: white;
-  padding: 1.5rem;
+  padding: var(--space-6);
 }
 
 .invoiceHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 1rem;
+  padding-bottom: var(--space-4);
   border-bottom: 2px solid;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
 .invoiceLogoArea {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .invoiceLogoPlaceholder {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: var(--text-lg);
   color: white;
 }
 
 .invoiceCompanyName {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #1D2129;
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
 }
 
 .invoiceLabel {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
   letter-spacing: 0.05em;
 }
 
 .invoiceMeta {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: #4E5969;
-  margin-bottom: 1rem;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
 }
 
 .invoiceLine {
   display: flex;
   justify-content: space-between;
-  padding: 0.375rem 0;
-  font-size: 0.75rem;
-  border-bottom: 1px solid #E5E6EB;
+  padding: 6px 0;
+  font-size: var(--text-xs);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .invoiceTotal {
   display: flex;
   justify-content: space-between;
-  padding: 0.625rem 0;
-  font-weight: 700;
-  font-size: 0.875rem;
+  padding: 10px 0;
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
 }
 
 /* Sidebar Preview */
@@ -454,18 +468,18 @@
 .sidebarMock {
   width: 200px;
   color: white;
-  padding: 1rem;
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 2px;
 }
 
 .sidebarLogo {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.5rem 0;
-  margin-bottom: 0.75rem;
+  gap: 10px;
+  padding: var(--space-2) 0;
+  margin-bottom: var(--space-3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -473,22 +487,22 @@
   width: 28px;
   height: 28px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
 }
 
 .sidebarLogoText {
-  font-weight: 600;
-  font-size: 0.8125rem;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
 }
 
 .sidebarItem {
-  padding: 0.5rem 0.625rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: var(--space-2) 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
   opacity: 0.8;
   cursor: default;
 }
@@ -496,35 +510,33 @@
 .sidebarItemActive {
   background: rgba(255, 255, 255, 0.15);
   opacity: 1;
-  font-weight: 500;
+  font-weight: var(--font-medium);
 }
 
 .sidebarContent {
   flex: 1;
-  background: var(--color-bg-secondary, #F7F8FA);
-  padding: 1rem;
+  background: var(--color-bg-secondary);
+  padding: var(--space-4);
 }
 
 .sidebarContentPlaceholder {
   width: 100%;
   height: 16px;
-  background: var(--color-bg-elevated, #F2F3F5);
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
 }
 
+/* Footer */
 .footer {
-  padding-top: 1.5rem;
+  padding-top: var(--space-6);
   display: flex;
   justify-content: flex-end;
+  gap: var(--space-3);
   grid-column: 1 / -1;
 }
 
-.hiddenInput {
-  display: none;
-}
-
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .content {
     grid-template-columns: 1fr;
   }
@@ -536,7 +548,7 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: 1rem;
+    padding: var(--space-4);
   }
 
   .loginPreview {
@@ -545,7 +557,7 @@
 
   .loginSidebar {
     width: 100%;
-    padding: 1rem;
+    padding: var(--space-4);
   }
 
   .sidebarPreview {
@@ -554,5 +566,15 @@
 
   .sidebarMock {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-3);
+  }
+
+  .footer {
+    flex-direction: column;
   }
 }

@@ -152,15 +152,8 @@ export async function validateBody<T>(
 
   const result = schema.safeParse(rawData);
   if (!result.success) {
-    const details = formatZodErrorsFlat(result.error as ZodError);
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Validation failed',
-        details,
-      },
-      { status: 400 },
-    );
+    const fieldErrors = formatZodErrors(result.error as ZodError);
+    return validationErrorResponse(fieldErrors);
   }
 
   return result.data;
@@ -186,15 +179,8 @@ export function validateQuery<T>(
   const result = schema.safeParse(rawData);
 
   if (!result.success) {
-    const details = formatZodErrorsFlat(result.error as ZodError);
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Validation failed',
-        details,
-      },
-      { status: 400 },
-    );
+    const fieldErrors = formatZodErrors(result.error as ZodError);
+    return validationErrorResponse(fieldErrors);
   }
 
   return result.data;

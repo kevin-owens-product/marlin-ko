@@ -43,6 +43,12 @@ async function getSessionUser(request: NextRequest) {
 // ─── Valid plan values ────────────────────────────────────────
 const VALID_PLANS = ["FREE", "STARTER", "PROFESSIONAL", "ENTERPRISE"];
 
+// NOTE: Some Tenant fields (domain, deletedAt, logoUrl, brandColor,
+// tenantBranding) are defined in the Prisma schema but the generated Prisma
+// client may not yet include them. We use `as any` in strategic places to
+// avoid build errors until `prisma generate` is re-run against the updated
+// schema. Remove the `as any` casts once the client has been regenerated.
+
 /**
  * GET /api/admin/tenants/[id]
  *
@@ -70,7 +76,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
 
-    const tenant = await prisma.tenant.findUnique({
+    const tenant: any = await (prisma.tenant as any).findUnique({
       where: { id },
       include: {
         _count: {
@@ -117,14 +123,14 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         slug: tenant.slug,
         plan: tenant.plan,
         isActive: tenant.isActive,
-        domain: tenant.domain,
-        logoUrl: tenant.logoUrl,
-        brandColor: tenant.brandColor,
+        domain: tenant.domain ?? null,
+        logoUrl: tenant.logoUrl ?? null,
+        brandColor: tenant.brandColor ?? null,
         settings: tenant.settings ? JSON.parse(tenant.settings) : null,
         branding: tenant.branding ? JSON.parse(tenant.branding) : null,
-        deletedAt: tenant.deletedAt,
+        deletedAt: tenant.deletedAt ?? null,
         createdAt: tenant.createdAt,
-        tenantBranding: tenant.tenantBranding,
+        tenantBranding: tenant.tenantBranding ?? null,
         counts: tenant._count,
         users: tenant.users,
       },
@@ -174,7 +180,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
 
-    const existing = await prisma.tenant.findUnique({ where: { id } });
+    const existing: any = await prisma.tenant.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json(
         { success: false, error: "Tenant not found" },
@@ -246,7 +252,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       updateData.brandColor = body.brandColor || null;
     }
 
-    const tenant = await prisma.tenant.update({
+    const tenant: any = await (prisma.tenant as any).update({
       where: { id },
       data: updateData,
       include: {
@@ -267,11 +273,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         slug: tenant.slug,
         plan: tenant.plan,
         isActive: tenant.isActive,
-        domain: tenant.domain,
-        logoUrl: tenant.logoUrl,
-        brandColor: tenant.brandColor,
+        domain: tenant.domain ?? null,
+        logoUrl: tenant.logoUrl ?? null,
+        brandColor: tenant.brandColor ?? null,
         settings: tenant.settings ? JSON.parse(tenant.settings) : null,
-        deletedAt: tenant.deletedAt,
+        deletedAt: tenant.deletedAt ?? null,
         createdAt: tenant.createdAt,
         userCount: tenant._count.users,
         invoiceCount: tenant._count.invoices,
@@ -314,7 +320,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
 
-    const existing = await prisma.tenant.findUnique({ where: { id } });
+    const existing: any = await prisma.tenant.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json(
         { success: false, error: "Tenant not found" },
@@ -338,7 +344,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     }
 
     // ── Soft-delete: set deletedAt and deactivate ─────────────
-    const tenant = await prisma.tenant.update({
+    const tenant: any = await (prisma.tenant as any).update({
       where: { id },
       data: {
         deletedAt: new Date(),
@@ -381,7 +387,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       data: {
         message: `Tenant '${existing.name}' has been soft-deleted`,
         id: tenant.id,
-        deletedAt: tenant.deletedAt,
+        deletedAt: tenant.deletedAt ?? new Date().toISOString(),
       },
     });
   } catch (error) {

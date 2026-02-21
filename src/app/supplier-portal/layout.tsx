@@ -3,7 +3,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useT } from '@/lib/i18n/locale-context';
-import styles from './portal-layout.module.css';
+import { useLocale } from '@/lib/i18n/locale-context';
+import { SUPPORTED_LOCALES, Locale } from '@/lib/i18n/types';
+import styles from './layout.module.css';
 
 /* ── Navigation items ── */
 interface NavItem {
@@ -14,11 +16,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { key: 'dashboard', labelKey: 'supplierPortal.nav.dashboard', icon: '\u2302', href: '/supplier-portal' },
+  { key: 'dashboard', labelKey: 'supplierPortal.nav.dashboard', icon: '\u2302', href: '/supplier-portal/dashboard' },
   { key: 'invoices', labelKey: 'supplierPortal.nav.invoices', icon: '\u2709', href: '/supplier-portal/invoices' },
   { key: 'payments', labelKey: 'supplierPortal.nav.payments', icon: '\u25B6', href: '/supplier-portal/payments' },
   { key: 'disputes', labelKey: 'supplierPortal.nav.disputes', icon: '\u26A0', href: '/supplier-portal/disputes' },
-  { key: 'documents', labelKey: 'supplierPortal.nav.documents', icon: '\u2630', href: '/supplier-portal/documents' },
+  { key: 'scf', labelKey: 'supplierPortal.nav.scf', icon: '\u2605', href: '/supplier-portal/scf' },
   { key: 'profile', labelKey: 'supplierPortal.nav.profile', icon: '\u263A', href: '/supplier-portal/profile' },
 ];
 
@@ -31,10 +33,11 @@ export default function SupplierPortalLayout({
   const t = useT();
   const pathname = usePathname();
   const router = useRouter();
+  const { locale, setLocale } = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  /* Determine if we're on the login page — if so, skip the layout shell */
-  const isLoginPage = pathname === '/supplier-portal/login';
+  /* Determine if we're on the auth or login page — if so, skip the layout shell */
+  const isAuthPage = pathname === '/supplier-portal/auth' || pathname === '/supplier-portal/login';
 
   /* Close mobile menu on route change */
   useEffect(() => {
@@ -65,12 +68,12 @@ export default function SupplierPortalLayout({
   );
 
   const isActive = (href: string) => {
-    if (href === '/supplier-portal') return pathname === '/supplier-portal';
+    if (href === '/supplier-portal/dashboard') return pathname === '/supplier-portal' || pathname === '/supplier-portal/dashboard';
     return pathname.startsWith(href);
   };
 
-  /* Login page gets no shell */
-  if (isLoginPage) {
+  /* Auth/Login page gets no shell */
+  if (isAuthPage) {
     return <>{children}</>;
   }
 
@@ -89,9 +92,21 @@ export default function SupplierPortalLayout({
           <span className={styles.companyName}>Acme Corp</span>
         </div>
         <div className={styles.headerRight}>
+          <select
+            className={styles.languageSelect}
+            value={locale}
+            onChange={(e) => setLocale(e.target.value as Locale)}
+            aria-label={t('supplierPortal.header.selectLanguage')}
+          >
+            {SUPPORTED_LOCALES.map((loc) => (
+              <option key={loc.code} value={loc.code}>
+                {loc.flag} {loc.name}
+              </option>
+            ))}
+          </select>
           <button
             className={styles.logoutButton}
-            onClick={() => router.push('/supplier-portal/login')}
+            onClick={() => router.push('/supplier-portal/auth')}
           >
             {t('supplierPortal.header.logout')}
           </button>
@@ -166,7 +181,7 @@ export default function SupplierPortalLayout({
         <div style={{ flex: 1 }} />
         <button
           className={styles.logoutButton}
-          onClick={() => router.push('/supplier-portal/login')}
+          onClick={() => router.push('/supplier-portal/auth')}
           style={{ width: '100%', justifyContent: 'center' }}
         >
           {t('supplierPortal.header.logout')}
@@ -178,19 +193,21 @@ export default function SupplierPortalLayout({
 
       {/* ── Footer ── */}
       <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <button className={styles.footerLink}>
-            {t('supplierPortal.footer.help')}
-          </button>
-          <button className={styles.footerLink}>
-            {t('supplierPortal.footer.terms')}
-          </button>
-          <button className={styles.footerLink}>
-            {t('supplierPortal.footer.privacy')}
-          </button>
-          <button className={styles.footerLink}>
-            {t('supplierPortal.footer.contactSupport')}
-          </button>
+        <div className={styles.footerLeft}>
+          <span className={styles.footerPowered}>
+            {t('supplierPortal.footer.poweredBy')}
+          </span>
+          <div className={styles.footerLinks}>
+            <button className={styles.footerLink}>
+              {t('supplierPortal.footer.help')}
+            </button>
+            <button className={styles.footerLink}>
+              {t('supplierPortal.footer.privacy')}
+            </button>
+            <button className={styles.footerLink}>
+              {t('supplierPortal.footer.terms')}
+            </button>
+          </div>
         </div>
         <span className={styles.footerCopyright}>
           &copy; 2026 {t('supplierPortal.footer.copyright')}

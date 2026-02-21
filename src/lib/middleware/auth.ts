@@ -224,7 +224,7 @@ export async function verifyPassword(
   const [saltHex, expectedHashHex] = storedHash.split(':');
   if (!saltHex || !expectedHashHex) return false;
 
-  const salt = hexToBuffer(saltHex);
+  const salt = hexToBuffer(saltHex) as BufferSource;
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
     new TextEncoder().encode(password),

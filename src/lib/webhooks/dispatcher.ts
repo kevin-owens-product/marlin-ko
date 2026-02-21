@@ -165,7 +165,10 @@ async function deliverToWebhook(
           ? responseBody.slice(0, MAX_RESPONSE_LENGTH)
           : null,
         success,
-        attemptCount: 1,
+        // Field is named `attemptCount` in the latest schema and `attempt`
+        // in the currently generated client. Use `as any` to support both
+        // until the Prisma client is regenerated.
+        ...({ attempt: 1, attemptCount: 1 } as any),
       },
     });
   } catch (dbError) {
