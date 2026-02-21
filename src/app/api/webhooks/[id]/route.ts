@@ -52,8 +52,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const webhook = await prisma.webhook.findUnique({
       where: { id },
       include: {
-        deliveries: {
-          orderBy: { deliveredAt: "desc" },
+        deliveryLogs: {
+          orderBy: { createdAt: "desc" },
           take: 20,
         },
       },
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         ...webhook,
         events: JSON.parse(webhook.events) as string[],
         secret: `${webhook.secret.slice(0, 8)}${"*".repeat(24)}`,
-        deliveries: webhook.deliveries.map((d) => ({
+        deliveryLogs: webhook.deliveryLogs.map((d: { payload: string;[key: string]: unknown }) => ({
           ...d,
           payload: JSON.parse(d.payload),
         })),
@@ -180,8 +180,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     // Reset fail count if re-activating
-    if (body.isActive === true && existing.failCount > 0) {
-      updateData.failCount = 0;
+    if (body.isActive === true && existing.failureCount > 0) {
+      updateData.failureCount = 0;
     }
 
     const webhook = await prisma.webhook.update({

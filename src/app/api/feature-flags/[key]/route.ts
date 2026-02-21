@@ -11,16 +11,6 @@ interface RouteParams {
 }
 
 /**
- * Plan hierarchy for checking plan requirements.
- */
-const PLAN_HIERARCHY: Record<string, number> = {
-  FREE: 0,
-  STARTER: 1,
-  PROFESSIONAL: 2,
-  ENTERPRISE: 3,
-};
-
-/**
  * Extract and verify the current user from the session cookie.
  */
 async function getSessionUser(request: NextRequest) {
@@ -74,44 +64,50 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     // ── Determine if enabled for this tenant ─────────────────────
 
-    // 1. Check tenant-specific override first (highest priority)
-    const overrides: Record<string, boolean> = flag.tenantOverrides
-      ? JSON.parse(flag.tenantOverrides)
-      : {};
+    // 1. Check tenant-specific restriction first (highest priority)
+    const tenantIds: string[] = flag.tenantIds
+      ? JSON.parse(flag.tenantIds)
+      : [];
 
-    if (user.tenantId in overrides) {
-      return NextResponse.json({
-        success: true,
-        data: {
-          key: flag.key,
-          name: flag.name,
-          enabled: overrides[user.tenantId],
-          reason: "tenant_override",
-        },
-      });
-    }
-
-    // 2. Check plan requirement
-    if (flag.planRequirement) {
-      // Fetch tenant plan
-      const tenant = await prisma.tenant.findUnique({
-        where: { id: user.tenantId },
-        select: { plan: true },
-      });
-
-      const tenantPlanLevel = PLAN_HIERARCHY[tenant?.plan || "FREE"] ?? 0;
-      const requiredPlanLevel = PLAN_HIERARCHY[flag.planRequirement] ?? 0;
-
-      if (tenantPlanLevel < requiredPlanLevel) {
+    if (tenantIds.length > 0) {
+      const tenantHasAccess = tenantIds.includes(user.tenantId);
+      if (!tenantHasAccess) {
         return NextResponse.json({
           success: true,
           data: {
             key: flag.key,
             name: flag.name,
             enabled: false,
-            reason: "plan_requirement_not_met",
-            requiredPlan: flag.planRequirement,
-            currentPlan: tenant?.plan || "FREE",
+            reason: "tenant_not_included",
+          },
+        });
+      }
+    }
+
+    // 2. Check plan requirement
+    const plans: string[] = flag.plans
+      ? JSON.parse(flag.plans)
+      : [];
+
+    if (plans.length > 0) {
+      // Fetch tenant plan
+      const tenant = await prisma.tenant.findUnique({
+        where: { id: user.tenantId },
+        select: { plan: true },
+      });
+
+      const tenantPlan = tenant?.plan || "FREE";
+
+      if (!plans.includes(tenantPlan)) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            key: flag.key,
+            name: flag.name,
+            enabled: false,
+            reason: "plan_not_included",
+            allowedPlans: plans,
+            currentPlan: tenantPlan,
           },
         });
       }
@@ -146,8 +142,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
  *   name?: string,
  *   description?: string,
  *   isEnabled?: boolean,
- *   planRequirement?: string | null,
- *   tenantOverrides?: Record<string, boolean>
+ *   plans?: string[] | null,
+ *   tenantIds?: string[] | null
  * }
  */
 export async function PUT(request: NextRequest, { params }: RouteParams) {
@@ -195,42 +191,34 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       updateData.isEnabled = Boolean(body.isEnabled);
     }
 
-    if (body.planRequirement !== undefined) {
-      if (body.planRequirement === null) {
-        updateData.planRequirement = null;
-      } else {
+    if (body.plans !== undefined) {
+      if (body.plans === null) {
+        updateData.plans = null;
+      } else if (Array.isArray(body.plans)) {
         const validPlans = ["FREE", "STARTER", "PROFESSIONAL", "ENTERPRISE"];
-        if (!validPlans.includes(body.planRequirement)) {
+        const invalidPlans = body.plans.filter((p: string) => !validPlans.includes(p));
+        if (invalidPlans.length > 0) {
           return NextResponse.json(
             {
               success: false,
-              error: `planRequirement must be one of: ${validPlans.join(", ")} or null`,
+              error: `Invalid plans: ${invalidPlans.join(", ")}. Must be one of: ${validPlans.join(", ")}`,
             },
             { status: 400 }
           );
         }
-        updateData.planRequirement = body.planRequirement;
+        updateData.plans = body.plans.length > 0
+          ? JSON.stringify(body.plans)
+          : null;
       }
     }
 
-    if (body.tenantOverrides !== undefined) {
-      if (body.tenantOverrides === null) {
-        updateData.tenantOverrides = null;
-      } else if (typeof body.tenantOverrides === "object") {
-        // Merge with existing overrides
-        const currentOverrides: Record<string, boolean> = existing.tenantOverrides
-          ? JSON.parse(existing.tenantOverrides)
-          : {};
-        const merged = { ...currentOverrides, ...body.tenantOverrides };
-
-        // Remove entries set to null (allows deletion of overrides)
-        for (const [k, v] of Object.entries(merged)) {
-          if (v === null || v === undefined) {
-            delete merged[k];
-          }
-        }
-
-        updateData.tenantOverrides = JSON.stringify(merged);
+    if (body.tenantIds !== undefined) {
+      if (body.tenantIds === null) {
+        updateData.tenantIds = null;
+      } else if (Array.isArray(body.tenantIds)) {
+        updateData.tenantIds = body.tenantIds.length > 0
+          ? JSON.stringify(body.tenantIds)
+          : null;
       }
     }
 
@@ -243,9 +231,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       success: true,
       data: {
         ...flag,
-        tenantOverrides: flag.tenantOverrides
-          ? JSON.parse(flag.tenantOverrides)
-          : {},
+        tenantIds: flag.tenantIds
+          ? JSON.parse(flag.tenantIds)
+          : [],
+        plans: flag.plans
+          ? JSON.parse(flag.plans)
+          : [],
       },
     });
   } catch (error) {

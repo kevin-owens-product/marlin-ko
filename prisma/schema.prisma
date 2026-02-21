@@ -1,16 +1,14 @@
 // ──────────────────────────────────────────────────────────────
 // Medius AP Automation Platform - Prisma Schema
-// PostgreSQL with full-text search, soft deletes, and multi-tenancy
+// SQLite (libsql) with soft deletes and multi-tenancy
 // ──────────────────────────────────────────────────────────────
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
 }
 
 // ─── Multi-tenancy ────────────────────────────────────────────
@@ -611,7 +609,6 @@ model AuditLog {
   @@index([tenantId])
   @@index([entityType])
   @@index([timestamp])
-  @@index([tenantId, createdAt])
   @@index([tenantId, timestamp])
   @@index([userId])
 }

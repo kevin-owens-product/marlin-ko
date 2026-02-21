@@ -562,8 +562,8 @@ export const CreateFeatureFlagSchema = z.object({
   name: nonEmptyString,
   description: z.string().optional(),
   isEnabled: z.boolean().default(false),
-  tenantOverrides: z.string().optional(), // JSON: { tenantId: boolean }
-  planRequirement: z.string().optional(),
+  tenantIds: z.string().optional(), // JSON array of tenant IDs
+  plans: z.string().optional(), // JSON array of plan names
 });
 export type CreateFeatureFlagInput = z.infer<typeof CreateFeatureFlagSchema>;
 

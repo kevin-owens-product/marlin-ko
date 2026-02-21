@@ -141,14 +141,14 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
           ? responseBody.slice(0, 4096) // Truncate response to 4KB
           : null,
         success,
-        attempt: 1,
+        attemptCount: 1,
       },
     });
 
-    // Update lastDeliveredAt
+    // Update lastTriggeredAt
     await prisma.webhook.update({
       where: { id: webhook.id },
-      data: { lastDeliveredAt: new Date() },
+      data: { lastTriggeredAt: new Date() },
     });
 
     return NextResponse.json({

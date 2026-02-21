@@ -55,9 +55,12 @@ export async function GET(request: NextRequest) {
 
     const data = flags.map((flag) => ({
       ...flag,
-      tenantOverrides: flag.tenantOverrides
-        ? JSON.parse(flag.tenantOverrides)
-        : {},
+      tenantIds: flag.tenantIds
+        ? JSON.parse(flag.tenantIds)
+        : [],
+      plans: flag.plans
+        ? JSON.parse(flag.plans)
+        : [],
     }));
 
     return NextResponse.json({ success: true, data });
@@ -81,8 +84,8 @@ export async function GET(request: NextRequest) {
  *   name: string,
  *   description?: string,
  *   isEnabled?: boolean,
- *   planRequirement?: string,
- *   tenantOverrides?: Record<string, boolean>
+ *   plans?: string[],
+ *   tenantIds?: string[]
  * }
  */
 export async function POST(request: NextRequest) {
@@ -103,14 +106,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { key, name, description, isEnabled, planRequirement, tenantOverrides } =
+    const { key, name, description, isEnabled, plans, tenantIds } =
       body as {
         key?: string;
         name?: string;
         description?: string;
         isEnabled?: boolean;
-        planRequirement?: string;
-        tenantOverrides?: Record<string, boolean>;
+        plans?: string[];
+        tenantIds?: string[];
       };
 
     // ── Validate required fields ─────────────────────────────────
@@ -133,16 +136,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate plan requirement if provided
+    // Validate plans if provided
     const validPlans = ["FREE", "STARTER", "PROFESSIONAL", "ENTERPRISE"];
-    if (planRequirement && !validPlans.includes(planRequirement)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `planRequirement must be one of: ${validPlans.join(", ")}`,
-        },
-        { status: 400 }
-      );
+    if (plans && plans.length > 0) {
+      const invalidPlans = plans.filter((p: string) => !validPlans.includes(p));
+      if (invalidPlans.length > 0) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Invalid plans: ${invalidPlans.join(", ")}. Must be one of: ${validPlans.join(", ")}`,
+          },
+          { status: 400 }
+        );
+      }
     }
 
     // Check for existing key
@@ -162,9 +168,11 @@ export async function POST(request: NextRequest) {
         name,
         description: description || null,
         isEnabled: isEnabled ?? false,
-        planRequirement: planRequirement || null,
-        tenantOverrides: tenantOverrides
-          ? JSON.stringify(tenantOverrides)
+        plans: plans && plans.length > 0
+          ? JSON.stringify(plans)
+          : null,
+        tenantIds: tenantIds && tenantIds.length > 0
+          ? JSON.stringify(tenantIds)
           : null,
       },
     });
@@ -174,9 +182,12 @@ export async function POST(request: NextRequest) {
         success: true,
         data: {
           ...flag,
-          tenantOverrides: flag.tenantOverrides
-            ? JSON.parse(flag.tenantOverrides)
-            : {},
+          tenantIds: flag.tenantIds
+            ? JSON.parse(flag.tenantIds)
+            : [],
+          plans: flag.plans
+            ? JSON.parse(flag.plans)
+            : [],
         },
       },
       { status: 201 }

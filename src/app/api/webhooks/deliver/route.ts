@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
           statusCode,
           response: responseBody ? responseBody.slice(0, 4096) : null,
           success: deliverySuccess,
-          attempt: 1,
+          attemptCount: 1,
         },
       });
 
@@ -169,15 +169,15 @@ export async function POST(request: NextRequest) {
         await prisma.webhook.update({
           where: { id: webhook.id },
           data: {
-            lastDeliveredAt: new Date(),
-            failCount: 0, // Reset on success
+            lastTriggeredAt: new Date(),
+            failureCount: 0, // Reset on success
           },
         });
       } else {
         await prisma.webhook.update({
           where: { id: webhook.id },
           data: {
-            failCount: { increment: 1 },
+            failureCount: { increment: 1 },
           },
         });
 
@@ -185,13 +185,13 @@ export async function POST(request: NextRequest) {
         const updatedWebhook = await prisma.webhook.findUnique({
           where: { id: webhook.id },
         });
-        if (updatedWebhook && updatedWebhook.failCount >= 10) {
+        if (updatedWebhook && updatedWebhook.failureCount >= 10) {
           await prisma.webhook.update({
             where: { id: webhook.id },
             data: { isActive: false },
           });
           console.warn(
-            `[Webhooks] Disabled webhook ${webhook.id} after ${updatedWebhook.failCount} consecutive failures`
+            `[Webhooks] Disabled webhook ${webhook.id} after ${updatedWebhook.failureCount} consecutive failures`
           );
         }
       }

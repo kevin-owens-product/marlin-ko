@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
         events: JSON.stringify(events),
         secret: webhookSecret,
         isActive: true,
-        failCount: 0,
+        failureCount: 0,
       },
     });
 
