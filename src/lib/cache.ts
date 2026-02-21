@@ -1,18 +1,15 @@
 /**
- * Unified Cache Layer for Medius AP Automation Platform
+ * In-Memory Cache Layer for Medius AP Automation Platform
  *
- * Provides a dual-backend caching system:
- * - Redis (production): Uses ioredis when REDIS_URL is set
- * - In-Memory (development/fallback): LRU cache with TTL support
+ * Provides an LRU in-memory cache with TTL support.
  *
  * Features:
- * - Automatic Redis detection and graceful fallback to in-memory
  * - TTL (time-to-live) per entry with configurable defaults
- * - LRU eviction when in-memory cache reaches max capacity
+ * - LRU eviction when cache reaches max capacity
  * - Pattern-based key invalidation (flush)
  * - Pre-configured cache instances for common use cases
  * - Cache decorator for wrapping async functions
- * - Thread-safe singleton pattern for Next.js hot reload
+ * - Singleton pattern for Next.js hot reload
  *
  * Usage:
  *   import { dashboardCache, sessionCache, cached } from '@/lib/cache';
@@ -223,173 +220,13 @@ class InMemoryCache implements CacheClient {
   }
 }
 
-// ─── Redis Cache Backend ──────────────────────────────────────
-
-/**
- * Redis-backed cache using ioredis.
- * Automatically falls back to in-memory if Redis connection fails.
- */
-class RedisCache implements CacheClient {
-  private redis: import('ioredis').default | null = null;
-  private fallback: InMemoryCache;
-  private readonly defaultTtlSeconds: number;
-  private readonly prefix: string;
-  private connected = false;
-
-  constructor(redisUrl: string, options: CacheOptions = {}) {
-    this.defaultTtlSeconds = options.ttl ?? 300;
-    this.prefix = options.prefix ? `medius:${options.prefix}:` : 'medius:';
-    this.fallback = new InMemoryCache(options);
-    this.initRedis(redisUrl);
-  }
-
-  private async initRedis(url: string): Promise<void> {
-    try {
-      // Dynamic import so ioredis is only loaded when REDIS_URL is set
-      const Redis = (await import('ioredis')).default;
-
-      this.redis = new Redis(url, {
-        maxRetriesPerRequest: 3,
-        retryStrategy(times: number) {
-          // Exponential backoff: 50ms, 100ms, 200ms, then stop
-          if (times > 3) return null;
-          return Math.min(times * 50, 200);
-        },
-        lazyConnect: false,
-        enableReadyCheck: true,
-        connectTimeout: 5000,
-      });
-
-      this.redis.on('connect', () => {
-        this.connected = true;
-      });
-
-      this.redis.on('error', () => {
-        // Silently fall back to in-memory on Redis errors
-        this.connected = false;
-      });
-
-      this.redis.on('close', () => {
-        this.connected = false;
-      });
-    } catch {
-      // ioredis not installed or connection failed - use fallback
-      this.connected = false;
-    }
-  }
-
-  private isAvailable(): boolean {
-    return this.connected && this.redis !== null;
-  }
-
-  async get<T>(key: string): Promise<T | null> {
-    if (!this.isAvailable()) {
-      return this.fallback.get<T>(key);
-    }
-
-    try {
-      const raw = await this.redis!.get(this.prefix + key);
-      if (!raw) return null;
-      return JSON.parse(raw) as T;
-    } catch {
-      return this.fallback.get<T>(key);
-    }
-  }
-
-  async set<T>(key: string, value: T, ttlSeconds?: number): Promise<void> {
-    const ttl = ttlSeconds ?? this.defaultTtlSeconds;
-    const serialized = JSON.stringify(value);
-
-    if (!this.isAvailable()) {
-      return this.fallback.set(key, value, ttl);
-    }
-
-    try {
-      await this.redis!.setex(this.prefix + key, ttl, serialized);
-    } catch {
-      await this.fallback.set(key, value, ttl);
-    }
-  }
-
-  async del(key: string): Promise<void> {
-    if (!this.isAvailable()) {
-      return this.fallback.del(key);
-    }
-
-    try {
-      await this.redis!.del(this.prefix + key);
-    } catch {
-      await this.fallback.del(key);
-    }
-  }
-
-  async flush(pattern?: string): Promise<void> {
-    if (!this.isAvailable()) {
-      return this.fallback.flush(pattern);
-    }
-
-    try {
-      const scanPattern = pattern
-        ? this.prefix + pattern.replace(/\*/g, '*')
-        : this.prefix + '*';
-
-      // Use SCAN to find matching keys (non-blocking)
-      const stream = this.redis!.scanStream({
-        match: scanPattern,
-        count: 100,
-      });
-
-      const pipeline = this.redis!.pipeline();
-      let count = 0;
-
-      await new Promise<void>((resolve, reject) => {
-        stream.on('data', (keys: string[]) => {
-          for (const key of keys) {
-            pipeline.del(key);
-            count++;
-          }
-        });
-        stream.on('end', () => {
-          if (count > 0) {
-            pipeline.exec().then(() => resolve()).catch(reject);
-          } else {
-            resolve();
-          }
-        });
-        stream.on('error', reject);
-      });
-    } catch {
-      await this.fallback.flush(pattern);
-    }
-  }
-
-  async has(key: string): Promise<boolean> {
-    if (!this.isAvailable()) {
-      return this.fallback.has(key);
-    }
-
-    try {
-      const exists = await this.redis!.exists(this.prefix + key);
-      return exists === 1;
-    } catch {
-      return this.fallback.has(key);
-    }
-  }
-}
-
 // ─── Cache Factory ────────────────────────────────────────────
 
 /**
- * Create a cache client based on environment configuration.
- * Uses Redis when REDIS_URL is set, otherwise falls back to in-memory.
+ * Create a cache client.
+ * Uses in-memory LRU cache with TTL support.
  */
 function createCacheClient(options: CacheOptions = {}): CacheClient {
-  const redisUrl = typeof process !== 'undefined' ? process.env?.REDIS_URL : undefined;
-
-  if (redisUrl) {
-    return new RedisCache(redisUrl, options);
-  }
-
   return new InMemoryCache(options);
 }
 
@@ -472,5 +309,5 @@ export async function cached<T>(
 
 // ─── Exports ──────────────────────────────────────────────────
 
-export { createCacheClient, InMemoryCache, RedisCache };
+export { createCacheClient, InMemoryCache };
 export type { CacheClient, CacheOptions };
