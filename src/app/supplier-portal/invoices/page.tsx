@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import { Modal } from '@/components/ui/Modal';
-import styles from './portal-invoices.module.css';
+import styles from './invoices.module.css';
 
 /* ───────── Types ───────── */
 
@@ -17,6 +17,7 @@ interface Invoice {
   currency: string;
   poReference: string;
   status: InvoiceStatus;
+  aiMatchScore: number;
   buyer: string;
   dueDate: string;
   timeline: { event: string; date: string; color: string }[];
@@ -33,14 +34,14 @@ interface LineItem {
 const mockInvoices: Invoice[] = [
   {
     id: '1', invoiceNumber: 'INV-2026-0156', dateSubmitted: '2026-01-28', amount: 24500, currency: 'USD',
-    poReference: 'PO-4521', status: 'Submitted', buyer: 'Medius Demo Corp', dueDate: '2026-02-27',
+    poReference: 'PO-4521', status: 'Submitted', aiMatchScore: 0, buyer: 'Medius Demo Corp', dueDate: '2026-02-27',
     timeline: [
       { event: 'Invoice submitted', date: 'Jan 28, 2026 10:15 AM', color: 'blue' },
     ],
   },
   {
     id: '2', invoiceNumber: 'INV-2026-0155', dateSubmitted: '2026-01-27', amount: 18200, currency: 'USD',
-    poReference: 'PO-4518', status: 'Under Review', buyer: 'TechGlobal Inc', dueDate: '2026-02-26',
+    poReference: 'PO-4518', status: 'Under Review', aiMatchScore: 72, buyer: 'TechGlobal Inc', dueDate: '2026-02-26',
     timeline: [
       { event: 'Under review by AP team', date: 'Jan 28, 2026 2:00 PM', color: 'purple' },
       { event: 'Invoice submitted', date: 'Jan 27, 2026 9:30 AM', color: 'blue' },
@@ -48,7 +49,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '3', invoiceNumber: 'INV-2026-0154', dateSubmitted: '2026-01-25', amount: 31000, currency: 'USD',
-    poReference: 'PO-4510', status: 'Under Review', buyer: 'Medius Demo Corp', dueDate: '2026-02-24',
+    poReference: 'PO-4510', status: 'Under Review', aiMatchScore: 89, buyer: 'Medius Demo Corp', dueDate: '2026-02-24',
     timeline: [
       { event: 'Under review by AP team', date: 'Jan 26, 2026 11:00 AM', color: 'purple' },
       { event: 'Invoice submitted', date: 'Jan 25, 2026 3:45 PM', color: 'blue' },
@@ -56,7 +57,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '4', invoiceNumber: 'INV-2026-0153', dateSubmitted: '2026-01-23', amount: 12750, currency: 'USD',
-    poReference: 'PO-4505', status: 'Approved', buyer: 'Nordic Manufacturing', dueDate: '2026-02-22',
+    poReference: 'PO-4505', status: 'Approved', aiMatchScore: 98, buyer: 'Nordic Manufacturing', dueDate: '2026-02-22',
     timeline: [
       { event: 'Invoice approved for payment', date: 'Jan 27, 2026 4:00 PM', color: 'green' },
       { event: 'PO matched successfully', date: 'Jan 25, 2026 10:00 AM', color: 'blue' },
@@ -65,7 +66,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '5', invoiceNumber: 'INV-2026-0152', dateSubmitted: '2026-01-21', amount: 45000, currency: 'EUR',
-    poReference: 'PO-4499', status: 'Approved', buyer: 'TechGlobal Inc', dueDate: '2026-02-20',
+    poReference: 'PO-4499', status: 'Approved', aiMatchScore: 95, buyer: 'TechGlobal Inc', dueDate: '2026-02-20',
     timeline: [
       { event: 'Invoice approved for payment', date: 'Jan 25, 2026 2:30 PM', color: 'green' },
       { event: 'Three-way match completed', date: 'Jan 23, 2026 9:00 AM', color: 'blue' },
@@ -74,7 +75,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '6', invoiceNumber: 'INV-2026-0151', dateSubmitted: '2026-01-20', amount: 8900, currency: 'USD',
-    poReference: '', status: 'Rejected', buyer: 'Medius Demo Corp', dueDate: '2026-02-19',
+    poReference: '', status: 'Rejected', aiMatchScore: 34, buyer: 'Medius Demo Corp', dueDate: '2026-02-19',
     timeline: [
       { event: 'Rejected: Missing PO reference', date: 'Jan 22, 2026 3:00 PM', color: 'red' },
       { event: 'Invoice submitted', date: 'Jan 20, 2026 2:00 PM', color: 'blue' },
@@ -82,7 +83,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '7', invoiceNumber: 'INV-2026-0149', dateSubmitted: '2026-01-16', amount: 22300, currency: 'USD',
-    poReference: 'PO-4488', status: 'Paid', buyer: 'Nordic Manufacturing', dueDate: '2026-02-15',
+    poReference: 'PO-4488', status: 'Paid', aiMatchScore: 100, buyer: 'Nordic Manufacturing', dueDate: '2026-02-15',
     timeline: [
       { event: 'Payment completed via ACH', date: 'Feb 15, 2026 6:00 AM', color: 'green' },
       { event: 'Invoice approved for payment', date: 'Jan 20, 2026 10:00 AM', color: 'green' },
@@ -91,7 +92,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '8', invoiceNumber: 'INV-2026-0148', dateSubmitted: '2026-01-14', amount: 37500, currency: 'GBP',
-    poReference: 'PO-4480', status: 'Paid', buyer: 'TechGlobal Inc', dueDate: '2026-02-13',
+    poReference: 'PO-4480', status: 'Paid', aiMatchScore: 100, buyer: 'TechGlobal Inc', dueDate: '2026-02-13',
     timeline: [
       { event: 'Payment completed via Wire', date: 'Feb 13, 2026 6:00 AM', color: 'green' },
       { event: 'Invoice approved for payment', date: 'Jan 18, 2026 11:00 AM', color: 'green' },
@@ -100,7 +101,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '9', invoiceNumber: 'INV-2026-0147', dateSubmitted: '2026-01-12', amount: 19800, currency: 'USD',
-    poReference: 'PO-4475', status: 'Paid', buyer: 'Medius Demo Corp', dueDate: '2026-02-11',
+    poReference: 'PO-4475', status: 'Paid', aiMatchScore: 100, buyer: 'Medius Demo Corp', dueDate: '2026-02-11',
     timeline: [
       { event: 'Payment completed via ACH', date: 'Feb 11, 2026 6:00 AM', color: 'green' },
       { event: 'Invoice approved', date: 'Jan 15, 2026 4:00 PM', color: 'green' },
@@ -109,7 +110,7 @@ const mockInvoices: Invoice[] = [
   },
   {
     id: '10', invoiceNumber: 'INV-2026-0146', dateSubmitted: '2026-01-10', amount: 41200, currency: 'USD',
-    poReference: 'PO-4470', status: 'Paid', buyer: 'Medius Demo Corp', dueDate: '2026-02-09',
+    poReference: 'PO-4470', status: 'Paid', aiMatchScore: 100, buyer: 'Medius Demo Corp', dueDate: '2026-02-09',
     timeline: [
       { event: 'Payment completed via ACH', date: 'Feb 9, 2026 6:00 AM', color: 'green' },
       { event: 'Invoice approved', date: 'Jan 13, 2026 2:00 PM', color: 'green' },
@@ -283,6 +284,27 @@ export default function SupplierPortalInvoices() {
         </button>
       </div>
 
+      {/* ── Drag & Drop Upload Zone ── */}
+      <div
+        className={styles.uploadArea}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); }}
+      >
+        <div className={styles.uploadIcon}>&#128206;</div>
+        <div className={styles.uploadText}>
+          {t('supplierPortal.invoices.dragDropText')}
+        </div>
+        <div className={styles.uploadHint}>
+          {t('supplierPortal.invoices.supportedFormats')}
+        </div>
+        <button
+          className={styles.uploadBrowseButton}
+          onClick={() => setShowSubmitModal(true)}
+        >
+          {t('supplierPortal.invoices.browseFiles')}
+        </button>
+      </div>
+
       {/* ── Stats Row ── */}
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
@@ -347,6 +369,7 @@ export default function SupplierPortalInvoices() {
                   <th>{t('supplierPortal.invoices.amount')}</th>
                   <th>{t('supplierPortal.invoices.currency')}</th>
                   <th>{t('supplierPortal.invoices.poReference')}</th>
+                  <th>{t('supplierPortal.invoices.aiMatchScore')}</th>
                   <th>{t('supplierPortal.invoices.status')}</th>
                   <th>{t('supplierPortal.invoices.actions')}</th>
                 </tr>
@@ -359,6 +382,22 @@ export default function SupplierPortalInvoices() {
                     <td><span className={styles.amountCell}>{formatCurrency(inv.amount, inv.currency)}</span></td>
                     <td>{inv.currency}</td>
                     <td>{inv.poReference || '--'}</td>
+                    <td>
+                      {inv.aiMatchScore > 0 ? (
+                        <span
+                          className={styles.matchScore}
+                          style={{
+                            color: inv.aiMatchScore >= 90 ? '#00B42A'
+                              : inv.aiMatchScore >= 70 ? '#FF7D00'
+                              : '#F53F3F',
+                          }}
+                        >
+                          {inv.aiMatchScore}%
+                        </span>
+                      ) : (
+                        <span style={{ color: '#86909C', fontSize: '0.8125rem' }}>--</span>
+                      )}
+                    </td>
                     <td>
                       <span className={`${styles.statusBadge} ${statusClassMap[inv.status]}`}>
                         {inv.status}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import { Modal } from '@/components/ui/Modal';
-import styles from './portal-disputes.module.css';
+import styles from './disputes.module.css';
 
 /* ───────── Types ───────── */
 
@@ -358,6 +358,29 @@ export default function SupplierPortalDisputes() {
                     </div>
                   ))}
                 </div>
+
+                {/* Resolution Proposal Actions */}
+                {(selectedDispute.status === 'Under Review' || selectedDispute.status === 'Awaiting Info') && (
+                  <div className={styles.resolutionActions}>
+                    <div className={styles.resolutionLabel}>
+                      {t('supplierPortal.disputes.resolutionProposal')}
+                    </div>
+                    <div className={styles.resolutionButtons}>
+                      <button
+                        className={styles.acceptButton}
+                        onClick={() => setSelectedDispute(null)}
+                      >
+                        &#10003; {t('supplierPortal.disputes.acceptResolution')}
+                      </button>
+                      <button
+                        className={styles.rejectButton}
+                        onClick={() => {/* keep dispute open */}}
+                      >
+                        &#10007; {t('supplierPortal.disputes.rejectResolution')}
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 {/* Reply */}
                 {selectedDispute.status !== 'Resolved' && selectedDispute.status !== 'Closed' && (

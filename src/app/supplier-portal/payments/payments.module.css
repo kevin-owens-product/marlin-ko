@@ -1,0 +1,637 @@
+/* ===============================================================
+   Supplier Portal — Payments Page
+   payments.module.css
+   =============================================================== */
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6, 24px);
+  flex-wrap: wrap;
+  gap: var(--space-4, 16px);
+}
+
+.pageTitle {
+  font-size: var(--text-2xl, 24px);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-text-primary, #1D2129);
+}
+
+/* Stats Row */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4, 16px);
+  margin-bottom: var(--space-6, 24px);
+}
+
+.statCard {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-5, 20px);
+}
+
+.statLabel {
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-muted, #86909C);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-2, 8px);
+}
+
+.statValue {
+  font-size: var(--text-xl, 20px);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.statSub {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-secondary, #4E5969);
+  margin-top: var(--space-1, 4px);
+}
+
+/* Filter */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+  margin-bottom: var(--space-4, 16px);
+  flex-wrap: wrap;
+}
+
+.filterTabs {
+  display: flex;
+  gap: var(--space-1, 4px);
+  background: var(--color-bg-secondary, #F7F8FA);
+  padding: var(--space-1, 4px);
+  border-radius: var(--radius-lg, 8px);
+  border: 1px solid var(--color-border, #E5E6EB);
+}
+
+.filterTab {
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+  white-space: nowrap;
+}
+
+.filterTab:hover {
+  color: var(--color-text-primary, #1D2129);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.filterTabActive {
+  background: var(--color-bg-primary, #ffffff);
+  color: var(--color-accent, #165DFF);
+  font-weight: var(--font-semibold, 600);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+/* Table */
+.tableWrapper {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  margin-bottom: var(--space-6, 24px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  text-align: left;
+  font-size: 11px;
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-muted, #86909C);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-bg-secondary, #F7F8FA);
+  border-bottom: 1px solid var(--color-border, #E5E6EB);
+}
+
+.table tbody tr {
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+  transition: background var(--transition-fast, 150ms);
+  cursor: pointer;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.table td {
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.paymentRef {
+  font-family: monospace;
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.invoiceRef {
+  font-family: monospace;
+  font-size: var(--text-sm, 13px);
+  color: var(--color-accent, #165DFF);
+  font-weight: var(--font-medium, 500);
+}
+
+.amountCell {
+  font-family: monospace;
+  font-weight: var(--font-semibold, 600);
+}
+
+.methodBadge {
+  display: inline-block;
+  padding: 2px var(--space-2, 8px);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 11px;
+  font-weight: var(--font-medium, 500);
+  background: var(--color-accent-muted, rgba(22, 93, 255, 0.08));
+  color: var(--color-accent, #165DFF);
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-block;
+  padding: var(--space-1, 4px) var(--space-2, 8px);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 11px;
+  font-weight: var(--font-semibold, 600);
+}
+
+.statusScheduled {
+  background: rgba(22, 93, 255, 0.1);
+  color: var(--color-accent, #165DFF);
+}
+
+.statusProcessing {
+  background: rgba(255, 125, 0, 0.1);
+  color: var(--color-warning, #FF7D00);
+}
+
+.statusCompleted {
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--color-success, #00B42A);
+}
+
+.statusFailed {
+  background: rgba(245, 63, 63, 0.1);
+  color: var(--color-error, #F53F3F);
+}
+
+/* Download Button */
+.downloadButton {
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  background: transparent;
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-sm, 2px);
+  color: var(--color-accent, #165DFF);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.downloadButton:hover {
+  background: var(--color-accent-muted, rgba(22, 93, 255, 0.08));
+  border-color: var(--color-accent, #165DFF);
+}
+
+.downloadFullButton {
+  width: 100%;
+  padding: var(--space-3, 12px);
+  background: var(--color-accent, #165DFF);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: background var(--transition-normal, 200ms) ease;
+  margin-top: var(--space-6, 24px);
+}
+
+.downloadFullButton:hover {
+  background: var(--color-accent-hover, #0E42D2);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  border-top: 1px solid var(--color-border, #E5E6EB);
+}
+
+.pageInfo {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.pageControls {
+  display: flex;
+  gap: var(--space-1, 4px);
+}
+
+.pageButton {
+  padding: var(--space-1, 4px) var(--space-2, 8px);
+  background: transparent;
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-sm, 2px);
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-sm, 13px);
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageButtonActive {
+  background: var(--color-accent, #165DFF);
+  border-color: var(--color-accent, #165DFF);
+  color: #ffffff;
+}
+
+/* Payment Schedule */
+.scheduleSection {
+  margin-top: var(--space-6, 24px);
+}
+
+.sectionTitle {
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-4, 16px);
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+}
+
+.scheduleCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4, 16px);
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  transition: box-shadow var(--transition-normal, 200ms) ease;
+}
+
+.scheduleCard:hover {
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.06));
+}
+
+.scheduleInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+}
+
+.scheduleDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+  padding: var(--space-2, 8px);
+  background: var(--color-accent-muted, rgba(22, 93, 255, 0.08));
+  border-radius: var(--radius-lg, 8px);
+}
+
+.scheduleDateDay {
+  font-size: var(--text-xl, 20px);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-accent, #165DFF);
+  line-height: 1;
+}
+
+.scheduleDateMonth {
+  font-size: var(--text-xs, 12px);
+  color: var(--color-accent, #165DFF);
+  font-weight: var(--font-medium, 500);
+}
+
+.scheduleDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scheduleInvoice {
+  font-family: monospace;
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-primary, #1D2129);
+  font-weight: var(--font-medium, 500);
+}
+
+.scheduleMethod {
+  font-size: var(--text-xs, 12px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.scheduleAmount {
+  font-family: monospace;
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+}
+
+/* Slide-out Detail Panel */
+.slideOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.slideOverlayVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slidePanel {
+  position: fixed;
+  top: 0;
+  right: -480px;
+  width: 480px;
+  max-width: 100vw;
+  height: 100vh;
+  background: var(--color-bg-primary, #ffffff);
+  z-index: 301;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg, -4px 0 24px rgba(0, 0, 0, 0.12));
+  transition: right 0.3s ease;
+}
+
+.slidePanelOpen {
+  right: 0;
+}
+
+.slidePanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+  border-bottom: 1px solid var(--color-border, #E5E6EB);
+}
+
+.slidePanelTitle {
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.slidePanelClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary, #4E5969);
+  font-size: var(--text-lg, 16px);
+  cursor: pointer;
+  border-radius: var(--radius-md, 4px);
+  transition: background var(--transition-normal, 200ms);
+}
+
+.slidePanelClose:hover {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.slidePanelBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6, 24px);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3, 12px) 0;
+  border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: var(--text-sm, 13px);
+  color: var(--color-text-muted, #86909C);
+}
+
+.detailValue {
+  font-size: var(--text-base, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-primary, #1D2129);
+}
+
+/* Loading */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+}
+
+.skeleton {
+  border-radius: var(--radius-lg, 8px);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonStats {
+  height: 100px;
+}
+
+.skeletonTable {
+  height: 400px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16, 64px) var(--space-8, 32px);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: #C9CDD4;
+  margin-bottom: var(--space-4, 16px);
+}
+
+.emptyTitle {
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-secondary, #4E5969);
+  margin-bottom: var(--space-1, 4px);
+}
+
+.emptyDesc {
+  font-size: var(--text-base, 14px);
+  color: var(--color-text-muted, #86909C);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterTabs {
+    overflow-x: auto;
+  }
+
+  .slidePanel {
+    width: 100vw;
+    right: -100vw;
+  }
+
+  .scheduleCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3, 12px);
+  }
+}
+
+/* Payment Preferences Section */
+.preferencesSection {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-6, 24px);
+  margin-top: var(--space-6, 24px);
+}
+
+.preferencesSection .sectionTitle {
+  font-size: var(--text-lg, 16px);
+  font-weight: var(--font-semibold, 600);
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: var(--space-5, 20px);
+}
+
+.preferencesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6, 24px);
+}
+
+.preferenceItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+}
+
+.preferenceLabel {
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-secondary, #4E5969);
+}
+
+.preferenceSelect {
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-md, 4px);
+  color: var(--color-text-primary, #1D2129);
+  font-size: var(--text-base, 14px);
+  outline: none;
+  transition: border-color var(--transition-normal, 200ms) ease;
+}
+
+.preferenceSelect:focus {
+  border-color: var(--color-accent, #165DFF);
+}
+
+.preferenceStatusRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+}
+
+.preferenceStatusBadge {
+  display: inline-block;
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--color-success, #00B42A);
+}
+
+.preferenceStatusDate {
+  font-size: var(--text-xs, 12px);
+  color: var(--color-text-muted, #86909C);
+}
+
+@media (max-width: 768px) {
+  .preferencesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+}

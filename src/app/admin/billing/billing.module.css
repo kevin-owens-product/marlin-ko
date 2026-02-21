@@ -1,0 +1,548 @@
+/* ==========================================================================
+   Admin - Billing & Plan Management
+   ========================================================================== */
+
+.page {
+  padding: var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.headerLeft {
+  flex: 1;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Revenue KPI Cards */
+.revenueGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.revenueCard {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: box-shadow var(--transition-fast);
+}
+
+.revenueCard:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.revenueLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.revenueValue {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.revenueSub {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
+
+.revenueSubUp {
+  color: var(--color-success);
+}
+
+.revenueSubDown {
+  color: var(--color-error);
+}
+
+.revenueSubNeutral {
+  color: var(--color-text-muted);
+}
+
+/* Section Grid */
+.sectionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.sectionFull {
+  grid-column: 1 / -1;
+}
+
+/* Card */
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cardTitle {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.cardBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-full);
+  background-color: var(--green-1);
+  color: var(--green-7);
+}
+
+.cardBody {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Plan Distribution Bar Chart */
+.planChart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.planChartRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.planChartLabel {
+  flex: 0 0 120px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.planChartBar {
+  flex: 1;
+  height: 24px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.planChartBarFill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 0.6s ease;
+  display: flex;
+  align-items: center;
+  padding-left: var(--space-2);
+  min-width: 40px;
+}
+
+.planChartBarText {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: #fff;
+}
+
+.planChartCount {
+  flex: 0 0 60px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+/* Tenant Billing Table */
+.tableCard {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background-color 0.1s ease;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody td {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.tenantName {
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Plan Badges (FREE=gray, STARTER=blue, PROFESSIONAL=purple, ENTERPRISE=gold/orange) */
+.planBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+}
+
+.planFree {
+  background-color: var(--gray-2);
+  color: var(--gray-8);
+}
+
+.planStarter {
+  background-color: var(--arcoblue-1);
+  color: var(--arcoblue-7);
+}
+
+.planProfessional {
+  background-color: var(--purple-1);
+  color: var(--purple-7);
+}
+
+.planEnterprise {
+  background-color: var(--orange-1);
+  color: var(--orange-7);
+}
+
+/* Billing Status */
+.billingStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
+
+.billingStatusActive {
+  color: var(--color-success);
+}
+
+.billingStatusPastDue {
+  color: var(--color-error);
+}
+
+.billingStatusTrial {
+  color: var(--color-accent);
+}
+
+.billingStatusFree {
+  color: var(--color-text-muted);
+}
+
+.billingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Usage indicator */
+.usageBar {
+  width: 80px;
+  height: 6px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: var(--space-2);
+}
+
+.usageBarFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.usageText {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  vertical-align: middle;
+}
+
+/* Amount */
+.amount {
+  font-weight: var(--font-semibold);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.nextBilling {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Actions */
+.actionsCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.actionBtn {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+}
+
+.actionBtn:hover {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+/* Plan Comparison Matrix */
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comparisonTable thead th {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.comparisonTable thead th:first-child {
+  text-align: left;
+}
+
+.comparisonTable tbody td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.comparisonTable tbody td:first-child {
+  text-align: left;
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+.comparisonTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.comparisonPlanHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.comparisonPlanName {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+}
+
+.comparisonPlanPrice {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.checkMark {
+  color: var(--color-success);
+  font-weight: var(--font-bold);
+}
+
+.dashMark {
+  color: var(--color-text-muted);
+}
+
+.featureValue {
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.pageInfo {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.pageBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: transparent;
+  border: none;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.pageBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageBtnActive {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .revenueGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sectionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparisonTable {
+    font-size: var(--text-xs);
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-4);
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .revenueGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .revenueValue {
+    font-size: var(--text-xl);
+  }
+
+  .tableCard {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+
+  .comparisonTable {
+    min-width: 600px;
+  }
+
+  .planChartLabel {
+    flex: 0 0 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-3);
+  }
+
+  .revenueGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+
+  .revenueCard {
+    padding: var(--space-3);
+  }
+}

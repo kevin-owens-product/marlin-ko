@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
-import styles from './portal-payments.module.css';
+import styles from './payments.module.css';
 
 /* ───────── Types ───────── */
 
@@ -98,6 +98,10 @@ export default function SupplierPortalPayments() {
     currentPage * pageSize
   );
 
+  /* Payment preferences state */
+  const [preferredMethod, setPreferredMethod] = useState('ACH');
+  const [bankStatus] = useState('Verified');
+
   /* Stats */
   const stats = useMemo(() => {
     const completedPayments = mockPayments.filter((p) => p.status === 'Completed');
@@ -110,6 +114,7 @@ export default function SupplierPortalPayments() {
       totalYTD,
       pendingCount,
       avgDays: 28,
+      earlySavings: 4750,
       nextPaymentAmount: nextPayment?.amount || 0,
       nextPaymentDate: nextPayment?.date || '--',
     };
@@ -163,9 +168,11 @@ export default function SupplierPortalPayments() {
           </div>
         </div>
         <div className={styles.statCard}>
-          <div className={styles.statLabel}>{t('supplierPortal.payments.nextPayment')}</div>
-          <div className={styles.statValue}>{formatCurrency(stats.nextPaymentAmount)}</div>
-          <div className={styles.statSub}>{stats.nextPaymentDate}</div>
+          <div className={styles.statLabel}>{t('supplierPortal.payments.earlyPaymentSavings')}</div>
+          <div className={styles.statValue} style={{ color: '#722ED1' }}>
+            {formatCurrency(stats.earlySavings)}
+          </div>
+          <div className={styles.statSub}>{t('supplierPortal.payments.ytdSavings')}</div>
         </div>
       </div>
 
@@ -293,6 +300,33 @@ export default function SupplierPortalPayments() {
               <span className={styles.scheduleAmount}>{formatCurrency(sp.amount)}</span>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ── Payment Preferences ── */}
+      <div className={styles.preferencesSection}>
+        <h2 className={styles.sectionTitle}>{t('supplierPortal.payments.paymentPreferences')}</h2>
+        <div className={styles.preferencesGrid}>
+          <div className={styles.preferenceItem}>
+            <div className={styles.preferenceLabel}>{t('supplierPortal.payments.preferredMethod')}</div>
+            <select
+              className={styles.preferenceSelect}
+              value={preferredMethod}
+              onChange={(e) => setPreferredMethod(e.target.value)}
+            >
+              <option value="ACH">ACH Transfer</option>
+              <option value="Wire">Wire Transfer</option>
+              <option value="VirtualCard">Virtual Card</option>
+              <option value="SEPA">SEPA Transfer</option>
+            </select>
+          </div>
+          <div className={styles.preferenceItem}>
+            <div className={styles.preferenceLabel}>{t('supplierPortal.payments.bankDetailsStatus')}</div>
+            <div className={styles.preferenceStatusRow}>
+              <span className={styles.preferenceStatusBadge}>{bankStatus}</span>
+              <span className={styles.preferenceStatusDate}>{t('supplierPortal.payments.lastVerified')}: Jan 10, 2026</span>
+            </div>
+          </div>
         </div>
       </div>
 
