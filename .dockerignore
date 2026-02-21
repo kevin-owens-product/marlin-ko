@@ -1,0 +1,69 @@
+# ──────────────────────────────────────────────────────────────
+# Medius AP Automation Platform - Docker Ignore
+# ──────────────────────────────────────────────────────────────
+
+# Dependencies (reinstalled in Docker)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js build output
+.next
+out
+
+# Version control
+.git
+.gitignore
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files (use env_file or Docker secrets)
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+
+# Docker files (prevent recursive build)
+Dockerfile
+docker-compose.yml
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+*.md
+docs/
+LICENSE
+
+# Testing
+coverage/
+.nyc_output
+__tests__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.*
+vitest.config.*
+
+# Development database
+prisma/dev.db
+prisma/dev.db-journal
+*.db
+*.db-journal
+
+# Misc
+.turbo
+.vercel
+.eslintcache
+tsconfig.tsbuildinfo

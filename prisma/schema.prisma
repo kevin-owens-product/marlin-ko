@@ -1,67 +1,223 @@
+// ──────────────────────────────────────────────────────────────
+// Medius AP Automation Platform - Prisma Schema
+// PostgreSQL with full-text search, soft deletes, and multi-tenancy
+// ──────────────────────────────────────────────────────────────
+
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ─── Multi-tenancy ────────────────────────────────────────────
-model Tenant {
-  id        String   @id @default(uuid())
-  name      String
-  slug      String   @unique
-  plan      String   @default("PROFESSIONAL") // FREE, STARTER, PROFESSIONAL, ENTERPRISE
-  settings  String?  // JSON
-  createdAt DateTime @default(now())
 
-  users               User[]
-  invoices            Invoice[]
-  approvalWorkflows   ApprovalWorkflow[]
-  purchaseOrders      PurchaseOrder[]
-  expenses            Expense[]
-  expensePolicies     ExpensePolicy[]
-  contracts           Contract[]
-  auditLogs           AuditLog[]
-  erpConnections      ERPConnection[]
-  reports             Report[]
-  paymentBatches      PaymentBatch[]
+model Tenant {
+  id         String    @id @default(uuid())
+  name       String
+  slug       String    @unique
+  plan       String    @default("PROFESSIONAL") // FREE, STARTER, PROFESSIONAL, ENTERPRISE
+  settings   String?   // JSON
+  branding   String?   // JSON: { logoUrl, primaryColor, companyName }
+  isActive   Boolean   @default(true)
+  logoUrl    String?
+  brandColor String?
+  domain     String?
+  deletedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  users                 User[]
+  invoices              Invoice[]
+  approvalWorkflows     ApprovalWorkflow[]
+  purchaseOrders        PurchaseOrder[]
+  expenses              Expense[]
+  expensePolicies       ExpensePolicy[]
+  contracts             Contract[]
+  auditLogs             AuditLog[]
+  erpConnections        ERPConnection[]
+  reports               Report[]
+  paymentBatches        PaymentBatch[]
   supplierConversations SupplierConversation[]
-  riskAlerts          RiskAlert[]
-  cashFlowForecasts   CashFlowForecast[]
-  virtualCards        VirtualCard[]
-  scfPrograms         SCFProgram[]
+  riskAlerts            RiskAlert[]
+  cashFlowForecasts     CashFlowForecast[]
+  virtualCards          VirtualCard[]
+  scfPrograms           SCFProgram[]
+  apiKeys               ApiKey[]
+  webhooks              Webhook[]
+  tenantBranding        TenantBranding?
+  notifications         Notification[]
 }
 
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  name        String
-  role        String   @default("VIEWER") // ADMIN, APPROVER, AP_CLERK, VIEWER
-  tenantId    String
-  avatarUrl   String?
-  preferences String?  // JSON
-  isActive    Boolean  @default(true)
-  lastLoginAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String    @id @default(uuid())
+  email           String    @unique
+  name            String
+  role            String    @default("VIEWER") // ADMIN, APPROVER, AP_CLERK, VIEWER
+  tenantId        String
+  avatarUrl       String?
+  preferences     String?   // JSON
+  passwordHash    String?
+  emailVerified   Boolean   @default(false)
+  twoFactorEnabled Boolean  @default(false)
+  isActive        Boolean   @default(true)
+  lastLoginAt     DateTime?
+  deletedAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   tenant        Tenant          @relation(fields: [tenantId], references: [id])
   approvalSteps ApprovalStep[]
   expenses      Expense[]
   auditLogs     AuditLog[]
   notifications Notification[]
+  sessions      Session[]
+
+  @@index([tenantId])
+  @@index([email])
+}
+
+// ─── Sessions ─────────────────────────────────────────────────
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+// ─── API Keys ─────────────────────────────────────────────────
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  tenantId    String
+  name        String
+  keyHash     String    @unique
+  keyPrefix   String    // First 8 chars for identification
+  permissions String?   // JSON array of allowed scopes
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  createdBy   String?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([keyHash])
+}
+
+// ─── Webhooks ─────────────────────────────────────────────────
+
+model Webhook {
+  id              String    @id @default(uuid())
+  tenantId        String
+  url             String
+  events          String    // JSON array of event types
+  secret          String    // HMAC secret for signature verification
+  isActive        Boolean   @default(true)
+  description     String?
+  lastTriggeredAt DateTime?
+  failureCount    Int       @default(0)
+  createdAt       DateTime  @default(now())
+
+  tenant       Tenant            @relation(fields: [tenantId], references: [id])
+  deliveryLogs WebhookDelivery[]
+
+  @@index([tenantId])
+}
+
+model WebhookDelivery {
+  id           String   @id @default(uuid())
+  webhookId    String
+  event        String
+  payload      String   // JSON
+  statusCode   Int?
+  response     String?
+  success      Boolean  @default(false)
+  attemptCount Int      @default(1)
+  createdAt    DateTime @default(now())
+
+  webhook Webhook @relation(fields: [webhookId], references: [id], onDelete: Cascade)
+
+  @@index([webhookId])
+  @@index([createdAt])
+}
+
+// ─── Feature Flags ────────────────────────────────────────────
+
+model FeatureFlag {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  name        String
+  description String?
+  isEnabled   Boolean  @default(false)
+  tenantIds   String?  // JSON array - if null, applies globally
+  plans       String?  // JSON array - which plans have access
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Tenant Branding ──────────────────────────────────────────
+
+model TenantBranding {
+  id             String  @id @default(uuid())
+  tenantId       String  @unique
+  logoUrl        String?
+  primaryColor   String  @default("#165DFF")
+  secondaryColor String  @default("#8E51DA")
+  accentColor    String  @default("#23C343")
+  companyName    String?
+  emailHeader    String? // HTML
+  emailFooter    String? // HTML
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+// ─── Supplier Portal Users ────────────────────────────────────
+
+model SupplierUser {
+  id           String    @id @default(uuid())
+  supplierId   String
+  email        String    @unique
+  name         String
+  passwordHash String?
+  token        String?   @unique // magic link token
+  tokenExpiry  DateTime?
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  supplier TradingPartner @relation(fields: [supplierId], references: [id])
+
+  @@index([supplierId])
 }
 
 // ─── Core AP ──────────────────────────────────────────────────
+
 model Invoice {
-  id              String   @id @default(uuid())
-  tenantId        String   @default("default_tenant")
-  sourceType      String   // email, upload, api, network
-  rawFileRef      String?
-  status          String   // ingested, extracted, compliance_checked, classified, matched, approved, paid, rejected, flagged_for_review
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id         String    @id @default(uuid())
+  tenantId   String    @default("default_tenant")
+  sourceType String    // email, upload, api, network
+  rawFileRef String?
+  status     String    // ingested, extracted, compliance_checked, classified, matched, approved, paid, rejected, flagged_for_review
+  createdBy  String?
+  updatedBy  String?
+  deletedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   invoiceNumber        String?
   invoiceDate          DateTime?
@@ -80,8 +236,8 @@ model Invoice {
   discountApplied      Float?   @default(0.0)
   paymentMethod        String?  // ACH, WIRE, VIRTUAL_CARD, CHECK, SEPA, BACS
 
-  aiConfidence         Float?   @default(0.0)
-  processingTimeMs     Int?
+  aiConfidence     Float? @default(0.0)
+  processingTimeMs Int?
 
   decisions        AgentDecision[]
   complianceLogs   ComplianceLog[]
@@ -98,29 +254,38 @@ model Invoice {
   @@index([tenantId])
   @@index([status])
   @@index([vendorName])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+  @@index([dueDate])
 }
 
 model TradingPartner {
-  id            String  @id @default(uuid())
-  name          String
-  taxId         String?
-  email         String?
-  category      String? // IT_SERVICES, OFFICE_SUPPLIES, PROFESSIONAL_SERVICES, MANUFACTURING, LOGISTICS
-  riskScore     Int     @default(0)
-  discountTerms String? // e.g., "2/10 net 30"
-  paymentTerms  String? @default("NET_30")
-  address       String?
-  phone         String?
-  complianceStatus String @default("compliant") // compliant, non_compliant, pending
-  isActive      Boolean @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id               String   @id @default(uuid())
+  name             String
+  taxId            String?
+  email            String?
+  category         String?  // IT_SERVICES, OFFICE_SUPPLIES, PROFESSIONAL_SERVICES, MANUFACTURING, LOGISTICS
+  riskScore        Int      @default(0)
+  discountTerms    String?  // e.g., "2/10 net 30"
+  paymentTerms     String?  @default("NET_30")
+  address          String?
+  phone            String?
+  complianceStatus String   @default("compliant") // compliant, non_compliant, pending
+  isActive         Boolean  @default(true)
+  deletedAt        DateTime?
+  createdBy        String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  invoices      Invoice[]
+  invoices       Invoice[]
   purchaseOrders PurchaseOrder[]
-  contracts     Contract[]
-  conversations SupplierConversation[]
-  virtualCards  VirtualCard[]
+  contracts      Contract[]
+  conversations  SupplierConversation[]
+  virtualCards   VirtualCard[]
+  supplierUsers  SupplierUser[]
+
+  @@index([name])
+  @@index([complianceStatus])
 }
 
 model AgentDecision {
@@ -164,9 +329,12 @@ model MonetizationLog {
   timestamp  DateTime @default(now())
 
   invoice Invoice @relation(fields: [documentId], references: [id])
+
+  @@index([documentId])
 }
 
 // ─── Approvals ────────────────────────────────────────────────
+
 model ApprovalWorkflow {
   id          String   @id @default(uuid())
   name        String
@@ -178,6 +346,8 @@ model ApprovalWorkflow {
 
   tenant Tenant         @relation(fields: [tenantId], references: [id])
   steps  ApprovalStep[]
+
+  @@index([tenantId])
 }
 
 model ApprovalStep {
@@ -197,9 +367,11 @@ model ApprovalStep {
 
   @@index([workflowId])
   @@index([invoiceId])
+  @@index([approverId])
 }
 
 // ─── Procurement ──────────────────────────────────────────────
+
 model PurchaseOrder {
   id          String   @id @default(uuid())
   poNumber    String   @unique
@@ -219,6 +391,7 @@ model PurchaseOrder {
 
   @@index([tenantId])
   @@index([supplierId])
+  @@index([tenantId, status])
 }
 
 model POMatchResult {
@@ -241,6 +414,7 @@ model POMatchResult {
 }
 
 // ─── Expenses ─────────────────────────────────────────────────
+
 model Expense {
   id          String    @id @default(uuid())
   userId      String
@@ -264,20 +438,24 @@ model Expense {
 
   @@index([userId])
   @@index([tenantId])
+  @@index([tenantId, status])
 }
 
 model ExpensePolicy {
-  id       String  @id @default(uuid())
-  tenantId String
-  name     String
-  rules    String? // JSON
-  isActive Boolean @default(true)
+  id        String   @id @default(uuid())
+  tenantId  String
+  name      String
+  rules     String?  // JSON
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
 }
 
 // ─── Contracts ────────────────────────────────────────────────
+
 model Contract {
   id          String    @id @default(uuid())
   tenantId    String
@@ -299,9 +477,11 @@ model Contract {
 
   @@index([tenantId])
   @@index([supplierId])
+  @@index([tenantId, status])
 }
 
 // ─── Payments ─────────────────────────────────────────────────
+
 model PaymentBatch {
   id           String    @id @default(uuid())
   tenantId     String
@@ -315,6 +495,9 @@ model PaymentBatch {
 
   tenant       Tenant               @relation(fields: [tenantId], references: [id])
   transactions PaymentTransaction[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
 }
 
 model PaymentTransaction {
@@ -335,7 +518,8 @@ model PaymentTransaction {
   @@index([invoiceId])
 }
 
-// ─── Supplier Comms ───────────────────────────────────────────
+// ─── Supplier Communications ──────────────────────────────────
+
 model SupplierConversation {
   id         String    @id @default(uuid())
   supplierId String
@@ -349,6 +533,9 @@ model SupplierConversation {
   supplier TradingPartner       @relation(fields: [supplierId], references: [id])
   tenant   Tenant               @relation(fields: [tenantId], references: [id])
   messages ConversationMessage[]
+
+  @@index([tenantId])
+  @@index([supplierId])
 }
 
 model ConversationMessage {
@@ -366,6 +553,7 @@ model ConversationMessage {
 }
 
 // ─── Risk ─────────────────────────────────────────────────────
+
 model RiskAlert {
   id          String    @id @default(uuid())
   tenantId    String
@@ -383,9 +571,11 @@ model RiskAlert {
 
   @@index([tenantId])
   @@index([severity])
+  @@index([tenantId, severity])
 }
 
 // ─── Treasury ─────────────────────────────────────────────────
+
 model CashFlowForecast {
   id              String   @id @default(uuid())
   tenantId        String
@@ -399,9 +589,11 @@ model CashFlowForecast {
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
+  @@index([tenantId, forecastDate])
 }
 
 // ─── Platform ─────────────────────────────────────────────────
+
 model AuditLog {
   id         String   @id @default(uuid())
   tenantId   String
@@ -419,11 +611,15 @@ model AuditLog {
   @@index([tenantId])
   @@index([entityType])
   @@index([timestamp])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, timestamp])
+  @@index([userId])
 }
 
 model Notification {
   id        String   @id @default(uuid())
   userId    String
+  tenantId  String?
   type      String   // APPROVAL_REQUIRED, PAYMENT_PROCESSED, RISK_ALERT, SYSTEM, INFO
   title     String
   message   String
@@ -431,10 +627,13 @@ model Notification {
   actionUrl String?
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id])
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
 
   @@index([userId])
   @@index([isRead])
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
 }
 
 model ERPConnection {
@@ -449,6 +648,8 @@ model ERPConnection {
 
   tenant   Tenant    @relation(fields: [tenantId], references: [id])
   syncLogs SyncLog[]
+
+  @@index([tenantId])
 }
 
 model SyncLog {
@@ -463,6 +664,8 @@ model SyncLog {
   completedAt     DateTime?
 
   erpConnection ERPConnection @relation(fields: [erpConnectionId], references: [id])
+
+  @@index([erpConnectionId])
 }
 
 model Report {
@@ -476,18 +679,21 @@ model Report {
   createdAt DateTime  @default(now())
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
 }
 
-// ─── Virtual Cards ───────────────────────────────────────────
+// ─── Virtual Cards ────────────────────────────────────────────
+
 model VirtualCard {
-  id         String    @id @default(uuid())
+  id         String   @id @default(uuid())
   tenantId   String
   supplierId String
   cardNumber String
   amount     Float
-  currency   String    @default("USD")
-  status     String    @default("ACTIVE") // ACTIVE, USED, CANCELLED, EXPIRED
-  createdAt  DateTime  @default(now())
+  currency   String   @default("USD")
+  status     String   @default("ACTIVE") // ACTIVE, USED, CANCELLED, EXPIRED
+  createdAt  DateTime @default(now())
   expiresAt  DateTime
 
   tenant   Tenant         @relation(fields: [tenantId], references: [id])
@@ -497,7 +703,8 @@ model VirtualCard {
   @@index([supplierId])
 }
 
-// ─── Supply Chain Finance ────────────────────────────────────
+// ─── Supply Chain Finance ─────────────────────────────────────
+
 model SCFProgram {
   id           String   @id @default(uuid())
   tenantId     String

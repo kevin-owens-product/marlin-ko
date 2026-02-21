@@ -1,0 +1,523 @@
+/* ==========================================================================
+   Admin - System Monitoring
+   ========================================================================== */
+
+.page {
+  padding: var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.headerLeft {
+  flex: 1;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-3);
+  background: var(--green-1);
+  color: var(--green-7);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Metrics Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.metricCard {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.metricLabel {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: var(--space-2);
+}
+
+.metricValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.metricSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.metricGood {
+  color: var(--color-success);
+}
+
+.metricWarn {
+  color: var(--color-warning);
+}
+
+.metricBad {
+  color: var(--color-error);
+}
+
+/* Section Grid */
+.sectionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.sectionFull {
+  grid-column: 1 / -1;
+}
+
+/* Card */
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cardTitle {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cardBadge {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.cardBadgeGreen {
+  background-color: var(--green-1);
+  color: var(--green-7);
+}
+
+.cardBadgeAmber {
+  background-color: var(--orange-1);
+  color: var(--orange-7);
+}
+
+.cardBody {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Sessions Breakdown */
+.sessionsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sessionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+}
+
+.sessionTenant {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.sessionCount {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.sessionBar {
+  flex: 1;
+  height: 6px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  margin: 0 var(--space-4);
+  overflow: hidden;
+}
+
+.sessionBarFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  transition: width 0.6s ease;
+}
+
+/* Database Stats */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.statLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.statValue {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* Queue Depths */
+.queueList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.queueItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.queueName {
+  flex: 0 0 160px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.queueBar {
+  flex: 1;
+  height: 20px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.queueBarFill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--space-2);
+  min-width: 36px;
+}
+
+.queueBarLabel {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #fff;
+}
+
+.queueStatus {
+  flex: 0 0 80px;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Error Feed */
+.errorList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.errorItem {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.errorItem:last-child {
+  border-bottom: none;
+}
+
+.errorItem:hover {
+  background-color: var(--color-bg-secondary);
+  margin: 0 calc(var(--space-5) * -1);
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+}
+
+.errorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+
+.errorType {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-error);
+}
+
+.errorTime {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.errorMessage {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.errorStack {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  background: var(--color-bg-elevated);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.5;
+}
+
+/* System Gauges */
+.gaugeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.gaugeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.gaugeRing {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gaugeRingBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid var(--color-bg-elevated);
+}
+
+.gaugeRingFill {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid transparent;
+}
+
+.gaugeValue {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  z-index: 1;
+}
+
+.gaugeLabel {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.gaugeSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Agent Health Grid */
+.agentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.agentCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid transparent;
+}
+
+.agentCardActive {
+  border-left-color: var(--color-success);
+}
+
+.agentCardIdle {
+  border-left-color: var(--color-warning);
+}
+
+.agentCardError {
+  border-left-color: var(--color-error);
+}
+
+.agentName {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.agentStats {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.agentStat {
+  display: flex;
+  flex-direction: column;
+}
+
+.agentStatValue {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.agentStatLabel {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.agentHealth {
+  height: 4px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.agentHealthFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sectionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .agentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-4);
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gaugeGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .agentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .queueName {
+    flex: 0 0 120px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useT } from '@/lib/i18n/locale-context';
-import styles from './portal-dashboard.module.css';
+import styles from './dashboard.module.css';
 
 /* ───────── Mock Data ───────── */
 
@@ -12,9 +12,10 @@ const lastLoginDate = 'Feb 20, 2026 at 9:42 AM';
 
 const kpiData = {
   outstandingInvoices: { count: 7, total: 160350 },
-  paymentsDue: { amount: 57750 },
-  paymentsReceived: { amount: 332700 },
+  pendingPayments: { count: 3, total: 66650 },
+  nextPayment: { date: 'Feb 22, 2026', amount: 12750 },
   openDisputes: { count: 2, urgent: 1 },
+  scfCredit: { available: 250000 },
 };
 
 interface ActivityEvent {
@@ -30,11 +31,6 @@ const recentActivity: ActivityEvent[] = [
   { id: 'act-3', text: 'Invoice INV-2026-0153 has been approved', time: '1 day ago', color: 'green' },
   { id: 'act-4', text: 'Dispute #D-45 response received from Medius Demo Corp', time: '1 day ago', color: 'orange' },
   { id: 'act-5', text: 'Payment $37,500 processed via Wire for INV-2026-0148', time: '2 days ago', color: 'green' },
-  { id: 'act-6', text: 'Invoice INV-2026-0155 submitted to TechGlobal Inc', time: '2 days ago', color: 'blue' },
-  { id: 'act-7', text: 'Certificate of Insurance expiring in 15 days', time: '3 days ago', color: 'orange' },
-  { id: 'act-8', text: 'Invoice INV-2026-0152 has been approved', time: '3 days ago', color: 'green' },
-  { id: 'act-9', text: 'Dispute #D-44 has been resolved in your favor', time: '4 days ago', color: 'purple' },
-  { id: 'act-10', text: 'Payment $19,800 processed via ACH for INV-2026-0147', time: '5 days ago', color: 'green' },
 ];
 
 interface UpcomingPayment {
@@ -53,7 +49,7 @@ const upcomingPayments: UpcomingPayment[] = [
   { id: 'up-5', invoiceNumber: 'INV-2026-0154', amount: 31000, expectedDate: 'Mar 5, 2026', method: 'Wire' },
 ];
 
-const notificationMessage =
+const buyerAnnouncement =
   'Medius Demo Corp has updated their payment terms. Net-30 terms now apply to all new invoices submitted after February 15, 2026. Please review the updated terms in your Documents section.';
 
 /* ───────── Helpers ───────── */
@@ -72,7 +68,7 @@ const dotColorMap: Record<string, string> = {
 
 /* ───────── Component ───────── */
 
-export default function SupplierPortalDashboard() {
+export default function SupplierDashboardPage() {
   const t = useT();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -87,7 +83,7 @@ export default function SupplierPortalDashboard() {
     return (
       <div className={styles.loadingContainer}>
         <div className={styles.kpiGrid}>
-          {[1, 2, 3, 4].map((i) => (
+          {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className={styles.skeletonKpi} />
           ))}
         </div>
@@ -116,11 +112,11 @@ export default function SupplierPortalDashboard() {
       {showBanner && (
         <div className={styles.notificationBanner}>
           <span className={styles.bannerIcon} aria-hidden="true">&#9432;</span>
-          <span className={styles.bannerText}>{notificationMessage}</span>
+          <span className={styles.bannerText}>{buyerAnnouncement}</span>
           <button
             className={styles.bannerClose}
             onClick={() => setShowBanner(false)}
-            aria-label="Dismiss notification"
+            aria-label={t('supplierPortal.dashboard.dismissNotification')}
           >
             &#10005;
           </button>
@@ -129,7 +125,11 @@ export default function SupplierPortalDashboard() {
 
       {/* ── KPI Cards ── */}
       <div className={styles.kpiGrid}>
+        {/* Outstanding Invoices */}
         <div className={styles.kpiCard}>
+          <div className={styles.kpiIconRow}>
+            <div className={`${styles.kpiIconBubble} ${styles.kpiIconBlue}`}>&#128196;</div>
+          </div>
           <div className={styles.kpiLabel}>
             {t('supplierPortal.dashboard.outstandingInvoices')}
           </div>
@@ -137,37 +137,47 @@ export default function SupplierPortalDashboard() {
             {formatCurrency(kpiData.outstandingInvoices.total)}
           </div>
           <div className={styles.kpiSub}>
-            {t('supplierPortal.dashboard.invoiceCount', {
-              count: kpiData.outstandingInvoices.count,
-            })}
+            {t('supplierPortal.dashboard.invoiceCount', { count: kpiData.outstandingInvoices.count })}
           </div>
         </div>
 
+        {/* Pending Payments */}
         <div className={styles.kpiCard}>
+          <div className={styles.kpiIconRow}>
+            <div className={`${styles.kpiIconBubble} ${styles.kpiIconOrange}`}>&#128176;</div>
+          </div>
           <div className={styles.kpiLabel}>
-            {t('supplierPortal.dashboard.paymentsDue')}
+            {t('supplierPortal.dashboard.pendingPayments')}
           </div>
           <div className={styles.kpiValue}>
-            {formatCurrency(kpiData.paymentsDue.amount)}
+            {formatCurrency(kpiData.pendingPayments.total)}
           </div>
           <div className={styles.kpiSub}>
-            {t('supplierPortal.dashboard.thisMonth')}
+            {t('supplierPortal.dashboard.paymentCount', { count: kpiData.pendingPayments.count })}
           </div>
         </div>
 
+        {/* Next Payment Date */}
         <div className={styles.kpiCard}>
+          <div className={styles.kpiIconRow}>
+            <div className={`${styles.kpiIconBubble} ${styles.kpiIconGreen}`}>&#128197;</div>
+          </div>
           <div className={styles.kpiLabel}>
-            {t('supplierPortal.dashboard.paymentsReceived')}
+            {t('supplierPortal.dashboard.nextPaymentDate')}
           </div>
-          <div className={styles.kpiValue} style={{ color: 'var(--color-success, #00B42A)' }}>
-            {formatCurrency(kpiData.paymentsReceived.amount)}
+          <div className={styles.kpiValue}>
+            {kpiData.nextPayment.date}
           </div>
           <div className={styles.kpiSub}>
-            {t('supplierPortal.dashboard.mtd')}
+            {formatCurrency(kpiData.nextPayment.amount)}
           </div>
         </div>
 
+        {/* Open Disputes */}
         <div className={styles.kpiCard}>
+          <div className={styles.kpiIconRow}>
+            <div className={`${styles.kpiIconBubble} ${styles.kpiIconRed}`}>&#9888;</div>
+          </div>
           <div className={styles.kpiLabel}>
             {t('supplierPortal.dashboard.openDisputes')}
           </div>
@@ -183,17 +193,36 @@ export default function SupplierPortalDashboard() {
             {t('supplierPortal.disputes.awaitingResponse')}
           </div>
         </div>
+
+        {/* Available SCF Credit */}
+        <div className={styles.kpiCard}>
+          <div className={styles.kpiIconRow}>
+            <div className={`${styles.kpiIconBubble} ${styles.kpiIconPurple}`}>&#9733;</div>
+          </div>
+          <div className={styles.kpiLabel}>
+            {t('supplierPortal.dashboard.availableSCFCredit')}
+          </div>
+          <div className={styles.kpiValue} style={{ color: '#722ED1' }}>
+            {formatCurrency(kpiData.scfCredit.available)}
+          </div>
+          <div className={styles.kpiSub}>
+            {t('supplierPortal.dashboard.scfProgram')}
+          </div>
+        </div>
       </div>
 
       {/* ── Two Column: Activity + Quick Actions ── */}
       <div className={styles.contentGrid}>
-        {/* Recent Activity */}
+        {/* Recent Invoice Activity */}
         <div className={styles.sectionCard}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
               {t('supplierPortal.dashboard.recentActivity')}
             </h2>
-            <button className={styles.sectionAction}>
+            <button
+              className={styles.sectionAction}
+              onClick={() => router.push('/supplier-portal/invoices')}
+            >
               {t('supplierPortal.dashboard.viewAll')}
             </button>
           </div>
@@ -248,21 +277,21 @@ export default function SupplierPortalDashboard() {
               onClick={() => router.push('/supplier-portal/payments')}
             >
               <span className={`${styles.quickActionIcon} ${styles.quickActionIconGreen}`}>
-                &#128197;
+                &#128176;
               </span>
               <span className={styles.quickActionLabel}>
-                {t('supplierPortal.dashboard.viewPaymentSchedule')}
+                {t('supplierPortal.dashboard.viewPayments')}
               </span>
             </button>
             <button
               className={styles.quickAction}
-              onClick={() => {/* Contact support action */}}
+              onClick={() => router.push('/supplier-portal/disputes')}
             >
               <span className={`${styles.quickActionIcon} ${styles.quickActionIconOrange}`}>
-                &#128172;
+                &#9888;
               </span>
               <span className={styles.quickActionLabel}>
-                {t('supplierPortal.dashboard.contactSupport')}
+                {t('supplierPortal.dashboard.createDispute')}
               </span>
             </button>
             <button
@@ -280,7 +309,7 @@ export default function SupplierPortalDashboard() {
         </div>
       </div>
 
-      {/* ── Upcoming Payments Table ── */}
+      {/* ── Upcoming Payments Timeline ── */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
@@ -318,9 +347,7 @@ export default function SupplierPortalDashboard() {
                       <span className={styles.invoiceRef}>{p.invoiceNumber}</span>
                     </td>
                     <td>
-                      <span className={styles.amountCell}>
-                        {formatCurrency(p.amount)}
-                      </span>
+                      <span className={styles.amountCell}>{formatCurrency(p.amount)}</span>
                     </td>
                     <td>{p.expectedDate}</td>
                     <td>

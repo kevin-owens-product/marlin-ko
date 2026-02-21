@@ -1,0 +1,558 @@
+.page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-secondary, #4E5969);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: var(--color-accent, #165DFF);
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1D2129);
+  margin: 0;
+}
+
+.headerSubtitle {
+  color: var(--color-text-secondary, #4E5969);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: 1.25rem;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: 1rem;
+}
+
+.dropZone {
+  border: 2px dashed var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.dropZone:hover,
+.dropZoneActive {
+  border-color: var(--color-accent, #165DFF);
+  background: rgba(22, 93, 255, 0.04);
+}
+
+.dropZoneIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-muted, #86909C);
+}
+
+.dropZoneText {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #4E5969);
+  margin-bottom: 0.25rem;
+}
+
+.dropZoneFormats {
+  font-size: 0.75rem;
+  color: var(--color-text-muted, #86909C);
+}
+
+.logoPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-bg-secondary, #F7F8FA);
+  border-radius: var(--radius-lg, 8px);
+}
+
+.logoImage {
+  max-width: 120px;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.logoPlaceholder {
+  width: 120px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-elevated, #F2F3F5);
+  border-radius: var(--radius-lg, 8px);
+  color: var(--color-text-muted, #86909C);
+  font-size: 0.8125rem;
+}
+
+.colorPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.presetColors {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.colorSwatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.colorSwatch:hover {
+  transform: scale(1.1);
+}
+
+.colorSwatchSelected {
+  border-color: var(--color-text-primary, #1D2129);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--color-text-primary, #1D2129);
+}
+
+.colorSwatchCheck {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hexInputRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.hexPrefix {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 0.5rem;
+  color: var(--color-text-muted, #86909C);
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.previewTabBar {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--color-bg-secondary, #F7F8FA);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.previewTab {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  color: var(--color-text-secondary, #4E5969);
+  cursor: pointer;
+  font-size: 0.75rem;
+  border: none;
+  background: none;
+  transition: all 0.2s;
+}
+
+.previewTab:hover {
+  color: var(--color-text-primary, #1D2129);
+}
+
+.previewTabActive {
+  background: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #1D2129);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.previewContainer {
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  min-height: 200px;
+}
+
+/* Email Preview */
+.emailPreview {
+  background: #f4f4f4;
+  padding: 1.25rem;
+}
+
+.emailCard {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emailHeader {
+  padding: 1rem 1.25rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.emailLogoPlaceholder {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.emailCompanyName {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.emailBody {
+  padding: 1.25rem;
+}
+
+.emailSubject {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #1D2129;
+  margin-bottom: 0.5rem;
+}
+
+.emailText {
+  font-size: 0.8125rem;
+  color: #4E5969;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.emailButton {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.emailFooter {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #E5E6EB;
+  font-size: 0.6875rem;
+  color: #86909C;
+  text-align: center;
+}
+
+/* Login Preview */
+.loginPreview {
+  display: flex;
+  min-height: 280px;
+}
+
+.loginSidebar {
+  width: 40%;
+  padding: 1.5rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loginSidebarLogo {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.loginSidebarName {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.loginSidebarTag {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.loginForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  background: white;
+  gap: 0.75rem;
+}
+
+.loginFormTitle {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1D2129;
+  margin-bottom: 0.5rem;
+}
+
+.loginFormInput {
+  height: 32px;
+  border: 1px solid #E5E6EB;
+  border-radius: 6px;
+  background: #F7F8FA;
+}
+
+.loginFormBtn {
+  height: 32px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+/* Invoice Preview */
+.invoicePreview {
+  background: white;
+  padding: 1.5rem;
+}
+
+.invoiceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid;
+  margin-bottom: 1rem;
+}
+
+.invoiceLogoArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.invoiceLogoPlaceholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: white;
+}
+
+.invoiceCompanyName {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1D2129;
+}
+
+.invoiceLabel {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.invoiceMeta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #4E5969;
+  margin-bottom: 1rem;
+}
+
+.invoiceLine {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.375rem 0;
+  font-size: 0.75rem;
+  border-bottom: 1px solid #E5E6EB;
+}
+
+.invoiceTotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.625rem 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Sidebar Preview */
+.sidebarPreview {
+  display: flex;
+  min-height: 280px;
+}
+
+.sidebarMock {
+  width: 200px;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebarLogoIcon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.sidebarLogoText {
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.sidebarItem {
+  padding: 0.5rem 0.625rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  cursor: default;
+}
+
+.sidebarItemActive {
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+  font-weight: 500;
+}
+
+.sidebarContent {
+  flex: 1;
+  background: var(--color-bg-secondary, #F7F8FA);
+  padding: 1rem;
+}
+
+.sidebarContentPlaceholder {
+  width: 100%;
+  height: 16px;
+  background: var(--color-bg-elevated, #F2F3F5);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 1 / -1;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .loginPreview {
+    flex-direction: column;
+  }
+
+  .loginSidebar {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .sidebarPreview {
+    flex-direction: column;
+  }
+
+  .sidebarMock {
+    width: 100%;
+  }
+}

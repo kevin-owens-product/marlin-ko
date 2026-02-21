@@ -1,0 +1,274 @@
+.page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.headerLeft {
+  flex: 1;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-secondary, #4E5969);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: var(--color-accent, #165DFF);
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1D2129);
+  margin: 0;
+}
+
+.headerSubtitle {
+  color: var(--color-text-secondary, #4E5969);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tableCard {
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+}
+
+.keyPrefix {
+  font-family: monospace;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, #86909C);
+  background: var(--color-bg-secondary, #F7F8FA);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.scopesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.scopeBadge {
+  display: inline-block;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-family: monospace;
+  background: rgba(22, 93, 255, 0.08);
+  color: var(--color-accent, #165DFF);
+}
+
+.statusActive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--color-success, #00B42A);
+}
+
+.statusRevoked {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  background: rgba(245, 63, 63, 0.1);
+  color: var(--color-error, #F53F3F);
+}
+
+.statusExpired {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  background: rgba(134, 144, 156, 0.15);
+  color: var(--color-text-muted, #86909C);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.actionDots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted, #86909C);
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  transition: all 0.15s;
+}
+
+.actionDots:hover {
+  background: var(--color-bg-elevated, #F2F3F5);
+  color: var(--color-text-primary, #1D2129);
+}
+
+.usageStats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted, #86909C);
+}
+
+.usageStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.usageStatValue {
+  font-weight: 600;
+  color: var(--color-text-primary, #1D2129);
+  font-size: 0.8125rem;
+}
+
+/* Modal */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #1D2129);
+  margin-bottom: 0.5rem;
+}
+
+.scopeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.scopeCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 0.8125rem;
+  color: var(--color-text-primary, #1D2129);
+}
+
+.scopeCheckbox:hover {
+  background: var(--color-bg-secondary, #F7F8FA);
+}
+
+.scopeCheckboxInput {
+  accent-color: var(--color-accent, #165DFF);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.scopeLabel {
+  font-family: monospace;
+  font-size: 0.8125rem;
+}
+
+/* Key Generated */
+.keyGeneratedBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.keyDisplayBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-bg-secondary, #F7F8FA);
+  border: 1px solid var(--color-border, #E5E6EB);
+  border-radius: var(--radius-lg, 8px);
+}
+
+.keyValue {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.8125rem;
+  color: var(--color-text-primary, #1D2129);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: all;
+}
+
+.keyWarning {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-warning, #FF7D00);
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 125, 0, 0.06);
+  border-radius: var(--radius-lg, 8px);
+  border: 1px solid rgba(255, 125, 0, 0.15);
+}
+
+@media (max-width: 1024px) {
+  .scopeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
