@@ -116,7 +116,17 @@
     "onboarding": "Integração",
     "expandSidebar": "Expandir barra lateral",
     "collapseSidebar": "Recolher barra lateral",
-    "apAutomation": "Automação CP"
+    "apAutomation": "Automação CP",
+    "cpoStrategy": "ESTRATÉGIA CPO",
+    "cpoPortal": "Portal de Estratégia CPO",
+    "cpoVision": "Desenvolvimento de Visão",
+    "cpoValidation": "Abordagem de Validação",
+    "cpoAlignment": "Alinhamento Interfuncional",
+    "cpoGaps": "Lacunas e Incertezas",
+    "networkMap": "Inteligência de Rede",
+    "onboardingPipeline": "Pipeline de Integração",
+    "performanceScores": "Quadros de Desempenho",
+    "diversityEsg": "Diversidade e ESG"
   },
   "header": {
     "searchPlaceholder": "Pesquisar páginas, faturas, fornecedores...",
@@ -148,6 +158,9 @@
     "directory": "Diretório",
     "conversations": "Conversas",
     "risk": "Monitor de Risco",
+    "network": "Inteligência de Rede",
+    "performance": "Quadros de Desempenho",
+    "diversity": "Diversidade e ESG",
     "analytics": "Análises",
     "benchmarks": "Benchmarks",
     "reports": "Relatórios",
