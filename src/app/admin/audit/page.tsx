@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import { Button, Skeleton } from '@/components/ui';
 import styles from './audit.module.css';
@@ -123,7 +123,7 @@ const mockEntries: AuditEntry[] = [
   },
   {
     id: 'a17', timestamp: '2026-02-21 13:40:00', user: 'System', userColor: '#86909C', tenant: 'Platform',
-    action: 'CONFIG', entity: 'Failover', entityId: 'FO-TEST-007', details: 'Payment gateway failover test completed — backup gateway active in 2.3s',
+    action: 'CONFIG', entity: 'Failover', entityId: 'FO-TEST-007', details: 'Payment gateway failover test completed -- backup gateway active in 2.3s',
     ip: 'system', severity: 'info',
     metadata: { primary: 'Stripe', backup: 'Adyen', failover_time_ms: 2340, test_result: 'pass', transactions_tested: 5 },
   },
@@ -147,7 +147,7 @@ const mockEntries: AuditEntry[] = [
   },
   {
     id: 'a21', timestamp: '2026-02-21 13:15:00', user: 'System', userColor: '#86909C', tenant: 'Platform',
-    action: 'LOGIN', entity: 'User', entityId: 'USR-001', details: 'Failed login attempt (5th) for admin@oldco.com — account locked',
+    action: 'LOGIN', entity: 'User', entityId: 'USR-001', details: 'Failed login attempt (5th) for admin@oldco.com -- account locked',
     ip: '198.51.100.77', severity: 'error',
     metadata: { email: 'admin@oldco.com', failed_attempts: 5, lockout_duration: '30 min', reason: 'invalid_password' },
   },
@@ -215,6 +215,10 @@ const userOptions = [
   'All Users', 'Sarah Chen', 'Kevin Owens', 'System',
 ];
 
+const severityOptions = [
+  'All Severities', 'info', 'warning', 'error', 'critical',
+];
+
 export default function AuditPage() {
   const t = useT();
   const [loading, setLoading] = useState(true);
@@ -223,9 +227,11 @@ export default function AuditPage() {
   const [entityFilter, setEntityFilter] = useState('All Entities');
   const [tenantFilter, setTenantFilter] = useState('All Tenants');
   const [userFilter, setUserFilter] = useState('All Users');
+  const [severityFilter, setSeverityFilter] = useState('All Severities');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [refreshEnabled, setRefreshEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 15;
 
@@ -240,6 +246,7 @@ export default function AuditPage() {
       if (entityFilter !== 'All Entities' && entry.entity !== entityFilter) return false;
       if (tenantFilter !== 'All Tenants' && entry.tenant !== tenantFilter) return false;
       if (userFilter !== 'All Users' && entry.user !== userFilter) return false;
+      if (severityFilter !== 'All Severities' && entry.severity !== severityFilter) return false;
       if (dateFrom && entry.timestamp < dateFrom) return false;
       if (dateTo && entry.timestamp > dateTo + ' 23:59:59') return false;
       if (search) {
@@ -254,7 +261,7 @@ export default function AuditPage() {
       }
       return true;
     });
-  }, [search, actionFilter, entityFilter, tenantFilter, userFilter, dateFrom, dateTo]);
+  }, [search, actionFilter, entityFilter, tenantFilter, userFilter, severityFilter, dateFrom, dateTo]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const paginated = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -304,13 +311,22 @@ export default function AuditPage() {
           </div>
         </div>
         <div className={styles.headerActions}>
+          <div className={styles.refreshToggle}>
+            <span className={styles.refreshToggleLabel}>{t('admin.audit.autoRefresh')}</span>
+            <input
+              type="checkbox"
+              checked={refreshEnabled}
+              onChange={(e) => setRefreshEnabled(e.target.checked)}
+              style={{ accentColor: 'var(--color-accent)' }}
+            />
+          </div>
           <Button variant="secondary" onClick={() => {}}>
             {t('admin.audit.exportCsv')}
           </Button>
         </div>
       </div>
 
-      {/* Advanced Filters */}
+      {/* Filters */}
       <div className={styles.filters}>
         <input
           className={styles.searchInput}
@@ -332,17 +348,20 @@ export default function AuditPage() {
           onChange={(e) => { setDateTo(e.target.value); setCurrentPage(1); }}
           aria-label={t('admin.audit.dateTo')}
         />
-        <select className={styles.filterSelect} value={userFilter} onChange={(e) => { setUserFilter(e.target.value); setCurrentPage(1); }}>
-          {userOptions.map((o) => <option key={o} value={o}>{o}</option>)}
-        </select>
         <select className={styles.filterSelect} value={tenantFilter} onChange={(e) => { setTenantFilter(e.target.value); setCurrentPage(1); }}>
           {tenantOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+        </select>
+        <select className={styles.filterSelect} value={userFilter} onChange={(e) => { setUserFilter(e.target.value); setCurrentPage(1); }}>
+          {userOptions.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
         <select className={styles.filterSelect} value={actionFilter} onChange={(e) => { setActionFilter(e.target.value); setCurrentPage(1); }}>
           {actionOptions.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
         <select className={styles.filterSelect} value={entityFilter} onChange={(e) => { setEntityFilter(e.target.value); setCurrentPage(1); }}>
           {entityOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+        </select>
+        <select className={styles.filterSelect} value={severityFilter} onChange={(e) => { setSeverityFilter(e.target.value); setCurrentPage(1); }}>
+          {severityOptions.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
 
@@ -352,8 +371,8 @@ export default function AuditPage() {
           <thead>
             <tr>
               <th>{t('admin.audit.timestamp')}</th>
-              <th>{t('admin.audit.user')}</th>
               <th>{t('admin.audit.tenant')}</th>
+              <th>{t('admin.audit.user')}</th>
               <th>{t('admin.audit.action')}</th>
               <th>{t('admin.audit.entity')}</th>
               <th>{t('admin.audit.details')}</th>
@@ -369,9 +388,8 @@ export default function AuditPage() {
               </tr>
             ) : (
               paginated.map((entry) => (
-                <>
+                <React.Fragment key={entry.id}>
                   <tr
-                    key={entry.id}
                     onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
                     role="button"
                     tabIndex={0}
@@ -386,13 +404,13 @@ export default function AuditPage() {
                       <span className={styles.timestamp}>{entry.timestamp}</span>
                     </td>
                     <td>
+                      <span className={styles.tenantName}>{entry.tenant}</span>
+                    </td>
+                    <td>
                       <div className={styles.userCell}>
                         <span className={styles.userDot} style={{ backgroundColor: entry.userColor }} />
                         <span className={styles.userName}>{entry.user}</span>
                       </div>
-                    </td>
-                    <td>
-                      <span className={styles.tenantName}>{entry.tenant}</span>
                     </td>
                     <td>
                       <span className={`${styles.actionBadge} ${actionClassMap[entry.action] || styles.actionConfig}`}>
@@ -417,7 +435,7 @@ export default function AuditPage() {
                     </td>
                   </tr>
                   {expandedId === entry.id && (
-                    <tr key={`${entry.id}-expanded`} className={styles.expandedRow}>
+                    <tr className={styles.expandedRow}>
                       <td colSpan={7}>
                         <div className={styles.expandedContent}>
                           <div className={styles.detailTitle}>
@@ -446,7 +464,7 @@ export default function AuditPage() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))
             )}
           </tbody>

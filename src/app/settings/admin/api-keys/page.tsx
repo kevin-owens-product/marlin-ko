@@ -25,21 +25,21 @@ interface ApiKey {
   expiration: string;
   requestsToday: number;
   requestsThisMonth: number;
+  rateLimit: string;
   [key: string]: unknown;
 }
 
 /* ---------- Constants ---------- */
 
-const ALL_SCOPES = [
-  'read:invoices',
-  'write:invoices',
-  'read:suppliers',
-  'write:suppliers',
-  'read:payments',
-  'write:payments',
-  'read:reports',
-  'admin',
+const SCOPE_GROUPS: { group: string; scopes: string[] }[] = [
+  { group: 'Invoices', scopes: ['invoices:read', 'invoices:write'] },
+  { group: 'Suppliers', scopes: ['suppliers:read', 'suppliers:write'] },
+  { group: 'Payments', scopes: ['payments:read', 'payments:write'] },
+  { group: 'Reports', scopes: ['reports:read'] },
+  { group: 'Webhooks', scopes: ['webhooks:manage'] },
 ];
+
+const ALL_SCOPES = SCOPE_GROUPS.flatMap((g) => g.scopes);
 
 const EXPIRATION_OPTIONS = [
   { label: '30 days', value: '30' },
@@ -50,7 +50,7 @@ const EXPIRATION_OPTIONS = [
 
 const generateApiKey = (): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = 'msk_';
+  let result = 'mk_';
   for (let i = 0; i < 48; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
   return result;
 };
@@ -61,50 +61,54 @@ const MOCK_KEYS: ApiKey[] = [
   {
     id: 'k1',
     name: 'Production API',
-    prefix: 'msk_live_****...7x9f',
-    scopes: ['read:invoices', 'write:invoices', 'read:suppliers', 'read:payments', 'read:reports'],
+    prefix: 'mk_****abcd',
+    scopes: ['invoices:read', 'invoices:write', 'suppliers:read', 'payments:read', 'reports:read'],
     createdAt: 'Jan 15, 2026',
     lastUsed: '2 min ago',
     status: 'active',
     expiration: 'Never',
     requestsToday: 1247,
     requestsThisMonth: 34892,
+    rateLimit: '10,000/hr',
   },
   {
     id: 'k2',
     name: 'Staging API',
-    prefix: 'msk_test_****...3k2m',
-    scopes: ['read:invoices', 'write:invoices', 'read:suppliers', 'write:suppliers', 'read:payments', 'write:payments', 'read:reports'],
+    prefix: 'mk_****3k2m',
+    scopes: ['invoices:read', 'invoices:write', 'suppliers:read', 'suppliers:write', 'payments:read', 'payments:write', 'reports:read'],
     createdAt: 'Dec 1, 2025',
     lastUsed: 'Yesterday',
     status: 'active',
     expiration: '90 days',
     requestsToday: 86,
     requestsThisMonth: 2104,
+    rateLimit: '5,000/hr',
   },
   {
     id: 'k3',
     name: 'CI/CD Pipeline',
-    prefix: 'msk_ci_****...9p4q',
-    scopes: ['read:invoices', 'read:suppliers'],
+    prefix: 'mk_****9p4q',
+    scopes: ['invoices:read', 'suppliers:read'],
     createdAt: 'Feb 5, 2026',
     lastUsed: '1 hour ago',
     status: 'active',
     expiration: '30 days',
     requestsToday: 412,
     requestsThisMonth: 8923,
+    rateLimit: '1,000/hr',
   },
   {
     id: 'k4',
     name: 'Legacy Integration',
-    prefix: 'msk_old_****...2w1e',
-    scopes: ['read:invoices'],
+    prefix: 'mk_****2w1e',
+    scopes: ['invoices:read'],
     createdAt: 'Jun 20, 2025',
     lastUsed: '3 months ago',
     status: 'expired',
     expiration: 'Expired',
     requestsToday: 0,
     requestsThisMonth: 0,
+    rateLimit: 'N/A',
   },
 ];
 
@@ -117,6 +121,8 @@ export default function ApiKeysPage() {
 
   const [apiKeys, setApiKeys] = useState<ApiKey[]>(MOCK_KEYS);
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [revokeModalOpen, setRevokeModalOpen] = useState(false);
+  const [revokingKeyId, setRevokingKeyId] = useState<string | null>(null);
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
 
   const [formName, setFormName] = useState('');
@@ -128,7 +134,7 @@ export default function ApiKeysPage() {
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
     if (!formName.trim()) errors.name = t('tenantAdmin.apiKeysPage.keyNameRequired');
-    if (formScopes.size === 0) errors.scopes = 'Select at least one scope';
+    if (formScopes.size === 0) errors.scopes = t('tenantAdmin.apiKeysPage.selectAtLeastOne');
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -147,8 +153,7 @@ export default function ApiKeysPage() {
     if (!validateForm()) return;
 
     const fullKey = generateApiKey();
-    const prefix = `msk_${formName.toLowerCase().replace(/\s+/g, '_').slice(0, 4)}_****...${fullKey.slice(-4)}`;
-
+    const prefix = `mk_****${fullKey.slice(-4)}`;
     const expirationLabel = EXPIRATION_OPTIONS.find((o) => o.value === formExpiration)?.label || formExpiration;
 
     const newKey: ApiKey = {
@@ -162,6 +167,7 @@ export default function ApiKeysPage() {
       expiration: expirationLabel,
       requestsToday: 0,
       requestsThisMonth: 0,
+      rateLimit: '5,000/hr',
     };
 
     setApiKeys((prev) => [newKey, ...prev]);
@@ -175,12 +181,21 @@ export default function ApiKeysPage() {
   }, []);
 
   /* ---- Actions ---- */
-  const handleRevoke = useCallback((id: string) => {
-    setApiKeys((prev) =>
-      prev.map((k) => (k.id === id ? { ...k, status: 'revoked' as const } : k))
-    );
-    addToast({ type: 'success', title: t('tenantAdmin.apiKeysPage.keyRevoked') });
-  }, [addToast, t]);
+  const openRevokeConfirmation = useCallback((id: string) => {
+    setRevokingKeyId(id);
+    setRevokeModalOpen(true);
+  }, []);
+
+  const handleConfirmRevoke = useCallback(() => {
+    if (revokingKeyId) {
+      setApiKeys((prev) =>
+        prev.map((k) => (k.id === revokingKeyId ? { ...k, status: 'revoked' as const } : k))
+      );
+      addToast({ type: 'success', title: t('tenantAdmin.apiKeysPage.keyRevoked') });
+    }
+    setRevokeModalOpen(false);
+    setRevokingKeyId(null);
+  }, [revokingKeyId, addToast, t]);
 
   const handleRegenerate = useCallback((id: string) => {
     void id;
@@ -211,7 +226,7 @@ export default function ApiKeysPage() {
       sortable: true,
       render: (val, row) => (
         <div>
-          <div style={{ fontWeight: 500, color: '#1D2129' }}>{String(val)}</div>
+          <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>{String(val)}</div>
           <div className={styles.usageStats}>
             <span className={styles.usageStat}>
               <span className={styles.usageStatValue}>{row.requestsToday.toLocaleString()}</span>
@@ -227,12 +242,12 @@ export default function ApiKeysPage() {
     },
     {
       key: 'prefix',
-      header: t('tenantAdmin.apiKeysPage.keyPrefix'),
+      header: t('tenantAdmin.apiKeysPage.key'),
       render: (val) => <span className={styles.keyPrefix}>{String(val)}</span>,
     },
     {
       key: 'scopes',
-      header: t('tenantAdmin.apiKeysPage.scopes'),
+      header: t('tenantAdmin.apiKeysPage.permissions'),
       render: (_val, row) => (
         <div className={styles.scopesList}>
           {row.scopes.slice(0, 3).map((scope) => (
@@ -245,16 +260,26 @@ export default function ApiKeysPage() {
       ),
     },
     {
-      key: 'createdAt',
-      header: t('tenantAdmin.apiKeysPage.created'),
-      sortable: true,
-      render: (val) => <span style={{ color: '#86909C', fontSize: '0.8125rem' }}>{String(val)}</span>,
-    },
-    {
       key: 'lastUsed',
       header: t('tenantAdmin.apiKeysPage.lastUsed'),
       sortable: true,
-      render: (val) => <span style={{ color: '#86909C', fontSize: '0.8125rem' }}>{String(val)}</span>,
+      render: (val) => <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)' }}>{String(val)}</span>,
+    },
+    {
+      key: 'expiration',
+      header: t('tenantAdmin.apiKeysPage.expires'),
+      sortable: true,
+      render: (val, row) => {
+        if (row.status === 'expired') {
+          return <span style={{ color: 'var(--color-error)', fontSize: 'var(--text-sm)', fontWeight: 500 }}>Expired</span>;
+        }
+        return <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)' }}>{String(val)}</span>;
+      },
+    },
+    {
+      key: 'rateLimit',
+      header: t('tenantAdmin.apiKeysPage.rateLimit'),
+      render: (val) => <span style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>{String(val)}</span>,
     },
     {
       key: 'status',
@@ -265,14 +290,14 @@ export default function ApiKeysPage() {
           return <span className={styles.statusActive}><span className={styles.statusDot} />{t('common.active')}</span>;
         }
         if (row.status === 'revoked') {
-          return <span className={styles.statusRevoked}><span className={styles.statusDot} />Revoked</span>;
+          return <span className={styles.statusRevoked}><span className={styles.statusDot} />{t('tenantAdmin.apiKeysPage.revoked')}</span>;
         }
-        return <span className={styles.statusExpired}><span className={styles.statusDot} />Expired</span>;
+        return <span className={styles.statusExpired}><span className={styles.statusDot} />{t('tenantAdmin.apiKeysPage.expired')}</span>;
       },
     },
     {
       key: 'actions',
-      header: t('tenantAdmin.apiKeysPage.actions'),
+      header: '',
       width: '60px',
       render: (_val, row) => {
         if (row.status !== 'active') return null;
@@ -280,7 +305,7 @@ export default function ApiKeysPage() {
           { label: t('tenantAdmin.apiKeysPage.editScopes'), onClick: () => {} },
           { label: t('tenantAdmin.apiKeysPage.regenerate'), onClick: () => handleRegenerate(row.id) },
           { type: 'separator' },
-          { label: t('tenantAdmin.apiKeysPage.revoke'), onClick: () => handleRevoke(row.id), danger: true },
+          { label: t('tenantAdmin.apiKeysPage.revoke'), onClick: () => openRevokeConfirmation(row.id), danger: true },
         ];
         return (
           <Dropdown
@@ -309,6 +334,15 @@ export default function ApiKeysPage() {
         </Button>
       </div>
 
+      {/* Security Warning Banner */}
+      <div className={styles.warningBanner}>
+        <span className={styles.warningIcon}>&#9888;</span>
+        <div className={styles.warningContent}>
+          <span className={styles.warningTitle}>{t('tenantAdmin.apiKeysPage.securityWarningTitle')}</span>
+          <span className={styles.warningText}>{t('tenantAdmin.apiKeysPage.securityWarningDesc')}</span>
+        </div>
+      </div>
+
       <div className={styles.content}>
         <div className={styles.tableCard}>
           <DataTable<ApiKey>
@@ -316,7 +350,7 @@ export default function ApiKeysPage() {
             data={apiKeys}
             keyExtractor={(row) => row.id}
             searchable
-            searchPlaceholder="Search API keys..."
+            searchPlaceholder={t('tenantAdmin.apiKeysPage.searchPlaceholder')}
             searchKeys={['name', 'prefix']}
             emptyTitle={t('tenantAdmin.apiKeysPage.noKeys')}
             emptyDescription={t('tenantAdmin.apiKeysPage.noKeysDesc')}
@@ -328,7 +362,7 @@ export default function ApiKeysPage() {
       <Modal
         open={createModalOpen}
         onClose={handleCloseModal}
-        title={generatedKey ? t('tenantAdmin.apiKeysPage.keyGenerated') : t('tenantAdmin.apiKeysPage.createTitle')}
+        title={generatedKey ? t('tenantAdmin.apiKeysPage.keyCreated') : t('tenantAdmin.apiKeysPage.createTitle')}
         size="md"
         footer={
           generatedKey ? (
@@ -336,7 +370,7 @@ export default function ApiKeysPage() {
               <Button variant="primary" onClick={handleCloseModal}>{t('common.close')}</Button>
             </div>
           ) : (
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
               <Button variant="secondary" onClick={handleCloseModal}>{t('common.cancel')}</Button>
               <Button variant="primary" onClick={handleGenerate}>
                 {t('tenantAdmin.apiKeysPage.generate')}
@@ -371,21 +405,26 @@ export default function ApiKeysPage() {
             <div>
               <div className={styles.sectionLabel}>{t('tenantAdmin.apiKeysPage.selectScopes')}</div>
               {formErrors.scopes && (
-                <span style={{ color: '#F53F3F', fontSize: '0.75rem' }} role="alert">{formErrors.scopes}</span>
+                <span style={{ color: 'var(--color-error)', fontSize: 'var(--text-xs)' }} role="alert">{formErrors.scopes}</span>
               )}
-              <div className={styles.scopeGrid}>
-                {ALL_SCOPES.map((scope) => (
-                  <label key={scope} className={styles.scopeCheckbox}>
-                    <input
-                      type="checkbox"
-                      className={styles.scopeCheckboxInput}
-                      checked={formScopes.has(scope)}
-                      onChange={() => toggleScope(scope)}
-                    />
-                    <span className={styles.scopeLabel}>{scope}</span>
-                  </label>
-                ))}
-              </div>
+              {SCOPE_GROUPS.map((group) => (
+                <div key={group.group} className={styles.scopeGroup}>
+                  <div className={styles.scopeGroupTitle}>{group.group}</div>
+                  <div className={styles.scopeGrid}>
+                    {group.scopes.map((scope) => (
+                      <label key={scope} className={styles.scopeCheckbox}>
+                        <input
+                          type="checkbox"
+                          className={styles.scopeCheckboxInput}
+                          checked={formScopes.has(scope)}
+                          onChange={() => toggleScope(scope)}
+                        />
+                        <span className={styles.scopeLabel}>{scope}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <Select
@@ -396,6 +435,28 @@ export default function ApiKeysPage() {
             />
           </div>
         )}
+      </Modal>
+
+      {/* Revoke Confirmation Modal */}
+      <Modal
+        open={revokeModalOpen}
+        onClose={() => { setRevokeModalOpen(false); setRevokingKeyId(null); }}
+        title={t('tenantAdmin.apiKeysPage.revokeConfirmTitle')}
+        size="sm"
+        footer={
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+            <Button variant="secondary" onClick={() => { setRevokeModalOpen(false); setRevokingKeyId(null); }}>
+              {t('common.cancel')}
+            </Button>
+            <Button variant="danger" onClick={handleConfirmRevoke}>
+              {t('tenantAdmin.apiKeysPage.confirmRevoke')}
+            </Button>
+          </div>
+        }
+      >
+        <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
+          {t('tenantAdmin.apiKeysPage.revokeConfirmDesc')}
+        </p>
       </Modal>
     </div>
   );

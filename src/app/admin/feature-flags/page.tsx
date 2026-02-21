@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useT } from '@/lib/i18n/locale-context';
 import { Button, Modal, Input, Select, Skeleton } from '@/components/ui';
 import styles from './feature-flags.module.css';
@@ -15,106 +15,68 @@ interface TenantOverride {
 interface FeatureFlag {
   id: string;
   key: string;
-  name: string;
   description: string;
   enabled: boolean;
-  minPlan: 'Free' | 'Starter' | 'Professional' | 'Enterprise';
+  scope: 'global' | 'tenant' | 'plan';
+  updated: string;
   overrides: TenantOverride[];
 }
 
-/* ---------- Plan Levels ---------- */
-const PLAN_LEVELS = ['Free', 'Starter', 'Professional', 'Enterprise'] as const;
-
-/* ---------- Mock Data ---------- */
+/* ---------- Mock Data (spec-required flags) ---------- */
 const mockFlags: FeatureFlag[] = [
   {
-    id: 'f1', key: 'ai_copilot', name: 'AI Copilot', description: 'Natural language AI assistant for invoice queries and actions',
-    enabled: true, minPlan: 'Professional',
+    id: 'f1', key: 'dynamic_discounting', description: 'Enable dynamic discounting module',
+    enabled: true, scope: 'plan', updated: '2 days ago',
     overrides: [
       { tenantId: 't7', tenantName: 'StartupXYZ', enabled: true },
-      { tenantId: 't10', tenantName: 'FreshFoods Inc', enabled: false },
     ],
   },
   {
-    id: 'f2', key: 'ai_copilot_v2', name: 'AI Copilot V2', description: 'Next-gen copilot with multi-modal understanding and proactive insights',
-    enabled: true, minPlan: 'Enterprise',
-    overrides: [
-      { tenantId: 't2', tenantName: 'NordicTech AB', enabled: true },
-    ],
-  },
-  {
-    id: 'f3', key: 'dynamic_discounting', name: 'Dynamic Discounting', description: 'Automated early payment discount optimization with supplier negotiation',
-    enabled: true, minPlan: 'Professional',
-    overrides: [],
-  },
-  {
-    id: 'f4', key: 'virtual_cards', name: 'Virtual Cards', description: 'Generate virtual credit cards for one-time or recurring payments',
-    enabled: true, minPlan: 'Professional',
+    id: 'f2', key: 'virtual_cards', description: 'Enable virtual card payments',
+    enabled: true, scope: 'plan', updated: '5 days ago',
     overrides: [
       { tenantId: 't11', tenantName: 'TechParts Ltd', enabled: true },
     ],
   },
   {
-    id: 'f5', key: 'supply_chain_finance', name: 'Supply Chain Finance', description: 'Multi-funder SCF programs with reverse factoring and early payments',
-    enabled: true, minPlan: 'Enterprise',
+    id: 'f3', key: 'supply_chain_finance', description: 'Enable SCF programs',
+    enabled: true, scope: 'plan', updated: '1 week ago',
     overrides: [],
   },
   {
-    id: 'f6', key: 'treasury_module', name: 'Treasury Management', description: 'Cash pooling, FX management, and investment tracking',
-    enabled: true, minPlan: 'Enterprise',
+    id: 'f4', key: 'ai_copilot', description: 'Enable AI copilot assistant',
+    enabled: true, scope: 'plan', updated: '3 days ago',
+    overrides: [
+      { tenantId: 't10', tenantName: 'FreshFoods Inc', enabled: false },
+      { tenantId: 't7', tenantName: 'StartupXYZ', enabled: true },
+    ],
+  },
+  {
+    id: 'f5', key: 'supplier_portal', description: 'Enable supplier self-service portal',
+    enabled: true, scope: 'global', updated: '1 day ago',
     overrides: [],
   },
   {
-    id: 'f7', key: 'compliance_hub', name: 'Compliance Hub', description: 'Global tax compliance, e-invoicing mandates, and regulatory monitoring',
-    enabled: true, minPlan: 'Professional',
+    id: 'f6', key: 'advanced_analytics', description: 'Enable advanced analytics dashboard',
+    enabled: true, scope: 'plan', updated: '4 days ago',
     overrides: [
       { tenantId: 't9', tenantName: 'MedTech Solutions', enabled: true },
-      { tenantId: 't7', tenantName: 'StartupXYZ', enabled: false },
     ],
   },
   {
-    id: 'f8', key: 'risk_dashboard', name: 'Risk Dashboard', description: 'Real-time risk monitoring with AI-powered anomaly detection',
-    enabled: true, minPlan: 'Starter',
-    overrides: [],
-  },
-  {
-    id: 'f9', key: 'agent_studio', name: 'Agent Studio', description: 'Visual builder for custom AI agent workflows and automations',
-    enabled: true, minPlan: 'Enterprise',
+    id: 'f7', key: 'multi_currency', description: 'Enable multi-currency support',
+    enabled: false, scope: 'tenant', updated: '1 week ago',
     overrides: [
-      { tenantId: 't3', tenantName: 'CloudHost Services', enabled: true },
+      { tenantId: 't4', tenantName: 'GlobalLogistics Inc', enabled: true },
+      { tenantId: 't2', tenantName: 'NordicTech AB', enabled: true },
     ],
   },
   {
-    id: 'f10', key: 'benchmarks', name: 'Industry Benchmarks', description: 'Compare AP metrics against anonymized industry benchmarks',
-    enabled: true, minPlan: 'Professional',
-    overrides: [],
-  },
-  {
-    id: 'f11', key: 'supplier_network_map', name: 'Supplier Network Map', description: 'Visual supply chain mapping with risk heat overlay',
-    enabled: false, minPlan: 'Enterprise',
-    overrides: [],
-  },
-  {
-    id: 'f12', key: 'cpo_portal', name: 'CPO Strategy Portal', description: 'Strategic procurement insights and transformation roadmap',
-    enabled: true, minPlan: 'Enterprise',
-    overrides: [],
-  },
-  {
-    id: 'f13', key: 'expense_mgmt', name: 'Expense Management', description: 'Employee expense submission, OCR receipt scanning, and policy enforcement',
-    enabled: true, minPlan: 'Starter',
-    overrides: [],
-  },
-  {
-    id: 'f14', key: 'api_webhooks', name: 'API Webhooks', description: 'Real-time webhook notifications for invoice, payment, and approval events',
-    enabled: true, minPlan: 'Starter',
+    id: 'f8', key: 'api_access', description: 'Enable API access for integrations',
+    enabled: true, scope: 'plan', updated: '2 weeks ago',
     overrides: [
       { tenantId: 't10', tenantName: 'FreshFoods Inc', enabled: true },
     ],
-  },
-  {
-    id: 'f15', key: 'sso_integration', name: 'SSO Integration', description: 'SAML 2.0 and OIDC single sign-on with identity provider federation',
-    enabled: true, minPlan: 'Professional',
-    overrides: [],
   },
 ];
 
@@ -133,11 +95,10 @@ const tenantList = [
   { label: 'FastShip International', value: 'fastship' },
 ];
 
-const planClassMap: Record<string, string> = {
-  Free: styles.planAll,
-  Starter: styles.planStarter,
-  Professional: styles.planProfessional,
-  Enterprise: styles.planEnterprise,
+const scopeClassMap: Record<string, string> = {
+  global: styles.scopeGlobal,
+  tenant: styles.scopeTenant,
+  plan: styles.scopePlan,
 };
 
 export default function FeatureFlagsPage() {
@@ -146,16 +107,15 @@ export default function FeatureFlagsPage() {
   const [flags, setFlags] = useState<FeatureFlag[]>(mockFlags);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [planFilter, setPlanFilter] = useState('all');
+  const [scopeFilter, setScopeFilter] = useState('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
   // Form state
   const [formKey, setFormKey] = useState('');
-  const [formName, setFormName] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formEnabled, setFormEnabled] = useState(true);
-  const [formMinPlan, setFormMinPlan] = useState<string>('Starter');
+  const [formScope, setFormScope] = useState('global');
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
@@ -166,18 +126,17 @@ export default function FeatureFlagsPage() {
     return flags.filter((flag) => {
       if (statusFilter === 'enabled' && !flag.enabled) return false;
       if (statusFilter === 'disabled' && flag.enabled) return false;
-      if (planFilter !== 'all' && flag.minPlan !== planFilter) return false;
+      if (scopeFilter !== 'all' && flag.scope !== scopeFilter) return false;
       if (search) {
         const q = search.toLowerCase();
         return (
           flag.key.toLowerCase().includes(q) ||
-          flag.name.toLowerCase().includes(q) ||
           flag.description.toLowerCase().includes(q)
         );
       }
       return true;
     });
-  }, [flags, search, statusFilter, planFilter]);
+  }, [flags, search, statusFilter, scopeFilter]);
 
   const handleToggle = useCallback((flagId: string) => {
     setFlags((prev) =>
@@ -200,15 +159,12 @@ export default function FeatureFlagsPage() {
     );
   }, []);
 
-  const getPlanIndex = (plan: string) => PLAN_LEVELS.indexOf(plan as typeof PLAN_LEVELS[number]);
-
   const handleCreateSubmit = () => {
     setCreateModalOpen(false);
     setFormKey('');
-    setFormName('');
     setFormDescription('');
     setFormEnabled(true);
-    setFormMinPlan('Starter');
+    setFormScope('global');
   };
 
   if (loading) {
@@ -223,11 +179,11 @@ export default function FeatureFlagsPage() {
         <div className={styles.tableCard}>
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)', display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <Skeleton width={100} height={14} />
-              <Skeleton width={120} height={14} />
+              <Skeleton width={140} height={14} />
               <Skeleton width={200} height={14} />
               <Skeleton width={44} height={24} variant="rect" />
               <Skeleton width={80} height={14} />
+              <Skeleton width={70} height={14} />
             </div>
           ))}
         </div>
@@ -261,11 +217,11 @@ export default function FeatureFlagsPage() {
           <option value="enabled">{t('admin.featureFlags.enabled')}</option>
           <option value="disabled">{t('admin.featureFlags.disabled')}</option>
         </select>
-        <select className={styles.filterSelect} value={planFilter} onChange={(e) => setPlanFilter(e.target.value)}>
-          <option value="all">{t('admin.featureFlags.allPlans')}</option>
-          {PLAN_LEVELS.map((p) => (
-            <option key={p} value={p}>{p}</option>
-          ))}
+        <select className={styles.filterSelect} value={scopeFilter} onChange={(e) => setScopeFilter(e.target.value)}>
+          <option value="all">{t('admin.featureFlags.allScopes')}</option>
+          <option value="global">{t('admin.featureFlags.scopeGlobal')}</option>
+          <option value="tenant">{t('admin.featureFlags.scopeTenant')}</option>
+          <option value="plan">{t('admin.featureFlags.scopePlan')}</option>
         </select>
       </div>
 
@@ -275,25 +231,23 @@ export default function FeatureFlagsPage() {
           <thead>
             <tr>
               <th>{t('admin.featureFlags.key')}</th>
-              <th>{t('admin.featureFlags.nameCol')}</th>
-              <th>{t('admin.featureFlags.globalStatus')}</th>
-              <th>{t('admin.featureFlags.minPlan')}</th>
-              <th>{t('admin.featureFlags.planLevels')}</th>
-              <th>{t('admin.featureFlags.overrides')}</th>
+              <th>{t('admin.featureFlags.descriptionCol')}</th>
+              <th>{t('admin.featureFlags.statusCol')}</th>
+              <th>{t('admin.featureFlags.scope')}</th>
+              <th>{t('admin.featureFlags.updated')}</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)', cursor: 'default' }}>
+                <td colSpan={5} style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)', cursor: 'default' }}>
                   {t('admin.featureFlags.noResults')}
                 </td>
               </tr>
             ) : (
               filtered.map((flag) => (
-                <>
+                <React.Fragment key={flag.id}>
                   <tr
-                    key={flag.id}
                     onClick={() => setExpandedId(expandedId === flag.id ? null : flag.id)}
                     role="button"
                     tabIndex={0}
@@ -308,7 +262,6 @@ export default function FeatureFlagsPage() {
                       <span className={styles.flagKey}>{flag.key}</span>
                     </td>
                     <td>
-                      <div className={styles.flagName}>{flag.name}</div>
                       <div className={styles.flagDescription}>{flag.description}</div>
                     </td>
                     <td>
@@ -329,30 +282,17 @@ export default function FeatureFlagsPage() {
                       </div>
                     </td>
                     <td>
-                      <span className={`${styles.planBadge} ${planClassMap[flag.minPlan]}`}>
-                        {flag.minPlan}+
+                      <span className={`${styles.scopeBadge} ${scopeClassMap[flag.scope]}`}>
+                        {flag.scope}
                       </span>
                     </td>
                     <td>
-                      <div className={styles.planIndicator}>
-                        {PLAN_LEVELS.map((plan, idx) => (
-                          <span
-                            key={plan}
-                            className={`${styles.planDot} ${idx >= getPlanIndex(flag.minPlan) ? styles.planDotActive : ''}`}
-                            title={plan}
-                          />
-                        ))}
-                      </div>
-                    </td>
-                    <td>
-                      <span className={`${styles.overrideCount} ${flag.overrides.length > 0 ? styles.overrideCountActive : ''}`}>
-                        {flag.overrides.length}
-                      </span>
+                      <span className={styles.updatedText}>{flag.updated}</span>
                     </td>
                   </tr>
                   {expandedId === flag.id && (
-                    <tr key={`${flag.id}-expanded`} className={styles.expandedRow}>
-                      <td colSpan={6}>
+                    <tr className={styles.expandedRow}>
+                      <td colSpan={5}>
                         <div className={styles.expandedContent}>
                           <div className={styles.overrideHeader}>
                             <span className={styles.overrideTitle}>
@@ -395,7 +335,7 @@ export default function FeatureFlagsPage() {
                                       </div>
                                     </td>
                                     <td>
-                                      <button className={styles.removeBtn} type="button" style={{ fontSize: '12px', color: 'var(--color-error)', cursor: 'pointer' }}>
+                                      <button className={styles.removeBtn} type="button">
                                         {t('admin.featureFlags.remove')}
                                       </button>
                                     </td>
@@ -421,7 +361,7 @@ export default function FeatureFlagsPage() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))
             )}
           </tbody>
@@ -446,23 +386,14 @@ export default function FeatureFlagsPage() {
         }
       >
         <div className={styles.formGrid}>
-          <div className={styles.formRow}>
-            <Input
-              label={t('admin.featureFlags.flagKey')}
-              placeholder="e.g. new_feature_name"
-              value={formKey}
-              onChange={(e) => setFormKey(e.target.value)}
-              required
-              helperText={t('admin.featureFlags.keyHelper')}
-            />
-            <Input
-              label={t('admin.featureFlags.flagName')}
-              placeholder="e.g. New Feature"
-              value={formName}
-              onChange={(e) => setFormName(e.target.value)}
-              required
-            />
-          </div>
+          <Input
+            label={t('admin.featureFlags.flagKey')}
+            placeholder="e.g. new_feature_name"
+            value={formKey}
+            onChange={(e) => setFormKey(e.target.value)}
+            required
+            helperText={t('admin.featureFlags.keyHelper')}
+          />
           <Input
             label={t('admin.featureFlags.flagDescription')}
             placeholder="Describe what this feature flag controls..."
@@ -480,10 +411,14 @@ export default function FeatureFlagsPage() {
               onChange={(e) => setFormEnabled(e.target.value === 'true')}
             />
             <Select
-              label={t('admin.featureFlags.minPlanRequired')}
-              options={PLAN_LEVELS.map((p) => ({ label: p, value: p }))}
-              value={formMinPlan}
-              onChange={(e) => setFormMinPlan(e.target.value)}
+              label={t('admin.featureFlags.scope')}
+              options={[
+                { label: 'Global', value: 'global' },
+                { label: 'Tenant', value: 'tenant' },
+                { label: 'Plan', value: 'plan' },
+              ]}
+              value={formScope}
+              onChange={(e) => setFormScope(e.target.value)}
             />
           </div>
         </div>

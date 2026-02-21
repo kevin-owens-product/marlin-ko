@@ -17,11 +17,13 @@ import styles from './webhooks.module.css';
 interface Webhook {
   id: string;
   url: string;
+  description: string;
   events: string[];
   enabled: boolean;
   lastDelivered: string;
   failCount: number;
   createdAt: string;
+  secret: string;
   [key: string]: unknown;
 }
 
@@ -31,24 +33,35 @@ interface DeliveryLog {
   event: string;
   statusCode: number;
   response: string;
+  success: boolean;
 }
 
 /* ---------- Constants ---------- */
 
-const ALL_EVENTS = [
-  'invoice.created',
-  'invoice.approved',
-  'invoice.rejected',
-  'invoice.paid',
-  'payment.created',
-  'payment.completed',
-  'payment.failed',
-  'approval.requested',
-  'approval.completed',
-  'supplier.created',
-  'supplier.updated',
-  'risk.alert_created',
+const EVENT_GROUPS: { group: string; events: string[] }[] = [
+  {
+    group: 'Invoices',
+    events: ['invoice.created', 'invoice.approved', 'invoice.rejected', 'invoice.paid'],
+  },
+  {
+    group: 'Payments',
+    events: ['payment.created', 'payment.completed', 'payment.failed'],
+  },
+  {
+    group: 'Approvals',
+    events: ['approval.requested', 'approval.completed'],
+  },
+  {
+    group: 'Suppliers',
+    events: ['supplier.created', 'supplier.updated'],
+  },
+  {
+    group: 'Expenses',
+    events: ['expense.submitted', 'expense.approved'],
+  },
 ];
+
+const ALL_EVENTS = EVENT_GROUPS.flatMap((g) => g.events);
 
 const generateSecret = (): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -63,46 +76,52 @@ const MOCK_WEBHOOKS: Webhook[] = [
   {
     id: 'wh1',
     url: 'https://api.erp-system.com/webhooks/medius',
+    description: 'ERP system sync for invoices and payments',
     events: ['invoice.created', 'invoice.approved', 'invoice.paid', 'payment.completed'],
     enabled: true,
     lastDelivered: '2 min ago',
     failCount: 0,
     createdAt: 'Jan 10, 2026',
+    secret: 'whsec_****************************abcd',
   },
   {
     id: 'wh2',
     url: 'https://hooks.slack.com/services/T00/B00/xxxx',
-    events: ['invoice.approved', 'payment.completed', 'risk.alert_created'],
+    description: 'Slack notifications for approvals and alerts',
+    events: ['invoice.approved', 'payment.completed', 'expense.approved'],
     enabled: true,
     lastDelivered: '15 min ago',
     failCount: 2,
     createdAt: 'Feb 1, 2026',
+    secret: 'whsec_****************************efgh',
   },
   {
     id: 'wh3',
     url: 'https://analytics.internal.company.io/ingest',
+    description: 'Analytics data pipeline',
     events: ['invoice.created', 'invoice.approved', 'invoice.rejected', 'invoice.paid', 'payment.created', 'payment.completed', 'payment.failed'],
     enabled: false,
     lastDelivered: '3 days ago',
     failCount: 7,
     createdAt: 'Dec 15, 2025',
+    secret: 'whsec_****************************ijkl',
   },
 ];
 
 const MOCK_DELIVERIES: Record<string, DeliveryLog[]> = {
   wh1: [
-    { id: 'd1', timestamp: 'Feb 21, 2026 10:32:15', event: 'invoice.approved', statusCode: 200, response: '{"ok": true}' },
-    { id: 'd2', timestamp: 'Feb 21, 2026 10:28:42', event: 'payment.completed', statusCode: 200, response: '{"ok": true}' },
-    { id: 'd3', timestamp: 'Feb 21, 2026 09:15:08', event: 'invoice.created', statusCode: 200, response: '{"ok": true}' },
+    { id: 'd1', timestamp: 'Feb 21, 2026 10:32:15', event: 'invoice.approved', statusCode: 200, response: '{"ok": true}', success: true },
+    { id: 'd2', timestamp: 'Feb 21, 2026 10:28:42', event: 'payment.completed', statusCode: 200, response: '{"ok": true}', success: true },
+    { id: 'd3', timestamp: 'Feb 21, 2026 09:15:08', event: 'invoice.created', statusCode: 200, response: '{"ok": true}', success: true },
   ],
   wh2: [
-    { id: 'd4', timestamp: 'Feb 21, 2026 10:15:33', event: 'risk.alert_created', statusCode: 200, response: 'ok' },
-    { id: 'd5', timestamp: 'Feb 21, 2026 09:45:12', event: 'invoice.approved', statusCode: 500, response: 'Internal Server Error' },
-    { id: 'd6', timestamp: 'Feb 20, 2026 16:22:01', event: 'payment.completed', statusCode: 500, response: 'timeout' },
+    { id: 'd4', timestamp: 'Feb 21, 2026 10:15:33', event: 'expense.approved', statusCode: 200, response: 'ok', success: true },
+    { id: 'd5', timestamp: 'Feb 21, 2026 09:45:12', event: 'invoice.approved', statusCode: 500, response: 'Internal Server Error', success: false },
+    { id: 'd6', timestamp: 'Feb 20, 2026 16:22:01', event: 'payment.completed', statusCode: 500, response: 'timeout', success: false },
   ],
   wh3: [
-    { id: 'd7', timestamp: 'Feb 18, 2026 14:10:22', event: 'invoice.created', statusCode: 500, response: 'Connection refused' },
-    { id: 'd8', timestamp: 'Feb 18, 2026 14:08:11', event: 'payment.failed', statusCode: 500, response: 'Connection refused' },
+    { id: 'd7', timestamp: 'Feb 18, 2026 14:10:22', event: 'invoice.created', statusCode: 500, response: 'Connection refused', success: false },
+    { id: 'd8', timestamp: 'Feb 18, 2026 14:08:11', event: 'payment.failed', statusCode: 500, response: 'Connection refused', success: false },
   ],
 };
 
@@ -118,9 +137,12 @@ export default function WebhooksPage() {
   const [editingWebhook, setEditingWebhook] = useState<Webhook | null>(null);
   const [expandedWebhookId, setExpandedWebhookId] = useState<string | null>(null);
   const [generatedSecret, setGeneratedSecret] = useState<string | null>(null);
+  const [revealedSecrets, setRevealedSecrets] = useState<Set<string>>(new Set());
 
   const [formUrl, setFormUrl] = useState('');
+  const [formDescription, setFormDescription] = useState('');
   const [formEvents, setFormEvents] = useState<Set<string>>(new Set());
+  const [formEnabled, setFormEnabled] = useState(true);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   /* ---- Form Validation ---- */
@@ -129,14 +151,10 @@ export default function WebhooksPage() {
     if (!formUrl.trim()) {
       errors.url = t('tenantAdmin.webhooks.urlRequired');
     } else {
-      try {
-        new URL(formUrl);
-      } catch {
-        errors.url = t('tenantAdmin.webhooks.urlInvalid');
-      }
+      try { new URL(formUrl); } catch { errors.url = t('tenantAdmin.webhooks.urlInvalid'); }
     }
     if (formEvents.size === 0) {
-      errors.events = 'Select at least one event';
+      errors.events = t('tenantAdmin.webhooks.selectAtLeastOne');
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -145,7 +163,9 @@ export default function WebhooksPage() {
   /* ---- Create/Edit ---- */
   const openCreateModal = useCallback(() => {
     setFormUrl('');
+    setFormDescription('');
     setFormEvents(new Set());
+    setFormEnabled(true);
     setFormErrors({});
     setEditingWebhook(null);
     setGeneratedSecret(null);
@@ -154,7 +174,9 @@ export default function WebhooksPage() {
 
   const openEditModal = useCallback((webhook: Webhook) => {
     setFormUrl(webhook.url);
+    setFormDescription(webhook.description);
     setFormEvents(new Set(webhook.events));
+    setFormEnabled(webhook.enabled);
     setFormErrors({});
     setEditingWebhook(webhook);
     setGeneratedSecret(null);
@@ -168,7 +190,7 @@ export default function WebhooksPage() {
       setWebhooks((prev) =>
         prev.map((wh) =>
           wh.id === editingWebhook.id
-            ? { ...wh, url: formUrl, events: Array.from(formEvents) }
+            ? { ...wh, url: formUrl, description: formDescription, events: Array.from(formEvents), enabled: formEnabled }
             : wh
         )
       );
@@ -180,16 +202,18 @@ export default function WebhooksPage() {
       const newWebhook: Webhook = {
         id: `wh${Date.now()}`,
         url: formUrl,
+        description: formDescription,
         events: Array.from(formEvents),
-        enabled: true,
+        enabled: formEnabled,
         lastDelivered: 'Never',
         failCount: 0,
         createdAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        secret: `whsec_****...${secret.slice(-4)}`,
       };
       setWebhooks((prev) => [newWebhook, ...prev]);
       addToast({ type: 'success', title: t('tenantAdmin.webhooks.created') });
     }
-  }, [editingWebhook, formUrl, formEvents, addToast, t]);
+  }, [editingWebhook, formUrl, formDescription, formEvents, formEnabled, addToast, t]);
 
   const handleCloseModal = useCallback(() => {
     setCreateModalOpen(false);
@@ -197,7 +221,7 @@ export default function WebhooksPage() {
     setEditingWebhook(null);
   }, []);
 
-  /* ---- Toggle/Delete ---- */
+  /* ---- Toggle/Delete/Test ---- */
   const handleToggle = useCallback((id: string) => {
     setWebhooks((prev) =>
       prev.map((wh) => (wh.id === id ? { ...wh, enabled: !wh.enabled } : wh))
@@ -230,6 +254,15 @@ export default function WebhooksPage() {
     });
   }, []);
 
+  const toggleRevealSecret = useCallback((id: string) => {
+    setRevealedSecrets((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
   /* ---- Status Helper ---- */
   const getStatusInfo = (webhook: Webhook) => {
     if (webhook.failCount === 0) {
@@ -247,18 +280,35 @@ export default function WebhooksPage() {
       key: 'url',
       header: t('tenantAdmin.webhooks.url'),
       sortable: true,
-      render: (val) => <span className={styles.urlCell} title={String(val)}>{String(val)}</span>,
+      render: (_val, row) => (
+        <div>
+          <span className={styles.urlCell} title={row.url}>{row.url}</span>
+          {row.description && (
+            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+              {row.description}
+            </div>
+          )}
+        </div>
+      ),
     },
     {
       key: 'events',
       header: t('tenantAdmin.webhooks.events'),
       render: (_val, row) => (
-        <Badge variant="info" size="sm">{row.events.length} events</Badge>
+        <div className={styles.eventBadges}>
+          {row.events.slice(0, 2).map((ev) => (
+            <Badge key={ev} variant="info" size="sm">{ev}</Badge>
+          ))}
+          {row.events.length > 2 && (
+            <Badge variant="neutral" size="sm">+{row.events.length - 2}</Badge>
+          )}
+        </div>
       ),
     },
     {
       key: 'enabled',
-      header: t('tenantAdmin.webhooks.status'),
+      header: t('tenantAdmin.webhooks.active'),
+      width: '80px',
       render: (_val, row) => (
         <button
           className={`${styles.toggleSwitch} ${row.enabled ? styles.toggleSwitchActive : ''}`}
@@ -271,13 +321,13 @@ export default function WebhooksPage() {
     },
     {
       key: 'lastDelivered',
-      header: t('tenantAdmin.webhooks.lastDelivered'),
+      header: t('tenantAdmin.webhooks.lastTriggered'),
       sortable: true,
-      render: (val) => <span style={{ color: '#86909C', fontSize: '0.8125rem' }}>{String(val)}</span>,
+      render: (val) => <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)' }}>{String(val)}</span>,
     },
     {
       key: 'failCount',
-      header: t('tenantAdmin.webhooks.failCount'),
+      header: t('tenantAdmin.webhooks.failures'),
       sortable: true,
       render: (_val, row) => {
         const status = getStatusInfo(row);
@@ -291,8 +341,8 @@ export default function WebhooksPage() {
     },
     {
       key: 'actions',
-      header: t('tenantAdmin.webhooks.actions'),
-      width: '120px',
+      header: '',
+      width: '100px',
       render: (_val, row) => {
         const items: DropdownItem[] = [
           { label: t('tenantAdmin.webhooks.edit'), onClick: () => openEditModal(row) },
@@ -339,8 +389,8 @@ export default function WebhooksPage() {
             data={webhooks}
             keyExtractor={(row) => row.id}
             searchable
-            searchPlaceholder="Search webhooks..."
-            searchKeys={['url']}
+            searchPlaceholder={t('tenantAdmin.webhooks.searchPlaceholder')}
+            searchKeys={['url', 'description']}
             emptyTitle={t('tenantAdmin.webhooks.noWebhooks')}
             emptyDescription={t('tenantAdmin.webhooks.noWebhooksDesc')}
           />
@@ -349,11 +399,19 @@ export default function WebhooksPage() {
         {/* Delivery Log (expanded) */}
         {expandedWebhookId && (
           <div className={styles.deliveryLog}>
-            <div style={{ padding: '0.75rem 1rem', borderBottom: '1px solid #E5E6EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 600, fontSize: '0.875rem', color: '#1D2129' }}>{t('tenantAdmin.webhooks.deliveryLog')}</span>
+            <div className={styles.deliveryLogHeader}>
+              <span className={styles.deliveryLogTitle}>{t('tenantAdmin.webhooks.deliveryLog')}</span>
               <button className={styles.expandButton} onClick={() => setExpandedWebhookId(null)}>
                 {t('common.close')}
               </button>
+            </div>
+            <div className={styles.deliveryLogLabels}>
+              <span>{t('tenantAdmin.webhooks.timestamp')}</span>
+              <span>{t('tenantAdmin.webhooks.event')}</span>
+              <span>{t('tenantAdmin.webhooks.statusCode')}</span>
+              <span>{t('tenantAdmin.webhooks.response')}</span>
+              <span>{t('tenantAdmin.webhooks.result')}</span>
+              <span></span>
             </div>
             {(MOCK_DELIVERIES[expandedWebhookId] || []).map((delivery) => (
               <div key={delivery.id} className={styles.deliveryItem}>
@@ -363,8 +421,36 @@ export default function WebhooksPage() {
                   {delivery.statusCode}
                 </span>
                 <span className={styles.deliveryResponse} title={delivery.response}>{delivery.response}</span>
-                <button className={styles.retryBtn} onClick={() => addToast({ type: 'info', title: 'Retrying delivery...' })}>
+                <span>
+                  {delivery.success ? (
+                    <Badge variant="success" size="sm">{t('tenantAdmin.webhooks.success')}</Badge>
+                  ) : (
+                    <Badge variant="danger" size="sm">{t('tenantAdmin.webhooks.failure')}</Badge>
+                  )}
+                </span>
+                <button className={styles.retryBtn} onClick={() => addToast({ type: 'info', title: t('tenantAdmin.webhooks.retrying') })}>
                   {t('tenantAdmin.webhooks.retry')}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Webhook Secret Display */}
+        {webhooks.length > 0 && (
+          <div className={styles.secretSection}>
+            <h3 className={styles.secretSectionTitle}>{t('tenantAdmin.webhooks.secrets')}</h3>
+            {webhooks.map((wh) => (
+              <div key={wh.id} className={styles.secretRow}>
+                <span className={styles.secretUrl} title={wh.url}>{wh.url}</span>
+                <span className={styles.secretValueMasked}>
+                  {revealedSecrets.has(wh.id) ? wh.secret : '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022'}
+                </span>
+                <button
+                  className={styles.secretRevealBtn}
+                  onClick={() => toggleRevealSecret(wh.id)}
+                >
+                  {revealedSecrets.has(wh.id) ? t('tenantAdmin.webhooks.hide') : t('tenantAdmin.webhooks.reveal')}
                 </button>
               </div>
             ))}
@@ -384,10 +470,10 @@ export default function WebhooksPage() {
               <Button variant="primary" onClick={handleCloseModal}>{t('common.close')}</Button>
             </div>
           ) : (
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
               <Button variant="secondary" onClick={handleCloseModal}>{t('common.cancel')}</Button>
               <Button variant="primary" onClick={handleSave}>
-                {t('tenantAdmin.webhooks.save')}
+                {editingWebhook ? t('tenantAdmin.webhooks.save') : t('tenantAdmin.webhooks.create')}
               </Button>
             </div>
           )
@@ -411,32 +497,55 @@ export default function WebhooksPage() {
         ) : (
           <div className={styles.form}>
             <Input
-              label={t('tenantAdmin.webhooks.url')}
-              placeholder={t('tenantAdmin.webhooks.urlPlaceholder')}
+              label={t('tenantAdmin.webhooks.endpointUrl')}
+              placeholder="https://api.example.com/webhooks"
               value={formUrl}
               onChange={(e) => setFormUrl(e.target.value)}
               error={formErrors.url}
               required
             />
 
+            <Input
+              label={t('tenantAdmin.webhooks.description')}
+              placeholder={t('tenantAdmin.webhooks.descriptionPlaceholder')}
+              value={formDescription}
+              onChange={(e) => setFormDescription(e.target.value)}
+            />
+
+            <div className={styles.activeToggleRow}>
+              <span className={styles.sectionLabel} style={{ marginBottom: 0 }}>{t('tenantAdmin.webhooks.activeOnCreate')}</span>
+              <button
+                className={`${styles.toggleSwitch} ${formEnabled ? styles.toggleSwitchActive : ''}`}
+                onClick={() => setFormEnabled((prev) => !prev)}
+                aria-label={t('tenantAdmin.webhooks.toggleActive')}
+              >
+                <div className={`${styles.toggleDot} ${formEnabled ? styles.toggleDotActive : ''}`} />
+              </button>
+            </div>
+
             <div>
               <div className={styles.sectionLabel}>{t('tenantAdmin.webhooks.selectEvents')}</div>
               {formErrors.events && (
-                <span style={{ color: '#F53F3F', fontSize: '0.75rem' }} role="alert">{formErrors.events}</span>
+                <span style={{ color: 'var(--color-error)', fontSize: 'var(--text-xs)' }} role="alert">{formErrors.events}</span>
               )}
-              <div className={styles.eventGrid}>
-                {ALL_EVENTS.map((event) => (
-                  <label key={event} className={styles.eventCheckbox}>
-                    <input
-                      type="checkbox"
-                      className={styles.eventCheckboxInput}
-                      checked={formEvents.has(event)}
-                      onChange={() => toggleEvent(event)}
-                    />
-                    <span className={styles.eventLabel}>{event}</span>
-                  </label>
-                ))}
-              </div>
+              {EVENT_GROUPS.map((group) => (
+                <div key={group.group} className={styles.eventGroup}>
+                  <div className={styles.eventGroupTitle}>{group.group}</div>
+                  <div className={styles.eventGrid}>
+                    {group.events.map((event) => (
+                      <label key={event} className={styles.eventCheckbox}>
+                        <input
+                          type="checkbox"
+                          className={styles.eventCheckboxInput}
+                          checked={formEvents.has(event)}
+                          onChange={() => toggleEvent(event)}
+                        />
+                        <span className={styles.eventLabel}>{event}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

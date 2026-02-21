@@ -1,0 +1,140 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--gray-4);
+  cursor: pointer;
+  transition: background-color var(--transition-normal);
+  padding: 0;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.track:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-accent);
+}
+
+/* Sizes */
+.sm {
+  width: 32px;
+  height: 18px;
+}
+
+.md {
+  width: 40px;
+  height: 22px;
+}
+
+.lg {
+  width: 48px;
+  height: 26px;
+}
+
+/* Thumb */
+.thumb {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-normal), width var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.sm .thumb {
+  width: 14px;
+  height: 14px;
+  top: 2px;
+  left: 2px;
+}
+
+.md .thumb {
+  width: 18px;
+  height: 18px;
+  top: 2px;
+  left: 2px;
+}
+
+.lg .thumb {
+  width: 22px;
+  height: 22px;
+  top: 2px;
+  left: 2px;
+}
+
+/* Checked state */
+.checked {
+  background-color: var(--color-success);
+}
+
+.checked .thumb {
+  /* Translate = track width - thumb width - 2*inset */
+}
+
+.sm.checked .thumb {
+  transform: translateX(14px);
+}
+
+.md.checked .thumb {
+  transform: translateX(18px);
+}
+
+.lg.checked .thumb {
+  transform: translateX(22px);
+}
+
+/* Active press */
+.track:active:not(:disabled) .thumb {
+  width: calc(100% - 8px);
+}
+
+.sm:active:not(:disabled) .thumb {
+  width: 16px;
+}
+
+.md:active:not(:disabled) .thumb {
+  width: 20px;
+}
+
+.lg:active:not(:disabled) .thumb {
+  width: 24px;
+}
+
+.sm.checked:active:not(:disabled) .thumb {
+  transform: translateX(12px);
+}
+
+.md.checked:active:not(:disabled) .thumb {
+  transform: translateX(16px);
+}
+
+.lg.checked:active:not(:disabled) .thumb {
+  transform: translateX(20px);
+}
+
+/* Disabled */
+.disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Label */
+.label {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+  line-height: var(--text-sm-leading);
+}
+
+.disabled + .label {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

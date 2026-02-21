@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.info {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  line-height: var(--text-sm-leading);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  outline: none;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-accent);
+}
+
+.button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.navButton {
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-3);
+  height: 32px;
+}
+
+.navLabel {
+  line-height: 1;
+}
+
+.pageButton {
+  min-width: 32px;
+  height: 32px;
+  padding: var(--space-1);
+}
+
+.pageActive {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+.pageActive:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  color: var(--color-text-on-accent);
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    justify-content: center;
+  }
+
+  .info {
+    width: 100%;
+    text-align: center;
+    order: 1;
+  }
+
+  .controls {
+    order: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navLabel {
+    display: none;
+  }
+
+  .navButton {
+    padding: var(--space-1-5) var(--space-2);
+  }
+
+  .pages {
+    gap: 0;
+  }
+
+  .pageButton {
+    min-width: 28px;
+    height: 28px;
+    font-size: var(--text-xs);
+  }
+}
