@@ -1,6 +1,12 @@
 # ──────────────────────────────────────────────────────────────
 # Medius AP Automation Platform - Docker Compose
 # Full stack: App + PostgreSQL + Redis
+#
+# Usage:
+#   docker compose up -d              # Start all services
+#   docker compose up -d postgres     # Start only PostgreSQL
+#   docker compose logs -f app        # Follow app logs
+#   docker compose down -v            # Stop and remove volumes
 # ──────────────────────────────────────────────────────────────
 
 services:

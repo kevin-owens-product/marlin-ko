@@ -7,6 +7,32 @@ const nextConfig: NextConfig = {
         // Apply security headers to all routes
         source: "/(.*)",
         headers: [
+          // Prevent MIME type sniffing
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          // Prevent clickjacking by denying framing
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          // Enable XSS protection in older browsers
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+          // Control referrer information sent with requests
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          // Restrict access to browser features
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          // Content Security Policy
           {
             key: "Content-Security-Policy",
             value: [
@@ -22,33 +48,36 @@ const nextConfig: NextConfig = {
               "upgrade-insecure-requests",
             ].join("; "),
           },
+          // HSTS - enforce HTTPS
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
           },
+          // Enable DNS prefetching for performance
           {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },
+        ],
+      },
+      {
+        // Disable caching for API routes (prevent stale data)
+        source: "/api/(.*)",
+        headers: [
           {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            key: "Cache-Control",
+            value: "no-store, max-age=0",
           },
         ],
       },
     ];
+  },
+
+  experimental: {
+    // Limit server action request body size
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
   },
 };
 

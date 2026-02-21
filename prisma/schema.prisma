@@ -1,6 +1,6 @@
 // ──────────────────────────────────────────────────────────────
 // Medius AP Automation Platform - Prisma Schema
-// SQLite (libsql) with soft deletes and multi-tenancy
+// SQLite via libsql adapter, soft deletes, and multi-tenancy
 // ──────────────────────────────────────────────────────────────
 
 generator client {
